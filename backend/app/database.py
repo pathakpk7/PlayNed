@@ -1,8 +1,12 @@
 import os
+from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-# Portable PostgreSQL / SQLite database connection
+# Load environment variables from .env if present
+load_dotenv()
+
+# Portable PostgreSQL / SQLite database connection (Neon DB / Supabase / Local SQLite)
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./hangman_game.db")
 
 # Normalize dialect prefix for Neon / PostgreSQL URLs (SQLAlchemy requires postgresql://)
