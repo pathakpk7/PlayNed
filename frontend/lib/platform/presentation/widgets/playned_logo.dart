@@ -24,49 +24,36 @@ class PlayNedLogo extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         // Golden P-Game Controller Icon Mark
-        Container(
+        SizedBox(
           width: size,
           height: size,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(PlayNedTokens.radiusSm),
-            boxShadow: [
-              BoxShadow(
-                color: PlayNedTokens.brandGold.withOpacity(0.25),
-                blurRadius: 10,
-                spreadRadius: 1,
-              ),
-            ],
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(PlayNedTokens.radiusSm),
-            child: Image.asset(
-              'assets/icons/playned_icon.png',
-              width: size,
-              height: size,
-              fit: BoxFit.contain,
-              errorBuilder: (context, error, stackTrace) {
-                // Fallback elegant golden monogram
-                return Container(
-                  width: size,
-                  height: size,
-                  decoration: BoxDecoration(
-                    color: PlayNedTokens.surfaceElevated,
-                    borderRadius: BorderRadius.circular(PlayNedTokens.radiusSm),
-                    border: Border.all(color: PlayNedTokens.brandGold, width: 1.5),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "P",
-                      style: GoogleFonts.cinzel(
-                        fontSize: size * 0.55,
-                        fontWeight: FontWeight.w900,
-                        color: PlayNedTokens.brandGold,
-                      ),
+          child: Image.asset(
+            'assets/icons/playned_icon.png',
+            width: size,
+            height: size,
+            fit: BoxFit.contain,
+            errorBuilder: (context, error, stackTrace) {
+              // Fallback elegant golden monogram
+              return Container(
+                width: size,
+                height: size,
+                decoration: BoxDecoration(
+                  color: PlayNedTokens.surfaceElevated,
+                  borderRadius: BorderRadius.circular(PlayNedTokens.radiusSm),
+                  border: Border.all(color: PlayNedTokens.brandGold, width: 1.5),
+                ),
+                child: Center(
+                  child: Text(
+                    "P",
+                    style: GoogleFonts.cinzel(
+                      fontSize: size * 0.55,
+                      fontWeight: FontWeight.w900,
+                      color: PlayNedTokens.brandGold,
                     ),
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
         ),
 
