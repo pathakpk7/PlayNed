@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hangman_reimagined/core/config/app_config.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import '../models/game_model.dart';
 import '../registry/game_registry.dart';
@@ -12,13 +13,13 @@ final platformApiServiceProvider = Provider<PlatformApiService>((ref) {
 });
 
 class PlatformApiService {
-  static const String baseUrl = kIsWeb ? 'http://127.0.0.1:8000/api/v1' : 'http://10.0.2.2:8000/api/v1';
-  static const String wsBaseUrl = kIsWeb ? 'ws://127.0.0.1:8000/api/v1' : 'ws://10.0.2.2:8000/api/v1';
+  static String get baseUrl => AppConfig.apiBaseUrl;
+  static String get wsBaseUrl => AppConfig.wsBaseUrl;
 
   final Dio _dio = Dio(BaseOptions(
-    baseUrl: baseUrl,
-    connectTimeout: const Duration(seconds: 5),
-    receiveTimeout: const Duration(seconds: 5),
+    baseUrl: AppConfig.apiBaseUrl,
+    connectTimeout: const Duration(seconds: 8),
+    receiveTimeout: const Duration(seconds: 8),
   ));
 
   // Game Catalog

@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "buildCommand": "cd frontend && bash build.sh",
+  "outputDirectory": "frontend/build/web",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

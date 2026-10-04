@@ -1,6 +1,11 @@
-fastapi
-uvicorn
-pydantic
-sqlalchemy
-psycopg2-binary
-pytest
+fastapi>=0.100.0
+uvicorn[standard]>=0.23.0
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+sqlalchemy>=2.0.0
+psycopg2-binary>=2.9.0
+python-dotenv>=1.0.0
+websockets>=12.0
+httpx>=0.25.0
+pytest>=8.0.0
+pytest-asyncio>=0.21.0
