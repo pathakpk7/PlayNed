@@ -707,7 +707,7 @@ class CricketChallengeEngine:
         ["muttiah_muralitharan", "kumar_sangakkara", "lasith_malinga", "rashid_khan"],
         ["kapil_dev", "anil_kumble", "yuvraj_singh", "jasprit_bumrah"],
         ["sunil_gavaskar", "wasim_akram", "ms_dhoni", "pat_cummins"],
-        ["viv_richards", "brian_lara", "ab_de_villiers", "shaheen_afridi"],
+        ["vivian_richards", "brian_lara", "ab_de_villiers", "shaheen_afridi"],
         ["courtney_walsh", "jacques_kallis", "dale_steyn", "rashid_khan"],
         ["steve_waugh", "ricky_ponting", "ben_stokes", "pat_cummins"],
         ["sanath_jayasuriya", "kumar_sangakkara", "lasith_malinga", "shaheen_afridi"],
@@ -778,7 +778,7 @@ class CricketChallengeEngine:
         p2 = random.choice(eligible_players)
         attempts = 0
         pair_key = f"{p1['id']}_{p2['id']}_{stat_key}"
-        while (p1["id"] == p2["id"] or p1[stat_key] == p2[stat_key] or pair_key in self.seen_hl_pairs) and attempts < 25:
+        while (p1["id"] == p2["id"] or p1.get(stat_key, 0) == p2.get(stat_key, 0) or pair_key in self.seen_hl_pairs) and attempts < 25:
             p1 = random.choice(eligible_players)
             p2 = random.choice(eligible_players)
             pair_key = f"{p1['id']}_{p2['id']}_{stat_key}"
@@ -787,6 +787,9 @@ class CricketChallengeEngine:
         self.seen_hl_pairs.append(pair_key)
         if len(self.seen_hl_pairs) > 50:
             self.seen_hl_pairs.pop(0)
+
+        val_a = p1.get(stat_key, 0)
+        val_b = p2.get(stat_key, 0)
 
         return {
             "type": "higher_lower",
@@ -799,7 +802,7 @@ class CricketChallengeEngine:
                 "role": p1["role"],
                 "stat_key": stat_key,
                 "stat_label": stat_label,
-                "stat_value": p1[stat_key]
+                "stat_value": val_a
             },
             "player_b": {
                 "id": p2["id"],
@@ -808,11 +811,11 @@ class CricketChallengeEngine:
                 "role": p2["role"],
                 "stat_key": stat_key,
                 "stat_label": stat_label,
-                "stat_value": p2[stat_key]
+                "stat_value": val_b
             },
-            "is_higher": p2[stat_key] > p1[stat_key],
-            "is_lower": p2[stat_key] < p1[stat_key],
-            "is_equal": p2[stat_key] == p1[stat_key]
+            "is_higher": val_b > val_a,
+            "is_lower": val_b < val_a,
+            "is_equal": val_b == val_a
         }
 
     def generate_stat_or_fiction(self) -> Dict[str, Any]:
