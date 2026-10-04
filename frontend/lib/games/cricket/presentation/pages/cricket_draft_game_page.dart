@@ -165,6 +165,19 @@ class _CricketDraftGamePageState extends ConsumerState<CricketDraftGamePage> {
 
   String _filterRole = 'All';
   String _searchQuery = '';
+  final Map<String, bool> _categoryExpanded = {
+    'Batter': true,
+    'Bowler': true,
+    'All-Rounder': true,
+    'Wicket-Keeper': true,
+  };
+
+  int _getResponsiveColumns(BuildContext context) {
+    final w = MediaQuery.of(context).size.width;
+    if (w >= 960) return 5;
+    if (w >= 600) return 4;
+    return 3;
+  }
   String _lastActionMsg = "Draft started! Budget: 100 credits. Pick players and assign them into 5 squad tactical sections.";
 
   // Ball-by-Ball Live Simulator State
@@ -1052,51 +1065,174 @@ class _CricketDraftGamePageState extends ConsumerState<CricketDraftGamePage> {
         Text("ROSTER SELECTION (${available.length} AVAILABLE)", style: GoogleFonts.inter(fontSize: 11, fontWeight: FontWeight.bold, color: const Color(0xFF48BB78))),
         const SizedBox(height: 10),
 
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: available.length,
-          itemBuilder: (ctx, idx) {
-            final p = available[idx];
-            final canPick = _canDraft(_currentTurnPid, p);
+        if (_filterRole == 'All' || _filterRole == 'Batter')
+          _buildDraftCategorySection(
+            roleKey: 'Batter',
+            roleEmoji: '🏏',
+            roleTitle: 'Batters',
+            players: _getAvailableCategoryPlayers('Batter'),
+          ),
 
-            return Container(
-              margin: const EdgeInsets.only(bottom: 8),
+        if (_filterRole == 'All' || _filterRole == 'Bowler')
+          _buildDraftCategorySection(
+            roleKey: 'Bowler',
+            roleEmoji: '🎯',
+            roleTitle: 'Bowlers',
+            players: _getAvailableCategoryPlayers('Bowler'),
+          ),
+
+        if (_filterRole == 'All' || _filterRole == 'All-Rounder')
+          _buildDraftCategorySection(
+            roleKey: 'All-Rounder',
+            roleEmoji: '🛡️',
+            roleTitle: 'All-Rounders',
+            players: _getAvailableCategoryPlayers('All-Rounder'),
+          ),
+
+        if (_filterRole == 'All' || _filterRole == 'Wicket-Keeper')
+          _buildDraftCategorySection(
+            roleKey: 'Wicket-Keeper',
+            roleEmoji: '🧤',
+            roleTitle: 'Wicket-Keepers',
+            players: _getAvailableCategoryPlayers('Wicket-Keeper'),
+          ),
+      ],
+    );
+  }
+
+  List<CricketPlayer> _getAvailableCategoryPlayers(String role) {
+    final draftedSet = {..._drafted['p1']!, ..._drafted['p2']!};
+    return CricketDataset.allPlayers.where((p) {
+      if (draftedSet.contains(p.id)) return false;
+      if (p.role != role) return false;
+      if (_searchQuery.isNotEmpty) {
+        final query = _searchQuery.toLowerCase();
+        return p.name.toLowerCase().contains(query) ||
+            p.country.toLowerCase().contains(query) ||
+            p.role.toLowerCase().contains(query);
+      }
+      return true;
+    }).toList();
+  }
+
+  Widget _buildDraftCategorySection({
+    required String roleKey,
+    required String roleEmoji,
+    required String roleTitle,
+    required List<CricketPlayer> players,
+  }) {
+    final isExpanded = _categoryExpanded[roleKey] ?? true;
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      decoration: BoxDecoration(
+        color: const Color(0xFF102117),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: const Color(0xFF234432)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          InkWell(
+            onTap: () {
+              setState(() {
+                _categoryExpanded[roleKey] = !isExpanded;
+              });
+            },
+            borderRadius: BorderRadius.circular(10),
+            child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-              decoration: BoxDecoration(
-                color: const Color(0xFF102117),
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: const Color(0xFF234432)),
-              ),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CircleAvatar(radius: 16, backgroundColor: p.avatarColor, child: Text(p.name[0], style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 12))),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(p.name, style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.bold, color: const Color(0xFFF1EBDD))),
-                        Text("${p.country} • ${p.role} • Rating ${p.battingRating}/${p.bowlingRating}", style: GoogleFonts.inter(fontSize: 10.5, color: const Color(0xFFA9A396))),
-                      ],
-                    ),
+                  Row(
+                    children: [
+                      Text(roleEmoji, style: const TextStyle(fontSize: 14)),
+                      const SizedBox(width: 8),
+                      Text(
+                        "$roleTitle (${players.length})",
+                        style: GoogleFonts.inter(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: const Color(0xFFF1EBDD),
+                        ),
+                      ),
+                    ],
                   ),
-                  ElevatedButton(
-                    onPressed: canPick ? () => _promptSlotAssignmentAndDraft(p) : null,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFE5A93C),
-                      foregroundColor: const Color(0xFF0F1E16),
-                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                    ),
-                    child: Text("${p.draftCost} pts", style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
+                  Icon(
+                    isExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                    color: const Color(0xFFE5A93C),
+                    size: 20,
                   ),
                 ],
               ),
-            );
-          },
-        ),
-      ],
+            ),
+          ),
+          if (isExpanded && players.isNotEmpty) ...[
+            const Divider(height: 1, color: Color(0xFF1E3A2B)),
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: _getResponsiveColumns(context),
+                  childAspectRatio: 3.2,
+                  crossAxisSpacing: 6,
+                  mainAxisSpacing: 6,
+                ),
+                itemCount: players.length,
+                itemBuilder: (ctx, idx) {
+                  final p = players[idx];
+                  final canPick = _canDraft(_currentTurnPid, p);
+
+                  return InkWell(
+                    onTap: canPick ? () => _promptSlotAssignmentAndDraft(p) : null,
+                    borderRadius: BorderRadius.circular(6),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: canPick ? const Color(0xFF132B20) : const Color(0xFF101B15),
+                        borderRadius: BorderRadius.circular(6),
+                        border: Border.all(
+                          color: canPick ? const Color(0xFF28543A) : const Color(0xFF182A20),
+                          width: 0.8,
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Flexible(
+                            child: Text(
+                              "${p.name} (${p.draftCost}p)",
+                              style: GoogleFonts.inter(
+                                fontSize: 11,
+                                fontWeight: canPick ? FontWeight.w600 : FontWeight.normal,
+                                color: canPick ? const Color(0xFFF1EBDD) : const Color(0xFF6B7C72),
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
+                          ),
+                          const SizedBox(width: 4),
+                          Container(
+                            width: 6,
+                            height: 6,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: canPick ? p.avatarColor : const Color(0xFF4A5568),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ],
+      ),
     );
   }
 

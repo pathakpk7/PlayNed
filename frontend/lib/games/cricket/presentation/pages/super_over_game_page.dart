@@ -40,9 +40,18 @@ class _SuperOverGamePageState extends ConsumerState<SuperOverGamePage> {
   // Selection
   final Map<String, List<String>> _selectedBatters = {'p1': [], 'p2': []};
   final Map<String, String?> _selectedBowlers = {'p1': null, 'p2': null};
+  final Map<String, bool> _battersExpanded = {'p1': true, 'p2': true};
+  final Map<String, bool> _bowlersExpanded = {'p1': true, 'p2': true};
   String _searchQuery = '';
   String _batterFilter = 'All';
   String _bowlerFilter = 'All';
+
+  int _getResponsiveColumns(BuildContext context) {
+    final w = MediaQuery.of(context).size.width;
+    if (w >= 960) return 5;
+    if (w >= 600) return 4;
+    return 3;
+  }
 
   // Innings Data
   int _innings1Runs = 0;
@@ -780,180 +789,331 @@ class _SuperOverGamePageState extends ConsumerState<SuperOverGamePage> {
           ),
           const SizedBox(height: 14),
 
-          // Batters selection header
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "SELECT 2 BATTERS (${batters.length}/2)",
-                style: GoogleFonts.inter(fontSize: 11, fontWeight: FontWeight.bold, color: const Color(0xFFA9A396)),
+          // Batters selection collapsible header
+          InkWell(
+            onTap: () {
+              setState(() {
+                _battersExpanded[playerId] = !(_battersExpanded[playerId] ?? true);
+              });
+            },
+            borderRadius: BorderRadius.circular(8),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              decoration: BoxDecoration(
+                color: const Color(0xFF13241B),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: const Color(0xFF28543A)),
               ),
-              if (batters.length < 2)
-                InkWell(
-                  onTap: () async {
-                    final eligible = CricketDataset.getBatters().where((p) => !batters.contains(p.id)).toList();
-                    final picked = await ChitBowlDialog.show(
-                      context,
-                      title: "Draw Batter for $playerName",
-                      subtitle: "Pick a random batter from the bowl of chits!",
-                      eligiblePlayers: eligible,
-                    );
-                    if (picked != null) {
-                      setState(() {
-                        if (batters.length < 2) batters.add(picked.id);
-                      });
-                    }
-                  },
-                  child: Row(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
                     children: [
-                      const Icon(Icons.touch_app, size: 12, color: Color(0xFF63B3ED)),
-                      const SizedBox(width: 4),
-                      Text("Draw Batter Chit", style: GoogleFonts.inter(fontSize: 10, color: const Color(0xFF63B3ED), fontWeight: FontWeight.bold)),
+                      const Text("🏏", style: TextStyle(fontSize: 14)),
+                      const SizedBox(width: 8),
+                      Text(
+                        "SELECT 2 BATTERS (${batters.length}/2)",
+                        style: GoogleFonts.inter(fontSize: 11, fontWeight: FontWeight.bold, color: const Color(0xFFE2DDD1)),
+                      ),
                     ],
                   ),
-                ),
-            ],
-          ),
-          const SizedBox(height: 6),
-
-          // Batter Category Filters
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: ['All', 'Pure Batters', 'Wicket-Keepers', 'All-Rounders'].map((cat) {
-                final isSelected = _batterFilter == cat;
-                return Padding(
-                  padding: const EdgeInsets.only(right: 6, bottom: 4),
-                  child: ChoiceChip(
-                    label: Text(cat, style: GoogleFonts.inter(fontSize: 10, fontWeight: isSelected ? FontWeight.bold : FontWeight.normal)),
-                    selected: isSelected,
-                    selectedColor: const Color(0xFF28543A),
-                    backgroundColor: const Color(0xFF13241B),
-                    labelStyle: TextStyle(color: isSelected ? const Color(0xFFE5A93C) : const Color(0xFFA9A396)),
-                    side: BorderSide(color: isSelected ? const Color(0xFFE5A93C) : const Color(0xFF1E3A2B)),
-                    onSelected: (val) {
-                      if (val) setState(() => _batterFilter = cat);
-                    },
-                  ),
-                );
-              }).toList(),
-            ),
-          ),
-          const SizedBox(height: 6),
-
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: _getEligibleBatters().map((p) {
-              final isSel = batters.contains(p.id);
-              return FilterChip(
-                label: Text("${p.name} (${p.country} • ${p.role})", style: GoogleFonts.inter(fontSize: 11)),
-                selected: isSel,
-                selectedColor: accentColor.withOpacity(0.3),
-                backgroundColor: const Color(0xFF1A2F24),
-                side: BorderSide(color: isSel ? accentColor : const Color(0xFF234433)),
-                labelStyle: TextStyle(
-                  color: isSel ? const Color(0xFFF1EBDD) : const Color(0xFFA9A396),
-                  fontWeight: isSel ? FontWeight.bold : FontWeight.normal,
-                ),
-                onSelected: (val) {
-                  setState(() {
-                    if (val) {
-                      if (batters.length < 2) batters.add(p.id);
-                    } else {
-                      batters.remove(p.id);
-                    }
-                  });
-                },
-              );
-            }).toList(),
-          ),
-          const SizedBox(height: 18),
-
-          // Bowler selection header
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "SELECT 1 BOWLER (${bowler != null ? '1/1' : '0/1'})",
-                style: GoogleFonts.inter(fontSize: 11, fontWeight: FontWeight.bold, color: const Color(0xFFA9A396)),
-              ),
-              if (bowler == null)
-                InkWell(
-                  onTap: () async {
-                    final eligible = CricketDataset.getBowlers().where((p) => !batters.contains(p.id)).toList();
-                    final picked = await ChitBowlDialog.show(
-                      context,
-                      title: "Draw Bowler for $playerName",
-                      subtitle: "Pick a random strike bowler from the bowl of chits!",
-                      eligiblePlayers: eligible,
-                    );
-                    if (picked != null) {
-                      setState(() {
-                        _selectedBowlers[playerId] = picked.id;
-                      });
-                    }
-                  },
-                  child: Row(
+                  Row(
                     children: [
-                      const Icon(Icons.touch_app, size: 12, color: Color(0xFFED8936)),
-                      const SizedBox(width: 4),
-                      Text("Draw Bowler Chit", style: GoogleFonts.inter(fontSize: 10, color: const Color(0xFFED8936), fontWeight: FontWeight.bold)),
+                      if (batters.length < 2)
+                        InkWell(
+                          onTap: () async {
+                            final eligible = CricketDataset.getBatters().where((p) => !batters.contains(p.id)).toList();
+                            final picked = await ChitBowlDialog.show(
+                              context,
+                              title: "Draw Batter for $playerName",
+                              subtitle: "Pick a random batter from the bowl of chits!",
+                              eligiblePlayers: eligible,
+                            );
+                            if (picked != null) {
+                              setState(() {
+                                if (batters.length < 2) batters.add(picked.id);
+                              });
+                            }
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 8),
+                            child: Row(
+                              children: [
+                                const Icon(Icons.touch_app, size: 12, color: Color(0xFF63B3ED)),
+                                const SizedBox(width: 4),
+                                Text("Chit", style: GoogleFonts.inter(fontSize: 10, color: const Color(0xFF63B3ED), fontWeight: FontWeight.bold)),
+                              ],
+                            ),
+                          ),
+                        ),
+                      Icon(
+                        (_battersExpanded[playerId] ?? true) ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                        color: const Color(0xFFE5A93C),
+                        size: 20,
+                      ),
                     ],
                   ),
-                ),
-            ],
-          ),
-          const SizedBox(height: 6),
-
-          // Bowler Category Filters
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: ['All', 'Fast Bowlers', 'Spin Bowlers', 'All-Rounders'].map((cat) {
-                final isSelected = _bowlerFilter == cat;
-                return Padding(
-                  padding: const EdgeInsets.only(right: 6, bottom: 4),
-                  child: ChoiceChip(
-                    label: Text(cat, style: GoogleFonts.inter(fontSize: 10, fontWeight: isSelected ? FontWeight.bold : FontWeight.normal)),
-                    selected: isSelected,
-                    selectedColor: const Color(0xFF28543A),
-                    backgroundColor: const Color(0xFF13241B),
-                    labelStyle: TextStyle(color: isSelected ? const Color(0xFFE5A93C) : const Color(0xFFA9A396)),
-                    side: BorderSide(color: isSelected ? const Color(0xFFE5A93C) : const Color(0xFF1E3A2B)),
-                    onSelected: (val) {
-                      if (val) setState(() => _bowlerFilter = cat);
-                    },
-                  ),
-                );
-              }).toList(),
+                ],
+              ),
             ),
           ),
-          const SizedBox(height: 6),
 
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: _getEligibleBowlers().map((p) {
-              final isSel = bowler == p.id;
-              return ChoiceChip(
-                label: Text("${p.name} (${p.bowlingStyle})", style: GoogleFonts.inter(fontSize: 11)),
-                selected: isSel,
-                selectedColor: const Color(0xFFE5A93C).withOpacity(0.35),
-                backgroundColor: const Color(0xFF1A2F24),
-                side: BorderSide(color: isSel ? const Color(0xFFE5A93C) : const Color(0xFF234433)),
-                labelStyle: TextStyle(
-                  color: isSel ? const Color(0xFFE5A93C) : const Color(0xFFA9A396),
-                  fontWeight: isSel ? FontWeight.bold : FontWeight.normal,
-                ),
-                onSelected: (val) {
-                  setState(() {
-                    _selectedBowlers[playerId] = val ? p.id : null;
-                  });
-                },
-              );
-            }).toList(),
+          if (_battersExpanded[playerId] ?? true) ...[
+            const SizedBox(height: 8),
+            // Batter Category Filters
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: ['All', 'Pure Batters', 'Wicket-Keepers', 'All-Rounders'].map((cat) {
+                  final isSelected = _batterFilter == cat;
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 6, bottom: 4),
+                    child: ChoiceChip(
+                      label: Text(cat, style: GoogleFonts.inter(fontSize: 10, fontWeight: isSelected ? FontWeight.bold : FontWeight.normal)),
+                      selected: isSelected,
+                      selectedColor: const Color(0xFF28543A),
+                      backgroundColor: const Color(0xFF13241B),
+                      labelStyle: TextStyle(color: isSelected ? const Color(0xFFE5A93C) : const Color(0xFFA9A396)),
+                      side: BorderSide(color: isSelected ? const Color(0xFFE5A93C) : const Color(0xFF1E3A2B)),
+                      onSelected: (val) {
+                        if (val) setState(() => _batterFilter = cat);
+                      },
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+            const SizedBox(height: 8),
+
+            // Responsive Batter Grid (5 in laptop, 4 in tablet, 3 in mobile)
+            GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: _getResponsiveColumns(context),
+                childAspectRatio: 3.2,
+                crossAxisSpacing: 6,
+                mainAxisSpacing: 6,
+              ),
+              itemCount: _getEligibleBatters().length,
+              itemBuilder: (ctx, idx) {
+                final p = _getEligibleBatters()[idx];
+                final isSel = batters.contains(p.id);
+
+                return InkWell(
+                  onTap: () {
+                    setState(() {
+                      if (isSel) {
+                        batters.remove(p.id);
+                      } else if (batters.length < 2) {
+                        batters.add(p.id);
+                      }
+                    });
+                  },
+                  borderRadius: BorderRadius.circular(6),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: isSel ? accentColor.withOpacity(0.25) : const Color(0xFF13241B),
+                      borderRadius: BorderRadius.circular(6),
+                      border: Border.all(
+                        color: isSel ? accentColor : const Color(0xFF1E3A2B),
+                        width: isSel ? 1.4 : 0.8,
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            p.name,
+                            style: GoogleFonts.inter(
+                              fontSize: 11,
+                              fontWeight: isSel ? FontWeight.bold : FontWeight.w500,
+                              color: isSel ? const Color(0xFFF1EBDD) : const Color(0xFFA9A396),
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ),
+                        const SizedBox(width: 4),
+                        Container(
+                          width: 6,
+                          height: 6,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: isSel ? accentColor : p.avatarColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
+
+          const SizedBox(height: 16),
+
+          // Bowlers selection collapsible header
+          InkWell(
+            onTap: () {
+              setState(() {
+                _bowlersExpanded[playerId] = !(_bowlersExpanded[playerId] ?? true);
+              });
+            },
+            borderRadius: BorderRadius.circular(8),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              decoration: BoxDecoration(
+                color: const Color(0xFF13241B),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: const Color(0xFF28543A)),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      const Text("🎯", style: TextStyle(fontSize: 14)),
+                      const SizedBox(width: 8),
+                      Text(
+                        "SELECT 1 BOWLER (${bowler != null ? '1/1' : '0/1'})",
+                        style: GoogleFonts.inter(fontSize: 11, fontWeight: FontWeight.bold, color: const Color(0xFFE2DDD1)),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      if (bowler == null)
+                        InkWell(
+                          onTap: () async {
+                            final eligible = CricketDataset.getBowlers().where((p) => !batters.contains(p.id)).toList();
+                            final picked = await ChitBowlDialog.show(
+                              context,
+                              title: "Draw Bowler for $playerName",
+                              subtitle: "Pick a random strike bowler from the bowl of chits!",
+                              eligiblePlayers: eligible,
+                            );
+                            if (picked != null) {
+                              setState(() {
+                                _selectedBowlers[playerId] = picked.id;
+                              });
+                            }
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 8),
+                            child: Row(
+                              children: [
+                                const Icon(Icons.touch_app, size: 12, color: Color(0xFFED8936)),
+                                const SizedBox(width: 4),
+                                Text("Chit", style: GoogleFonts.inter(fontSize: 10, color: const Color(0xFFED8936), fontWeight: FontWeight.bold)),
+                              ],
+                            ),
+                          ),
+                        ),
+                      Icon(
+                        (_bowlersExpanded[playerId] ?? true) ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                        color: const Color(0xFFE5A93C),
+                        size: 20,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ),
+
+          if (_bowlersExpanded[playerId] ?? true) ...[
+            const SizedBox(height: 8),
+            // Bowler Category Filters
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: ['All', 'Fast Bowlers', 'Spin Bowlers', 'All-Rounders'].map((cat) {
+                  final isSelected = _bowlerFilter == cat;
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 6, bottom: 4),
+                    child: ChoiceChip(
+                      label: Text(cat, style: GoogleFonts.inter(fontSize: 10, fontWeight: isSelected ? FontWeight.bold : FontWeight.normal)),
+                      selected: isSelected,
+                      selectedColor: const Color(0xFF28543A),
+                      backgroundColor: const Color(0xFF13241B),
+                      labelStyle: TextStyle(color: isSelected ? const Color(0xFFE5A93C) : const Color(0xFFA9A396)),
+                      side: BorderSide(color: isSelected ? const Color(0xFFE5A93C) : const Color(0xFF1E3A2B)),
+                      onSelected: (val) {
+                        if (val) setState(() => _bowlerFilter = cat);
+                      },
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+            const SizedBox(height: 8),
+
+            // Responsive Bowler Grid (5 in laptop, 4 in tablet, 3 in mobile)
+            GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: _getResponsiveColumns(context),
+                childAspectRatio: 3.2,
+                crossAxisSpacing: 6,
+                mainAxisSpacing: 6,
+              ),
+              itemCount: _getEligibleBowlers().length,
+              itemBuilder: (ctx, idx) {
+                final p = _getEligibleBowlers()[idx];
+                final isSel = bowler == p.id;
+
+                return InkWell(
+                  onTap: () {
+                    setState(() {
+                      _selectedBowlers[playerId] = isSel ? null : p.id;
+                    });
+                  },
+                  borderRadius: BorderRadius.circular(6),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: isSel ? const Color(0xFFE5A93C).withOpacity(0.25) : const Color(0xFF13241B),
+                      borderRadius: BorderRadius.circular(6),
+                      border: Border.all(
+                        color: isSel ? const Color(0xFFE5A93C) : const Color(0xFF1E3A2B),
+                        width: isSel ? 1.4 : 0.8,
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            p.name,
+                            style: GoogleFonts.inter(
+                              fontSize: 11,
+                              fontWeight: isSel ? FontWeight.bold : FontWeight.w500,
+                              color: isSel ? const Color(0xFFE5A93C) : const Color(0xFFA9A396),
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ),
+                        const SizedBox(width: 4),
+                        Container(
+                          width: 6,
+                          height: 6,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: isSel ? const Color(0xFFE5A93C) : p.avatarColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
         ],
       ),
     );

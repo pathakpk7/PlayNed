@@ -218,6 +218,19 @@ class _StatClashGamePageState extends ConsumerState<StatClashGamePage> {
 
   String _filterRole = 'All';
   String _searchQuery = '';
+  final Map<String, bool> _categoryExpanded = {
+    'Batter': true,
+    'Bowler': true,
+    'All-Rounder': true,
+    'Wicket-Keeper': true,
+  };
+
+  int _getResponsiveColumns(BuildContext context) {
+    final w = MediaQuery.of(context).size.width;
+    if (w >= 960) return 5;
+    if (w >= 600) return 4;
+    return 3;
+  }
 
   @override
   void initState() {
@@ -583,113 +596,37 @@ class _StatClashGamePageState extends ConsumerState<StatClashGamePage> {
         ),
         const SizedBox(height: 10),
 
-        GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 2.6,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
+        if (_filterRole == 'All' || _filterRole == 'Batter')
+          _buildPlayerCategorySection(
+            roleKey: 'Batter',
+            roleEmoji: '🏏',
+            roleTitle: 'Batters',
+            players: _getCategoryPlayers('Batter'),
           ),
-          itemCount: _getFilteredPlayers().length,
-          itemBuilder: (ctx, idx) {
-            final p = _getFilteredPlayers()[idx];
-            final inP1 = _p1Squad.contains(p.id);
-            final inP2 = _p2Squad.contains(p.id);
 
-            return InkWell(
-              onTap: () {
-                setState(() {
-                  if (inP1) {
-                    _p1Squad.remove(p.id);
-                  } else if (inP2) {
-                    _p2Squad.remove(p.id);
-                  } else {
-                    if (_p1Squad.length < 5) {
-                      _p1Squad.add(p.id);
-                    } else if (_p2Squad.length < 5) {
-                      _p2Squad.add(p.id);
-                    }
-                  }
-                });
-              },
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                decoration: BoxDecoration(
-                  color: inP1
-                      ? const Color(0xFF2B6CB0).withOpacity(0.3)
-                      : inP2
-                          ? const Color(0xFFC05621).withOpacity(0.3)
-                          : const Color(0xFF132238),
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: inP1
-                        ? const Color(0xFF3182CE)
-                        : inP2
-                            ? const Color(0xFFED8936)
-                            : const Color(0xFF233B5D),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 14,
-                      backgroundColor: p.avatarColor,
-                      child: Text(
-                        p.name[0],
-                        style: const TextStyle(fontSize: 11, color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            p.name,
-                            style: GoogleFonts.inter(fontSize: 11, fontWeight: FontWeight.bold, color: const Color(0xFFF1EBDD)),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          Text(
-                            "${p.country} • ${p.role}",
-                            style: GoogleFonts.inter(fontSize: 9, color: const Color(0xFF718096)),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                          decoration: BoxDecoration(
-                            color: inP1
-                                ? const Color(0xFF3182CE).withOpacity(0.3)
-                                : inP2
-                                    ? const Color(0xFFED8936).withOpacity(0.3)
-                                    : const Color(0xFF1E3A5F),
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: Text(
-                            inP1 ? "P1" : (inP2 ? "P2" : "?"),
-                            style: GoogleFonts.inter(
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
-                              color: inP1 ? const Color(0xFF63B3ED) : (inP2 ? const Color(0xFFED8936) : const Color(0xFF718096)),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
+        if (_filterRole == 'All' || _filterRole == 'Bowler')
+          _buildPlayerCategorySection(
+            roleKey: 'Bowler',
+            roleEmoji: '🎯',
+            roleTitle: 'Bowlers',
+            players: _getCategoryPlayers('Bowler'),
+          ),
+
+        if (_filterRole == 'All' || _filterRole == 'All-Rounder')
+          _buildPlayerCategorySection(
+            roleKey: 'All-Rounder',
+            roleEmoji: '🛡️',
+            roleTitle: 'All-Rounders',
+            players: _getCategoryPlayers('All-Rounder'),
+          ),
+
+        if (_filterRole == 'All' || _filterRole == 'Wicket-Keeper')
+          _buildPlayerCategorySection(
+            roleKey: 'Wicket-Keeper',
+            roleEmoji: '🧤',
+            roleTitle: 'Wicket-Keepers',
+            players: _getCategoryPlayers('Wicket-Keeper'),
+          ),
 
         const SizedBox(height: 24),
 
@@ -965,6 +902,171 @@ class _StatClashGamePageState extends ConsumerState<StatClashGamePage> {
               ),
             ],
           ),
+        ],
+      ),
+    );
+  }
+
+  List<CricketPlayer> _getCategoryPlayers(String role) {
+    return CricketDataset.allPlayers.where((p) {
+      if (p.role != role) return false;
+      if (_searchQuery.isNotEmpty) {
+        final query = _searchQuery.toLowerCase();
+        return p.name.toLowerCase().contains(query) ||
+            p.country.toLowerCase().contains(query) ||
+            p.role.toLowerCase().contains(query);
+      }
+      return true;
+    }).toList();
+  }
+
+  Widget _buildPlayerCategorySection({
+    required String roleKey,
+    required String roleEmoji,
+    required String roleTitle,
+    required List<CricketPlayer> players,
+  }) {
+    final isExpanded = _categoryExpanded[roleKey] ?? true;
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      decoration: BoxDecoration(
+        color: const Color(0xFF112035),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: const Color(0xFF233B5D)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          InkWell(
+            onTap: () {
+              setState(() {
+                _categoryExpanded[roleKey] = !isExpanded;
+              });
+            },
+            borderRadius: BorderRadius.circular(10),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Text(roleEmoji, style: const TextStyle(fontSize: 14)),
+                      const SizedBox(width: 8),
+                      Text(
+                        "$roleTitle (${players.length})",
+                        style: GoogleFonts.inter(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: const Color(0xFFF1EBDD),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Icon(
+                    isExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                    color: const Color(0xFF63B3ED),
+                    size: 20,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          if (isExpanded && players.isNotEmpty) ...[
+            const Divider(height: 1, color: Color(0xFF1E3A5F)),
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: _getResponsiveColumns(context),
+                  childAspectRatio: 3.2,
+                  crossAxisSpacing: 6,
+                  mainAxisSpacing: 6,
+                ),
+                itemCount: players.length,
+                itemBuilder: (ctx, idx) {
+                  final p = players[idx];
+                  final inP1 = _p1Squad.contains(p.id);
+                  final inP2 = _p2Squad.contains(p.id);
+
+                  return InkWell(
+                    onTap: () {
+                      setState(() {
+                        if (inP1) {
+                          _p1Squad.remove(p.id);
+                        } else if (inP2) {
+                          _p2Squad.remove(p.id);
+                        } else {
+                          if (_p1Squad.length < 5) {
+                            _p1Squad.add(p.id);
+                          } else if (_p2Squad.length < 5) {
+                            _p2Squad.add(p.id);
+                          }
+                        }
+                      });
+                    },
+                    borderRadius: BorderRadius.circular(6),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: inP1
+                            ? const Color(0xFF2B6CB0).withOpacity(0.3)
+                            : inP2
+                                ? const Color(0xFFC05621).withOpacity(0.3)
+                                : const Color(0xFF0D1B2D),
+                        borderRadius: BorderRadius.circular(6),
+                        border: Border.all(
+                          color: inP1
+                              ? const Color(0xFF3182CE)
+                              : inP2
+                                  ? const Color(0xFFED8936)
+                                  : const Color(0xFF1E3A5F),
+                          width: (inP1 || inP2) ? 1.4 : 0.8,
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Flexible(
+                            child: Text(
+                              p.name,
+                              style: GoogleFonts.inter(
+                                fontSize: 11,
+                                fontWeight: (inP1 || inP2) ? FontWeight.bold : FontWeight.w500,
+                                color: inP1
+                                    ? const Color(0xFF63B3ED)
+                                    : inP2
+                                        ? const Color(0xFFF6AD55)
+                                        : const Color(0xFFE2E8F0),
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
+                          ),
+                          const SizedBox(width: 4),
+                          Container(
+                            width: 6,
+                            height: 6,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: inP1
+                                  ? const Color(0xFF3182CE)
+                                  : inP2
+                                      ? const Color(0xFFED8936)
+                                      : p.avatarColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
         ],
       ),
     );
