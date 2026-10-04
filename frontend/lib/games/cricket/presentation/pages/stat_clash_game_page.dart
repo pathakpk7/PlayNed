@@ -512,35 +512,57 @@ class _StatClashGamePageState extends ConsumerState<StatClashGamePage> {
 
         const SizedBox(height: 16),
 
-        // Search & Filter
-        Row(
-          children: [
-            Expanded(
-              child: TextField(
+        // Search & Role Filter Tabs
+        Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: const Color(0xFF112035),
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: const Color(0xFF233B5D)),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextField(
                 style: GoogleFonts.inter(fontSize: 12, color: const Color(0xFFF1EBDD)),
                 decoration: InputDecoration(
-                  hintText: "Search cricket legend...",
+                  hintText: "Search by player name, country (e.g. India, Australia), or role...",
                   hintStyle: GoogleFonts.inter(fontSize: 12, color: const Color(0xFF718096)),
-                  prefixIcon: const Icon(Icons.search, size: 16, color: Color(0xFF718096)),
+                  prefixIcon: const Icon(Icons.search, size: 16, color: Color(0xFF63B3ED)),
+                  suffixIcon: _searchQuery.isNotEmpty
+                      ? IconButton(
+                          icon: const Icon(Icons.clear, size: 16, color: Color(0xFF718096)),
+                          onPressed: () => setState(() => _searchQuery = ''),
+                        )
+                      : null,
                   filled: true,
-                  fillColor: const Color(0xFF14243B),
+                  fillColor: const Color(0xFF0D1B2D),
                   contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide.none),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: const BorderSide(color: Color(0xFF1E3A5F))),
+                  enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: const BorderSide(color: Color(0xFF1E3A5F))),
+                  focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: const BorderSide(color: Color(0xFF3182CE))),
                 ),
-                onChanged: (val) => setState(() => _searchQuery = val.toLowerCase()),
+                onChanged: (val) => setState(() => _searchQuery = val.toLowerCase().trim()),
               ),
-            ),
-            const SizedBox(width: 10),
-            DropdownButton<String>(
-              value: _filterRole,
-              dropdownColor: const Color(0xFF14243B),
-              style: GoogleFonts.inter(fontSize: 12, color: const Color(0xFFF1EBDD)),
-              items: ['All', 'Batter', 'Bowler', 'All-Rounder', 'Wicket-Keeper']
-                  .map((r) => DropdownMenuItem(value: r, child: Text(r)))
-                  .toList(),
-              onChanged: (val) => setState(() => _filterRole = val ?? 'All'),
-            ),
-          ],
+              const SizedBox(height: 10),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    _buildRoleFilterChip('All', '🌟 All (${CricketDataset.allPlayers.length})'),
+                    const SizedBox(width: 6),
+                    _buildRoleFilterChip('Batter', '🏏 Batters (${CricketDataset.getPureBatters().length})'),
+                    const SizedBox(width: 6),
+                    _buildRoleFilterChip('Bowler', '🎯 Bowlers (${CricketDataset.getPureBowlers().length})'),
+                    const SizedBox(width: 6),
+                    _buildRoleFilterChip('All-Rounder', '🛡️ All-Rounders (${CricketDataset.getAllRounders().length})'),
+                    const SizedBox(width: 6),
+                    _buildRoleFilterChip('Wicket-Keeper', '🧤 Wicket-Keepers (${CricketDataset.getWicketKeepers().length})'),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
 
         const SizedBox(height: 14),
@@ -948,11 +970,53 @@ class _StatClashGamePageState extends ConsumerState<StatClashGamePage> {
     );
   }
 
+  Widget _buildRoleFilterChip(String role, String label) {
+    final isSelected = _filterRole == role;
+    return ChoiceChip(
+      label: Text(label),
+      selected: isSelected,
+      selectedColor: const Color(0xFF3182CE),
+      backgroundColor: const Color(0xFF0F1E33),
+      labelStyle: GoogleFonts.inter(
+        fontSize: 11,
+        fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+        color: isSelected ? Colors.white : const Color(0xFFA0AEC0),
+      ),
+      side: BorderSide(
+        color: isSelected ? const Color(0xFF63B3ED) : const Color(0xFF1E3A5F),
+      ),
+      onSelected: (val) {
+        if (val) {
+          setState(() => _filterRole = role);
+        }
+      },
+    );
+  }
+
   List<CricketPlayer> _getFilteredPlayers() {
-    return CricketDataset.allPlayers.where((p) {
+    var list = CricketDataset.allPlayers.where((p) {
       if (_filterRole != 'All' && p.role != _filterRole) return false;
-      if (_searchQuery.isNotEmpty && !p.name.toLowerCase().contains(_searchQuery)) return false;
+      if (_searchQuery.isNotEmpty) {
+        final query = _searchQuery.toLowerCase();
+        final matchName = p.name.toLowerCase().contains(query);
+        final matchCountry = p.country.toLowerCase().contains(query);
+        final matchRole = p.role.toLowerCase().contains(query);
+        if (!matchName && !matchCountry && !matchRole) return false;
+      }
       return true;
     }).toList();
+
+    if (_filterRole == 'All') {
+      // Group logically: Batters, All-Rounders, Wicket-Keepers, Bowlers
+      const rolePriority = {'Batter': 0, 'All-Rounder': 1, 'Wicket-Keeper': 2, 'Bowler': 3};
+      list.sort((a, b) {
+        final rA = rolePriority[a.role] ?? 99;
+        final rB = rolePriority[b.role] ?? 99;
+        if (rA != rB) return rA.compareTo(rB);
+        return b.battingRating.compareTo(a.battingRating);
+      });
+    }
+    return list;
   }
 }
+

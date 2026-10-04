@@ -40,6 +40,9 @@ class _SuperOverGamePageState extends ConsumerState<SuperOverGamePage> {
   // Selection
   final Map<String, List<String>> _selectedBatters = {'p1': [], 'p2': []};
   final Map<String, String?> _selectedBowlers = {'p1': null, 'p2': null};
+  String _searchQuery = '';
+  String _batterFilter = 'All';
+  String _bowlerFilter = 'All';
 
   // Innings Data
   int _innings1Runs = 0;
@@ -600,14 +603,38 @@ class _SuperOverGamePageState extends ConsumerState<SuperOverGamePage> {
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
-                    "Each player must pick exactly 2 Batters and 1 Bowler for the 6-ball Super Over duel.",
+                    "Each player must pick exactly 2 Batters and 1 Bowler for the 6-ball Super Over duel. Use the search bar & category filters below to find any star from past or present!",
                     style: GoogleFonts.inter(fontSize: 12, color: const Color(0xFFE2DDD1)),
                   ),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 16),
+
+          // Universal Search Bar
+          TextField(
+            style: GoogleFonts.inter(fontSize: 12, color: const Color(0xFFF1EBDD)),
+            decoration: InputDecoration(
+              hintText: "Search player by name or country (e.g. Kohli, Head, Bumrah, Warne, Australia)...",
+              hintStyle: GoogleFonts.inter(fontSize: 12, color: const Color(0xFFA9A396)),
+              prefixIcon: const Icon(Icons.search, size: 16, color: Color(0xFFE5A93C)),
+              suffixIcon: _searchQuery.isNotEmpty
+                  ? IconButton(
+                      icon: const Icon(Icons.clear, size: 16, color: Color(0xFFA9A396)),
+                      onPressed: () => setState(() => _searchQuery = ''),
+                    )
+                  : null,
+              filled: true,
+              fillColor: const Color(0xFF13241B),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: const BorderSide(color: Color(0xFF28543A))),
+              enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: const BorderSide(color: Color(0xFF28543A))),
+              focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: const BorderSide(color: Color(0xFFE5A93C))),
+            ),
+            onChanged: (val) => setState(() => _searchQuery = val.toLowerCase().trim()),
+          ),
+          const SizedBox(height: 20),
 
           _buildTeamSelectionCard(
             playerId: _p1Id,
@@ -651,6 +678,34 @@ class _SuperOverGamePageState extends ConsumerState<SuperOverGamePage> {
         ],
       ),
     );
+  }
+
+  List<CricketPlayer> _getEligibleBatters() {
+    return CricketDataset.getBatters().where((p) {
+      if (_batterFilter == 'Pure Batters' && p.role != 'Batter') return false;
+      if (_batterFilter == 'Wicket-Keepers' && p.role != 'Wicket-Keeper') return false;
+      if (_batterFilter == 'All-Rounders' && p.role != 'All-Rounder') return false;
+      if (_searchQuery.isNotEmpty) {
+        final q = _searchQuery.toLowerCase();
+        final match = p.name.toLowerCase().contains(q) || p.country.toLowerCase().contains(q) || p.role.toLowerCase().contains(q);
+        if (!match) return false;
+      }
+      return true;
+    }).toList();
+  }
+
+  List<CricketPlayer> _getEligibleBowlers() {
+    return CricketDataset.getBowlers().where((p) {
+      if (_bowlerFilter == 'Fast Bowlers' && !(p.bowlingStyle.toLowerCase().contains('fast') || p.bowlingStyle.toLowerCase().contains('medium') || p.bowlingStyle.toLowerCase().contains('pace'))) return false;
+      if (_bowlerFilter == 'Spin Bowlers' && !(p.bowlingStyle.toLowerCase().contains('spin') || p.bowlingStyle.toLowerCase().contains('orthodox') || p.bowlingStyle.toLowerCase().contains('break') || p.bowlingStyle.toLowerCase().contains('googly'))) return false;
+      if (_bowlerFilter == 'All-Rounders' && p.role != 'All-Rounder') return false;
+      if (_searchQuery.isNotEmpty) {
+        final q = _searchQuery.toLowerCase();
+        final match = p.name.toLowerCase().contains(q) || p.country.toLowerCase().contains(q) || p.bowlingStyle.toLowerCase().contains(q);
+        if (!match) return false;
+      }
+      return true;
+    }).toList();
   }
 
   Widget _buildTeamSelectionCard({
@@ -725,7 +780,7 @@ class _SuperOverGamePageState extends ConsumerState<SuperOverGamePage> {
           ),
           const SizedBox(height: 14),
 
-          // Batters selection
+          // Batters selection header
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -759,17 +814,44 @@ class _SuperOverGamePageState extends ConsumerState<SuperOverGamePage> {
                 ),
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 6),
+
+          // Batter Category Filters
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: ['All', 'Pure Batters', 'Wicket-Keepers', 'All-Rounders'].map((cat) {
+                final isSelected = _batterFilter == cat;
+                return Padding(
+                  padding: const EdgeInsets.only(right: 6, bottom: 4),
+                  child: ChoiceChip(
+                    label: Text(cat, style: GoogleFonts.inter(fontSize: 10, fontWeight: isSelected ? FontWeight.bold : FontWeight.normal)),
+                    selected: isSelected,
+                    selectedColor: const Color(0xFF28543A),
+                    backgroundColor: const Color(0xFF13241B),
+                    labelStyle: TextStyle(color: isSelected ? const Color(0xFFE5A93C) : const Color(0xFFA9A396)),
+                    side: BorderSide(color: isSelected ? const Color(0xFFE5A93C) : const Color(0xFF1E3A2B)),
+                    onSelected: (val) {
+                      if (val) setState(() => _batterFilter = cat);
+                    },
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+          const SizedBox(height: 6),
+
           Wrap(
             spacing: 8,
             runSpacing: 8,
-            children: CricketDataset.getBatters().map((p) {
+            children: _getEligibleBatters().map((p) {
               final isSel = batters.contains(p.id);
               return FilterChip(
-                label: Text("${p.name} (${p.country})", style: GoogleFonts.inter(fontSize: 11)),
+                label: Text("${p.name} (${p.country} • ${p.role})", style: GoogleFonts.inter(fontSize: 11)),
                 selected: isSel,
                 selectedColor: accentColor.withOpacity(0.3),
                 backgroundColor: const Color(0xFF1A2F24),
+                side: BorderSide(color: isSel ? accentColor : const Color(0xFF234433)),
                 labelStyle: TextStyle(
                   color: isSel ? const Color(0xFFF1EBDD) : const Color(0xFFA9A396),
                   fontWeight: isSel ? FontWeight.bold : FontWeight.normal,
@@ -786,9 +868,9 @@ class _SuperOverGamePageState extends ConsumerState<SuperOverGamePage> {
               );
             }).toList(),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 18),
 
-          // Bowler selection
+          // Bowler selection header
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -822,17 +904,44 @@ class _SuperOverGamePageState extends ConsumerState<SuperOverGamePage> {
                 ),
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 6),
+
+          // Bowler Category Filters
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: ['All', 'Fast Bowlers', 'Spin Bowlers', 'All-Rounders'].map((cat) {
+                final isSelected = _bowlerFilter == cat;
+                return Padding(
+                  padding: const EdgeInsets.only(right: 6, bottom: 4),
+                  child: ChoiceChip(
+                    label: Text(cat, style: GoogleFonts.inter(fontSize: 10, fontWeight: isSelected ? FontWeight.bold : FontWeight.normal)),
+                    selected: isSelected,
+                    selectedColor: const Color(0xFF28543A),
+                    backgroundColor: const Color(0xFF13241B),
+                    labelStyle: TextStyle(color: isSelected ? const Color(0xFFE5A93C) : const Color(0xFFA9A396)),
+                    side: BorderSide(color: isSelected ? const Color(0xFFE5A93C) : const Color(0xFF1E3A2B)),
+                    onSelected: (val) {
+                      if (val) setState(() => _bowlerFilter = cat);
+                    },
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+          const SizedBox(height: 6),
+
           Wrap(
             spacing: 8,
             runSpacing: 8,
-            children: CricketDataset.getBowlers().map((p) {
+            children: _getEligibleBowlers().map((p) {
               final isSel = bowler == p.id;
               return ChoiceChip(
                 label: Text("${p.name} (${p.bowlingStyle})", style: GoogleFonts.inter(fontSize: 11)),
                 selected: isSel,
                 selectedColor: const Color(0xFFE5A93C).withOpacity(0.35),
                 backgroundColor: const Color(0xFF1A2F24),
+                side: BorderSide(color: isSel ? const Color(0xFFE5A93C) : const Color(0xFF234433)),
                 labelStyle: TextStyle(
                   color: isSel ? const Color(0xFFE5A93C) : const Color(0xFFA9A396),
                   fontWeight: isSel ? FontWeight.bold : FontWeight.normal,

@@ -336,14 +336,199 @@ class _ChallengeHubPageState extends ConsumerState<ChallengeHubPage> with Single
 
   final List<Map<String, dynamic>> _sofQuestions = [
     {
-      "statement": "Rohit Sharma is the only batter in cricket history with 3 double centuries in Men's ODIs.",
-      "is_true": true,
-      "explanation": "Rohit scored 209 vs Australia (2013), 264 vs Sri Lanka (2014), and 208* vs Sri Lanka (2017)."
+      "statement": "Sachin Tendulkar scored a century on his international Test debut against Pakistan in 1989.",
+      "is_true": false,
+      "explanation": "Sachin made his debut in Karachi at age 16 and scored 15 runs in the first innings before being bowled by Waqar Younis."
+    },
+    {
+      "statement": "Shane Warne was the first bowler in cricket history to reach 800 Test wickets.",
+      "is_true": false,
+      "explanation": "Muttiah Muralitharan is the only bowler in history to reach 800 Test wickets. Shane Warne retired with 708 Test wickets."
+    },
+    {
+      "statement": "Virat Kohli holds the world record for the highest individual score in Men's T20 Internationals with 175 not out.",
+      "is_true": false,
+      "explanation": "Chris Gayle scored 175* in the IPL (franchise T20), while Aaron Finch holds the highest Men's T20I score with 172."
+    },
+    {
+      "statement": "Wasim Akram never scored a double-century in Test cricket during his career.",
+      "is_true": false,
+      "explanation": "Wasim Akram smashed a sensational 257 not out against Zimbabwe in Sheikhupura in 1996 with 12 massive sixes."
+    },
+    {
+      "statement": "Rohit Sharma scored a century in all 9 matches India played during the 2019 ICC Cricket World Cup.",
+      "is_true": false,
+      "explanation": "Rohit scored a tournament record 5 centuries in 9 matches in 2019 (vs SA, PAK, ENG, BAN, SL)."
     },
     {
       "statement": "Muttiah Muralitharan took exactly 750 wickets in Test Cricket.",
       "is_true": false,
-      "explanation": "Muttiah Muralitharan is the all-time leading wicket-taker in Tests with 800 wickets (67 five-wicket hauls)."
+      "explanation": "Muttiah Muralitharan is the all-time leading wicket-taker in Tests with 800 wickets and 67 five-wicket hauls."
+    },
+    {
+      "statement": "Don Bradman finished his Test career with a perfect batting average of 100.00.",
+      "is_true": false,
+      "explanation": "Bradman was bowled for a duck by Eric Hollies in his final Test innings at The Oval in 1948, finishing with a career average of 99.94."
+    },
+    {
+      "statement": "MS Dhoni scored an ODI century against Australia in the 2011 ICC Cricket World Cup Final.",
+      "is_true": false,
+      "explanation": "India played Sri Lanka in the 2011 Final at Wankhede, where Dhoni scored a match-winning 91 not out (not a century)."
+    },
+    {
+      "statement": "Jasprit Bumrah has captured over 500 wickets in Test match cricket.",
+      "is_true": false,
+      "explanation": "Bumrah has taken around 160 Test wickets (and over 390 across all international formats) with an elite average under 21."
+    },
+    {
+      "statement": "AB de Villiers scored 300 runs in a single Test innings for South Africa.",
+      "is_true": false,
+      "explanation": "AB de Villiers's highest Test score is 278 not out against Pakistan in Abu Dhabi in 2010. Hashim Amla is SA's only Test triple centurion."
+    },
+    {
+      "statement": "Brendon McCullum hit 6 sixes in an over during an international T20 World Cup match.",
+      "is_true": false,
+      "explanation": "Yuvraj Singh hit 6 sixes in an over in the 2007 T20 World Cup off Stuart Broad. McCullum never hit 6 sixes in an over."
+    },
+    {
+      "statement": "Brian Lara's 400 not out against England is the second-highest individual score in Test history.",
+      "is_true": false,
+      "explanation": "Brian Lara's 400* at Antigua in 2004 remains the highest individual score in Test cricket history."
+    },
+    {
+      "statement": "Ricky Ponting lost three consecutive ICC World Cup finals as captain of Australia.",
+      "is_true": false,
+      "explanation": "Ricky Ponting captained Australia to back-to-back undefeated World Cup titles in 2003 and 2007."
+    },
+    {
+      "statement": "Brian Lara scored 400 not out and 375 against two completely different international teams.",
+      "is_true": false,
+      "explanation": "Both of Lara's world record scores (375 in 1994 and 400* in 2004) were scored against England at the Antigua Recreation Ground."
+    },
+    {
+      "statement": "Shaheen Afridi took a hat-trick in the very first over of a Test match in Karachi.",
+      "is_true": false,
+      "explanation": "Irfan Pathan of India is the only bowler in cricket history to take a hat-trick in the 1st over of a Test match (vs Pakistan in 2006)."
+    },
+    {
+      "statement": "Sachin Tendulkar scored exactly 99 international centuries across Test and ODI cricket.",
+      "is_true": false,
+      "explanation": "Sachin Tendulkar is the only player in history to score 100 international centuries (51 Tests + 49 ODIs)."
+    },
+    {
+      "statement": "Jim Laker and Anil Kumble are the only two bowlers to take all 10 wickets in a Test innings.",
+      "is_true": false,
+      "explanation": "Ajaz Patel of New Zealand also took all 10 wickets in an innings vs India in Mumbai in 2021 (3 bowlers total in Test history)."
+    },
+    {
+      "statement": "Adam Gilchrist scored a century in all three ICC World Cup finals he played (1999, 2003, 2007).",
+      "is_true": false,
+      "explanation": "Gilchrist scored 54 in 1999, 57 in 2003, and 149 in 2007 (one century across the three finals)."
+    },
+    {
+      "statement": "Yuvraj Singh won Player of the Tournament in both the 2007 T20 World Cup and 2011 ODI World Cup.",
+      "is_true": false,
+      "explanation": "Shahid Afridi was named Player of the Tournament in the 2007 T20 World Cup; Yuvraj won it in the 2011 ODI World Cup."
+    },
+    {
+      "statement": "Steve Smith made his international Test debut as a specialist opening batter for Australia.",
+      "is_true": false,
+      "explanation": "Steve Smith debuted batting at No. 8 and bowling leg-spin against Pakistan at Lord's in 2010 before becoming a premier batter."
+    },
+    {
+      "statement": "Pat Cummins is the only captain to win the WTC, ODI World Cup, and T20 World Cup all in the same calendar year.",
+      "is_true": false,
+      "explanation": "Australia won the WTC and ODI World Cup in 2023 under Cummins, but India won the 2024 T20 World Cup."
+    },
+    {
+      "statement": "Shoaib Akhtar's world-record 161.3 km/h delivery was bowled against Australia in Melbourne.",
+      "is_true": false,
+      "explanation": "It was bowled against England's Nick Knight during the 2003 ICC World Cup in Cape Town, South Africa."
+    },
+    {
+      "statement": "Shane Warne scored 3 Test centuries during his legendary 145-match international career.",
+      "is_true": false,
+      "explanation": "Shane Warne holds the world record for the most Test runs (3,154) without ever scoring a century (highest score 99)."
+    },
+    {
+      "statement": "Jacques Kallis bowled at 155 km/h, making him the fastest bowler in South African cricket history.",
+      "is_true": false,
+      "explanation": "Kallis bowled reliable fast-medium pace around 135-140 km/h; Dale Steyn and Allan Donald were South Africa's express speedsters."
+    },
+    {
+      "statement": "Sunil Gavaskar wore a lightweight carbon-fiber helmet throughout his entire 125-Test career.",
+      "is_true": false,
+      "explanation": "Gavaskar famously faced the fiercest West Indian pace quartets throughout the 1970s and 80s without ever wearing a helmet."
+    },
+    {
+      "statement": "Don Bradman was dismissed for a duck on his Test debut for Australia against England.",
+      "is_true": false,
+      "explanation": "Bradman scored 18 & 1 on debut in Brisbane in 1928, was dropped for the second Test, and returned with a century in the third Test."
+    },
+    {
+      "statement": "Virat Kohli has never bowled a single delivery in ICC knockout matches.",
+      "is_true": false,
+      "explanation": "Kohli bowled in the 2016 T20 World Cup semi-final against the West Indies in Mumbai and took a wicket off his very first delivery!"
+    },
+    {
+      "statement": "Lasith Malinga is the only Sri Lankan bowler to have taken over 800 international wickets.",
+      "is_true": false,
+      "explanation": "Malinga took 546 international wickets; Muttiah Muralitharan is the Sri Lankan bowler with 1,347 international wickets."
+    },
+    {
+      "statement": "Chris Gayle is the only batter to score a double century in both ODI World Cups and T20 World Cups.",
+      "is_true": false,
+      "explanation": "Gayle scored 215 in the 2015 ODI World Cup, but no player in cricket history has ever scored a double century in T20 Internationals."
+    },
+    {
+      "statement": "Kapil Dev's legendary 175 not out in the 1983 World Cup was fully recorded and televised live across India.",
+      "is_true": false,
+      "explanation": "BBC television technicians were on strike that day in Tunbridge Wells, so no official television footage of the innings exists."
+    },
+    {
+      "statement": "Glenn McGrath conceded more than 100 runs in an ODI innings on four separate occasions.",
+      "is_true": false,
+      "explanation": "McGrath was renowned for metronomic accuracy and never conceded 100 runs in an ODI, finishing with a career economy rate of 3.88."
+    },
+    {
+      "statement": "James Anderson has taken more five-wicket hauls in Test cricket than Muttiah Muralitharan.",
+      "is_true": false,
+      "explanation": "Anderson took 32 five-wicket hauls in Tests, whereas Muralitharan holds the world record with 67 five-wicket hauls."
+    },
+    {
+      "statement": "Kumar Sangakkara holds the record for the most double centuries in Test cricket history with 14 double tons.",
+      "is_true": false,
+      "explanation": "Sir Don Bradman holds the world record with 12 Test double centuries; Sangakkara is second with 11 double centuries."
+    },
+    {
+      "statement": "Ben Stokes has captained England to victory in three consecutive ICC World Cup tournaments.",
+      "is_true": false,
+      "explanation": "Eoin Morgan and Jos Buttler were the white-ball captains who lifted the World Cups; Stokes captains England in Test cricket."
+    },
+    {
+      "statement": "Courtney Walsh was the first bowler to take 800 Test wickets in international cricket history.",
+      "is_true": false,
+      "explanation": "Courtney Walsh was the first bowler to reach 500 Test wickets (retiring with 519); Muralitharan was first to 800."
+    },
+    {
+      "statement": "Rahul Dravid holds the record for the highest individual score in Men's ODI cricket history.",
+      "is_true": false,
+      "explanation": "Rohit Sharma holds the ODI record with 264 vs Sri Lanka. Dravid's highest ODI score is 153."
+    },
+    {
+      "statement": "Dale Steyn retired with exactly 300 Test wickets for South Africa.",
+      "is_true": false,
+      "explanation": "Dale Steyn retired as South Africa's highest Test wicket-taker with 439 wickets in 93 matches."
+    },
+    {
+      "statement": "Anil Kumble is the only Indian captain to lead India to an ICC ODI World Cup victory.",
+      "is_true": false,
+      "explanation": "Kapil Dev (1983) and MS Dhoni (2011) are the two captains who led India to ODI World Cup titles."
+    },
+    {
+      "statement": "Rohit Sharma is the only batter in cricket history with 3 double centuries in Men's ODIs.",
+      "is_true": true,
+      "explanation": "Rohit scored 209 vs Australia (2013), 264 vs Sri Lanka (2014), and 208* vs Sri Lanka (2017)."
     },
     {
       "statement": "Virat Kohli scored 50 ODI centuries, breaking Sachin Tendulkar's long-standing record of 49.",
@@ -356,24 +541,14 @@ class _ChallengeHubPageState extends ConsumerState<ChallengeHubPage> with Single
       "explanation": "Gayle smashed 175* off 66 balls in IPL 2013 for RCB vs PWI, reaching 100 in 30 balls."
     },
     {
-      "statement": "Shane Warne scored 3 Test centuries during his legendary international career.",
-      "is_true": false,
-      "explanation": "Shane Warne holds the record for the most Test runs (3,154) without ever scoring a century (highest score 99)."
-    },
-    {
       "statement": "AB de Villiers scored the fastest ODI century in history in just 31 balls.",
       "is_true": true,
       "explanation": "AB de Villiers smashed a 31-ball ton against the West Indies in Johannesburg in January 2015."
     },
     {
-      "statement": "Wasim Akram took over 500 ODI wickets during his international career.",
+      "statement": "Wasim Akram was the first bowler in cricket history to reach 500 ODI wickets.",
       "is_true": true,
-      "explanation": "Wasim Akram was the first bowler to reach 500 ODI wickets, finishing with 502."
-    },
-    {
-      "statement": "Sachin Tendulkar scored exactly 99 international centuries across Test and ODI cricket.",
-      "is_true": false,
-      "explanation": "Sachin Tendulkar is the only player in history to score 100 international centuries (51 Tests + 49 ODIs)."
+      "explanation": "Wasim Akram reached the 500-wicket milestone during the 2003 World Cup, finishing with 502 ODI wickets."
     },
     {
       "statement": "MS Dhoni hit a six to finish and win the 2011 ICC Cricket World Cup for India.",
@@ -391,11 +566,6 @@ class _ChallengeHubPageState extends ConsumerState<ChallengeHubPage> with Single
       "explanation": "Kallis is the only all-rounder in history to achieve the 10,000 run / 250 wicket double in both formats."
     },
     {
-      "statement": "Brian Lara's 400 not out against England is the second-highest individual score in Test history.",
-      "is_true": false,
-      "explanation": "Brian Lara's 400* at Antigua in 2004 is the highest individual score in Test cricket history."
-    },
-    {
       "statement": "Yuvraj Singh hit 6 sixes in an over off Stuart Broad in the 2007 ICC T20 World Cup.",
       "is_true": true,
       "explanation": "Yuvraj achieved the feat in Durban in September 2007, reaching a 12-ball fifty."
@@ -406,24 +576,9 @@ class _ChallengeHubPageState extends ConsumerState<ChallengeHubPage> with Single
       "explanation": "Glenn McGrath captured 71 wickets in 39 matches across 4 World Cup tournaments."
     },
     {
-      "statement": "Jim Laker and Anil Kumble are the only two bowlers to take all 10 wickets in a Test innings.",
-      "is_true": false,
-      "explanation": "Ajaz Patel of New Zealand also took all 10 wickets in a Test innings vs India in Mumbai in 2021 (3 bowlers total)."
-    },
-    {
       "statement": "Shoaib Akhtar delivered the fastest officially recorded ball in cricket history at 161.3 km/h (100.2 mph).",
       "is_true": true,
       "explanation": "Bowled against England during the 2003 World Cup in South Africa to Nick Knight."
-    },
-    {
-      "statement": "Ricky Ponting captained Australia to undefeated ICC World Cup titles in both 2003 and 2007.",
-      "is_true": true,
-      "explanation": "Australia went undefeated through both tournaments under Ponting's legendary leadership."
-    },
-    {
-      "statement": "Don Bradman finished his Test career with a perfect batting average of 100.00.",
-      "is_true": false,
-      "explanation": "Bradman was bowled for a duck in his final Test innings at The Oval in 1948 and finished with 99.94."
     },
     {
       "statement": "Jasprit Bumrah holds the world record for the most runs scored off a single over in Test cricket.",
@@ -501,11 +656,6 @@ class _ChallengeHubPageState extends ConsumerState<ChallengeHubPage> with Single
       "explanation": "Cummins took hat-tricks against Bangladesh and Afghanistan in the Super 8 stage."
     },
     {
-      "statement": "Sachin Tendulkar made his international Test debut at age 16 against Pakistan in 1989.",
-      "is_true": true,
-      "explanation": "Debuted in Karachi in November 1989 facing Imran Khan, Wasim Akram, and Waqar Younis."
-    },
-    {
       "statement": "Chaminda Vaas took 8/19 in an ODI, the best bowling figures in Men's ODI history.",
       "is_true": true,
       "explanation": "Vaas took 8 wickets for 19 runs against Zimbabwe in Colombo in 2001."
@@ -551,31 +701,6 @@ class _ChallengeHubPageState extends ConsumerState<ChallengeHubPage> with Single
       "explanation": "Known as 'The Wall', Dravid batted for 44,152 minutes and faced 31,258 balls in Test cricket."
     },
     {
-      "statement": "Ravichandran Ashwin took 500 Test wickets in fewer matches than any other Indian bowler.",
-      "is_true": true,
-      "explanation": "Ashwin reached 500 Test wickets in 98 matches, second-fastest globally behind Muralitharan (87 matches)."
-    },
-    {
-      "statement": "Sourav Ganguly won 4 consecutive Man of the Match awards in ODI cricket in 1997.",
-      "is_true": true,
-      "explanation": "Ganguly achieved this world record against Pakistan in the 1997 Sahara Cup in Toronto."
-    },
-    {
-      "statement": "Sunil Gavaskar was dismissed off the very first ball of a Test match 3 times in his career.",
-      "is_true": true,
-      "explanation": "Gavaskar fell to the first ball of a Test match thrice (against Geoff Arnold, Malcolm Marshall, Imran Khan)."
-    },
-    {
-      "statement": "Zaheer Khan and Shahid Afridi were the joint-highest wicket-takers in the 2011 ICC World Cup with 21 wickets.",
-      "is_true": true,
-      "explanation": "Both champions topped the wicket-taking charts with 21 scalps each in 2011."
-    },
-    {
-      "statement": "Adam Gilchrist scored a century in all three ICC World Cup finals he played (1999, 2003, 2007).",
-      "is_true": false,
-      "explanation": "Gilchrist scored 54 in 1999, 57 in 2003, and 149 in 2007 (one century)."
-    },
-    {
       "statement": "Glenn Maxwell scored the first double century in an ODI run chase (201* vs Afghanistan in 2023).",
       "is_true": true,
       "explanation": "Maxwell smashed 201* off 128 balls battling severe cramps to pull off a miracle chase from 91/7."
@@ -594,11 +719,6 @@ class _ChallengeHubPageState extends ConsumerState<ChallengeHubPage> with Single
       "statement": "MS Dhoni holds the highest individual score by a wicket-keeper in ODI history: 183 not out.",
       "is_true": true,
       "explanation": "Dhoni smashed 183* off 145 balls against Sri Lanka in Jaipur in October 2005."
-    },
-    {
-      "statement": "Steve Smith began his international cricket career primarily as a leg-spin bowling all-rounder.",
-      "is_true": true,
-      "explanation": "Smith debuted batting at No. 8 and bowling leg-spin before transforming into an all-time great batter."
     },
     {
       "statement": "Brian Lara's 501 not out for Warwickshire in 1994 is the highest score in first-class cricket history.",
@@ -631,11 +751,6 @@ class _ChallengeHubPageState extends ConsumerState<ChallengeHubPage> with Single
       "explanation": "Lloyd led the legendary West Indian side that dominated early World Cup cricket."
     },
     {
-      "statement": "Imran Khan led Pakistan to their first-ever ICC World Cup triumph in 1992 at age 39.",
-      "is_true": true,
-      "explanation": "Imran inspired his 'Cornered Tigers' to defeat England at the Melbourne Cricket Ground in 1992."
-    },
-    {
       "statement": "Martin Guptill's 237 not out against the West Indies is the highest individual score in World Cup history.",
       "is_true": true,
       "explanation": "Guptill smashed 237* off 163 balls in the 2015 World Cup quarter-final in Wellington."
@@ -645,21 +760,6 @@ class _ChallengeHubPageState extends ConsumerState<ChallengeHubPage> with Single
       "is_true": true,
       "explanation": "Kumble returned with his face bandaged and famously dismissed Brian Lara in a heroic spell."
     },
-    {
-      "statement": "Muttiah Muralitharan claimed 9 wickets in a single Test innings on two separate occasions.",
-      "is_true": true,
-      "explanation": "Murali took 9/51 vs Zimbabwe (2002) and 9/65 vs England at The Oval (1998)."
-    },
-    {
-      "statement": "Rohit Sharma scored 5 centuries in a single ICC World Cup tournament (2019).",
-      "is_true": true,
-      "explanation": "Rohit scored centuries against South Africa, Pakistan, England, Bangladesh, and Sri Lanka in 2019."
-    },
-    {
-      "statement": "Glenn McGrath took best ODI bowling figures of 7 wickets for 15 runs in the 2003 World Cup.",
-      "is_true": true,
-      "explanation": "McGrath took 7/15 against Namibia in Potchefstroom in the 2003 World Cup."
-    }
   ];
 
   // Mini Game 4: Career Timeline
@@ -799,6 +899,55 @@ class _ChallengeHubPageState extends ConsumerState<ChallengeHubPage> with Single
   }
 
   // --- Who Am I logic ---
+  List<String> _generateHardDistractors(CricketPlayer target, List<CricketPlayer> allPlayers) {
+    // Pick candidates from the exact same country first
+    var sameCountry = allPlayers
+        .where((p) => p.id != target.id && p.country.toLowerCase() == target.country.toLowerCase())
+        .toList()
+      ..shuffle();
+
+    List<CricketPlayer> chosen = [];
+    // 1. Same country + same role
+    for (var p in sameCountry.where((p) => p.role == target.role)) {
+      if (chosen.length < 3 && !chosen.any((c) => c.id == p.id)) {
+        chosen.add(p);
+      }
+    }
+    // 2. Same country other roles
+    for (var p in sameCountry) {
+      if (chosen.length < 3 && !chosen.any((c) => c.id == p.id)) {
+        chosen.add(p);
+      }
+    }
+    // 3. Fallback: same role other countries
+    if (chosen.length < 3) {
+      var sameRole = allPlayers
+          .where((p) => p.id != target.id && p.role == target.role && !chosen.any((c) => c.id == p.id))
+          .toList()
+        ..shuffle();
+      for (var p in sameRole) {
+        if (chosen.length < 3 && !chosen.any((c) => c.id == p.id)) {
+          chosen.add(p);
+        }
+      }
+    }
+    // 4. Fallback: any other player
+    if (chosen.length < 3) {
+      var remaining = allPlayers
+          .where((p) => p.id != target.id && !chosen.any((c) => c.id == p.id))
+          .toList()
+        ..shuffle();
+      for (var p in remaining) {
+        if (chosen.length < 3 && !chosen.any((c) => c.id == p.id)) {
+          chosen.add(p);
+        }
+      }
+    }
+
+    final options = [target.name, ...chosen.take(3).map((p) => p.name)]..shuffle();
+    return options;
+  }
+
   void _initWhoAmI() {
     final random = Random();
     const all = CricketDataset.allPlayers;
@@ -817,11 +966,7 @@ class _ChallengeHubPageState extends ConsumerState<ChallengeHubPage> with Single
     _revealedClues = 1;
     _whoAmICorrect = null;
 
-    final options = [_whoAmITarget!.name];
-    final distractors = all.where((p) => p.id != _whoAmITarget!.id).toList()..shuffle();
-    options.addAll(distractors.take(3).map((d) => d.name));
-    options.shuffle();
-    _whoAmIOptions = options;
+    _whoAmIOptions = _generateHardDistractors(_whoAmITarget!, all);
   }
 
   List<String> _getWhoAmIClues(CricketPlayer t) {
@@ -922,11 +1067,7 @@ class _ChallengeHubPageState extends ConsumerState<ChallengeHubPage> with Single
 
     _guessCorrect = null;
 
-    final options = [_guessTarget!.name];
-    final distractors = all.where((p) => p.id != _guessTarget!.id).toList()..shuffle();
-    options.addAll(distractors.take(3).map((d) => d.name));
-    options.shuffle();
-    _guessOptions = options;
+    _guessOptions = _generateHardDistractors(_guessTarget!, all);
   }
 
   void _answerGuessPlayer(String name) {
