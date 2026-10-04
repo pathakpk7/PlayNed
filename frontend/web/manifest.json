@@ -1,11 +1,11 @@
 {
-    "name": "hangman_reimagined",
-    "short_name": "hangman_reimagined",
+    "name": "PLAYNED — 2D Multiplayer Game Platform",
+    "short_name": "PLAYNED",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#0E0E0C",
+    "theme_color": "#D5A84B",
+    "description": "A modern 2D multiplayer game platform featuring Hangman Reimagined, Reversi & Othello, Dots & Boxes, Quoridor, Pentago, Shut the Box, and Cricket.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

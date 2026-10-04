@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../auth/presentation/providers/auth_provider.dart';
 import '../../../game/presentation/providers/game_provider.dart';
+import '../../../../platform/presentation/widgets/playned_logo.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -86,25 +87,32 @@ class HomePage extends ConsumerWidget {
           tooltip: "Return to PlayNed",
           onPressed: () => context.go('/'),
         ),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              "HANGMAN REIMAGINED",
-              style: GoogleFonts.dmSerifDisplay(
-                letterSpacing: 1.5,
-                fontSize: 18,
-                fontWeight: FontWeight.normal,
-              ),
-            ),
-            Text(
-              "BY PLAYNED",
-              style: GoogleFonts.inter(
-                fontSize: 8.5,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 1.2,
-                color: const Color(0xFFD5A84B),
-              ),
+            const PlayNedLogo(size: 24, showText: false),
+            const SizedBox(width: 8),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "HANGMAN REIMAGINED",
+                  style: GoogleFonts.dmSerifDisplay(
+                    letterSpacing: 1.5,
+                    fontSize: 18,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+                Text(
+                  "BY PLAYNED",
+                  style: GoogleFonts.inter(
+                    fontSize: 8.5,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.2,
+                    color: const Color(0xFFD5A84B),
+                  ),
+                ),
+              ],
             ),
           ],
         ),

@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hangman_reimagined/features/auth/presentation/providers/auth_provider.dart';
 import 'package:hangman_reimagined/platform/theme/playned_design_tokens.dart';
 import 'playned_components.dart';
+import 'playned_logo.dart';
 
 class PlatformAppBar extends ConsumerWidget implements PreferredSizeWidget {
   final String? title;
@@ -149,44 +150,21 @@ class PlatformAppBar extends ConsumerWidget implements PreferredSizeWidget {
               child: Row(
                 children: [
                   // Logo
-                  InkWell(
-                    borderRadius: BorderRadius.circular(PlayNedTokens.radiusSm),
+                  PlayNedLogo(
+                    size: 28,
+                    showText: true,
                     onTap: () => context.go('/'),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                            decoration: BoxDecoration(
-                              color: PlayNedTokens.brandGold,
-                              borderRadius: BorderRadius.circular(PlayNedTokens.radiusXs),
-                            ),
-                            child: Text(
-                              "PLAYNED",
-                              style: GoogleFonts.inter(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w900,
-                                letterSpacing: 2.0,
-                                color: PlayNedTokens.textInverse,
-                              ),
-                            ),
-                          ),
-                          if (title != null && constraints.maxWidth >= 600) ...[
-                            const SizedBox(width: 10),
-                            Text(
-                              "· $title",
-                              style: GoogleFonts.dmSerifDisplay(
-                                fontSize: 17,
-                                color: PlayNedTokens.textPrimary,
-                              ),
-                            ),
-                          ],
-                        ],
+                  ),
+                  if (title != null && constraints.maxWidth >= 600) ...[
+                    const SizedBox(width: 8),
+                    Text(
+                      "· $title",
+                      style: GoogleFonts.dmSerifDisplay(
+                        fontSize: 17,
+                        color: PlayNedTokens.textPrimary,
                       ),
                     ),
-                  ),
+                  ],
 
                   if (isDesktop) ...[
                     const SizedBox(width: 20),

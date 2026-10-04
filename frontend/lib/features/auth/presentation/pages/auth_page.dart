@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../providers/auth_provider.dart';
+import '../../../../platform/presentation/widgets/playned_logo.dart';
 
 class AuthPage extends ConsumerStatefulWidget {
   const AuthPage({super.key});
@@ -90,6 +91,12 @@ class _AuthPageState extends ConsumerState<AuthPage> with SingleTickerProviderSt
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    const Center(
+                      child: Padding(
+                        padding: EdgeInsets.only(bottom: 20.0),
+                        child: PlayNedLogo(size: 64, showText: true, fontSize: 18),
+                      ),
+                    ),
                     Text(
                       "Welcome Back.",
                       style: GoogleFonts.dmSerifDisplay(fontSize: 24, color: const Color(0xFFF1EBDD)),
@@ -147,6 +154,12 @@ class _AuthPageState extends ConsumerState<AuthPage> with SingleTickerProviderSt
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    const Center(
+                      child: Padding(
+                        padding: EdgeInsets.only(bottom: 20.0),
+                        child: PlayNedLogo(size: 64, showText: true, fontSize: 18),
+                      ),
+                    ),
                     Text(
                       "Create Player Profile",
                       style: GoogleFonts.dmSerifDisplay(fontSize: 24, color: const Color(0xFFF1EBDD)),

@@ -9,6 +9,7 @@ import 'package:hangman_reimagined/platform/theme/playned_design_tokens.dart';
 import '../widgets/game_card.dart';
 import '../widgets/platform_app_bar.dart';
 import '../widgets/playned_components.dart';
+import '../widgets/playned_logo.dart';
 
 class PlatformHomePage extends ConsumerStatefulWidget {
   const PlatformHomePage({super.key});
@@ -203,96 +204,130 @@ class _PlatformHomePageState extends ConsumerState<PlatformHomePage> {
           // Content
           Padding(
             padding: EdgeInsets.all(isDesktop ? PlayNedTokens.space32 : PlayNedTokens.space20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // Tag & Badge
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3.5),
-                      decoration: BoxDecoration(
-                        color: PlayNedTokens.brandGold,
-                        borderRadius: BorderRadius.circular(PlayNedTokens.radiusXs),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Tag & Badge
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3.5),
+                            decoration: BoxDecoration(
+                              color: PlayNedTokens.brandGold,
+                              borderRadius: BorderRadius.circular(PlayNedTokens.radiusXs),
+                            ),
+                            child: Text(
+                              "PLAYNED V1.4.3",
+                              style: GoogleFonts.inter(
+                                fontSize: 9.5,
+                                fontWeight: FontWeight.w900,
+                                letterSpacing: 1.4,
+                                color: PlayNedTokens.textInverse,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: PlayNedTokens.space10),
+                          Text(
+                            "MODULAR 2D MULTIPLAYER",
+                            style: PlayNedTokens.metadata.copyWith(
+                              color: PlayNedTokens.textSecondary,
+                              fontSize: 10,
+                            ),
+                          ),
+                        ],
                       ),
-                      child: Text(
-                        "PLAYNED V1.4.3",
-                        style: GoogleFonts.inter(
-                          fontSize: 9.5,
-                          fontWeight: FontWeight.w900,
-                          letterSpacing: 1.4,
-                          color: PlayNedTokens.textInverse,
+
+                      const SizedBox(height: PlayNedTokens.space16),
+
+                      // Hero Headline
+                      Text(
+                        "ONE PLATFORM.\nMANY WAYS TO PLAY.",
+                        style: isDesktop
+                            ? PlayNedTokens.heroDisplay
+                            : GoogleFonts.dmSerifDisplay(
+                                fontSize: 28,
+                                height: 1.15,
+                                color: PlayNedTokens.textPrimary,
+                                letterSpacing: 0.5,
+                              ),
+                      ),
+
+                      const SizedBox(height: PlayNedTokens.space12),
+
+                      // Supporting Copy
+                      ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 580),
+                        child: Text(
+                          "Board games, word games, strategy, sports, and quick competitive matches — play solo, pass the screen, or invite a friend with 6-character room codes.",
+                          style: PlayNedTokens.bodyMuted.copyWith(
+                            fontSize: isDesktop ? 14 : 12.5,
+                            height: 1.45,
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(width: PlayNedTokens.space10),
-                    Text(
-                      "MODULAR 2D MULTIPLAYER",
-                      style: PlayNedTokens.metadata.copyWith(
-                        color: PlayNedTokens.textSecondary,
-                        fontSize: 10,
+
+                      const SizedBox(height: PlayNedTokens.space24),
+
+                      // CTAs
+                      Wrap(
+                        spacing: PlayNedTokens.space12,
+                        runSpacing: PlayNedTokens.space10,
+                        children: [
+                          PlayNedButton(
+                            label: "EXPLORE GAMES",
+                            icon: Icons.grid_view_rounded,
+                            variant: PlayNedButtonVariant.primary,
+                            onPressed: () => _scrollToKey(_exploreKey),
+                          ),
+                          PlayNedButton(
+                            label: "JOIN A ROOM",
+                            icon: Icons.meeting_room_outlined,
+                            variant: PlayNedButtonVariant.outlined,
+                            onPressed: _showJoinRoom,
+                          ),
+                          PlayNedButton(
+                            label: "CREATE MATCH",
+                            icon: Icons.add_circle_outline,
+                            variant: PlayNedButtonVariant.secondary,
+                            onPressed: _showCreateRoom,
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-
-                const SizedBox(height: PlayNedTokens.space16),
-
-                // Hero Headline
-                Text(
-                  "ONE PLATFORM.\nMANY WAYS TO PLAY.",
-                  style: isDesktop
-                      ? PlayNedTokens.heroDisplay
-                      : GoogleFonts.dmSerifDisplay(
-                          fontSize: 28,
-                          height: 1.15,
-                          color: PlayNedTokens.textPrimary,
-                          letterSpacing: 0.5,
-                        ),
-                ),
-
-                const SizedBox(height: PlayNedTokens.space12),
-
-                // Supporting Copy
-                ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 580),
-                  child: Text(
-                    "Board games, word games, strategy, sports, and quick competitive matches — play solo, pass the screen, or invite a friend with 6-character room codes.",
-                    style: PlayNedTokens.bodyMuted.copyWith(
-                      fontSize: isDesktop ? 14 : 12.5,
-                      height: 1.45,
-                    ),
+                    ],
                   ),
                 ),
 
-                const SizedBox(height: PlayNedTokens.space24),
-
-                // CTAs
-                Wrap(
-                  spacing: PlayNedTokens.space12,
-                  runSpacing: PlayNedTokens.space10,
-                  children: [
-                    PlayNedButton(
-                      label: "EXPLORE GAMES",
-                      icon: Icons.grid_view_rounded,
-                      variant: PlayNedButtonVariant.primary,
-                      onPressed: () => _scrollToKey(_exploreKey),
+                if (isDesktop) ...[
+                  const SizedBox(width: PlayNedTokens.space24),
+                  Container(
+                    width: 140,
+                    height: 140,
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: PlayNedTokens.surfaceElevated,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: PlayNedTokens.brandGold.withOpacity(0.4), width: 1.5),
+                      boxShadow: [
+                        BoxShadow(
+                          color: PlayNedTokens.brandGold.withOpacity(0.18),
+                          blurRadius: 28,
+                          spreadRadius: 4,
+                        ),
+                      ],
                     ),
-                    PlayNedButton(
-                      label: "JOIN A ROOM",
-                      icon: Icons.meeting_room_outlined,
-                      variant: PlayNedButtonVariant.outlined,
-                      onPressed: _showJoinRoom,
+                    child: const Center(
+                      child: PlayNedLogo(
+                        size: 110,
+                        showText: false,
+                      ),
                     ),
-                    PlayNedButton(
-                      label: "CREATE MATCH",
-                      icon: Icons.add_circle_outline,
-                      variant: PlayNedButtonVariant.secondary,
-                      onPressed: _showCreateRoom,
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ],
             ),
           ),
@@ -542,22 +577,7 @@ class _PlatformHomePageState extends ConsumerState<PlatformHomePage> {
             children: [
               Row(
                 children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: PlayNedTokens.brandGold,
-                      borderRadius: BorderRadius.circular(PlayNedTokens.radiusXs),
-                    ),
-                    child: Text(
-                      "PLAYNED",
-                      style: GoogleFonts.inter(
-                        fontSize: 11,
-                        fontWeight: FontWeight.w900,
-                        letterSpacing: 1.5,
-                        color: PlayNedTokens.textInverse,
-                      ),
-                    ),
-                  ),
+                  const PlayNedLogo(size: 22, showText: true, fontSize: 11),
                   const SizedBox(width: PlayNedTokens.space12),
                   Text(
                     "ONE PLATFORM. MANY WAYS TO PLAY.",
