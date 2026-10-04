@@ -23,7 +23,7 @@ class StatChallengePreset {
   });
 }
 
-const List<StatChallengePreset> statPresets = [
+const List<StatChallengePreset> defaultStatPresets = [
   StatChallengePreset(
     key: 'odi_runs',
     title: 'ODI Runs Milestone',
@@ -171,6 +171,20 @@ const List<StatChallengePreset> statPresets = [
     target: 350,
     description: 'Select 5 players whose combined T20 International Wickets come closest to 350 without crossing it.',
   ),
+  StatChallengePreset(
+    key: 't20i_matches',
+    title: 'T20 International Veterans',
+    label: 'T20I Matches',
+    target: 320,
+    description: 'Select 5 players whose combined T20I match appearances come closest to 320 without crossing it.',
+  ),
+  StatChallengePreset(
+    key: 'international_innings',
+    title: 'Crease Battlers Innings',
+    label: 'International Innings',
+    target: 1800,
+    description: 'Select 5 players whose total career innings across all formats come closest to 1,800 without crossing it.',
+  ),
 ];
 
 class StatClashGamePage extends ConsumerStatefulWidget {
@@ -200,6 +214,7 @@ class _StatClashGamePageState extends ConsumerState<StatClashGamePage> {
   int _p1Score = 0;
   int _p2Score = 0;
 
+  late List<StatChallengePreset> _allChallenges;
   int _activeChallengeIdx = 0;
   String _status = 'drafting'; // drafting, round_resolved, finished
   String? _seriesWinner;
@@ -227,14 +242,16 @@ class _StatClashGamePageState extends ConsumerState<StatClashGamePage> {
 
   int _getResponsiveColumns(BuildContext context) {
     final w = MediaQuery.of(context).size.width;
-    if (w >= 960) return 5;
-    if (w >= 600) return 4;
+    if (w >= 1200) return 10;
+    if (w >= 960) return 8;
+    if (w >= 600) return 5;
     return 3;
   }
 
   @override
   void initState() {
     super.initState();
+    _allChallenges = List.from(defaultStatPresets);
     final auth = ref.read(authProvider);
     _p1Name = auth.username ?? "Player 1";
     _p2Name = "Player 2";
@@ -268,7 +285,7 @@ class _StatClashGamePageState extends ConsumerState<StatClashGamePage> {
   }
 
   void _resolveCurrentRound() {
-    final challenge = statPresets[_activeChallengeIdx];
+    final challenge = _allChallenges[_activeChallengeIdx % _allChallenges.length];
     final statKey = challenge.key;
     final target = challenge.target;
 
@@ -360,7 +377,7 @@ class _StatClashGamePageState extends ConsumerState<StatClashGamePage> {
   void _nextRound() {
     setState(() {
       _currentRound += 1;
-      _activeChallengeIdx = (_activeChallengeIdx + 1) % statPresets.length;
+      _activeChallengeIdx = (_activeChallengeIdx + 1) % _allChallenges.length;
       _p1Squad.clear();
       _p2Squad.clear();
       _status = 'drafting';
@@ -383,9 +400,188 @@ class _StatClashGamePageState extends ConsumerState<StatClashGamePage> {
     });
   }
 
+  Future<void> _showCreateCustomChallengeDialog() async {
+    final titleCtrl = TextEditingController();
+    final descCtrl = TextEditingController();
+    final targetCtrl = TextEditingController(text: "1000");
+    String selectedKey = 'odi_runs';
+    String selectedLabel = 'ODI Runs';
+
+    final availableMetrics = [
+      {"key": "odi_runs", "label": "ODI Runs"},
+      {"key": "test_runs", "label": "Test Runs"},
+      {"key": "t20i_runs", "label": "T20I Runs"},
+      {"key": "international_runs", "label": "International Runs"},
+      {"key": "odi_wickets", "label": "ODI Wickets"},
+      {"key": "test_wickets", "label": "Test Wickets"},
+      {"key": "t20i_wickets", "label": "T20I Wickets"},
+      {"key": "international_wickets", "label": "International Wickets"},
+      {"key": "international_centuries", "label": "International Centuries"},
+      {"key": "odi_centuries", "label": "ODI Centuries"},
+      {"key": "test_centuries", "label": "Test Centuries"},
+      {"key": "international_sixes", "label": "International Sixes"},
+      {"key": "international_catches", "label": "International Catches"},
+      {"key": "odi_fifties", "label": "ODI Fifties"},
+      {"key": "test_matches", "label": "Test Matches"},
+      {"key": "odi_matches", "label": "ODI Matches"},
+      {"key": "t20i_matches", "label": "T20I Matches"},
+      {"key": "test_five_wickets", "label": "Test 5-Wicket Hauls"},
+      {"key": "wk_dismissals", "label": "WK Dismissals"},
+      {"key": "wk_stumpings", "label": "WK Stumpings"},
+      {"key": "captaincy_wins", "label": "Captaincy Wins"},
+      {"key": "captaincy_matches", "label": "Captaincy Matches"},
+      {"key": "international_innings", "label": "International Innings"},
+    ];
+
+    await showDialog(
+      context: context,
+      builder: (ctx) {
+        return StatefulBuilder(
+          builder: (dialogCtx, setDialogState) {
+            return AlertDialog(
+              backgroundColor: const Color(0xFF0F2238),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16), side: const BorderSide(color: Color(0xFF3182CE))),
+              title: Row(
+                children: [
+                  const Icon(Icons.tune, color: Color(0xFF63B3ED), size: 22),
+                  const SizedBox(width: 10),
+                  Text("Create Custom Challenge", style: GoogleFonts.dmSerifDisplay(color: const Color(0xFFF1EBDD), fontSize: 20)),
+                ],
+              ),
+              content: SingleChildScrollView(
+                child: SizedBox(
+                  width: 420,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Challenge Name / Title", style: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.bold, color: const Color(0xFF63B3ED))),
+                      const SizedBox(height: 6),
+                      TextField(
+                        controller: titleCtrl,
+                        style: GoogleFonts.inter(fontSize: 13, color: Colors.white),
+                        decoration: InputDecoration(
+                          hintText: "e.g., Master Blasters Sixes Derby",
+                          hintStyle: GoogleFonts.inter(fontSize: 12, color: Colors.white38),
+                          filled: true,
+                          fillColor: const Color(0xFF0A1828),
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: const BorderSide(color: Color(0xFF234468))),
+                        ),
+                      ),
+                      const SizedBox(height: 14),
+                      Text("Target Stat Metric", style: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.bold, color: const Color(0xFF63B3ED))),
+                      const SizedBox(height: 6),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF0A1828),
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: const Color(0xFF234468)),
+                        ),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton<String>(
+                            value: selectedKey,
+                            dropdownColor: const Color(0xFF0A1828),
+                            isExpanded: true,
+                            style: GoogleFonts.inter(fontSize: 13, color: Colors.white),
+                            items: availableMetrics.map((m) {
+                              return DropdownMenuItem<String>(
+                                value: m['key']!,
+                                child: Text(m['label']!),
+                              );
+                            }).toList(),
+                            onChanged: (val) {
+                              if (val != null) {
+                                setDialogState(() {
+                                  selectedKey = val;
+                                  selectedLabel = availableMetrics.firstWhere((m) => m['key'] == val)['label']!;
+                                });
+                              }
+                            },
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 14),
+                      Text("Target Limit Number", style: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.bold, color: const Color(0xFF63B3ED))),
+                      const SizedBox(height: 6),
+                      TextField(
+                        controller: targetCtrl,
+                        keyboardType: TextInputType.number,
+                        style: GoogleFonts.inter(fontSize: 13, color: Colors.white),
+                        decoration: InputDecoration(
+                          hintText: "e.g., 500",
+                          hintStyle: GoogleFonts.inter(fontSize: 12, color: Colors.white38),
+                          filled: true,
+                          fillColor: const Color(0xFF0A1828),
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: const BorderSide(color: Color(0xFF234468))),
+                        ),
+                      ),
+                      const SizedBox(height: 14),
+                      Text("Description / Custom Rule", style: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.bold, color: const Color(0xFF63B3ED))),
+                      const SizedBox(height: 6),
+                      TextField(
+                        controller: descCtrl,
+                        maxLines: 2,
+                        style: GoogleFonts.inter(fontSize: 13, color: Colors.white),
+                        decoration: InputDecoration(
+                          hintText: "e.g., Pick 5 players whose combined sixes are closest to 500 without busting.",
+                          hintStyle: GoogleFonts.inter(fontSize: 12, color: Colors.white38),
+                          filled: true,
+                          fillColor: const Color(0xFF0A1828),
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: const BorderSide(color: Color(0xFF234468))),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(dialogCtx).pop(),
+                  child: const Text("CANCEL", style: TextStyle(color: Colors.white60)),
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF3182CE),
+                    foregroundColor: Colors.white,
+                  ),
+                  onPressed: () {
+                    final title = titleCtrl.text.trim().isEmpty ? "$selectedLabel Custom Challenge" : titleCtrl.text.trim();
+                    final target = int.tryParse(targetCtrl.text.trim()) ?? 1000;
+                    final desc = descCtrl.text.trim().isEmpty
+                        ? "Select 5 players whose combined $selectedLabel come closest to $target without crossing it."
+                        : descCtrl.text.trim();
+
+                    final newPreset = StatChallengePreset(
+                      key: selectedKey,
+                      title: title,
+                      label: selectedLabel,
+                      target: target,
+                      description: desc,
+                    );
+
+                    setState(() {
+                      _allChallenges.add(newPreset);
+                      _activeChallengeIdx = _allChallenges.length - 1;
+                      _p1Squad.clear();
+                      _p2Squad.clear();
+                    });
+
+                    Navigator.of(dialogCtx).pop();
+                  },
+                  child: const Text("ACTIVATE CHALLENGE", style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final challenge = statPresets[_activeChallengeIdx];
+    final challenge = _allChallenges[_activeChallengeIdx % _allChallenges.length];
 
     return Scaffold(
       backgroundColor: const Color(0xFF0C1626),
@@ -430,16 +626,34 @@ class _StatClashGamePageState extends ConsumerState<StatClashGamePage> {
                               "ROUND $_currentRound / $_maxRounds (${_seriesMode.replaceAll('_', ' ').toUpperCase()})",
                               style: GoogleFonts.inter(fontSize: 11, fontWeight: FontWeight.bold, color: const Color(0xFF63B3ED)),
                             ),
-                            Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                              decoration: BoxDecoration(
-                                color: const Color(0xFF1A365D),
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              child: Text(
-                                "$_p1Name $_p1Score — $_p2Score $_p2Name",
-                                style: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.bold, color: const Color(0xFFF1EBDD)),
-                              ),
+                            Row(
+                              children: [
+                                OutlinedButton.icon(
+                                  style: OutlinedButton.styleFrom(
+                                    foregroundColor: const Color(0xFF63B3ED),
+                                    side: const BorderSide(color: Color(0xFF3182CE)),
+                                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                    minimumSize: Size.zero,
+                                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                                  ),
+                                  onPressed: _showCreateCustomChallengeDialog,
+                                  icon: const Icon(Icons.add, size: 14),
+                                  label: Text("CUSTOM QUESTION", style: GoogleFonts.inter(fontSize: 10, fontWeight: FontWeight.bold)),
+                                ),
+                                const SizedBox(width: 10),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFF1A365D),
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                  child: Text(
+                                    "$_p1Name $_p1Score — $_p2Score $_p2Name",
+                                    style: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.bold, color: const Color(0xFFF1EBDD)),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
@@ -470,6 +684,30 @@ class _StatClashGamePageState extends ConsumerState<StatClashGamePage> {
                                   ),
                                 ],
                               ),
+                            ),
+                            const SizedBox(width: 8),
+                            PopupMenuButton<int>(
+                              icon: const Icon(Icons.swap_horiz, color: Color(0xFF63B3ED), size: 22),
+                              tooltip: "Change Challenge Preset",
+                              color: const Color(0xFF0F2238),
+                              onSelected: (idx) {
+                                setState(() {
+                                  _activeChallengeIdx = idx;
+                                  _p1Squad.clear();
+                                  _p2Squad.clear();
+                                });
+                              },
+                              itemBuilder: (ctx) {
+                                return _allChallenges.asMap().entries.map((entry) {
+                                  return PopupMenuItem<int>(
+                                    value: entry.key,
+                                    child: Text(
+                                      entry.value.title,
+                                      style: GoogleFonts.inter(fontSize: 12, color: Colors.white),
+                                    ),
+                                  );
+                                }).toList();
+                              },
                             ),
                           ],
                         ),
@@ -976,15 +1214,15 @@ class _StatClashGamePageState extends ConsumerState<StatClashGamePage> {
           if (isExpanded && players.isNotEmpty) ...[
             const Divider(height: 1, color: Color(0xFF1E3A5F)),
             Padding(
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
               child: GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: _getResponsiveColumns(context),
-                  childAspectRatio: 3.2,
-                  crossAxisSpacing: 6,
-                  mainAxisSpacing: 6,
+                  childAspectRatio: 3.6,
+                  crossAxisSpacing: 4,
+                  mainAxisSpacing: 4,
                 ),
                 itemCount: players.length,
                 itemBuilder: (ctx, idx) {
@@ -1008,25 +1246,9 @@ class _StatClashGamePageState extends ConsumerState<StatClashGamePage> {
                         }
                       });
                     },
-                    borderRadius: BorderRadius.circular(6),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: inP1
-                            ? const Color(0xFF2B6CB0).withOpacity(0.3)
-                            : inP2
-                                ? const Color(0xFFC05621).withOpacity(0.3)
-                                : const Color(0xFF0D1B2D),
-                        borderRadius: BorderRadius.circular(6),
-                        border: Border.all(
-                          color: inP1
-                              ? const Color(0xFF3182CE)
-                              : inP2
-                                  ? const Color(0xFFED8936)
-                                  : const Color(0xFF1E3A5F),
-                          width: (inP1 || inP2) ? 1.4 : 0.8,
-                        ),
-                      ),
+                    borderRadius: BorderRadius.circular(4),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -1034,29 +1256,37 @@ class _StatClashGamePageState extends ConsumerState<StatClashGamePage> {
                             child: Text(
                               p.name,
                               style: GoogleFonts.inter(
-                                fontSize: 11,
+                                fontSize: 9.5,
                                 fontWeight: (inP1 || inP2) ? FontWeight.bold : FontWeight.w500,
                                 color: inP1
                                     ? const Color(0xFF63B3ED)
                                     : inP2
                                         ? const Color(0xFFF6AD55)
-                                        : const Color(0xFFE2E8F0),
+                                        : const Color(0xFFA0AEC0),
                               ),
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                             ),
                           ),
-                          const SizedBox(width: 4),
+                          const SizedBox(width: 3),
                           Container(
-                            width: 6,
-                            height: 6,
+                            width: 7,
+                            height: 7,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: inP1
                                   ? const Color(0xFF3182CE)
                                   : inP2
                                       ? const Color(0xFFED8936)
-                                      : p.avatarColor,
+                                      : Colors.transparent,
+                              border: Border.all(
+                                color: inP1
+                                    ? const Color(0xFF3182CE)
+                                    : inP2
+                                        ? const Color(0xFFED8936)
+                                        : const Color(0xFF4A5568),
+                                width: 1,
+                              ),
                             ),
                           ),
                         ],

@@ -31,7 +31,7 @@ class CricketDraftEngine:
         return {
             "mode_id": "draft",
             "status": "drafting", # drafting, draft_complete, match_simulated
-            "budget_limit": 100,
+            "budget_limit": 200,
             "player_ids": [p1, p2],
             "player_names": player_names,
             "draft_order": draft_order,
@@ -48,8 +48,8 @@ class CricketDraftEngine:
                 p2: {"opening_batter": None, "finisher": None, "all_rounder": None, "wicket_keeper": None, "bowler": None}
             },
             "remaining_budget": {
-                p1: 100,
-                p2: 100
+                p1: 200,
+                p2: 200
             },
             "squad_roles_count": {
                 p1: {"Batter": 0, "All-Rounder": 0, "Bowler": 0, "Wicket-Keeper": 0},

@@ -126,8 +126,8 @@ def test_cricket_draft_engine():
     engine = CricketDraftEngine()
     state = engine.create_initial_state(["p1", "p2"], {"p1": "Alice", "p2": "Bob"})
     assert state["status"] == "drafting"
-    assert state["remaining_budget"]["p1"] == 100
-    assert state["remaining_budget"]["p2"] == 100
+    assert state["remaining_budget"]["p1"] == 200
+    assert state["remaining_budget"]["p2"] == 200
 
     # P1 picks Virat Kohli
     vk = get_cricket_player_by_id("virat_kohli")
@@ -136,7 +136,7 @@ def test_cricket_draft_engine():
     valid, err = engine.validate_move(state, "p1", move1)
     assert valid, err
     state = engine.apply_move(state, "p1", move1)
-    assert state["remaining_budget"]["p1"] == 100 - cost_vk
+    assert state["remaining_budget"]["p1"] == 200 - cost_vk
     assert state["squad_roles_count"]["p1"]["Batter"] == 1
 
     # P2 picks AB de Villiers
@@ -146,7 +146,7 @@ def test_cricket_draft_engine():
     valid, err = engine.validate_move(state, "p2", move2)
     assert valid, err
     state = engine.apply_move(state, "p2", move2)
-    assert state["remaining_budget"]["p2"] == 100 - cost_ab
+    assert state["remaining_budget"]["p2"] == 200 - cost_ab
 
     # Check budget enforcement
     state["remaining_budget"]["p1"] = 10

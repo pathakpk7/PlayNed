@@ -161,7 +161,7 @@ class _CricketDraftGamePageState extends ConsumerState<CricketDraftGamePage> {
     'p1': {for (final s in squadSlotDefs) s.key: null},
     'p2': {for (final s in squadSlotDefs) s.key: null},
   };
-  final Map<String, int> _budget = {'p1': 100, 'p2': 100};
+  final Map<String, int> _budget = {'p1': 200, 'p2': 200};
 
   String _filterRole = 'All';
   String _searchQuery = '';
@@ -174,11 +174,12 @@ class _CricketDraftGamePageState extends ConsumerState<CricketDraftGamePage> {
 
   int _getResponsiveColumns(BuildContext context) {
     final w = MediaQuery.of(context).size.width;
-    if (w >= 960) return 5;
-    if (w >= 600) return 4;
+    if (w >= 1200) return 10;
+    if (w >= 960) return 8;
+    if (w >= 600) return 5;
     return 3;
   }
-  String _lastActionMsg = "Draft started! Budget: 100 credits. Pick players and assign them into 5 squad tactical sections.";
+  String _lastActionMsg = "Draft started! Budget: 200 credits. Pick players and assign them into 5 squad tactical sections.";
 
   // Ball-by-Ball Live Simulator State
   int _liveInnings = 1; // 1 or 2
@@ -775,8 +776,8 @@ class _CricketDraftGamePageState extends ConsumerState<CricketDraftGamePage> {
       _drafted['p2']!.clear();
       _squadSlots['p1'] = {for (final s in squadSlotDefs) s.key: null};
       _squadSlots['p2'] = {for (final s in squadSlotDefs) s.key: null};
-      _budget['p1'] = 100;
-      _budget['p2'] = 100;
+      _budget['p1'] = 200;
+      _budget['p2'] = 200;
       _lastActionMsg = "Draft reset! Pick players for each squad.";
       _liveInnings = 1;
       _currentBallInInnings = 0;
@@ -1171,15 +1172,15 @@ class _CricketDraftGamePageState extends ConsumerState<CricketDraftGamePage> {
           if (isExpanded && players.isNotEmpty) ...[
             const Divider(height: 1, color: Color(0xFF1E3A2B)),
             Padding(
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
               child: GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: _getResponsiveColumns(context),
-                  childAspectRatio: 3.2,
-                  crossAxisSpacing: 6,
-                  mainAxisSpacing: 6,
+                  childAspectRatio: 3.6,
+                  crossAxisSpacing: 4,
+                  mainAxisSpacing: 4,
                 ),
                 itemCount: players.length,
                 itemBuilder: (ctx, idx) {
@@ -1188,17 +1189,9 @@ class _CricketDraftGamePageState extends ConsumerState<CricketDraftGamePage> {
 
                   return InkWell(
                     onTap: canPick ? () => _promptSlotAssignmentAndDraft(p) : null,
-                    borderRadius: BorderRadius.circular(6),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: canPick ? const Color(0xFF132B20) : const Color(0xFF101B15),
-                        borderRadius: BorderRadius.circular(6),
-                        border: Border.all(
-                          color: canPick ? const Color(0xFF28543A) : const Color(0xFF182A20),
-                          width: 0.8,
-                        ),
-                      ),
+                    borderRadius: BorderRadius.circular(4),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -1206,21 +1199,25 @@ class _CricketDraftGamePageState extends ConsumerState<CricketDraftGamePage> {
                             child: Text(
                               "${p.name} (${p.draftCost}p)",
                               style: GoogleFonts.inter(
-                                fontSize: 11,
+                                fontSize: 9.5,
                                 fontWeight: canPick ? FontWeight.w600 : FontWeight.normal,
-                                color: canPick ? const Color(0xFFF1EBDD) : const Color(0xFF6B7C72),
+                                color: canPick ? const Color(0xFFF1EBDD) : const Color(0xFF5A6A60),
                               ),
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                             ),
                           ),
-                          const SizedBox(width: 4),
+                          const SizedBox(width: 3),
                           Container(
-                            width: 6,
-                            height: 6,
+                            width: 7,
+                            height: 7,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: canPick ? p.avatarColor : const Color(0xFF4A5568),
+                              color: canPick ? const Color(0xFF48BB78) : Colors.transparent,
+                              border: Border.all(
+                                color: canPick ? const Color(0xFF48BB78) : const Color(0xFF4A5568),
+                                width: 1,
+                              ),
                             ),
                           ),
                         ],

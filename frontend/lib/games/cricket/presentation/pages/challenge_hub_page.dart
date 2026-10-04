@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -333,6 +334,9 @@ class _ChallengeHubPageState extends ConsumerState<ChallengeHubPage> with Single
   bool? _sofAnsweredCorrect;
   List<int> _sofOrder = [];
   int _sofOrderPos = 0;
+  Timer? _sofTimer;
+  int _sofSecondsLeft = 20;
+  bool _sofTimedOut = false;
 
   final List<Map<String, dynamic>> _sofQuestions = [
     {
@@ -805,6 +809,55 @@ class _ChallengeHubPageState extends ConsumerState<ChallengeHubPage> with Single
     _sofOrder = List<int>.generate(_sofQuestions.length, (i) => i)..shuffle(rand);
     _sofOrderPos = 0;
     _sofIdx = _sofOrder[_sofOrderPos];
+    _startSofTimer();
+  }
+
+  void _startSofTimer() {
+    _sofTimer?.cancel();
+    _sofSecondsLeft = 20;
+    _sofTimedOut = false;
+    _sofTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (!mounted) {
+        timer.cancel();
+        return;
+      }
+      if (_sofAnsweredCorrect != null) {
+        timer.cancel();
+        return;
+      }
+      if (_sofSecondsLeft > 1) {
+        setState(() {
+          _sofSecondsLeft--;
+        });
+      } else {
+        timer.cancel();
+        setState(() {
+          _sofSecondsLeft = 0;
+          _sofTimedOut = true;
+          _sofAnsweredCorrect = false;
+          _streak = 0;
+        });
+        _recordChallengeActivity(0, false);
+      }
+    });
+  }
+
+  void _answerStatOrFiction(bool guessedTrue) {
+    if (_sofAnsweredCorrect != null) return;
+    _sofTimer?.cancel();
+    final q = _sofQuestions[_sofIdx % _sofQuestions.length];
+    final isRight = (guessedTrue == (q['is_true'] == true));
+    setState(() {
+      _sofAnsweredCorrect = isRight;
+      _sofTimedOut = false;
+      if (isRight) {
+        _score += 50;
+        _streak += 1;
+      } else {
+        _streak = 0;
+      }
+    });
+    _recordChallengeActivity(isRight ? 50 : 0, isRight);
   }
 
   void _nextStatOrFiction() {
@@ -813,12 +866,14 @@ class _ChallengeHubPageState extends ConsumerState<ChallengeHubPage> with Single
       _initStatOrFictionOrder();
     } else {
       _sofIdx = _sofOrder[_sofOrderPos];
+      _sofAnsweredCorrect = null;
+      _startSofTimer();
     }
-    _sofAnsweredCorrect = null;
   }
 
   @override
   void dispose() {
+    _sofTimer?.cancel();
     _tabController.dispose();
     super.dispose();
   }
@@ -1475,13 +1530,57 @@ class _ChallengeHubPageState extends ConsumerState<ChallengeHubPage> with Single
   // --- TAB 3: Stat or Fiction ---
   Widget _buildStatFictionView() {
     final q = _sofQuestions[_sofIdx % _sofQuestions.length];
+    final timerColor = _sofSecondsLeft > 10
+        ? const Color(0xFF48BB78)
+        : (_sofSecondsLeft > 5 ? const Color(0xFFED8936) : const Color(0xFFE53E3E));
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("STAT OR FICTION? (Question ${_sofIdx + 1} of ${_sofQuestions.length})", style: GoogleFonts.inter(fontSize: 11, fontWeight: FontWeight.bold, color: const Color(0xFFE5A93C))),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "STAT OR FICTION? (Question ${_sofOrderPos + 1} of ${_sofQuestions.length})",
+                style: GoogleFonts.inter(fontSize: 11, fontWeight: FontWeight.bold, color: const Color(0xFFE5A93C)),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  color: timerColor.withOpacity(0.15),
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: timerColor, width: 1.2),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.timer, size: 14, color: timerColor),
+                    const SizedBox(width: 5),
+                    Text(
+                      "${_sofSecondsLeft}s",
+                      style: GoogleFonts.inter(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: timerColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(4),
+            child: LinearProgressIndicator(
+              value: (_sofSecondsLeft / 20.0).clamp(0.0, 1.0),
+              backgroundColor: const Color(0xFF1A3325),
+              valueColor: AlwaysStoppedAnimation<Color>(timerColor),
+              minHeight: 4,
+            ),
+          ),
           const SizedBox(height: 16),
           Container(
             width: double.infinity,
@@ -1502,19 +1601,7 @@ class _ChallengeHubPageState extends ConsumerState<ChallengeHubPage> with Single
               Expanded(
                 child: ElevatedButton(
                   onPressed: _sofAnsweredCorrect == null
-                      ? () {
-                          final isRight = (q['is_true'] == true);
-                          setState(() {
-                            _sofAnsweredCorrect = isRight;
-                            if (isRight) {
-                              _score += 50;
-                              _streak += 1;
-                            } else {
-                              _streak = 0;
-                            }
-                          });
-                          _recordChallengeActivity(isRight ? 50 : 0, isRight);
-                        }
+                      ? () => _answerStatOrFiction(true)
                       : null,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF38A169),
@@ -1528,19 +1615,7 @@ class _ChallengeHubPageState extends ConsumerState<ChallengeHubPage> with Single
               Expanded(
                 child: ElevatedButton(
                   onPressed: _sofAnsweredCorrect == null
-                      ? () {
-                          final isRight = (q['is_true'] == false);
-                          setState(() {
-                            _sofAnsweredCorrect = isRight;
-                            if (isRight) {
-                              _score += 50;
-                              _streak += 1;
-                            } else {
-                              _streak = 0;
-                            }
-                          });
-                          _recordChallengeActivity(isRight ? 50 : 0, isRight);
-                        }
+                      ? () => _answerStatOrFiction(false)
                       : null,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFE53E3E),
@@ -1563,28 +1638,38 @@ class _ChallengeHubPageState extends ConsumerState<ChallengeHubPage> with Single
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    _sofAnsweredCorrect! ? "CORRECT!" : "INCORRECT!",
-                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white),
+                  Row(
+                    children: [
+                      Icon(
+                        _sofAnsweredCorrect! ? Icons.check_circle : (_sofTimedOut ? Icons.alarm_off : Icons.cancel),
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        _sofAnsweredCorrect! ? "CORRECT!" : (_sofTimedOut ? "TIME'S UP! (0s)" : "INCORRECT!"),
+                        style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 6),
+                  const SizedBox(height: 8),
                   Text(
                     q['explanation'] as String,
-                    style: GoogleFonts.inter(fontSize: 12, color: Colors.white70),
+                    style: GoogleFonts.inter(fontSize: 12, color: Colors.white70, height: 1.4),
                   ),
                   const SizedBox(height: 14),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            _nextStatOrFiction();
-                          });
-                        },
-                        style: ElevatedButton.styleFrom(backgroundColor: Colors.white, foregroundColor: Colors.black),
-                        child: const Text("NEXT STATEMENT", style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
-                      ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          _nextStatOrFiction();
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.white, foregroundColor: Colors.black),
+                      child: const Text("NEXT STATEMENT", style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
                     ),
+                  ),
                 ],
               ),
             ),

@@ -48,8 +48,9 @@ class _SuperOverGamePageState extends ConsumerState<SuperOverGamePage> {
 
   int _getResponsiveColumns(BuildContext context) {
     final w = MediaQuery.of(context).size.width;
-    if (w >= 960) return 5;
-    if (w >= 600) return 4;
+    if (w >= 1200) return 10;
+    if (w >= 960) return 8;
+    if (w >= 600) return 5;
     return 3;
   }
 
@@ -885,15 +886,15 @@ class _SuperOverGamePageState extends ConsumerState<SuperOverGamePage> {
             ),
             const SizedBox(height: 8),
 
-            // Responsive Batter Grid (5 in laptop, 4 in tablet, 3 in mobile)
+            // Responsive Batter Grid (10 in desktop, 8 in tablet, 5 in medium, 3 in mobile)
             GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: _getResponsiveColumns(context),
-                childAspectRatio: 3.2,
-                crossAxisSpacing: 6,
-                mainAxisSpacing: 6,
+                childAspectRatio: 3.6,
+                crossAxisSpacing: 4,
+                mainAxisSpacing: 4,
               ),
               itemCount: _getEligibleBatters().length,
               itemBuilder: (ctx, idx) {
@@ -910,17 +911,9 @@ class _SuperOverGamePageState extends ConsumerState<SuperOverGamePage> {
                       }
                     });
                   },
-                  borderRadius: BorderRadius.circular(6),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: isSel ? accentColor.withOpacity(0.25) : const Color(0xFF13241B),
-                      borderRadius: BorderRadius.circular(6),
-                      border: Border.all(
-                        color: isSel ? accentColor : const Color(0xFF1E3A2B),
-                        width: isSel ? 1.4 : 0.8,
-                      ),
-                    ),
+                  borderRadius: BorderRadius.circular(4),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -928,21 +921,25 @@ class _SuperOverGamePageState extends ConsumerState<SuperOverGamePage> {
                           child: Text(
                             p.name,
                             style: GoogleFonts.inter(
-                              fontSize: 11,
+                              fontSize: 9.5,
                               fontWeight: isSel ? FontWeight.bold : FontWeight.w500,
-                              color: isSel ? const Color(0xFFF1EBDD) : const Color(0xFFA9A396),
+                              color: isSel ? accentColor : const Color(0xFFA9A396),
                             ),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),
                         ),
-                        const SizedBox(width: 4),
+                        const SizedBox(width: 3),
                         Container(
-                          width: 6,
-                          height: 6,
+                          width: 7,
+                          height: 7,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: isSel ? accentColor : p.avatarColor,
+                            color: isSel ? accentColor : Colors.transparent,
+                            border: Border.all(
+                              color: isSel ? accentColor : const Color(0xFF4A5568),
+                              width: 1,
+                            ),
                           ),
                         ),
                       ],
@@ -1051,15 +1048,15 @@ class _SuperOverGamePageState extends ConsumerState<SuperOverGamePage> {
             ),
             const SizedBox(height: 8),
 
-            // Responsive Bowler Grid (5 in laptop, 4 in tablet, 3 in mobile)
+            // Responsive Bowler Grid (10 in desktop, 8 in tablet, 5 in medium, 3 in mobile)
             GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: _getResponsiveColumns(context),
-                childAspectRatio: 3.2,
-                crossAxisSpacing: 6,
-                mainAxisSpacing: 6,
+                childAspectRatio: 3.6,
+                crossAxisSpacing: 4,
+                mainAxisSpacing: 4,
               ),
               itemCount: _getEligibleBowlers().length,
               itemBuilder: (ctx, idx) {
@@ -1072,17 +1069,9 @@ class _SuperOverGamePageState extends ConsumerState<SuperOverGamePage> {
                       _selectedBowlers[playerId] = isSel ? null : p.id;
                     });
                   },
-                  borderRadius: BorderRadius.circular(6),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: isSel ? const Color(0xFFE5A93C).withOpacity(0.25) : const Color(0xFF13241B),
-                      borderRadius: BorderRadius.circular(6),
-                      border: Border.all(
-                        color: isSel ? const Color(0xFFE5A93C) : const Color(0xFF1E3A2B),
-                        width: isSel ? 1.4 : 0.8,
-                      ),
-                    ),
+                  borderRadius: BorderRadius.circular(4),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -1090,7 +1079,7 @@ class _SuperOverGamePageState extends ConsumerState<SuperOverGamePage> {
                           child: Text(
                             p.name,
                             style: GoogleFonts.inter(
-                              fontSize: 11,
+                              fontSize: 9.5,
                               fontWeight: isSel ? FontWeight.bold : FontWeight.w500,
                               color: isSel ? const Color(0xFFE5A93C) : const Color(0xFFA9A396),
                             ),
@@ -1098,13 +1087,17 @@ class _SuperOverGamePageState extends ConsumerState<SuperOverGamePage> {
                             maxLines: 1,
                           ),
                         ),
-                        const SizedBox(width: 4),
+                        const SizedBox(width: 3),
                         Container(
-                          width: 6,
-                          height: 6,
+                          width: 7,
+                          height: 7,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: isSel ? const Color(0xFFE5A93C) : p.avatarColor,
+                            color: isSel ? const Color(0xFFE5A93C) : Colors.transparent,
+                            border: Border.all(
+                              color: isSel ? const Color(0xFFE5A93C) : const Color(0xFF4A5568),
+                              width: 1,
+                            ),
                           ),
                         ),
                       ],
