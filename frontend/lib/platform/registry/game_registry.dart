@@ -173,6 +173,30 @@ class PlayNedGameRegistry {
         'Victory Condition: When neither player can move or the board is filled, the player with the most discs wins.',
       ],
     ),
+    const GameMetadata(
+      id: 'ultimate_tic_tac_toe',
+      name: 'Ultimate Tic-Tac-Toe',
+      tagline: 'Tic-Tac-Toe, but every move decides where your opponent plays next.',
+      description:
+          'The recursive strategy masterwork. One 3x3 macro board containing 9 micro Tic-Tac-Toe boards. Each micro-cell you choose forces your opponent to play their next turn inside the corresponding micro-board. Win small boards to claim macro cells, and connect 3 macro boards in a row to win the ultimate match!',
+      category: 'Strategy',
+      minPlayers: 2,
+      maxPlayers: 2,
+      supportsLocal: true,
+      supportsOnline: true,
+      supportsTeams: false,
+      estimatedDurationMinutes: 10,
+      accentColor: Color(0xFFF59E0B),
+      backgroundColor: Color(0xFF1E170C),
+      icon: Icons.grid_3x3,
+      rulesSummary: [
+        'Macro Board: The game consists of a 3x3 macro grid of 9 smaller 3x3 Tic-Tac-Toe micro boards (81 cells total).',
+        'Target Board Routing: The cell chosen within any micro board dictates the exact micro board the next player must play in (e.g. bottom-right cell sends opponent to bottom-right micro board).',
+        'Free Move Rule: If you are sent to a micro board that has already been won or filled, you receive a Free Move and may play in ANY open micro board.',
+        'Micro Victory: Form 3-in-a-row (horizontal, vertical, or diagonal) inside any micro board to claim that entire board with your symbol.',
+        'Ultimate Victory: Claim 3 micro boards in a row on the macro grid to triumph and win the match!',
+      ],
+    ),
   ];
 
   static GameMetadata? getGame(String id) {

@@ -53,6 +53,9 @@ class GameCardVisual extends StatelessWidget {
       case 'reversi':
       case 'othello':
         return _ReversiVisual(accentColor: accentColor, isHovered: isHovered);
+      case 'ultimate_tic_tac_toe':
+      case 'ultimate-tic-tac-toe':
+        return _UltimateTicTacToeVisual(accentColor: accentColor, isHovered: isHovered);
       default:
         return Center(
           child: Icon(Icons.sports_esports, size: 36, color: accentColor.withOpacity(0.5)),
@@ -636,6 +639,134 @@ class _ReversiVisual extends StatelessWidget {
               const SizedBox(height: 6),
               Text("SANDWICH & FLIP", style: PlayNedTokens.metadata.copyWith(fontSize: 7.5, color: accentColor)),
               Text("CORNER CONTROL", style: PlayNedTokens.metadata.copyWith(fontSize: 7.5, color: PlayNedTokens.brandGold)),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// 8. Ultimate Tic-Tac-Toe Card Visual: 3x3 Macro Board with mini micro-grids and glowing X/O
+class _UltimateTicTacToeVisual extends StatelessWidget {
+  final Color accentColor;
+  final bool isHovered;
+
+  const _UltimateTicTacToeVisual({required this.accentColor, required this.isHovered});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // 3x3 Macro Board preview
+          Container(
+            width: 80,
+            height: 80,
+            padding: const EdgeInsets.all(4),
+            decoration: BoxDecoration(
+              color: const Color(0xFF141008),
+              borderRadius: BorderRadius.circular(6),
+              border: Border.all(color: accentColor.withOpacity(isHovered ? 0.8 : 0.4), width: 1.5),
+              boxShadow: [
+                if (isHovered)
+                  BoxShadow(
+                    color: accentColor.withOpacity(0.25),
+                    blurRadius: 10,
+                    spreadRadius: 1,
+                  ),
+              ],
+            ),
+            child: GridView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: 9,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 3,
+                mainAxisSpacing: 3,
+              ),
+              itemBuilder: (context, i) {
+                final isCenter = i == 4;
+                final isP1Won = i == 0 || i == 8 || (isHovered && i == 4);
+                final isP2Won = i == 2;
+
+                return Container(
+                  decoration: BoxDecoration(
+                    color: isCenter
+                        ? accentColor.withOpacity(0.18)
+                        : const Color(0xFF1D170D),
+                    borderRadius: BorderRadius.circular(2),
+                    border: Border.all(
+                      color: isCenter
+                          ? accentColor
+                          : const Color(0xFF332615),
+                      width: isCenter ? 1 : 0.5,
+                    ),
+                  ),
+                  child: Center(
+                    child: isP1Won
+                        ? Text(
+                            "X",
+                            style: GoogleFonts.dmSerifDisplay(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                              color: const Color(0xFFF59E0B),
+                            ),
+                          )
+                        : isP2Won
+                            ? Text(
+                                "O",
+                                style: GoogleFonts.dmSerifDisplay(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold,
+                                  color: const Color(0xFF3B82F6),
+                                ),
+                              )
+                            : Container(
+                                width: 3,
+                                height: 3,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFF4A3820),
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                  ),
+                );
+              },
+            ),
+          ),
+          const SizedBox(width: 14),
+          // Tag & Tactics Pill
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                decoration: BoxDecoration(
+                  color: PlayNedTokens.surfaceElevated,
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border.all(color: PlayNedTokens.border),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text("X", style: GoogleFonts.dmSerifDisplay(fontSize: 10, fontWeight: FontWeight.bold, color: const Color(0xFFF59E0B))),
+                    const SizedBox(width: 4),
+                    Text(isHovered ? "3" : "2", style: GoogleFonts.inter(fontSize: 10, fontWeight: FontWeight.bold, color: PlayNedTokens.textPrimary)),
+                    const SizedBox(width: 6),
+                    Text("vs", style: GoogleFonts.inter(fontSize: 9, color: PlayNedTokens.textMuted)),
+                    const SizedBox(width: 6),
+                    Text("O", style: GoogleFonts.dmSerifDisplay(fontSize: 10, fontWeight: FontWeight.bold, color: const Color(0xFF3B82F6))),
+                    const SizedBox(width: 4),
+                    Text("1", style: GoogleFonts.inter(fontSize: 10, fontWeight: FontWeight.bold, color: PlayNedTokens.textPrimary)),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 6),
+              Text("RECURSIVE STRATEGY", style: PlayNedTokens.metadata.copyWith(fontSize: 7.5, color: accentColor)),
+              Text("TARGET ROUTING", style: PlayNedTokens.metadata.copyWith(fontSize: 7.5, color: PlayNedTokens.brandGold)),
             ],
           ),
         ],

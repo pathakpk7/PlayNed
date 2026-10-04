@@ -33,6 +33,7 @@ class PlayNedTokens {
   static const Color accentShutTheBox = Color(0xFFE5A93C); // Warm Bronze / Amber
   static const Color accentCricket = Color(0xFF22C55E);  // Deep Field Green
   static const Color accentReversi = Color(0xFF10B981);  // Tactile Emerald Green
+  static const Color accentUltimateTicTacToe = Color(0xFFF59E0B); // Amber Orange Gold
 
   static Color getGameAccent(String gameId) {
     switch (gameId.toLowerCase()) {
@@ -51,6 +52,9 @@ class PlayNedTokens {
       case 'reversi':
       case 'othello':
         return accentReversi;
+      case 'ultimate_tic_tac_toe':
+      case 'ultimate-tic-tac-toe':
+        return accentUltimateTicTacToe;
       default:
         return brandGold;
     }

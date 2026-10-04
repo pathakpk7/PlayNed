@@ -6,6 +6,7 @@ import '../../games/dots_and_boxes/presentation/pages/dots_and_boxes_game_page.d
 import '../../games/quoridor/presentation/pages/quoridor_game_page.dart';
 import '../../games/pentago/presentation/pages/pentago_game_page.dart';
 import '../../games/shut_the_box/presentation/pages/shut_the_box_game_page.dart';
+import '../../games/ultimate_tic_tac_toe/presentation/pages/ultimate_tic_tac_toe_game_page.dart';
 import '../../games/cricket/presentation/pages/cricket_hub_page.dart';
 import '../../games/cricket/presentation/pages/super_over_game_page.dart';
 import '../../games/cricket/presentation/pages/stat_clash_game_page.dart';
@@ -94,6 +95,32 @@ final GoRouter appRouter = GoRouter(
         final room = state.uri.queryParameters['room'];
         final pid = state.uri.queryParameters['pid'];
         return ShutTheBoxGamePage(
+          mode: mode,
+          roomCode: room,
+          localPlayerId: pid,
+        );
+      },
+    ),
+    GoRoute(
+      path: '/games/ultimate_tic_tac_toe/play',
+      builder: (context, state) {
+        final mode = state.uri.queryParameters['mode'] ?? 'online';
+        final room = state.uri.queryParameters['room'];
+        final pid = state.uri.queryParameters['pid'];
+        return UltimateTicTacToeGamePage(
+          mode: mode,
+          roomCode: room,
+          localPlayerId: pid,
+        );
+      },
+    ),
+    GoRoute(
+      path: '/games/ultimate-tic-tac-toe/play',
+      builder: (context, state) {
+        final mode = state.uri.queryParameters['mode'] ?? 'online';
+        final room = state.uri.queryParameters['room'];
+        final pid = state.uri.queryParameters['pid'];
+        return UltimateTicTacToeGamePage(
           mode: mode,
           roomCode: room,
           localPlayerId: pid,

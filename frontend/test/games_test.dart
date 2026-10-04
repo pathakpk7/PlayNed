@@ -3,9 +3,9 @@ import 'package:hangman_reimagined/platform/registry/game_registry.dart';
 
 void main() {
   group('PlayNed Game Registry Tests', () {
-    test('All 7 launch games are registered with complete metadata', () {
+    test('All 8 launch games are registered with complete metadata', () {
       final games = PlayNedGameRegistry.allGames;
-      expect(games.length, 7);
+      expect(games.length, 8);
 
       final hangman = PlayNedGameRegistry.getGame('hangman');
       expect(hangman, isNotNull);
@@ -45,6 +45,13 @@ void main() {
       expect(reversi.category, 'Strategy');
       expect(reversi.minPlayers, 1);
       expect(reversi.maxPlayers, 2);
+
+      final uttt = PlayNedGameRegistry.getGame('ultimate_tic_tac_toe');
+      expect(uttt, isNotNull);
+      expect(uttt!.name, 'Ultimate Tic-Tac-Toe');
+      expect(uttt.category, 'Strategy');
+      expect(uttt.minPlayers, 2);
+      expect(uttt.maxPlayers, 2);
     });
   });
 }

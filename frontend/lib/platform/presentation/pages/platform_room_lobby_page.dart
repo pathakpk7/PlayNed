@@ -155,6 +155,10 @@ class _PlatformRoomLobbyPageState extends ConsumerState<PlatformRoomLobbyPage> {
       context.go('/games/shut_the_box/play?room=${room.roomCode}&pid=${_getLocalPlayerId()}');
     } else if (gameId == 'cricket') {
       context.go('/games/cricket/play?room=${room.roomCode}&pid=${_getLocalPlayerId()}');
+    } else if (gameId == 'ultimate_tic_tac_toe') {
+      context.go('/games/ultimate_tic_tac_toe/play?room=${room.roomCode}&pid=${_getLocalPlayerId()}');
+    } else if (gameId == 'reversi') {
+      context.go('/games/reversi/play?mode=online&room=${room.roomCode}&pid=${_getLocalPlayerId()}');
     }
   }
 
