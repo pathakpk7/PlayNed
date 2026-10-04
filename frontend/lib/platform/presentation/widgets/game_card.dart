@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../models/game_model.dart';
+import 'package:hangman_reimagined/platform/theme/playned_design_tokens.dart';
+import 'game_card_visuals.dart';
+import 'playned_components.dart';
 
-class PlayNedGameCard extends StatelessWidget {
+/// Modernized Tactile 2D Game Card for PlayNed
+class PlayNedGameCard extends StatefulWidget {
   final GameMetadata game;
   final VoidCallback? onPlayPressed;
 
@@ -14,170 +18,169 @@ class PlayNedGameCard extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: game.backgroundColor,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: game.accentColor.withOpacity(0.35),
-          width: 1.5,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.3),
-            blurRadius: 8,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(10),
-        child: Stack(
-          children: [
-            // Background Artwork Graphic / Watermark
-            Positioned(
-              right: -14,
-              bottom: -14,
-              child: Icon(
-                game.icon,
-                size: 90,
-                color: game.accentColor.withOpacity(0.08),
-              ),
-            ),
+  State<PlayNedGameCard> createState() => _PlayNedGameCardState();
+}
 
-            // Card Body
-            InkWell(
-              borderRadius: BorderRadius.circular(10),
-              onTap: () => context.push('/games/${game.id}'),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // Top Row: Category Badge & Player Count
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                          decoration: BoxDecoration(
-                            color: game.accentColor.withOpacity(0.15),
-                            borderRadius: BorderRadius.circular(4),
-                            border: Border.all(
-                              color: game.accentColor.withOpacity(0.4),
-                              width: 0.8,
+class _PlayNedGameCardState extends State<PlayNedGameCard> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final game = widget.game;
+    final accent = game.accentColor;
+
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: AnimatedContainer(
+        duration: PlayNedTokens.animFast,
+        curve: PlayNedTokens.animCurve,
+        decoration: BoxDecoration(
+          color: _isHovered ? PlayNedTokens.surfaceElevated : PlayNedTokens.surface,
+          borderRadius: BorderRadius.circular(PlayNedTokens.radiusMd),
+          border: Border.all(
+            color: _isHovered ? accent.withOpacity(0.6) : PlayNedTokens.border,
+            width: _isHovered ? 1.5 : 1.0,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: _isHovered
+                  ? accent.withOpacity(0.18)
+                  : Colors.black.withOpacity(0.25),
+              blurRadius: _isHovered ? 16 : 8,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(PlayNedTokens.radiusMd),
+            onTap: widget.onPlayPressed ?? () => context.push('/games/${game.id}'),
+            child: Padding(
+              padding: const EdgeInsets.all(PlayNedTokens.space16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // 1. Top Metadata Row: Category & Players
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GameCategoryBadge(
+                        category: game.category,
+                        accentColor: accent,
+                      ),
+                      PlayerCountBadge(
+                        minPlayers: game.minPlayers,
+                        maxPlayers: game.maxPlayers,
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: PlayNedTokens.space12),
+
+                  // 2. Tactile 2D Game Visual Graphic
+                  GameCardVisual(
+                    gameId: game.id,
+                    accentColor: accent,
+                    isHovered: _isHovered,
+                  ),
+
+                  const SizedBox(height: PlayNedTokens.space12),
+
+                  // 3. Game Title & Short Description
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        game.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.dmSerifDisplay(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: PlayNedTokens.textPrimary,
+                          letterSpacing: 0.3,
+                        ),
+                      ),
+                      const SizedBox(height: PlayNedTokens.space4),
+                      Text(
+                        game.tagline,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.inter(
+                          fontSize: 12,
+                          color: PlayNedTokens.textSecondary,
+                          height: 1.35,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: PlayNedTokens.space14),
+
+                  // 4. Footer Row: Mode/Time & Action Button
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          DurationBadge(minutes: game.estimatedDurationMinutes),
+                          const SizedBox(width: PlayNedTokens.space8),
+                          Text(
+                            "•",
+                            style: TextStyle(color: PlayNedTokens.textMuted, fontSize: 10),
+                          ),
+                          const SizedBox(width: PlayNedTokens.space8),
+                          Text(
+                            "LOCAL / ONLINE",
+                            style: PlayNedTokens.metadata.copyWith(
+                              fontSize: 9,
+                              color: PlayNedTokens.textMuted,
                             ),
                           ),
-                          child: Text(
-                            game.category.toUpperCase(),
-                            style: GoogleFonts.inter(
-                              fontSize: 9,
-                              fontWeight: FontWeight.w700,
-                              letterSpacing: 0.8,
-                              color: game.accentColor,
-                            ),
+                        ],
+                      ),
+                      AnimatedContainer(
+                        duration: PlayNedTokens.animMicro,
+                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+                        decoration: BoxDecoration(
+                          color: _isHovered ? accent : accent.withOpacity(0.18),
+                          borderRadius: BorderRadius.circular(PlayNedTokens.radiusSm),
+                          border: Border.all(
+                            color: accent,
+                            width: 1.0,
                           ),
                         ),
-                        Row(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(
-                              game.minPlayers == 1 ? Icons.person_outline : Icons.group_outlined,
-                              size: 13,
-                              color: const Color(0xFFA9A396),
+                            Text(
+                              "PLAY",
+                              style: GoogleFonts.inter(
+                                fontSize: 11,
+                                fontWeight: FontWeight.w800,
+                                letterSpacing: 0.8,
+                                color: _isHovered ? PlayNedTokens.textInverse : accent,
+                              ),
                             ),
                             const SizedBox(width: 4),
-                            Text(
-                              game.minPlayers == game.maxPlayers
-                                  ? "${game.minPlayers}P"
-                                  : "${game.minPlayers}–${game.maxPlayers} Players",
-                              style: GoogleFonts.inter(
-                                fontSize: 10,
-                                color: const Color(0xFFA9A396),
-                                fontWeight: FontWeight.w500,
-                              ),
+                            Icon(
+                              Icons.arrow_forward,
+                              size: 13,
+                              color: _isHovered ? PlayNedTokens.textInverse : accent,
                             ),
                           ],
                         ),
-                      ],
-                    ),
-
-                    const SizedBox(height: 12),
-
-                    // Game Title & Tagline
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          game.name,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: GoogleFonts.dmSerifDisplay(
-                            fontSize: 19,
-                            color: const Color(0xFFF1EBDD),
-                            letterSpacing: 0.5,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          game.tagline,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: GoogleFonts.inter(
-                            fontSize: 11,
-                            color: const Color(0xFFA9A396),
-                            height: 1.3,
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    const SizedBox(height: 14),
-
-                    // Bottom Action Row
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "~${game.estimatedDurationMinutes} MINS",
-                          style: GoogleFonts.inter(
-                            fontSize: 9.5,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 0.8,
-                            color: const Color(0xFFA9A396),
-                          ),
-                        ),
-                        ElevatedButton.icon(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: game.accentColor,
-                            foregroundColor: const Color(0xFF0F0F0D),
-                            elevation: 0,
-                            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                            minimumSize: Size.zero,
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                          ),
-                          onPressed: onPlayPressed ?? () => context.push('/games/${game.id}'),
-                          icon: const Icon(Icons.play_arrow, size: 14),
-                          label: Text(
-                            "PLAY",
-                            style: GoogleFonts.inter(
-                              fontSize: 11,
-                              fontWeight: FontWeight.w900,
-                              letterSpacing: 0.8,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
-          ],
+          ),
         ),
       ),
     );

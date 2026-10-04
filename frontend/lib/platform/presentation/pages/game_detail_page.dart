@@ -6,7 +6,10 @@ import '../../../features/auth/presentation/providers/auth_provider.dart';
 import '../../models/game_model.dart';
 import '../../registry/game_registry.dart';
 import '../../services/platform_api_service.dart';
+import 'package:hangman_reimagined/platform/theme/playned_design_tokens.dart';
+import '../widgets/game_card_visuals.dart';
 import '../widgets/platform_app_bar.dart';
+import '../widgets/playned_components.dart';
 
 class GameDetailPage extends ConsumerStatefulWidget {
   final String gameId;
@@ -51,15 +54,15 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
     showDialog(
       context: context,
       builder: (ctx) => Dialog(
-        backgroundColor: const Color(0xFF141412),
+        backgroundColor: PlayNedTokens.surface,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: const BorderSide(color: Color(0xFF2A2A26), width: 1.5),
+          borderRadius: BorderRadius.circular(PlayNedTokens.radiusLg),
+          side: const BorderSide(color: PlayNedTokens.border, width: 1.5),
         ),
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 520),
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(PlayNedTokens.space24),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,50 +70,41 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      "SELECT HANGMAN MODE",
-                      style: GoogleFonts.dmSerifDisplay(fontSize: 18, color: const Color(0xFFF1EBDD)),
-                    ),
+                    Text("SELECT HANGMAN MODE", style: PlayNedTokens.gameTitle),
                     IconButton(
-                      icon: const Icon(Icons.close, size: 18, color: Color(0xFFA9A396)),
+                      icon: const Icon(Icons.close, size: 18, color: PlayNedTokens.textSecondary),
                       onPressed: () => Navigator.pop(ctx),
                     ),
                   ],
                 ),
-                const SizedBox(height: 14),
-                ListTile(
-                  tileColor: const Color(0xFF1B1B18),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                  leading: const Icon(Icons.play_circle_filled, color: Color(0xFFD5A84B)),
-                  title: Text("Classic Mode (100 Levels)", style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.bold, color: const Color(0xFFF1EBDD))),
-                  subtitle: Text("Level-based progression with 5 hearts, hints & Word DNA", style: GoogleFonts.inter(fontSize: 11, color: const Color(0xFFA9A396))),
-                  trailing: const Icon(Icons.arrow_forward_ios, size: 12, color: Color(0xFFA9A396)),
+                const SizedBox(height: PlayNedTokens.space16),
+                _buildModeTile(
+                  ctx: ctx,
+                  icon: Icons.play_circle_filled,
+                  title: "Classic Mode (100 Levels)",
+                  subtitle: "Level-based progression with 5 hearts, hints & Word DNA",
                   onTap: () {
                     Navigator.pop(ctx);
                     context.push('/game/classic?level=1');
                   },
                 ),
-                const SizedBox(height: 10),
-                ListTile(
-                  tileColor: const Color(0xFF1B1B18),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                  leading: const Icon(Icons.timer_outlined, color: Color(0xFFD5A84B)),
-                  title: Text("Timed Mode (60s Blitz)", style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.bold, color: const Color(0xFFF1EBDD))),
-                  subtitle: Text("Fast-paced countdown deduction challenge", style: GoogleFonts.inter(fontSize: 11, color: const Color(0xFFA9A396))),
-                  trailing: const Icon(Icons.arrow_forward_ios, size: 12, color: Color(0xFFA9A396)),
+                const SizedBox(height: PlayNedTokens.space10),
+                _buildModeTile(
+                  ctx: ctx,
+                  icon: Icons.timer_outlined,
+                  title: "Timed Mode (60s Blitz)",
+                  subtitle: "Fast-paced countdown deduction challenge",
                   onTap: () {
                     Navigator.pop(ctx);
                     context.push('/game/timed?duration=60');
                   },
                 ),
-                const SizedBox(height: 10),
-                ListTile(
-                  tileColor: const Color(0xFF1B1B18),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                  leading: const Icon(Icons.hub_outlined, color: Color(0xFFD5A84B)),
-                  title: Text("Hangman Mode Hub", style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.bold, color: const Color(0xFFF1EBDD))),
-                  subtitle: Text("Explore Daily Challenge, 12 Categories, Level Map & Codex", style: GoogleFonts.inter(fontSize: 11, color: const Color(0xFFA9A396))),
-                  trailing: const Icon(Icons.arrow_forward_ios, size: 12, color: Color(0xFFA9A396)),
+                const SizedBox(height: PlayNedTokens.space10),
+                _buildModeTile(
+                  ctx: ctx,
+                  icon: Icons.hub_outlined,
+                  title: "Hangman Mode Hub",
+                  subtitle: "Daily Challenge, 12 Categories, Level Map & Codex",
                   onTap: () {
                     Navigator.pop(ctx);
                     context.push('/games/hangman/hub');
@@ -120,6 +114,30 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildModeTile({
+    required BuildContext ctx,
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required VoidCallback onTap,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        color: PlayNedTokens.surfaceElevated,
+        borderRadius: BorderRadius.circular(PlayNedTokens.radiusMd),
+        border: Border.all(color: PlayNedTokens.borderSubtle),
+      ),
+      child: ListTile(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PlayNedTokens.radiusMd)),
+        leading: Icon(icon, color: PlayNedTokens.brandGold),
+        title: Text(title, style: PlayNedTokens.buttonLabel.copyWith(fontSize: 13, color: PlayNedTokens.textPrimary)),
+        subtitle: Text(subtitle, style: PlayNedTokens.bodyMuted.copyWith(fontSize: 11)),
+        trailing: const Icon(Icons.arrow_forward_ios, size: 12, color: PlayNedTokens.textSecondary),
+        onTap: onTap,
       ),
     );
   }
@@ -159,235 +177,212 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
     final game = _game;
     if (game == null) {
       return Scaffold(
+        backgroundColor: PlayNedTokens.background,
         appBar: const PlatformAppBar(title: "Game Not Found"),
-        body: const Center(child: Text("Requested game does not exist on PlayNed.")),
+        body: Center(
+          child: Text("Requested game does not exist on PlayNed.", style: PlayNedTokens.bodyMuted),
+        ),
       );
     }
 
-    return Scaffold(
-      backgroundColor: const Color(0xFF0F0F0D),
-      appBar: PlatformAppBar(title: game.name),
-      body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 820),
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Hero Artwork & Title Banner
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(24.0),
-                  decoration: BoxDecoration(
-                    color: game.backgroundColor,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: game.accentColor.withOpacity(0.4), width: 1.5),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                            decoration: BoxDecoration(
-                              color: game.accentColor.withOpacity(0.15),
-                              borderRadius: BorderRadius.circular(4),
-                              border: Border.all(color: game.accentColor.withOpacity(0.5)),
-                            ),
-                            child: Text(
-                              game.category.toUpperCase(),
-                              style: GoogleFonts.inter(
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 1.0,
-                                color: game.accentColor,
-                              ),
-                            ),
-                          ),
-                          Icon(game.icon, size: 36, color: game.accentColor.withOpacity(0.8)),
-                        ],
-                      ),
-                      const SizedBox(height: 14),
-                      Text(
-                        game.name,
-                        style: GoogleFonts.dmSerifDisplay(
-                          fontSize: 28,
-                          color: const Color(0xFFF1EBDD),
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        game.tagline,
-                        style: GoogleFonts.inter(
-                          fontSize: 13,
-                          fontStyle: FontStyle.italic,
-                          color: game.accentColor,
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      Text(
-                        game.description,
-                        style: GoogleFonts.inter(
-                          fontSize: 13,
-                          color: const Color(0xFFA9A396),
-                          height: 1.4,
-                        ),
-                      ),
-                      const SizedBox(height: 20),
+    final accent = game.accentColor;
 
-                      // Meta details row
-                      Row(
-                        children: [
-                          _MetaBadge(
-                            icon: Icons.group_outlined,
-                            label: "${game.minPlayers}–${game.maxPlayers} Players",
-                            color: game.accentColor,
+    return Scaffold(
+      backgroundColor: PlayNedTokens.background,
+      appBar: PlatformAppBar(title: game.name),
+      body: PlayNedBackgroundPattern(
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 860),
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(
+                horizontal: PlayNedTokens.space20,
+                vertical: PlayNedTokens.space24,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  // 1. Hero Artwork & Details Card
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(PlayNedTokens.space24),
+                    decoration: BoxDecoration(
+                      color: PlayNedTokens.surface,
+                      borderRadius: BorderRadius.circular(PlayNedTokens.radiusLg),
+                      border: Border.all(color: accent.withOpacity(0.5), width: 1.2),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.3),
+                          blurRadius: 16,
+                          offset: const Offset(0, 6),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Badges Row
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            GameCategoryBadge(category: game.category, accentColor: accent),
+                            PlayerCountBadge(minPlayers: game.minPlayers, maxPlayers: game.maxPlayers),
+                          ],
+                        ),
+
+                        const SizedBox(height: PlayNedTokens.space16),
+
+                        // Tactile 2D Visual Banner
+                        GameCardVisual(
+                          gameId: game.id,
+                          accentColor: accent,
+                          isHovered: true,
+                        ),
+
+                        const SizedBox(height: PlayNedTokens.space16),
+
+                        // Title & Tagline
+                        Text(game.name, style: PlayNedTokens.heroDisplay.copyWith(fontSize: 30)),
+                        const SizedBox(height: PlayNedTokens.space4),
+                        Text(
+                          game.tagline,
+                          style: PlayNedTokens.body.copyWith(
+                            fontStyle: FontStyle.italic,
+                            color: accent,
+                            fontWeight: FontWeight.w500,
                           ),
-                          const SizedBox(width: 12),
-                          _MetaBadge(
-                            icon: Icons.timer_outlined,
-                            label: "~${game.estimatedDurationMinutes} Mins",
-                            color: game.accentColor,
-                          ),
-                          const SizedBox(width: 12),
-                          _MetaBadge(
-                            icon: Icons.devices,
-                            label: "Local & Online",
-                            color: game.accentColor,
-                          ),
-                        ],
+                        ),
+                        const SizedBox(height: PlayNedTokens.space12),
+                        Text(
+                          game.description,
+                          style: PlayNedTokens.bodyMuted.copyWith(fontSize: 13.5, height: 1.45),
+                        ),
+
+                        const SizedBox(height: PlayNedTokens.space20),
+
+                        // Meta Badges Row
+                        Wrap(
+                          spacing: PlayNedTokens.space12,
+                          runSpacing: PlayNedTokens.space8,
+                          children: [
+                            _MetaBadge(
+                              icon: Icons.group_outlined,
+                              label: "${game.minPlayers}–${game.maxPlayers} PLAYERS",
+                              color: accent,
+                            ),
+                            _MetaBadge(
+                              icon: Icons.timer_outlined,
+                              label: "~${game.estimatedDurationMinutes} MIN MATCH",
+                              color: accent,
+                            ),
+                            _MetaBadge(
+                              icon: Icons.devices,
+                              label: "LOCAL & ONLINE MULTIPLAYER",
+                              color: accent,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: PlayNedTokens.space20),
+
+                  // 2. Play Actions
+                  Row(
+                    children: [
+                      Expanded(
+                        child: PlayNedButton(
+                          label: "LOCAL PASS & PLAY",
+                          icon: Icons.play_circle_fill,
+                          variant: PlayNedButtonVariant.primary,
+                          customAccent: accent,
+                          padding: const EdgeInsets.symmetric(vertical: PlayNedTokens.space16),
+                          onPressed: _startLocalPlay,
+                        ),
+                      ),
+                      const SizedBox(width: PlayNedTokens.space12),
+                      Expanded(
+                        child: PlayNedButton(
+                          label: "CREATE ONLINE ROOM",
+                          icon: Icons.wifi,
+                          variant: PlayNedButtonVariant.outlined,
+                          customAccent: PlayNedTokens.brandGold,
+                          isLoading: _isLoading,
+                          padding: const EdgeInsets.symmetric(vertical: PlayNedTokens.space16),
+                          onPressed: _createOnlineRoom,
+                        ),
                       ),
                     ],
                   ),
-                ),
 
-                const SizedBox(height: 20),
+                  const SizedBox(height: PlayNedTokens.space28),
 
-                // Play Action Buttons
-                Row(
-                  children: [
-                    Expanded(
-                      child: ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: game.accentColor,
-                          foregroundColor: const Color(0xFF0F0F0D),
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                        ),
-                        onPressed: _startLocalPlay,
-                        icon: const Icon(Icons.play_circle_fill, size: 18),
-                        label: Text(
-                          "LOCAL PLAY",
-                          style: GoogleFonts.inter(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w900,
-                            letterSpacing: 1.0,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: OutlinedButton.icon(
-                        style: OutlinedButton.styleFrom(
-                          foregroundColor: const Color(0xFFF1EBDD),
-                          side: const BorderSide(color: Color(0xFF2A2A26), width: 1.5),
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                        ),
-                        onPressed: _isLoading ? null : _createOnlineRoom,
-                        icon: const Icon(Icons.wifi, size: 18, color: Color(0xFFD5A84B)),
-                        label: Text(
-                          _isLoading ? "CREATING..." : "ONLINE ROOM",
-                          style: GoogleFonts.inter(
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 1.0,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-
-                const SizedBox(height: 28),
-
-                // How to Play & Rules
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF141412),
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: const Color(0xFF2A2A26)),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          const Icon(Icons.menu_book_outlined, size: 18, color: Color(0xFFD5A84B)),
-                          const SizedBox(width: 8),
-                          Text(
-                            "HOW TO PLAY & RULES",
-                            style: GoogleFonts.inter(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 1.2,
-                              color: const Color(0xFFF1EBDD),
+                  // 3. How to Play & Game Rules Card
+                  PlayNedCard(
+                    padding: const EdgeInsets.all(PlayNedTokens.space20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(Icons.menu_book_outlined, size: 18, color: PlayNedTokens.brandGold),
+                            const SizedBox(width: PlayNedTokens.space8),
+                            Text(
+                              "HOW TO PLAY & OFFICIAL RULES",
+                              style: PlayNedTokens.metadata.copyWith(
+                                fontSize: 11,
+                                color: PlayNedTokens.textPrimary,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 14),
-                      ...game.rulesSummary.asMap().entries.map((entry) {
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 10.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.only(top: 4, right: 10),
-                                width: 16,
-                                height: 16,
-                                decoration: BoxDecoration(
-                                  color: game.accentColor.withOpacity(0.2),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Center(
+                          ],
+                        ),
+                        const SizedBox(height: PlayNedTokens.space16),
+                        ...game.rulesSummary.asMap().entries.map((entry) {
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: PlayNedTokens.space12),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.only(top: 2, right: PlayNedTokens.space12),
+                                  width: 20,
+                                  height: 20,
+                                  decoration: BoxDecoration(
+                                    color: accent.withOpacity(0.18),
+                                    borderRadius: BorderRadius.circular(4),
+                                    border: Border.all(color: accent.withOpacity(0.5)),
+                                  ),
+                                  alignment: Alignment.center,
                                   child: Text(
                                     "${entry.key + 1}",
                                     style: GoogleFonts.inter(
-                                      fontSize: 9,
+                                      fontSize: 10,
                                       fontWeight: FontWeight.bold,
-                                      color: game.accentColor,
+                                      color: accent,
                                     ),
                                   ),
                                 ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  entry.value,
-                                  style: GoogleFonts.inter(
-                                    fontSize: 12.5,
-                                    color: const Color(0xFFA9A396),
-                                    height: 1.4,
+                                Expanded(
+                                  child: Text(
+                                    entry.value,
+                                    style: PlayNedTokens.bodyMuted.copyWith(
+                                      fontSize: 13,
+                                      height: 1.4,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        );
-                      }),
-                    ],
+                              ],
+                            ),
+                          );
+                        }),
+                      ],
+                    ),
                   ),
-                ),
 
-                const SizedBox(height: 24),
-              ],
+                  const SizedBox(height: PlayNedTokens.space24),
+                ],
+              ),
             ),
           ),
         ),
@@ -410,23 +405,22 @@ class _MetaBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: PlayNedTokens.space10, vertical: PlayNedTokens.space6),
       decoration: BoxDecoration(
-        color: const Color(0xFF11110F),
-        borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: const Color(0xFF2A2A26)),
+        color: PlayNedTokens.surfaceElevated,
+        borderRadius: BorderRadius.circular(PlayNedTokens.radiusSm),
+        border: Border.all(color: PlayNedTokens.borderSubtle),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(icon, size: 13, color: color),
-          const SizedBox(width: 6),
+          const SizedBox(width: PlayNedTokens.space6),
           Text(
             label,
-            style: GoogleFonts.inter(
-              fontSize: 11,
-              fontWeight: FontWeight.w600,
-              color: const Color(0xFFF1EBDD),
+            style: PlayNedTokens.metadata.copyWith(
+              fontSize: 10,
+              color: PlayNedTokens.textPrimary,
             ),
           ),
         ],
