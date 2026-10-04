@@ -234,9 +234,9 @@ class _PlatformRoomLobbyPageState extends ConsumerState<PlatformRoomLobbyPage> {
       appBar: PlatformAppBar(title: "ROOM ${room.roomCode}"),
       body: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 640),
+          constraints: const BoxConstraints(maxWidth: 1100),
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

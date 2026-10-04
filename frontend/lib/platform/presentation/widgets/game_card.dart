@@ -125,24 +125,32 @@ class _PlayNedGameCardState extends State<PlayNedGameCard> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          DurationBadge(minutes: game.estimatedDurationMinutes),
-                          const SizedBox(width: PlayNedTokens.space8),
-                          Text(
-                            "•",
-                            style: TextStyle(color: PlayNedTokens.textMuted, fontSize: 10),
-                          ),
-                          const SizedBox(width: PlayNedTokens.space8),
-                          Text(
-                            "LOCAL / ONLINE",
-                            style: PlayNedTokens.metadata.copyWith(
-                              fontSize: 9,
-                              color: PlayNedTokens.textMuted,
+                      Flexible(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            DurationBadge(minutes: game.estimatedDurationMinutes),
+                            const SizedBox(width: PlayNedTokens.space6),
+                            Text(
+                              "•",
+                              style: TextStyle(color: PlayNedTokens.textMuted, fontSize: 10),
                             ),
-                          ),
-                        ],
+                            const SizedBox(width: PlayNedTokens.space6),
+                            Flexible(
+                              child: Text(
+                                "LOCAL / ONLINE",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: PlayNedTokens.metadata.copyWith(
+                                  fontSize: 9,
+                                  color: PlayNedTokens.textMuted,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
+                      const SizedBox(width: PlayNedTokens.space8),
                       AnimatedContainer(
                         duration: PlayNedTokens.animMicro,
                         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),

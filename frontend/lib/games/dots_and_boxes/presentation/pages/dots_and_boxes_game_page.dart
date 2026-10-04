@@ -482,9 +482,9 @@ class _DotsAndBoxesGamePageState extends ConsumerState<DotsAndBoxesGamePage> {
       ),
       body: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 860),
+          constraints: const BoxConstraints(maxWidth: 1360),
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
             child: Column(
               children: [
                 // Top Configuration Row (Board Size & Edit Names)

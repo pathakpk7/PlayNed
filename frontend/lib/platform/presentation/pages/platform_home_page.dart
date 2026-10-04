@@ -125,10 +125,10 @@ class _PlatformHomePageState extends ConsumerState<PlatformHomePage> {
           controller: _scrollController,
           child: Center(
             child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 1080),
+              constraints: const BoxConstraints(maxWidth: 1600),
               child: Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: PlayNedTokens.space20,
+                  horizontal: PlayNedTokens.space24,
                   vertical: PlayNedTokens.space24,
                 ),
                 child: Column(
@@ -420,9 +420,19 @@ class _PlatformHomePageState extends ConsumerState<PlatformHomePage> {
         // Responsive Grid
         LayoutBuilder(
           builder: (context, constraints) {
-            final isDesktop = constraints.maxWidth >= PlayNedTokens.breakpointMd;
-            final crossAxisCount = isDesktop ? 2 : 1;
-            final childAspectRatio = isDesktop ? 1.28 : 1.15;
+            int crossAxisCount = 1;
+            double childAspectRatio = 1.20;
+
+            if (constraints.maxWidth >= 1380) {
+              crossAxisCount = 4;
+              childAspectRatio = 0.98;
+            } else if (constraints.maxWidth >= 980) {
+              crossAxisCount = 3;
+              childAspectRatio = 1.05;
+            } else if (constraints.maxWidth >= 640) {
+              crossAxisCount = 2;
+              childAspectRatio = 1.20;
+            }
 
             return GridView.builder(
               shrinkWrap: true,

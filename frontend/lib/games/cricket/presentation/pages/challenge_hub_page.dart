@@ -1114,7 +1114,7 @@ class _ChallengeHubPageState extends ConsumerState<ChallengeHubPage> with Single
       body: SafeArea(
         child: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 820),
+            constraints: const BoxConstraints(maxWidth: 1440),
             child: Column(
               children: [
                 // Top Score Bar

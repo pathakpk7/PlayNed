@@ -90,10 +90,10 @@ class _ReversiHubPageState extends ConsumerState<ReversiHubPage> {
       backgroundColor: PlayNedTokens.background,
       appBar: const PlatformAppBar(title: "REVERSI & OTHELLO"),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
         child: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 960),
+            constraints: const BoxConstraints(maxWidth: 1560),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

@@ -195,17 +195,18 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
       body: PlayNedBackgroundPattern(
         child: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 860),
+            constraints: const BoxConstraints(maxWidth: 1480),
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(
-                horizontal: PlayNedTokens.space20,
+                horizontal: PlayNedTokens.space24,
                 vertical: PlayNedTokens.space24,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final isWidescreen = constraints.maxWidth >= 880;
+
                   // 1. Hero Artwork & Details Card
-                  Container(
+                  final heroCard = Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(PlayNedTokens.space24),
                     decoration: BoxDecoration(
@@ -286,104 +287,127 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
                         ),
                       ],
                     ),
-                  ),
+                  );
 
-                  const SizedBox(height: PlayNedTokens.space20),
-
-                  // 2. Play Actions
-                  Row(
+                  // 2. Actions & Rules Right Panel
+                  final actionsAndRulesPanel = Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Expanded(
-                        child: PlayNedButton(
-                          label: "LOCAL PASS & PLAY",
-                          icon: Icons.play_circle_fill,
-                          variant: PlayNedButtonVariant.primary,
-                          customAccent: accent,
-                          padding: const EdgeInsets.symmetric(vertical: PlayNedTokens.space16),
-                          onPressed: _startLocalPlay,
-                        ),
-                      ),
-                      const SizedBox(width: PlayNedTokens.space12),
-                      Expanded(
-                        child: PlayNedButton(
-                          label: "CREATE ONLINE ROOM",
-                          icon: Icons.wifi,
-                          variant: PlayNedButtonVariant.outlined,
-                          customAccent: PlayNedTokens.brandGold,
-                          isLoading: _isLoading,
-                          padding: const EdgeInsets.symmetric(vertical: PlayNedTokens.space16),
-                          onPressed: _createOnlineRoom,
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: PlayNedTokens.space28),
-
-                  // 3. How to Play & Game Rules Card
-                  PlayNedCard(
-                    padding: const EdgeInsets.all(PlayNedTokens.space20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            const Icon(Icons.menu_book_outlined, size: 18, color: PlayNedTokens.brandGold),
-                            const SizedBox(width: PlayNedTokens.space8),
-                            Text(
-                              "HOW TO PLAY & OFFICIAL RULES",
-                              style: PlayNedTokens.metadata.copyWith(
-                                fontSize: 11,
-                                color: PlayNedTokens.textPrimary,
-                              ),
+                      // Play Actions
+                      Row(
+                        children: [
+                          Expanded(
+                            child: PlayNedButton(
+                              label: "LOCAL PASS & PLAY",
+                              icon: Icons.play_circle_fill,
+                              variant: PlayNedButtonVariant.primary,
+                              customAccent: accent,
+                              padding: const EdgeInsets.symmetric(vertical: PlayNedTokens.space16),
+                              onPressed: _startLocalPlay,
                             ),
-                          ],
-                        ),
-                        const SizedBox(height: PlayNedTokens.space16),
-                        ...game.rulesSummary.asMap().entries.map((entry) {
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: PlayNedTokens.space12),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                          ),
+                          const SizedBox(width: PlayNedTokens.space12),
+                          Expanded(
+                            child: PlayNedButton(
+                              label: "CREATE ONLINE ROOM",
+                              icon: Icons.wifi,
+                              variant: PlayNedButtonVariant.outlined,
+                              customAccent: PlayNedTokens.brandGold,
+                              isLoading: _isLoading,
+                              padding: const EdgeInsets.symmetric(vertical: PlayNedTokens.space16),
+                              onPressed: _createOnlineRoom,
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      const SizedBox(height: PlayNedTokens.space20),
+
+                      // How to Play & Game Rules Card
+                      PlayNedCard(
+                        padding: const EdgeInsets.all(PlayNedTokens.space20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
                               children: [
-                                Container(
-                                  margin: const EdgeInsets.only(top: 2, right: PlayNedTokens.space12),
-                                  width: 20,
-                                  height: 20,
-                                  decoration: BoxDecoration(
-                                    color: accent.withOpacity(0.18),
-                                    borderRadius: BorderRadius.circular(4),
-                                    border: Border.all(color: accent.withOpacity(0.5)),
-                                  ),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "${entry.key + 1}",
-                                    style: GoogleFonts.inter(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.bold,
-                                      color: accent,
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    entry.value,
-                                    style: PlayNedTokens.bodyMuted.copyWith(
-                                      fontSize: 13,
-                                      height: 1.4,
-                                    ),
+                                const Icon(Icons.menu_book_outlined, size: 18, color: PlayNedTokens.brandGold),
+                                const SizedBox(width: PlayNedTokens.space8),
+                                Text(
+                                  "HOW TO PLAY & OFFICIAL RULES",
+                                  style: PlayNedTokens.metadata.copyWith(
+                                    fontSize: 11,
+                                    color: PlayNedTokens.textPrimary,
                                   ),
                                 ),
                               ],
                             ),
-                          );
-                        }),
-                      ],
-                    ),
-                  ),
+                            const SizedBox(height: PlayNedTokens.space16),
+                            ...game.rulesSummary.asMap().entries.map((entry) {
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: PlayNedTokens.space12),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(top: 2, right: PlayNedTokens.space12),
+                                      width: 20,
+                                      height: 20,
+                                      decoration: BoxDecoration(
+                                        color: accent.withOpacity(0.18),
+                                        borderRadius: BorderRadius.circular(4),
+                                        border: Border.all(color: accent.withOpacity(0.5)),
+                                      ),
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        "${entry.key + 1}",
+                                        style: GoogleFonts.inter(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.bold,
+                                          color: accent,
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        entry.value,
+                                        style: PlayNedTokens.bodyMuted.copyWith(
+                                          fontSize: 13,
+                                          height: 1.4,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }),
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
 
-                  const SizedBox(height: PlayNedTokens.space24),
-                ],
+                  if (isWidescreen) {
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(flex: 6, child: heroCard),
+                        const SizedBox(width: PlayNedTokens.space24),
+                        Expanded(flex: 5, child: actionsAndRulesPanel),
+                      ],
+                    );
+                  }
+
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      heroCard,
+                      const SizedBox(height: PlayNedTokens.space20),
+                      actionsAndRulesPanel,
+                      const SizedBox(height: PlayNedTokens.space24),
+                    ],
+                  );
+                },
               ),
             ),
           ),

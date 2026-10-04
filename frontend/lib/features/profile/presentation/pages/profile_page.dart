@@ -155,9 +155,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
 
           return Center(
             child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 820),
+              constraints: const BoxConstraints(maxWidth: 1440),
               child: SingleChildScrollView(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

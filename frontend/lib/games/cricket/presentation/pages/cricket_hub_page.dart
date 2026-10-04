@@ -18,10 +18,10 @@ class _CricketHubPageState extends ConsumerState<CricketHubPage> {
       backgroundColor: const Color(0xFF0C1410),
       appBar: const PlatformAppBar(title: "CRICKET HUB"),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
         child: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 820),
+            constraints: const BoxConstraints(maxWidth: 1560),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -103,66 +103,90 @@ class _CricketHubPageState extends ConsumerState<CricketHubPage> {
                 ),
                 const SizedBox(height: 16),
 
-                // MODE 1: Super Over Duel
-                _buildModeCard(
-                  context,
-                  title: "SUPER OVER DUEL",
-                  tagline: "6 Balls. 2 Batters. 1 Bowler. Pure Tactical Cricket.",
-                  description:
-                      "Pick 2 batsmen and 1 bowler from our authentic cricket legend database. Bowl tactical deliveries (Yorker, Bouncer, Good Length, Slower) and counter with strategic shots (Defend, Normal, Attack, Loft) in a head-to-head 6-ball innings.",
-                  icon: Icons.sports_cricket,
-                  accentColor: const Color(0xFFE5A93C),
-                  chips: ["Tactical 1v1", "6 Legal Balls", "Local & Online"],
-                  onPlayLocal: () => context.push('/games/cricket/super-over?mode=local'),
-                  onPlayOnline: () => context.push('/games/cricket'),
-                ),
+                // Responsive 2-Column Grid on Desktop
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    final modeCards = [
+                      _buildModeCard(
+                        context,
+                        title: "SUPER OVER DUEL",
+                        tagline: "6 Balls. 2 Batters. 1 Bowler. Pure Tactical Cricket.",
+                        description:
+                            "Pick 2 batsmen and 1 bowler from our authentic cricket legend database. Bowl tactical deliveries (Yorker, Bouncer, Good Length, Slower) and counter with strategic shots (Defend, Normal, Attack, Loft) in a head-to-head 6-ball innings.",
+                        icon: Icons.sports_cricket,
+                        accentColor: const Color(0xFFE5A93C),
+                        chips: ["Tactical 1v1", "6 Legal Balls", "Local & Online"],
+                        onPlayLocal: () => context.push('/games/cricket/super-over?mode=local'),
+                        onPlayOnline: () => context.push('/games/cricket'),
+                      ),
+                      _buildModeCard(
+                        context,
+                        title: "STAT CLASH",
+                        tagline: "Draft the ultimate 5-player squad without crossing the target.",
+                        description:
+                            "Test your cricket statistical knowledge! Target milestones like 12,000 ODI runs, 600 wickets, or 750 international sixes. Draft a 5-legend squad closest to the mark. Exceeding the target causes a Bust!",
+                        icon: Icons.analytics_outlined,
+                        accentColor: const Color(0xFF4E89FF),
+                        chips: ["Squad Drafting", "Real Stats", "Best of 3 / 5"],
+                        onPlayLocal: () => context.push('/games/cricket/stat-clash?mode=local'),
+                        onPlayOnline: () => context.push('/games/cricket'),
+                      ),
+                      _buildModeCard(
+                        context,
+                        title: "CRICKET DRAFT",
+                        tagline: "100-Credit Budget Draft & 5-Over Simulated Clash.",
+                        description:
+                            "Build your dream squad within a strict 100-credit budget cap. Draft 2 Batters, 1 All-Rounder, 1 Bowler, and 1 Wicket-Keeper in a strategic turn-based snake draft. Inspect detailed multi-format career stats (Test, ODI, T20I), review tactical ratings, and simulate a 5-over clash!",
+                        icon: Icons.groups_2_outlined,
+                        accentColor: const Color(0xFFE056FD),
+                        chips: ["100 Credit Cap", "Role Constraints", "5-Over Match Sim", "Multi-Format Stats"],
+                        onPlayLocal: () => context.push('/games/cricket/draft?mode=local'),
+                        onPlayOnline: () => context.push('/games/cricket'),
+                      ),
+                      _buildModeCard(
+                        context,
+                        title: "CRICKET CHALLENGE HUB",
+                        tagline: "5 Interactive Mini-Games & Trivia Quizzes.",
+                        description:
+                            "Put your cricketing acumen to the test across 5 exciting game formats: Who Am I?, Higher or Lower, Stat or Fiction, Career Timelines, and Guess the Player.",
+                        icon: Icons.extension_outlined,
+                        accentColor: const Color(0xFF48BB78),
+                        chips: ["5 Mini-Games", "Trivia & Records", "Streak Master"],
+                        onPlayLocal: () => context.push('/games/cricket/challenges'),
+                        onPlayOnline: null,
+                      ),
+                    ];
 
-                const SizedBox(height: 16),
+                    if (constraints.maxWidth >= 860) {
+                      return Column(
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(child: modeCards[0]),
+                              const SizedBox(width: 16),
+                              Expanded(child: modeCards[1]),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(child: modeCards[2]),
+                              const SizedBox(width: 16),
+                              Expanded(child: modeCards[3]),
+                            ],
+                          ),
+                        ],
+                      );
+                    }
 
-                // MODE 2: Stat Clash
-                _buildModeCard(
-                  context,
-                  title: "STAT CLASH",
-                  tagline: "Draft the ultimate 5-player squad without crossing the target.",
-                  description:
-                      "Test your cricket statistical knowledge! Target milestones like 12,000 ODI runs, 600 wickets, or 750 international sixes. Draft a 5-legend squad closest to the mark. Exceeding the target causes a Bust!",
-                  icon: Icons.analytics_outlined,
-                  accentColor: const Color(0xFF4E89FF),
-                  chips: ["Squad Drafting", "Real Stats", "Best of 3 / 5"],
-                  onPlayLocal: () => context.push('/games/cricket/stat-clash?mode=local'),
-                  onPlayOnline: () => context.push('/games/cricket'),
-                ),
-
-                const SizedBox(height: 16),
-
-                // MODE 3: Cricket Draft
-                _buildModeCard(
-                  context,
-                  title: "CRICKET DRAFT",
-                  tagline: "100-Credit Budget Draft & 5-Over Simulated Clash.",
-                  description:
-                      "Build your dream squad within a strict 100-credit budget cap. Draft 2 Batters, 1 All-Rounder, 1 Bowler, and 1 Wicket-Keeper in a strategic turn-based snake draft. Inspect detailed multi-format career stats (Test, ODI, T20I), review tactical ratings, and simulate a 5-over clash!",
-                  icon: Icons.groups_2_outlined,
-                  accentColor: const Color(0xFFE056FD),
-                  chips: ["100 Credit Cap", "Role Constraints", "5-Over Match Sim", "Multi-Format Stats"],
-                  onPlayLocal: () => context.push('/games/cricket/draft?mode=local'),
-                  onPlayOnline: () => context.push('/games/cricket'),
-                ),
-
-                const SizedBox(height: 16),
-
-                // MODE 4: Cricket Challenge Hub
-                _buildModeCard(
-                  context,
-                  title: "CRICKET CHALLENGE HUB",
-                  tagline: "5 Interactive Mini-Games & Trivia Quizzes.",
-                  description:
-                      "Put your cricketing acumen to the test across 5 exciting game formats: Who Am I?, Higher or Lower, Stat or Fiction, Career Timelines, and Guess the Player.",
-                  icon: Icons.extension_outlined,
-                  accentColor: const Color(0xFF48BB78),
-                  chips: ["5 Mini-Games", "Trivia & Records", "Streak Master"],
-                  onPlayLocal: () => context.push('/games/cricket/challenges'),
-                  onPlayOnline: null, // Solo challenge hub
+                    return Column(
+                      children: modeCards
+                          .map((c) => Padding(padding: const EdgeInsets.only(bottom: 16), child: c))
+                          .toList(),
+                    );
+                  },
                 ),
 
                 const SizedBox(height: 40),

@@ -314,10 +314,10 @@ class _ReversiGamePageState extends ConsumerState<ReversiGamePage> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           child: Center(
             child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 800),
+              constraints: const BoxConstraints(maxWidth: 1360),
               child: Column(
                 children: [
                   // Action Toolbar (Academy, Hint toggle, Reset)

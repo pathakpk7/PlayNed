@@ -575,7 +575,7 @@ class _SuperOverGamePageState extends ConsumerState<SuperOverGamePage> {
       body: SafeArea(
         child: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 820),
+            constraints: const BoxConstraints(maxWidth: 1440),
             child: _status == 'selection' ? _buildSelectionView() : _buildMatchView(),
           ),
         ),

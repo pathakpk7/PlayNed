@@ -797,9 +797,9 @@ class _CricketDraftGamePageState extends ConsumerState<CricketDraftGamePage> {
       body: SafeArea(
         child: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 860),
+            constraints: const BoxConstraints(maxWidth: 1440),
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

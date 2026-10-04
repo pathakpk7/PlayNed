@@ -30,10 +30,10 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       body: PlayNedBackgroundPattern(
         child: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 720),
+            constraints: const BoxConstraints(maxWidth: 1200),
             child: ListView(
               padding: const EdgeInsets.symmetric(
-                horizontal: 20,
+                horizontal: 24,
                 vertical: 24,
               ),
               children: [

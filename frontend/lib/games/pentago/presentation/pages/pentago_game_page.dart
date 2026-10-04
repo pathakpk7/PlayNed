@@ -299,9 +299,9 @@ class _PentagoGamePageState extends ConsumerState<PentagoGamePage> {
       ),
       body: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 700),
+          constraints: const BoxConstraints(maxWidth: 1200),
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
             child: Column(
               children: [
                 // Duel Status Header

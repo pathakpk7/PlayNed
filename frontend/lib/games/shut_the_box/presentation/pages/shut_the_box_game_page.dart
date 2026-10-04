@@ -524,9 +524,9 @@ class _ShutTheBoxGamePageState extends ConsumerState<ShutTheBoxGamePage> with Ti
       ),
       body: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 820),
+          constraints: const BoxConstraints(maxWidth: 1360),
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
             child: Column(
               children: [
                 // Turn & Scoreboard Banner
