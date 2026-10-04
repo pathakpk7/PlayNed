@@ -32,6 +32,7 @@ class PlayNedTokens {
   static const Color accentPentago = Color(0xFF10B981);  // Emerald
   static const Color accentShutTheBox = Color(0xFFE5A93C); // Warm Bronze / Amber
   static const Color accentCricket = Color(0xFF22C55E);  // Deep Field Green
+  static const Color accentReversi = Color(0xFF10B981);  // Tactile Emerald Green
 
   static Color getGameAccent(String gameId) {
     switch (gameId.toLowerCase()) {
@@ -47,6 +48,9 @@ class PlayNedTokens {
         return accentShutTheBox;
       case 'cricket':
         return accentCricket;
+      case 'reversi':
+      case 'othello':
+        return accentReversi;
       default:
         return brandGold;
     }

@@ -50,6 +50,9 @@ class GameCardVisual extends StatelessWidget {
         return _ShutTheBoxVisual(accentColor: accentColor, isHovered: isHovered);
       case 'cricket':
         return _CricketVisual(accentColor: accentColor, isHovered: isHovered);
+      case 'reversi':
+      case 'othello':
+        return _ReversiVisual(accentColor: accentColor, isHovered: isHovered);
       default:
         return Center(
           child: Icon(Icons.sports_esports, size: 36, color: accentColor.withOpacity(0.5)),
@@ -507,6 +510,133 @@ class _CricketVisual extends StatelessWidget {
                 Text("24/0 (6b)", style: GoogleFonts.inter(fontSize: 11, fontWeight: FontWeight.bold, color: PlayNedTokens.textPrimary)),
               ],
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// 7. Reversi & Othello Visual: Tactile 8x8 Mini-Board, Flipping Discs & Corner Control
+class _ReversiVisual extends StatelessWidget {
+  final Color accentColor;
+  final bool isHovered;
+
+  const _ReversiVisual({required this.accentColor, required this.isHovered});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // Mini 8x8 Emerald Board
+          Container(
+            width: 76,
+            height: 76,
+            padding: const EdgeInsets.all(4),
+            decoration: BoxDecoration(
+              color: const Color(0xFF0F3826),
+              borderRadius: BorderRadius.circular(6),
+              border: Border.all(color: accentColor.withOpacity(0.6), width: 1.2),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.4),
+                  blurRadius: 6,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: GridView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 4,
+                crossAxisSpacing: 2,
+                mainAxisSpacing: 2,
+              ),
+              itemCount: 16,
+              itemBuilder: (context, idx) {
+                // 4x4 representation of center and corners
+                // Top-left corner (0), center discs (5, 6, 9, 10)
+                final isCorner = (idx == 0 || idx == 3 || idx == 12 || idx == 15);
+                final isBlack = (idx == 5 || idx == 10 || (isHovered && idx == 6));
+                final isWhite = (idx == 9 || (!isHovered && idx == 6));
+                final isCandidate = (isHovered && idx == 1);
+
+                return Container(
+                  decoration: BoxDecoration(
+                    color: isCorner
+                        ? accentColor.withOpacity(0.25)
+                        : const Color(0xFF134530),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                  alignment: Alignment.center,
+                  child: isBlack
+                      ? Container(
+                          width: 12,
+                          height: 12,
+                          decoration: const BoxDecoration(
+                            color: Color(0xFF1A1A18),
+                            shape: BoxShape.circle,
+                            boxShadow: [BoxShadow(color: Colors.black54, blurRadius: 2)],
+                          ),
+                        )
+                      : isWhite
+                          ? Container(
+                              width: 12,
+                              height: 12,
+                              decoration: const BoxDecoration(
+                                color: Color(0xFFF1EBDD),
+                                shape: BoxShape.circle,
+                                boxShadow: [BoxShadow(color: Colors.black38, blurRadius: 2)],
+                              ),
+                            )
+                          : isCandidate
+                              ? Container(
+                                  width: 8,
+                                  height: 8,
+                                  decoration: BoxDecoration(
+                                    color: accentColor.withOpacity(0.8),
+                                    shape: BoxShape.circle,
+                                  ),
+                                )
+                              : null,
+                );
+              },
+            ),
+          ),
+          const SizedBox(width: 14),
+          // Score & Strategy Pill
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                decoration: BoxDecoration(
+                  color: PlayNedTokens.surfaceElevated,
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border.all(color: PlayNedTokens.border),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF1A1A18), shape: BoxShape.circle)),
+                    const SizedBox(width: 4),
+                    Text(isHovered ? "4" : "2", style: GoogleFonts.inter(fontSize: 10, fontWeight: FontWeight.bold, color: PlayNedTokens.textPrimary)),
+                    const SizedBox(width: 6),
+                    Text("vs", style: GoogleFonts.inter(fontSize: 9, color: PlayNedTokens.textMuted)),
+                    const SizedBox(width: 6),
+                    Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFFF1EBDD), shape: BoxShape.circle)),
+                    const SizedBox(width: 4),
+                    Text(isHovered ? "1" : "2", style: GoogleFonts.inter(fontSize: 10, fontWeight: FontWeight.bold, color: PlayNedTokens.textPrimary)),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 6),
+              Text("SANDWICH & FLIP", style: PlayNedTokens.metadata.copyWith(fontSize: 7.5, color: accentColor)),
+              Text("CORNER CONTROL", style: PlayNedTokens.metadata.copyWith(fontSize: 7.5, color: PlayNedTokens.brandGold)),
+            ],
           ),
         ],
       ),

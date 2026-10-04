@@ -23,6 +23,7 @@ KNOWN_SECTIONS = {
     "dots_and_boxes": ["grid_3x3", "grid_4x4", "grid_5x5", "multiplayer"],
     "quoridor": ["classic", "multiplayer"],
     "pentago": ["classic", "multiplayer"],
+    "reversi": ["othello", "reversi_classic", "solo_ai", "multiplayer"],
 }
 
 @router.post("/record", response_model=GameSectionStatItem)

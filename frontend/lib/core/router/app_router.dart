@@ -11,6 +11,8 @@ import '../../games/cricket/presentation/pages/super_over_game_page.dart';
 import '../../games/cricket/presentation/pages/stat_clash_game_page.dart';
 import '../../games/cricket/presentation/pages/challenge_hub_page.dart';
 import '../../games/cricket/presentation/pages/cricket_draft_game_page.dart';
+import '../../games/reversi/presentation/pages/reversi_hub_page.dart';
+import '../../games/reversi/presentation/pages/reversi_game_page.dart';
 import '../../features/home/presentation/pages/home_page.dart';
 import '../../features/game/presentation/pages/game_page.dart';
 import '../../features/game/presentation/pages/level_map_page.dart';
@@ -93,6 +95,33 @@ final GoRouter appRouter = GoRouter(
         final pid = state.uri.queryParameters['pid'];
         return ShutTheBoxGamePage(
           mode: mode,
+          roomCode: room,
+          localPlayerId: pid,
+        );
+      },
+    ),
+
+    // Reversi & Othello
+    GoRoute(
+      path: '/games/reversi',
+      builder: (context, state) => const ReversiHubPage(),
+    ),
+    GoRoute(
+      path: '/games/reversi/hub',
+      builder: (context, state) => const ReversiHubPage(),
+    ),
+    GoRoute(
+      path: '/games/reversi/play',
+      builder: (context, state) {
+        final mode = state.uri.queryParameters['mode'] ?? 'ai';
+        final variant = state.uri.queryParameters['variant'] ?? 'othello';
+        final diff = state.uri.queryParameters['difficulty'] ?? 'grandmaster';
+        final room = state.uri.queryParameters['room'];
+        final pid = state.uri.queryParameters['pid'];
+        return ReversiGamePage(
+          mode: mode,
+          variant: variant,
+          difficulty: diff,
           roomCode: room,
           localPlayerId: pid,
         );

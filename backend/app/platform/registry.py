@@ -6,6 +6,7 @@ from backend.app.games.quoridor.engine import QuoridorEngine, QUORIDOR_METADATA
 from backend.app.games.pentago.engine import PentagoEngine, PENTAGO_METADATA
 from backend.app.games.shut_the_box.engine import ShutTheBoxEngine, SHUT_THE_BOX_METADATA
 from backend.app.games.cricket.engine import CricketHubEngine, CRICKET_METADATA
+from backend.app.games.reversi.engine import ReversiEngine, REVERSI_METADATA
 
 class GameRegistry:
     def __init__(self):
@@ -19,6 +20,7 @@ class GameRegistry:
         self.register_game(PENTAGO_METADATA, PentagoEngine())
         self.register_game(SHUT_THE_BOX_METADATA, ShutTheBoxEngine())
         self.register_game(CRICKET_METADATA, CricketHubEngine())
+        self.register_game(REVERSI_METADATA, ReversiEngine())
 
     def register_game(self, metadata: GameMetadata, engine: BaseGameEngine):
         self._games[metadata.id] = (metadata, engine)

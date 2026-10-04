@@ -148,6 +148,31 @@ class PlayNedGameRegistry {
         'Cricket Challenge Hub: Test your knowledge in Who Am I?, Higher/Lower, Stat or Fiction, and Guess The Legend mini-games.',
       ],
     ),
+    const GameMetadata(
+      id: 'reversi',
+      name: 'Reversi & Othello',
+      tagline: 'A minute to learn, a lifetime to master. Flip your opponent\'s discs.',
+      description:
+          'The legendary strategic disc-flipping board game. Trap opponent discs between your own in straight lines to flip them to your colour. Features both Modern Othello (fixed opening) and Classic Reversi (custom 4-disc center opening) with AI opponents and real-time multiplayer.',
+      category: 'Strategy',
+      minPlayers: 1,
+      maxPlayers: 2,
+      supportsLocal: true,
+      supportsOnline: true,
+      supportsTeams: false,
+      estimatedDurationMinutes: 10,
+      accentColor: Color(0xFF10B981),
+      backgroundColor: Color(0xFF0A1F16),
+      icon: Icons.adjust,
+      rulesSummary: [
+        'Sandwich Rule: Place a disc on an empty square to sandwich one or more opponent discs in any straight line (horizontal, vertical, or diagonal).',
+        'Chain Flipping: All trapped opponent discs in all 8 directions flip to your colour simultaneously.',
+        'Mandatory Flips: You may only place a disc if it captures and flips at least one opposing disc. If no moves are possible, you must pass.',
+        'Variants: Choose between Modern Othello (standard 4-center setup) or Classic Reversi (custom opening & 32-disc quota).',
+        'Corner Supremacy: Corner squares can never be flipped once captured. Beware of adjacent C and X squares!',
+        'Victory Condition: When neither player can move or the board is filled, the player with the most discs wins.',
+      ],
+    ),
   ];
 
   static GameMetadata? getGame(String id) {

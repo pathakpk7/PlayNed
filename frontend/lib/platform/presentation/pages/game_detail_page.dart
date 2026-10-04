@@ -47,6 +47,8 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
       context.push('/games/shut_the_box/play?mode=local');
     } else if (_game!.id == 'cricket') {
       context.push('/games/cricket/hub');
+    } else if (_game!.id == 'reversi') {
+      context.push('/games/reversi/hub');
     }
   }
 
