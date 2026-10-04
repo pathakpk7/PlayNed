@@ -49,7 +49,7 @@ class _SettingsPageState extends State<SettingsPage> {
           const Divider(height: 32),
           const ListTile(
             title: Text("App Version"),
-            trailing: Text("v1.0.0", style: TextStyle(color: Colors.grey)),
+            trailing: Text("v1.4.3", style: TextStyle(color: Colors.grey)),
           ),
           const ListTile(
             title: Text("Linguistic Data Attribution"),

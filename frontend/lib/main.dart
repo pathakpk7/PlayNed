@@ -14,7 +14,7 @@ class HangmanApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Hangman Reimagined',
+      title: 'PlayNed - 2D Multiplayer Game Platform',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,

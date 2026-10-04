@@ -81,13 +81,32 @@ class HomePage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "HANGMAN",
-          style: GoogleFonts.dmSerifDisplay(
-            letterSpacing: 2.0,
-            fontSize: 20,
-            fontWeight: FontWeight.normal,
-          ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new, size: 18),
+          tooltip: "Return to PlayNed",
+          onPressed: () => context.go('/'),
+        ),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "HANGMAN REIMAGINED",
+              style: GoogleFonts.dmSerifDisplay(
+                letterSpacing: 1.5,
+                fontSize: 18,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            Text(
+              "BY PLAYNED",
+              style: GoogleFonts.inter(
+                fontSize: 8.5,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.2,
+                color: const Color(0xFFD5A84B),
+              ),
+            ),
+          ],
         ),
         actions: [
           IconButton(
@@ -141,18 +160,18 @@ class HomePage extends ConsumerWidget {
                       Row(
                         children: [
                           Text(
-                            "HANGMAN",
-                            style: GoogleFonts.dmSerifDisplay(fontSize: 20, color: const Color(0xFFF1EBDD)),
+                            "HANGMAN REIMAGINED",
+                            style: GoogleFonts.dmSerifDisplay(fontSize: 18, color: const Color(0xFFF1EBDD)),
                           ),
                           const SizedBox(width: 8),
                           Text(
                             "/'haŋmən/",
-                            style: GoogleFonts.inter(fontSize: 12, fontStyle: FontStyle.italic, color: const Color(0xFFD5A84B)),
+                            style: GoogleFonts.inter(fontSize: 11, fontStyle: FontStyle.italic, color: const Color(0xFFD5A84B)),
                           ),
                           const SizedBox(width: 6),
                           Text(
-                            "noun",
-                            style: GoogleFonts.inter(fontSize: 11, color: const Color(0xFFA9A396)),
+                            "— by PlayNed",
+                            style: GoogleFonts.inter(fontSize: 11, color: const Color(0xFFA9A396), fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),

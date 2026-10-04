@@ -25,3 +25,6 @@ hangman_game.db
 frontend/.dart_tool/
 frontend/.pub/
 frontend/build/
+
+# Scratch files
+scratch/

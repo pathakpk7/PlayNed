@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import '../../features/game/data/local_word_bank.dart';
 
 class ApiClient {
   static const String baseUrl = kIsWeb ? 'http://127.0.0.1:8000/api/v1' : 'http://10.0.2.2:8000/api/v1';
@@ -139,28 +140,32 @@ class ApiClient {
   }
 
   Map<String, dynamic> _generateLocalFallbackGame(String mode, int level, String category) {
+    final localWord = LocalWordBank.selectWord(mode: mode, level: level, category: category);
+    final masked = List.generate(localWord.length, (_) => '_');
+
     return {
       'game_id': 'local_${DateTime.now().millisecondsSinceEpoch}',
+      'secret_word': localWord.word.toUpperCase(),
       'mode': mode,
       'level': level,
-      'tier_label': 'Very Easy',
-      'masked_word': ['_', '_', '_', '_', '_', '_', '_', '_'],
+      'tier_label': LocalWordBank.getTierLabel(level),
+      'masked_word': masked,
       'revealed_indices': [],
       'lives_remaining': 5,
       'score': 0,
       'combo': 0,
       'mistakes': 0,
       'status': 'in_progress',
-      'word_dna': {
-        'length': 8,
-        'vowels': 3,
-        'consonants': 5,
-        'has_repeated_letters': true,
-        'category': category,
-        'part_of_speech': 'noun'
-      },
-      'guessed_letters': [],
+      'word_dna': localWord.toWordDna(),
+      'guessed_letters': <String>[],
       'hint_clue': null,
+      'clue1_definition': null,
+      'clue2_sentence': null,
+      'clue3_context': null,
+      'striking_clue': null,
+      'word_lifelines': 2,
+      'lifeline_unlocked': level >= 5,
+      'lifeline_used': false,
       'heart_regen_seconds_left': 0,
     };
   }
