@@ -285,6 +285,7 @@ class _ShutTheBoxGamePageState extends ConsumerState<ShutTheBoxGamePage> with Ti
         final names = bestPids.map((pid) => _playerNames[pid] ?? pid).join(" & ");
         _lastActionMessage = "Match ended in a Tie between $names ($minScore pts)!";
       }
+      _recordShutTheBoxResult();
       return;
     }
 
@@ -302,6 +303,48 @@ class _ShutTheBoxGamePageState extends ConsumerState<ShutTheBoxGamePage> with Ti
     _diceSum = 0;
     _diceRolled = false;
     _lastActionMessage += " Next round: $_currentTurnPlayerName.";
+  }
+
+  bool _statsRecorded = false;
+
+  void _recordShutTheBoxResult() {
+    if (_statsRecorded) return;
+    _statsRecorded = true;
+    try {
+      final auth = ref.read(authProvider);
+      if (!auth.isLoggedIn || auth.userId == null) return;
+
+      final myPid = widget.localPlayerId ?? 'p1';
+      final myScore = _playerScores[myPid] ?? 0;
+      final isShut = myScore == 0;
+
+      String outcome = 'loss';
+      if (_winnerId == myPid) {
+        outcome = 'win';
+      } else if (_winnerName == 'Tie') {
+        outcome = 'tie';
+      }
+
+      final section = widget.mode == 'online'
+          ? 'multiplayer'
+          : (_playerIds.length == 1 ? 'solo' : 'classic');
+
+      ref.read(platformApiServiceProvider).recordGameResult(
+        userId: auth.userId!,
+        gameId: 'shut_the_box',
+        sectionId: section,
+        outcome: outcome,
+        score: myScore,
+        details: {
+          'scores': _playerScores,
+          'shut_the_box': isShut,
+          'mode': widget.mode,
+        },
+        extraStatsUpdate: {
+          'boxes_shut_count': isShut ? 1 : 0,
+        },
+      );
+    } catch (_) {}
   }
 
   void _showConfigureMatchDialog() {

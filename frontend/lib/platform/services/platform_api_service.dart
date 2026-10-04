@@ -146,4 +146,49 @@ class PlatformApiService {
       return null;
     }
   }
+
+  // Cross-Game & Section-Specific Persistent Stats
+  Future<Map<String, dynamic>?> recordGameResult({
+    required String userId,
+    required String gameId,
+    String sectionId = 'classic',
+    String outcome = 'win',
+    int score = 0,
+    String? opponentName,
+    Map<String, dynamic>? details,
+    Map<String, dynamic>? extraStatsUpdate,
+  }) async {
+    try {
+      final res = await _dio.post('/stats/record', data: {
+        'user_id': userId,
+        'game_id': gameId,
+        'section_id': sectionId,
+        'outcome': outcome,
+        'score': score,
+        'opponent_name': opponentName,
+        'details': details ?? {},
+        'extra_stats_update': extraStatsUpdate ?? {},
+      });
+      return res.data as Map<String, dynamic>;
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error saving game stats to backend: $e");
+      }
+      return null;
+    }
+  }
+
+  Future<Map<String, dynamic>?> fetchUserAllGameStats(String userId, {String? gameId}) async {
+    try {
+      final res = await _dio.get('/stats/$userId', queryParameters: {
+        if (gameId != null && gameId.isNotEmpty) 'game_id': gameId,
+      });
+      return res.data as Map<String, dynamic>;
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error fetching all game stats: $e");
+      }
+      return null;
+    }
+  }
 }

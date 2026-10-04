@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../../../features/auth/presentation/providers/auth_provider.dart';
+import '../../../../platform/services/platform_api_service.dart';
 import '../../data/cricket_dataset.dart';
 import '../../domain/models/cricket_models.dart';
 
@@ -774,6 +776,26 @@ class _ChallengeHubPageState extends ConsumerState<ChallengeHubPage> with Single
         _streak = 0;
       }
     });
+    _recordChallengeActivity(isSorted ? 80 : 0, isSorted);
+  }
+
+  void _recordChallengeActivity(int pts, bool success) {
+    try {
+      final auth = ref.read(authProvider);
+      if (!auth.isLoggedIn || auth.userId == null) return;
+      ref.read(platformApiServiceProvider).recordGameResult(
+        userId: auth.userId!,
+        gameId: 'cricket',
+        sectionId: 'challenges',
+        outcome: success ? 'win' : 'loss',
+        score: _score,
+        details: {'points': pts, 'success': success, 'total_score': _score},
+        extraStatsUpdate: {
+          'challenges_completed': success ? 1 : 0,
+          'challenge_points': pts,
+        },
+      );
+    } catch (_) {}
   }
 
   // --- Who Am I logic ---
@@ -818,16 +840,17 @@ class _ChallengeHubPageState extends ConsumerState<ChallengeHubPage> with Single
   void _answerWhoAmI(String name) {
     if (_whoAmICorrect != null) return;
     final isCorrect = (name == _whoAmITarget!.name);
+    final pts = isCorrect ? ((6 - _revealedClues) * 30) : 0;
     setState(() {
       _whoAmICorrect = isCorrect;
       if (isCorrect) {
-        final pts = (6 - _revealedClues) * 30;
         _score += pts;
         _streak += 1;
       } else {
         _streak = 0;
       }
     });
+    _recordChallengeActivity(pts, isCorrect);
   }
 
   // --- Higher or Lower logic ---
@@ -878,6 +901,7 @@ class _ChallengeHubPageState extends ConsumerState<ChallengeHubPage> with Single
         _streak = 0;
       }
     });
+    _recordChallengeActivity(isCorrect ? 50 : 0, isCorrect);
   }
 
   // --- Guess the Player logic ---
@@ -917,6 +941,7 @@ class _ChallengeHubPageState extends ConsumerState<ChallengeHubPage> with Single
         _streak = 0;
       }
     });
+    _recordChallengeActivity(isCorrect ? 60 : 0, isCorrect);
   }
 
   @override
@@ -1347,6 +1372,7 @@ class _ChallengeHubPageState extends ConsumerState<ChallengeHubPage> with Single
                               _streak = 0;
                             }
                           });
+                          _recordChallengeActivity(isRight ? 50 : 0, isRight);
                         }
                       : null,
                   style: ElevatedButton.styleFrom(
@@ -1372,6 +1398,7 @@ class _ChallengeHubPageState extends ConsumerState<ChallengeHubPage> with Single
                               _streak = 0;
                             }
                           });
+                          _recordChallengeActivity(isRight ? 50 : 0, isRight);
                         }
                       : null,
                   style: ElevatedButton.styleFrom(

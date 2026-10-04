@@ -18,6 +18,8 @@ class DBUser(Base):
     classic_progress = relationship("DBClassicProgress", back_populates="user", uselist=False, cascade="all, delete-orphan")
     mode_stats = relationship("DBModeStats", back_populates="user", cascade="all, delete-orphan")
     codex_entries = relationship("DBUserCodex", back_populates="user", cascade="all, delete-orphan")
+    game_stats = relationship("DBGameStats", back_populates="user", cascade="all, delete-orphan")
+    game_match_logs = relationship("DBGameMatchLog", back_populates="user", cascade="all, delete-orphan")
 
 class DBUserHeartState(Base):
     __tablename__ = "user_heart_states"
@@ -93,3 +95,39 @@ class DBUserCodex(Base):
     last_encountered_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
 
     user = relationship("DBUser", back_populates="codex_entries")
+
+class DBGameStats(Base):
+    __tablename__ = "user_game_stats"
+
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    user_id = Column(String, ForeignKey("users.id"), nullable=False, index=True)
+    game_id = Column(String, nullable=False, index=True)      # e.g., 'cricket', 'shut_the_box', 'dots_and_boxes', etc.
+    section_id = Column(String, nullable=False, index=True)   # e.g., 'super_over', 'draft', 'stat_clash', 'challenges', 'classic'
+    matches_played = Column(Integer, default=0)
+    matches_won = Column(Integer, default=0)
+    matches_lost = Column(Integer, default=0)
+    matches_tied = Column(Integer, default=0)
+    high_score = Column(Integer, default=0)
+    total_score = Column(Integer, default=0)
+    current_streak = Column(Integer, default=0)
+    best_streak = Column(Integer, default=0)
+    extra_data = Column(String, default="{}")                # JSON string for game/section specific custom counters
+    last_played_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+    user = relationship("DBUser", back_populates="game_stats")
+
+class DBGameMatchLog(Base):
+    __tablename__ = "user_game_match_logs"
+
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    user_id = Column(String, ForeignKey("users.id"), nullable=False, index=True)
+    game_id = Column(String, nullable=False, index=True)
+    section_id = Column(String, nullable=False, index=True)
+    outcome = Column(String, nullable=False)                 # 'win', 'loss', 'tie', 'completed'
+    score = Column(Integer, default=0)
+    opponent_name = Column(String, nullable=True)
+    details = Column(String, default="{}")                   # JSON string for round specifics
+    played_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+    user = relationship("DBUser", back_populates="game_match_logs")

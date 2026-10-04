@@ -175,20 +175,61 @@ class _PentagoGamePageState extends ConsumerState<PentagoGamePage> {
         _status = 'draw';
         _winnerName = "Draw";
         _lastAction = "Simultaneous 5-in-a-row achieved! Match is a Draw!";
+        _recordPentagoResult("Draw");
       } else if (p1Wins) {
         _status = 'won';
         _winnerName = _playerNames["p1"];
         _lastAction = "Victory! $_winnerName connected 5 in a row!";
+        _recordPentagoResult(_winnerName);
       } else if (p2Wins) {
         _status = 'won';
         _winnerName = _playerNames["p2"];
         _lastAction = "Victory! $_winnerName connected 5 in a row!";
+        _recordPentagoResult(_winnerName);
       } else {
         _currentTurnIndex = (_currentTurnIndex + 1) % _playerIds.length;
         final nextName = _playerNames[_playerIds[_currentTurnIndex]] ?? "Player";
         _lastAction = "Quadrant rotated. $nextName's turn to place marble.";
       }
     });
+  }
+
+  bool _statsRecorded = false;
+
+  void _recordPentagoResult(String? winner) {
+    if (_statsRecorded) return;
+    _statsRecorded = true;
+    try {
+      final auth = ref.read(authProvider);
+      if (!auth.isLoggedIn || auth.userId == null) return;
+
+      final myPid = widget.localPlayerId ?? 'p1';
+      final myName = _playerNames[myPid] ?? 'Player';
+
+      String outcome = 'loss';
+      if (winner == myName) {
+        outcome = 'win';
+      } else if (winner == 'Draw') {
+        outcome = 'tie';
+      }
+
+      final section = widget.mode == 'online' ? 'multiplayer' : 'classic';
+
+      ref.read(platformApiServiceProvider).recordGameResult(
+        userId: auth.userId!,
+        gameId: 'pentago',
+        sectionId: section,
+        outcome: outcome,
+        score: outcome == 'win' ? 100 : 0,
+        details: {
+          'winner': winner,
+          'mode': widget.mode,
+        },
+        extraStatsUpdate: {
+          'pentago_wins': outcome == 'win' ? 1 : 0,
+        },
+      );
+    } catch (_) {}
   }
 
   void _rotateLocalQuadrant(int quadrant, String direction) {

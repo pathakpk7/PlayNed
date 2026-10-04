@@ -238,6 +238,7 @@ class _QuoridorGamePageState extends ConsumerState<QuoridorGamePage> {
         _status = 'won';
         _winnerName = pname;
         _lastAction = "$pname reached the goal line and WON!";
+        _recordQuoridorResult(pname);
         return;
       }
 
@@ -245,6 +246,37 @@ class _QuoridorGamePageState extends ConsumerState<QuoridorGamePage> {
       final nextName = _playerNames[_playerIds[_currentTurnIndex]] ?? "Player";
       _lastAction = "$pname moved pawn to ($r, $c). $nextName's turn.";
     });
+  }
+
+  bool _statsRecorded = false;
+
+  void _recordQuoridorResult(String winner) {
+    if (_statsRecorded) return;
+    _statsRecorded = true;
+    try {
+      final auth = ref.read(authProvider);
+      if (!auth.isLoggedIn || auth.userId == null) return;
+
+      final myPid = widget.localPlayerId ?? 'p1';
+      final isWin = winner == (_playerNames[myPid] ?? 'Player');
+
+      final section = widget.mode == 'online' ? 'multiplayer' : 'classic';
+
+      ref.read(platformApiServiceProvider).recordGameResult(
+        userId: auth.userId!,
+        gameId: 'quoridor',
+        sectionId: section,
+        outcome: isWin ? 'win' : 'loss',
+        score: isWin ? 100 : 0,
+        details: {
+          'winner': winner,
+          'mode': widget.mode,
+        },
+        extraStatsUpdate: {
+          'quoridor_wins': isWin ? 1 : 0,
+        },
+      );
+    } catch (_) {}
   }
 
   void _onWallTap(String orientation, int wr, int wc) async {

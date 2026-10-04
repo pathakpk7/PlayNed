@@ -178,6 +178,9 @@ class _SuperOverGamePageState extends ConsumerState<SuperOverGamePage> {
       _winnerId = s['winner_id']?.toString();
       _winnerName = s['winner_name']?.toString();
       _isTie = s['is_tie'] ?? false;
+      if (_status == 'finished') {
+        _recordMatchStats();
+      }
     });
   }
 
@@ -261,6 +264,7 @@ class _SuperOverGamePageState extends ConsumerState<SuperOverGamePage> {
           _winnerId = _p2Id;
           _winnerName = _p2Name;
           _lastCommentary = "$_p2Name chases down the target to WIN the Super Over!";
+          _recordMatchStats();
         } else if (_innings2Balls >= 6 || _innings2Wickets >= 2) {
           _status = 'finished';
           if (_innings2Runs == _innings1Runs) {
@@ -272,9 +276,54 @@ class _SuperOverGamePageState extends ConsumerState<SuperOverGamePage> {
             _winnerName = _p1Name;
             _lastCommentary = "$_p1Name successfully defends their total to WIN the Super Over!";
           }
+          _recordMatchStats();
         }
       }
     });
+  }
+
+  bool _statsRecorded = false;
+
+  void _recordMatchStats() {
+    if (_statsRecorded) return;
+    _statsRecorded = true;
+    try {
+      final auth = ref.read(authProvider);
+      if (!auth.isLoggedIn || auth.userId == null) return;
+
+      final isP1 = widget.localPlayerId == null || widget.localPlayerId == _p1Id;
+      final myRuns = isP1 ? _innings1Runs : _innings2Runs;
+      final myWickets = isP1 ? _innings2Wickets : _innings1Wickets;
+
+      String outcome = 'tie';
+      if (!_isTie) {
+        if ((isP1 && _winnerId == _p1Id) || (!isP1 && _winnerId == _p2Id)) {
+          outcome = 'win';
+        } else {
+          outcome = 'loss';
+        }
+      }
+
+      ref.read(platformApiServiceProvider).recordGameResult(
+        userId: auth.userId!,
+        gameId: 'cricket',
+        sectionId: 'super_over',
+        outcome: outcome,
+        score: myRuns,
+        opponentName: isP1 ? _p2Name : _p1Name,
+        details: {
+          'my_runs': myRuns,
+          'opponent_runs': isP1 ? _innings2Runs : _innings1Runs,
+          'innings1_runs': _innings1Runs,
+          'innings2_runs': _innings2Runs,
+          'target': _target,
+        },
+        extraStatsUpdate: {
+          'runs': myRuns,
+          'wickets': myWickets,
+        },
+      );
+    } catch (_) {}
   }
 
   DeliveryRecord _resolveBall({
@@ -477,6 +526,7 @@ class _SuperOverGamePageState extends ConsumerState<SuperOverGamePage> {
 
   void _resetMatch() {
     setState(() {
+      _statsRecorded = false;
       _status = 'selection';
       _currentInnings = 1;
       _selectedBatters['p1'] = [];

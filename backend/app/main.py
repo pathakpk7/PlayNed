@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.app.config import settings
 from backend.app.database import engine, Base, init_db
-from backend.app.routers import auth, game, profile, codex, multiplayer, platform_games, platform_rooms, platform_ws
+from backend.app.routers import auth, game, profile, codex, multiplayer, platform_games, platform_rooms, platform_ws, stats
 
 # Initialize Database Tables & Migrations
 init_db()
@@ -34,6 +34,7 @@ app.include_router(multiplayer.router, prefix=settings.API_V1_STR)
 app.include_router(platform_games.router, prefix=settings.API_V1_STR)
 app.include_router(platform_rooms.router, prefix=settings.API_V1_STR)
 app.include_router(platform_ws.router, prefix=settings.API_V1_STR)
+app.include_router(stats.router, prefix=settings.API_V1_STR)
 
 @app.get("/")
 def root():

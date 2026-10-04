@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../../features/auth/presentation/providers/auth_provider.dart';
+import '../../../../platform/services/platform_api_service.dart';
 import '../../data/cricket_dataset.dart';
 import '../../domain/models/cricket_models.dart';
 
@@ -289,9 +290,11 @@ class _StatClashGamePageState extends ConsumerState<StatClashGamePage> {
     if (_p1Score >= _roundsToWin) {
       _status = 'finished';
       _seriesWinner = _p1Name;
+      _recordStatClashResult();
     } else if (_p2Score >= _roundsToWin) {
       _status = 'finished';
       _seriesWinner = _p2Name;
+      _recordStatClashResult();
     } else if (_currentRound >= _maxRounds) {
       _status = 'finished';
       if (_p1Score > _p2Score) {
@@ -301,11 +304,44 @@ class _StatClashGamePageState extends ConsumerState<StatClashGamePage> {
       } else {
         _isSeriesTie = true;
       }
+      _recordStatClashResult();
     } else {
       _status = 'round_resolved';
     }
 
     setState(() {});
+  }
+
+  void _recordStatClashResult() {
+    try {
+      final auth = ref.read(authProvider);
+      if (!auth.isLoggedIn || auth.userId == null) return;
+
+      String outcome = 'tie';
+      if (_seriesWinner == _p1Name) {
+        outcome = 'win';
+      } else if (_seriesWinner != null && !_isSeriesTie) {
+        outcome = 'loss';
+      }
+
+      ref.read(platformApiServiceProvider).recordGameResult(
+        userId: auth.userId!,
+        gameId: 'cricket',
+        sectionId: 'stat_clash',
+        outcome: outcome,
+        score: _p1Score,
+        opponentName: _p2Name,
+        details: {
+          'p1_rounds_won': _p1Score,
+          'p2_rounds_won': _p2Score,
+          'total_rounds': _currentRound,
+        },
+        extraStatsUpdate: {
+          'stat_clash_wins': outcome == 'win' ? 1 : 0,
+          'rounds_won': _p1Score,
+        },
+      );
+    } catch (_) {}
   }
 
   void _nextRound() {

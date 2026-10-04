@@ -180,3 +180,56 @@ class RoomStateResponse(BaseModel):
     word_dna: WordDna
     winner_id: Optional[str] = None
     winner_name: Optional[str] = None
+
+# Platform Game & Multi-Game Stats Models
+class RecordGameSessionRequest(BaseModel):
+    user_id: str
+    game_id: str
+    section_id: str = "classic"
+    outcome: str = "win" # win, loss, tie, completed
+    score: int = 0
+    opponent_name: Optional[str] = None
+    details: Optional[Dict[str, Any]] = None
+    extra_stats_update: Optional[Dict[str, Any]] = None
+
+class GameSectionStatItem(BaseModel):
+    game_id: str
+    section_id: str
+    matches_played: int = 0
+    matches_won: int = 0
+    matches_lost: int = 0
+    matches_tied: int = 0
+    high_score: int = 0
+    total_score: int = 0
+    current_streak: int = 0
+    best_streak: int = 0
+    extra_data: Dict[str, Any] = {}
+    last_played_at: Optional[str] = None
+
+class GameStatsGroup(BaseModel):
+    game_id: str
+    total_played: int = 0
+    total_won: int = 0
+    total_lost: int = 0
+    total_tied: int = 0
+    high_score: int = 0
+    sections: Dict[str, GameSectionStatItem] = {}
+
+class GameMatchLogItem(BaseModel):
+    id: str
+    game_id: str
+    section_id: str
+    outcome: str
+    score: int = 0
+    opponent_name: Optional[str] = None
+    details: Dict[str, Any] = {}
+    played_at: str
+
+class UserAllGameStatsResponse(BaseModel):
+    user_id: str
+    username: str
+    total_games_played: int = 0
+    total_games_won: int = 0
+    games: Dict[str, GameStatsGroup] = {}
+    recent_matches: List[GameMatchLogItem] = []
+

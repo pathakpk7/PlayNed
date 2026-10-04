@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../../features/auth/presentation/providers/auth_provider.dart';
+import '../../../../platform/services/platform_api_service.dart';
 import '../../data/cricket_dataset.dart';
 import '../../domain/models/cricket_models.dart';
 import '../widgets/chit_bowl_widget.dart';
@@ -357,6 +358,46 @@ class _CricketDraftGamePageState extends ConsumerState<CricketDraftGamePage> {
       _status = 'match_simulated';
       _lastActionMsg = summary;
     });
+
+    _recordDraftResult(winName, in1, in2);
+  }
+
+  void _recordDraftResult(String? winName, Map<String, dynamic> in1, Map<String, dynamic> in2) {
+    try {
+      final auth = ref.read(authProvider);
+      if (!auth.isLoggedIn || auth.userId == null) return;
+
+      String outcome = 'tie';
+      if (winName == _p1Name) {
+        outcome = 'win';
+      } else if (winName != null && winName != 'Draw') {
+        outcome = 'loss';
+      }
+
+      final p1Runs = in1['runs'] as int? ?? 0;
+      final p1Wickets = in2['wickets'] as int? ?? 0;
+
+      ref.read(platformApiServiceProvider).recordGameResult(
+        userId: auth.userId!,
+        gameId: 'cricket',
+        sectionId: 'draft',
+        outcome: outcome,
+        score: p1Runs,
+        opponentName: _p2Name,
+        details: {
+          'p1_squad': _squadSlots[_p1Id],
+          'p2_squad': _squadSlots[_p2Id],
+          'p1_runs': p1Runs,
+          'p2_runs': in2['runs'],
+          'budget_remaining': _budget[_p1Id],
+        },
+        extraStatsUpdate: {
+          'draft_wins': outcome == 'win' ? 1 : 0,
+          'runs': p1Runs,
+          'wickets': p1Wickets,
+        },
+      );
+    } catch (_) {}
   }
 
   Map<String, dynamic> _simulateTacticalInnings(

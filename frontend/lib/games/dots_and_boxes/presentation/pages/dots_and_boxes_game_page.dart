@@ -245,8 +245,50 @@ class _DotsAndBoxesGamePageState extends ConsumerState<DotsAndBoxesGamePage> {
           _winnerName = _playerNames[bestPid];
           _lastAction = "Game over! $_winnerName wins with $maxScore boxes!";
         }
+        _recordDotsResult();
       }
     });
+  }
+
+  bool _statsRecorded = false;
+
+  void _recordDotsResult() {
+    if (_statsRecorded) return;
+    _statsRecorded = true;
+    try {
+      final auth = ref.read(authProvider);
+      if (!auth.isLoggedIn || auth.userId == null) return;
+
+      final myPid = widget.localPlayerId ?? 'p1';
+      final myScore = _scores[myPid] ?? 0;
+
+      String outcome = 'loss';
+      if (_winnerName == _playerNames[myPid]) {
+        outcome = 'win';
+      } else if (_winnerName == 'Draw') {
+        outcome = 'tie';
+      }
+
+      final section = widget.mode == 'online'
+          ? 'multiplayer'
+          : 'grid_${widget.gridRows}x${widget.gridCols}';
+
+      ref.read(platformApiServiceProvider).recordGameResult(
+        userId: auth.userId!,
+        gameId: 'dots_and_boxes',
+        sectionId: section,
+        outcome: outcome,
+        score: myScore,
+        details: {
+          'scores': _scores,
+          'grid': '${widget.gridRows}x${widget.gridCols}',
+          'mode': widget.mode,
+        },
+        extraStatsUpdate: {
+          'boxes_completed': myScore,
+        },
+      );
+    } catch (_) {}
   }
 
   void _showRenameDialog(String pid) {
