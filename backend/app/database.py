@@ -9,7 +9,7 @@ load_dotenv()
 # Portable PostgreSQL / SQLite database connection (Neon DB / Supabase / Local SQLite)
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./hangman_game.db")
 
-# Normalize dialect prefix for Neon / PostgreSQL URLs (SQLAlchemy requires postgresql://)
+# Normalize dialect prefix for Neon / PostgreSQL URLs
 if DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
