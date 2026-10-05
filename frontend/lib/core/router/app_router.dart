@@ -12,6 +12,7 @@ import '../../games/cricket/presentation/pages/super_over_game_page.dart';
 import '../../games/cricket/presentation/pages/stat_clash_game_page.dart';
 import '../../games/cricket/presentation/pages/challenge_hub_page.dart';
 import '../../games/cricket/presentation/pages/cricket_draft_game_page.dart';
+import '../../games/cricket/presentation/pages/cricket_auction_page.dart';
 import '../../games/reversi/presentation/pages/reversi_hub_page.dart';
 import '../../games/reversi/presentation/pages/reversi_game_page.dart';
 import '../../features/home/presentation/pages/home_page.dart';
@@ -215,6 +216,10 @@ final GoRouter appRouter = GoRouter(
           localPlayerId: pid,
         );
       },
+    ),
+    GoRoute(
+      path: '/games/cricket/auction',
+      builder: (context, state) => const CricketAuctionPage(),
     ),
 
     // Hangman Reimagined Dedicated Views (Preserved 100%)

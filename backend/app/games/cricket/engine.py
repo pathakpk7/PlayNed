@@ -4,12 +4,13 @@ from backend.app.games.cricket.modes.super_over import SuperOverEngine
 from backend.app.games.cricket.modes.stat_clash import StatClashEngine
 from backend.app.games.cricket.modes.challenges import CricketChallengeEngine
 from backend.app.games.cricket.modes.draft import CricketDraftEngine
+from backend.app.games.cricket.modes.auction import CricketAuctionBackendEngine
 
 CRICKET_METADATA = GameMetadata(
     id="cricket",
     name="Cricket Hub",
-    tagline="Experience high-stakes Super Over duels, tactical Cricket Drafts, Stat Clashes, and trivia challenges.",
-    description="The ultimate PlayNed cricket arena. Build dream squads in 100-budget Cricket Drafts with simulated 5-over clashes, play fast-paced 6-ball Super Over duels with authentic batsman-bowler tactical matchups, test your cricketing intellect in Stat Clash squad drafting, and conquer the Cricket Challenge Hub with trivia, timelines, and higher/lower battles.",
+    tagline="Experience IPL Mini Auctions, high-stakes Super Over duels, tactical Cricket Drafts, Stat Clashes, and trivia challenges.",
+    description="The ultimate PlayNed cricket arena. Manage ₹120 Cr franchise purse in the IPL Mini Auction with marquee drafts and intense bidding wars, build dream squads in 100-budget Cricket Drafts with simulated 5-over clashes, play fast-paced 6-ball Super Over duels with authentic batsman-bowler tactical matchups, test your cricketing intellect in Stat Clash squad drafting, and conquer the Cricket Challenge Hub with trivia, timelines, and higher/lower battles.",
     category="Sports / Strategy",
     min_players=1,
     max_players=2,
@@ -43,6 +44,7 @@ class CricketHubEngine(BaseGameEngine):
         self.super_over_engine = SuperOverEngine()
         self.stat_clash_engine = StatClashEngine()
         self.challenge_engine = CricketChallengeEngine()
+        self.auction_engine = CricketAuctionBackendEngine()
 
     def create_initial_state(self, player_ids: List[str], player_names: Dict[str, str], options: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         options = options or {}
@@ -52,6 +54,8 @@ class CricketHubEngine(BaseGameEngine):
             state = self.draft_engine.create_initial_state(player_ids, player_names, options)
         elif mode == "stat_clash":
             state = self.stat_clash_engine.create_initial_state(player_ids, player_names, options)
+        elif mode in ("auction", "mini_auction", "ipl_auction"):
+            state = self.auction_engine.create_initial_state(player_ids, player_names, options)
         elif mode in ("challenge_hub", "challenges"):
             sub_type = options.get("sub_type", "who_am_i")
             state = {
@@ -89,6 +93,8 @@ class CricketHubEngine(BaseGameEngine):
             return self.draft_engine.validate_move(state, player_id, move)
         elif mode == "stat_clash":
             return self.stat_clash_engine.validate_move(state, player_id, move)
+        elif mode in ("auction", "mini_auction", "ipl_auction"):
+            return self.auction_engine.validate_move(state, player_id, move)
         elif mode in ("challenges", "challenge_hub"):
             return True, None
         else:
@@ -100,6 +106,8 @@ class CricketHubEngine(BaseGameEngine):
             return self.draft_engine.apply_move(state, player_id, move)
         elif mode == "stat_clash":
             return self.stat_clash_engine.apply_move(state, player_id, move)
+        elif mode in ("auction", "mini_auction", "ipl_auction"):
+            return self.auction_engine.apply_move(state, player_id, move)
         elif mode in ("challenges", "challenge_hub"):
             action = move.get("action")
             if action == "answer":
@@ -125,6 +133,8 @@ class CricketHubEngine(BaseGameEngine):
             return self.draft_engine.get_available_moves(state, player_id)
         elif mode == "stat_clash":
             return self.stat_clash_engine.get_available_moves(state, player_id)
+        elif mode in ("auction", "mini_auction", "ipl_auction"):
+            return self.auction_engine.get_available_moves(state, player_id)
         elif mode in ("challenges", "challenge_hub"):
             return [{"action": "answer"}, {"action": "next_question"}]
         else:

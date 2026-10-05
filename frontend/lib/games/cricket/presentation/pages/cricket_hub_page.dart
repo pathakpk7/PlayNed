@@ -109,6 +109,18 @@ class _CricketHubPageState extends ConsumerState<CricketHubPage> {
                     final modeCards = [
                       _buildModeCard(
                         context,
+                        title: "IPL MINI AUCTION",
+                        tagline: "10-Franchise War Room, ₹120 Cr Purse & Live Bidding Wars.",
+                        description:
+                            "Lead your franchise in an authentic IPL-style auction. Draft marquee icons, execute strategic retention salary slabs, battle intelligent AI franchises for 160+ active cricket stars, and assemble a title-winning 18–25 player squad with Playing XI & Impact Player optimization.",
+                        icon: Icons.gavel,
+                        accentColor: const Color(0xFFE5A93C),
+                        chips: ["10 Franchises", "₹120 Cr Purse", "Marquee Icons", "Bidding Wars", "Impact Player"],
+                        onPlayLocal: () => context.push('/games/cricket/auction'),
+                        onPlayOnline: () => context.push('/games/cricket'),
+                      ),
+                      _buildModeCard(
+                        context,
                         title: "SUPER OVER DUEL",
                         tagline: "6 Balls. 2 Batters. 1 Bowler. Pure Tactical Cricket.",
                         description:
@@ -160,22 +172,29 @@ class _CricketHubPageState extends ConsumerState<CricketHubPage> {
                     if (constraints.maxWidth >= 860) {
                       return Column(
                         children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(child: modeCards[0]),
-                              const SizedBox(width: 16),
-                              Expanded(child: modeCards[1]),
-                            ],
+                          // Featured IPL Mini Auction Card
+                          modeCards[0],
+                          const SizedBox(height: 16),
+                          IntrinsicHeight(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Expanded(child: modeCards[1]),
+                                const SizedBox(width: 16),
+                                Expanded(child: modeCards[2]),
+                              ],
+                            ),
                           ),
                           const SizedBox(height: 16),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(child: modeCards[2]),
-                              const SizedBox(width: 16),
-                              Expanded(child: modeCards[3]),
-                            ],
+                          IntrinsicHeight(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Expanded(child: modeCards[3]),
+                                const SizedBox(width: 16),
+                                Expanded(child: modeCards[4]),
+                              ],
+                            ),
                           ),
                         ],
                       );
@@ -218,74 +237,80 @@ class _CricketHubPageState extends ConsumerState<CricketHubPage> {
       padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: accentColor.withOpacity(0.12),
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: accentColor.withOpacity(0.4)),
-                ),
-                child: Icon(icon, color: accentColor, size: 24),
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: accentColor.withOpacity(0.12),
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: accentColor.withOpacity(0.4)),
+                    ),
+                    child: Icon(icon, color: accentColor, size: 24),
+                  ),
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          title,
+                          style: GoogleFonts.dmSerifDisplay(
+                            fontSize: 18,
+                            color: const Color(0xFFF1EBDD),
+                          ),
+                        ),
+                        Text(
+                          tagline,
+                          style: GoogleFonts.inter(
+                            fontSize: 12,
+                            color: accentColor,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(width: 14),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: GoogleFonts.dmSerifDisplay(
-                        fontSize: 18,
-                        color: const Color(0xFFF1EBDD),
-                      ),
-                    ),
-                    Text(
-                      tagline,
-                      style: GoogleFonts.inter(
-                        fontSize: 12,
-                        color: accentColor,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
+              const SizedBox(height: 12),
+              Text(
+                description,
+                style: GoogleFonts.inter(
+                  fontSize: 12,
+                  color: const Color(0xFFA9A396),
+                  height: 1.45,
                 ),
+              ),
+              const SizedBox(height: 14),
+              Wrap(
+                spacing: 8,
+                runSpacing: 6,
+                children: chips.map((c) {
+                  return Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF1B2C22),
+                      borderRadius: BorderRadius.circular(6),
+                      border: Border.all(color: const Color(0xFF284835)),
+                    ),
+                    child: Text(
+                      c,
+                      style: GoogleFonts.inter(
+                        fontSize: 11,
+                        color: const Color(0xFFC3BCAC),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  );
+                }).toList(),
               ),
             ],
-          ),
-          const SizedBox(height: 12),
-          Text(
-            description,
-            style: GoogleFonts.inter(
-              fontSize: 12,
-              color: const Color(0xFFA9A396),
-              height: 1.45,
-            ),
-          ),
-          const SizedBox(height: 14),
-          Wrap(
-            spacing: 8,
-            runSpacing: 6,
-            children: chips.map((c) {
-              return Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF1B2C22),
-                  borderRadius: BorderRadius.circular(6),
-                  border: Border.all(color: const Color(0xFF284835)),
-                ),
-                child: Text(
-                  c,
-                  style: GoogleFonts.inter(
-                    fontSize: 11,
-                    color: const Color(0xFFC3BCAC),
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              );
-            }).toList(),
           ),
           const SizedBox(height: 18),
           Row(
@@ -295,7 +320,9 @@ class _CricketHubPageState extends ConsumerState<CricketHubPage> {
                   onPressed: onPlayLocal,
                   icon: const Icon(Icons.sports_esports_outlined, size: 16),
                   label: Text(
-                    onPlayOnline == null ? "START CHALLENGES" : "LOCAL DUEL",
+                    onPlayOnline == null
+                        ? "START CHALLENGES"
+                        : (title == "IPL MINI AUCTION" ? "ENTER AUCTION" : "LOCAL DUEL"),
                     style: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.bold),
                   ),
                   style: ElevatedButton.styleFrom(
