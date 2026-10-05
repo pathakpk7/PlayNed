@@ -104,8 +104,8 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/games/ultimate_tic_tac_toe/play',
       builder: (context, state) {
-        final mode = state.uri.queryParameters['mode'] ?? 'online';
         final room = state.uri.queryParameters['room'];
+        final mode = state.uri.queryParameters['mode'] ?? (room != null ? 'online' : 'local');
         final pid = state.uri.queryParameters['pid'];
         return UltimateTicTacToeGamePage(
           mode: mode,
@@ -117,8 +117,8 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/games/ultimate-tic-tac-toe/play',
       builder: (context, state) {
-        final mode = state.uri.queryParameters['mode'] ?? 'online';
         final room = state.uri.queryParameters['room'];
+        final mode = state.uri.queryParameters['mode'] ?? (room != null ? 'online' : 'local');
         final pid = state.uri.queryParameters['pid'];
         return UltimateTicTacToeGamePage(
           mode: mode,

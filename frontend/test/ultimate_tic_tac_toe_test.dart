@@ -164,5 +164,52 @@ void main() {
       // Verify Match stats
       expect(find.text('MATCH STATS'), findsOneWidget);
     });
+
+    testWidgets('Renders UltimateTicTacToeGamePage in AI mode', (tester) async {
+      await tester.binding.setSurfaceSize(const Size(1200, 900));
+
+      await tester.pumpWidget(
+        const ProviderScope(
+          child: MaterialApp(
+            home: UltimateTicTacToeGamePage(mode: 'ai'),
+          ),
+        ),
+      );
+
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 100));
+
+      // Verify AI Bot name and badge
+      expect(find.text('Tactical AI Bot'), findsOneWidget);
+      expect(find.text('BOT'), findsOneWidget);
+    });
+
+    testWidgets('Tapping cell in local mode executes move and routes next turn', (tester) async {
+      await tester.binding.setSurfaceSize(const Size(1200, 900));
+
+      await tester.pumpWidget(
+        const ProviderScope(
+          child: MaterialApp(
+            home: UltimateTicTacToeGamePage(mode: 'local'),
+          ),
+        ),
+      );
+
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 100));
+
+      // Tap cell in board 0, cell 4 (center)
+      final centerCellFinder = find.byWidgetPredicate(
+        (widget) => widget is GestureDetector && widget.child is Container,
+      );
+      expect(centerCellFinder, findsWidgets);
+
+      await tester.tap(centerCellFinder.at(4));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 100));
+
+      // Move counter should advance to Move #1
+      expect(find.text('Move #1'), findsOneWidget);
+    });
   });
 }

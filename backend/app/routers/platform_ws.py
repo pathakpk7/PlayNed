@@ -30,7 +30,7 @@ async def websocket_room_endpoint(websocket: WebSocket, room_code: str, player_i
             data = await websocket.receive_text()
             try:
                 msg = json.loads(data)
-                msg_type = msg.get("type")
+                msg_type = (msg.get("type") or msg.get("action", "")).upper()
 
                 if msg_type == "MOVE":
                     move_payload = msg.get("move", {})
@@ -52,8 +52,10 @@ async def websocket_room_endpoint(websocket: WebSocket, room_code: str, player_i
                         "room": updated_room.model_dump()
                     })
 
-                elif msg_type == "START":
-                    updated_room = room_manager.start_match(code, player_id)
+                elif msg_type in ("START", "REMATCH"):
+                    curr_room = room_manager.get_room(code)
+                    starter_pid = curr_room.host_player_id if curr_room else player_id
+                    updated_room = room_manager.start_match(code, starter_pid)
                     await ws_manager.broadcast(code, {
                         "type": "GAME_STARTED",
                         "room": updated_room.model_dump()

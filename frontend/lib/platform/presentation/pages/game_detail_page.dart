@@ -49,7 +49,66 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
       context.push('/games/cricket/hub');
     } else if (_game!.id == 'reversi') {
       context.push('/games/reversi/hub');
+    } else if (_game!.id == 'ultimate_tic_tac_toe' || _game!.id == 'ultimate-tic-tac-toe') {
+      _showUltimateTicTacToeModeSelector();
     }
+  }
+
+  void _showUltimateTicTacToeModeSelector() {
+    showDialog(
+      context: context,
+      builder: (ctx) => Dialog(
+        backgroundColor: PlayNedTokens.surface,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(PlayNedTokens.radiusLg),
+          side: const BorderSide(color: PlayNedTokens.border, width: 1.5),
+        ),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 520),
+          child: Padding(
+            padding: const EdgeInsets.all(PlayNedTokens.space24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("SELECT MATCH MODE", style: PlayNedTokens.gameTitle),
+                    IconButton(
+                      icon: const Icon(Icons.close, size: 18, color: PlayNedTokens.textSecondary),
+                      onPressed: () => Navigator.pop(ctx),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: PlayNedTokens.space16),
+                _buildModeTile(
+                  ctx: ctx,
+                  icon: Icons.smart_toy_outlined,
+                  title: "Solo vs Tactical AI",
+                  subtitle: "Sharpen your routing strategy against an intelligent AI bot",
+                  onTap: () {
+                    Navigator.pop(ctx);
+                    context.push('/games/ultimate_tic_tac_toe/play?mode=ai');
+                  },
+                ),
+                const SizedBox(height: PlayNedTokens.space10),
+                _buildModeTile(
+                  ctx: ctx,
+                  icon: Icons.people_outline,
+                  title: "Pass & Play (2 Players)",
+                  subtitle: "Turn-based local match on the same screen",
+                  onTap: () {
+                    Navigator.pop(ctx);
+                    context.push('/games/ultimate_tic_tac_toe/play?mode=local');
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   void _showHangmanModeSelector() {

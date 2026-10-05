@@ -113,7 +113,7 @@ class UltimateTicTacToeState {
   bool get isFreeMove => nextBoard == null;
 
   List<int> get validBoards {
-    if (status != 'in_progress') return [];
+    if (status != 'in_progress' && status != 'active') return [];
     if (nextBoard != null && nextBoard! >= 0 && nextBoard! < 9) {
       if (!boards[nextBoard!].isCompleted) {
         return [nextBoard!];

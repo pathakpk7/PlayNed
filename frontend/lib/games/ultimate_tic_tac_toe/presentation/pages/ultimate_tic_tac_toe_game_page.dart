@@ -33,6 +33,8 @@ class _UltimateTicTacToeGamePageState extends ConsumerState<UltimateTicTacToeGam
   List<String> _playerIds = ["p1", "p2"];
   Map<String, String> _playerNames = {"p1": "Player 1", "p2": "Player 2"};
   String? _localPlayerMark; // 'X' or 'O' in online mode
+  bool _isAiThinking = false;
+  bool _statsRecorded = false;
 
   // Visual Palette
   static const Color _colorX = Color(0xFF38BDF8); // Electric Cyan
@@ -86,14 +88,18 @@ class _UltimateTicTacToeGamePageState extends ConsumerState<UltimateTicTacToeGam
   void _initLocalState() {
     final auth = ref.read(authProvider);
     final p1Name = auth.username ?? "Player 1";
-    _playerNames = {"p1": p1Name, "p2": "Player 2"};
+    final isAi = widget.mode == 'ai';
+    final p2Name = isAi ? "Tactical AI Bot" : "Player 2";
+    _playerNames = {"p1": p1Name, "p2": p2Name};
     _playerIds = ["p1", "p2"];
     _gameState = UltimateTicTacToeState.initial(
       p1Id: "p1",
       p2Id: "p2",
       p1Name: p1Name,
-      p2Name: "Player 2",
+      p2Name: p2Name,
     );
+    _statsRecorded = false;
+    _isAiThinking = false;
   }
 
   void _initOnlineMode() async {
@@ -119,8 +125,10 @@ class _UltimateTicTacToeGamePageState extends ConsumerState<UltimateTicTacToeGam
           final data = jsonDecode(message as String) as Map<String, dynamic>;
           if (data['room'] != null && data['room']['match_state'] != null) {
             _applyBackendState(data['room']['match_state'] as Map<String, dynamic>);
+          } else if (data['match_state'] != null) {
+            _applyBackendState(data['match_state'] as Map<String, dynamic>);
           }
-          if (data['type'] == 'room_update' && data['room'] != null) {
+          if (data['room'] != null) {
             final r = PlatformRoom.fromJson(data['room'] as Map<String, dynamic>);
             if (mounted) {
               setState(() {
@@ -141,6 +149,9 @@ class _UltimateTicTacToeGamePageState extends ConsumerState<UltimateTicTacToeGam
     setState(() {
       _gameState = UltimateTicTacToeState.fromJson(state);
     });
+    if (_gameState.status == 'won' || _gameState.status == 'draw') {
+      _recordMatchStats(_gameState.status, _gameState.winnerSymbol);
+    }
   }
 
   // --- Local Game Engine Logic ---
@@ -194,6 +205,7 @@ class _UltimateTicTacToeGamePageState extends ConsumerState<UltimateTicTacToeGam
 
   void _handleCellTap(int boardIdx, int cellIdx) {
     if (_gameState.status != 'in_progress' && _gameState.status != 'active') return;
+    if (_isAiThinking) return;
 
     // Check if target board is valid
     final validBoards = _gameState.validBoards;
@@ -210,6 +222,7 @@ class _UltimateTicTacToeGamePageState extends ConsumerState<UltimateTicTacToeGam
       // Send move to backend via WS
       if (_wsChannel != null) {
         _wsChannel!.sink.add(jsonEncode({
+          'type': 'MOVE',
           'action': 'move',
           'move': {
             'board': boardIdx,
@@ -218,10 +231,29 @@ class _UltimateTicTacToeGamePageState extends ConsumerState<UltimateTicTacToeGam
           },
         }));
       }
+      // Also fallback/guarantee via REST API
+      final api = ref.read(platformApiServiceProvider);
+      final myPid = widget.localPlayerId ?? 'p1';
+      api.submitMove(
+        roomCode: widget.roomCode!,
+        playerId: myPid,
+        move: {
+          'board': boardIdx,
+          'cell': cellIdx,
+        },
+      ).then((room) {
+        if (mounted && room.matchState != null) {
+          _applyBackendState(room.matchState!);
+        }
+      }).catchError((_) {});
       return;
     }
 
-    // Local Pass & Play Execution
+    _executeLocalMove(boardIdx, cellIdx);
+  }
+
+  void _executeLocalMove(int boardIdx, int cellIdx) {
+    // Local / AI Pass & Play Execution
     final currentMark = _gameState.currentSymbol;
     final currentPid = _gameState.currentTurnPlayerId;
     final currentPName = _playerNames[currentPid] ?? (currentMark == 'X' ? 'Player 1' : 'Player 2');
@@ -346,6 +378,152 @@ class _UltimateTicTacToeGamePageState extends ConsumerState<UltimateTicTacToeGam
         lastAction: lastAction,
       );
     });
+
+    if (status == 'won' || status == 'draw') {
+      _recordMatchStats(status, winnerSymbol);
+    } else if (widget.mode == 'ai' && nextSymbol == 'O') {
+      _triggerAiMove();
+    }
+  }
+
+  void _triggerAiMove() async {
+    if (_isAiThinking || (_gameState.status != 'in_progress' && _gameState.status != 'active')) return;
+    setState(() => _isAiThinking = true);
+
+    await Future.delayed(const Duration(milliseconds: 400));
+    if (!mounted || (_gameState.status != 'in_progress' && _gameState.status != 'active') || _gameState.currentSymbol != 'O') {
+      if (mounted) setState(() => _isAiThinking = false);
+      return;
+    }
+
+    final move = _calculateBestAiMove(_gameState);
+    setState(() => _isAiThinking = false);
+    if (move != null) {
+      _executeLocalMove(move['board']!, move['cell']!);
+    }
+  }
+
+  Map<String, int>? _calculateBestAiMove(UltimateTicTacToeState state) {
+    final validBoards = state.validBoards;
+    if (validBoards.isEmpty) return null;
+
+    final List<Map<String, int>> possibleMoves = [];
+    for (final bIdx in validBoards) {
+      final board = state.boards[bIdx];
+      for (int cIdx = 0; cIdx < 9; cIdx++) {
+        if (board.cells[cIdx] == null) {
+          possibleMoves.add({'board': bIdx, 'cell': cIdx});
+        }
+      }
+    }
+    if (possibleMoves.isEmpty) return null;
+
+    int bestScore = -999999;
+    Map<String, int> bestMove = possibleMoves.first;
+
+    for (final move in possibleMoves) {
+      final bIdx = move['board']!;
+      final cIdx = move['cell']!;
+      int score = 0;
+
+      // 1. Check if this move wins the micro board for 'O'
+      final microBoard = state.boards[bIdx];
+      final simCells = List<String?>.from(microBoard.cells);
+      simCells[cIdx] = 'O';
+
+      final willWinMicro = _checkMicroWinner(simCells) == 'O';
+      if (willWinMicro) {
+        score += 120;
+
+        // Check if winning this micro board wins the macro game
+        final simMacro = List<String?>.from(state.macroBoard);
+        simMacro[bIdx] = 'O';
+        if (_checkMacroWinner(simMacro) == 'O') {
+          score += 10000; // Match-winning move!
+        }
+      }
+
+      // 2. Check if this move blocks 'X' from winning the micro board
+      final oppCells = List<String?>.from(microBoard.cells);
+      oppCells[cIdx] = 'X';
+      if (_checkMicroWinner(oppCells) == 'X') {
+        score += 65; // Critical block
+      }
+
+      // 3. Routing evaluation (which board is opponent sent to?)
+      final targetNextBoard = state.boards[cIdx];
+      if (targetNextBoard.isCompleted || (willWinMicro && bIdx == cIdx)) {
+        // Sending opponent to completed board gives them a FREE MOVE!
+        score -= 40;
+      } else {
+        bool oppCouldWinNext = false;
+        for (int oppC = 0; oppC < 9; oppC++) {
+          if (targetNextBoard.cells[oppC] == null) {
+            final testCells = List<String?>.from(targetNextBoard.cells);
+            testCells[oppC] = 'X';
+            if (_checkMicroWinner(testCells) == 'X') {
+              oppCouldWinNext = true;
+              break;
+            }
+          }
+        }
+        if (oppCouldWinNext) {
+          score -= 35;
+        } else {
+          score += 15;
+        }
+      }
+
+      // 4. Positional cell preferences (center > corners > edges)
+      if (cIdx == 4) {
+        score += 14;
+      } else if (cIdx == 0 || cIdx == 2 || cIdx == 6 || cIdx == 8) {
+        score += 8;
+      } else {
+        score += 3;
+      }
+
+      if (bIdx == 4) {
+        score += 10;
+      } else if (bIdx == 0 || bIdx == 2 || bIdx == 6 || bIdx == 8) {
+        score += 6;
+      }
+
+      if (score > bestScore) {
+        bestScore = score;
+        bestMove = move;
+      }
+    }
+
+    return bestMove;
+  }
+
+  void _recordMatchStats(String finalStatus, String? winnerSymbol) {
+    if (_statsRecorded) return;
+    _statsRecorded = true;
+    try {
+      final auth = ref.read(authProvider);
+      if (!auth.isLoggedIn || auth.userId == null) return;
+
+      final mySymbol = widget.mode == 'online' ? (_localPlayerMark ?? 'X') : 'X';
+      String outcome = 'loss';
+      if (winnerSymbol == mySymbol) {
+        outcome = 'win';
+      } else if (finalStatus == 'draw' || winnerSymbol == 'draw') {
+        outcome = 'tie';
+      }
+
+      final section = widget.mode == 'online'
+          ? 'multiplayer'
+          : (widget.mode == 'ai' ? 'vs_ai' : 'pass_and_play');
+
+      ref.read(platformApiServiceProvider).recordGameResult(
+        userId: auth.userId!,
+        gameId: 'ultimate_tic_tac_toe',
+        sectionId: section,
+        outcome: outcome,
+      );
+    } catch (_) {}
   }
 
   void _resetLocalMatch() {
@@ -357,6 +535,7 @@ class _UltimateTicTacToeGamePageState extends ConsumerState<UltimateTicTacToeGam
   void _requestOnlineRematch() {
     if (_wsChannel != null) {
       _wsChannel!.sink.add(jsonEncode({
+        'type': 'REMATCH',
         'action': 'rematch',
         'move': {},
       }));
@@ -562,7 +741,7 @@ class _UltimateTicTacToeGamePageState extends ConsumerState<UltimateTicTacToeGam
             tooltip: "Game Rules",
             onPressed: _showRulesDialog,
           ),
-          if (widget.mode == 'local')
+          if (widget.mode == 'local' || widget.mode == 'ai')
             IconButton(
               icon: const Icon(Icons.refresh_rounded, color: Colors.white70),
               tooltip: "Restart Game",
@@ -802,6 +981,25 @@ class _UltimateTicTacToeGamePageState extends ConsumerState<UltimateTicTacToeGam
                   ),
                 ),
               ],
+              if (widget.mode == 'ai' && mark == 'O') ...[
+                const SizedBox(width: 4),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                  decoration: BoxDecoration(
+                    color: _colorO.withOpacity(0.3),
+                    borderRadius: BorderRadius.circular(4),
+                    border: Border.all(color: _colorO.withOpacity(0.6), width: 0.8),
+                  ),
+                  child: Text(
+                    "BOT",
+                    style: GoogleFonts.outfit(
+                      color: _colorO,
+                      fontSize: 8.5,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
             ],
           ),
         ],
@@ -827,6 +1025,8 @@ class _UltimateTicTacToeGamePageState extends ConsumerState<UltimateTicTacToeGam
                 : (_playerNames[_playerIds.length > 1 ? _playerIds[1] : 'p2'] ?? 'Player 2'));
         statusText = "$winnerName Wins the Match!";
       }
+    } else if (_isAiThinking) {
+      statusText = "Tactical AI is strategizing...";
     } else if (isFreeMove) {
       statusText = "FREE MOVE: Play in any open board!";
     } else {
@@ -837,14 +1037,18 @@ class _UltimateTicTacToeGamePageState extends ConsumerState<UltimateTicTacToeGam
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
       decoration: BoxDecoration(
-        color: isFreeMove
-            ? const Color(0xFF10B981).withOpacity(0.15)
-            : currentColor.withOpacity(0.12),
+        color: _isAiThinking
+            ? _colorO.withOpacity(0.15)
+            : (isFreeMove
+                ? const Color(0xFF10B981).withOpacity(0.15)
+                : currentColor.withOpacity(0.12)),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: isFreeMove
-              ? const Color(0xFF10B981).withOpacity(0.5)
-              : currentColor.withOpacity(0.4),
+          color: _isAiThinking
+              ? _colorO.withOpacity(0.5)
+              : (isFreeMove
+                  ? const Color(0xFF10B981).withOpacity(0.5)
+                  : currentColor.withOpacity(0.4)),
           width: 1,
         ),
       ),
@@ -852,12 +1056,16 @@ class _UltimateTicTacToeGamePageState extends ConsumerState<UltimateTicTacToeGam
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(
-            isFreeMove
-                ? Icons.electric_bolt_rounded
-                : (isFinished
-                    ? Icons.emoji_events_rounded
-                    : Icons.track_changes_rounded),
-            color: isFreeMove ? const Color(0xFF10B981) : currentColor,
+            _isAiThinking
+                ? Icons.smart_toy_outlined
+                : (isFreeMove
+                    ? Icons.electric_bolt_rounded
+                    : (isFinished
+                        ? Icons.emoji_events_rounded
+                        : Icons.track_changes_rounded)),
+            color: _isAiThinking
+                ? _colorO
+                : (isFreeMove ? const Color(0xFF10B981) : currentColor),
             size: 18,
           ),
           const SizedBox(width: 8),
@@ -865,7 +1073,9 @@ class _UltimateTicTacToeGamePageState extends ConsumerState<UltimateTicTacToeGam
             child: Text(
               statusText,
               style: GoogleFonts.outfit(
-                color: isFreeMove ? const Color(0xFF34D399) : Colors.white,
+                color: _isAiThinking
+                    ? _colorO
+                    : (isFreeMove ? const Color(0xFF34D399) : Colors.white),
                 fontWeight: FontWeight.w700,
                 fontSize: 14,
               ),
