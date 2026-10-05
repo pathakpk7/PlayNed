@@ -46,12 +46,97 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
     } else if (_game!.id == 'shut_the_box') {
       context.push('/games/shut_the_box/play?mode=local');
     } else if (_game!.id == 'cricket') {
-      context.push('/games/cricket/hub');
+      _showCricketModeSelector();
     } else if (_game!.id == 'reversi') {
       context.push('/games/reversi/hub');
     } else if (_game!.id == 'ultimate_tic_tac_toe' || _game!.id == 'ultimate-tic-tac-toe') {
       _showUltimateTicTacToeModeSelector();
     }
+  }
+
+  void _showCricketModeSelector() {
+    showDialog(
+      context: context,
+      builder: (ctx) => Dialog(
+        backgroundColor: PlayNedTokens.surface,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(PlayNedTokens.radiusLg),
+          side: const BorderSide(color: PlayNedTokens.brandGold, width: 1.5),
+        ),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 540),
+          child: Padding(
+            padding: const EdgeInsets.all(PlayNedTokens.space24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        const Icon(Icons.sports_cricket, color: PlayNedTokens.brandGold, size: 22),
+                        const SizedBox(width: 10),
+                        Text("SELECT CRICKET MODE", style: PlayNedTokens.gameTitle),
+                      ],
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.close, size: 18, color: PlayNedTokens.textSecondary),
+                      onPressed: () => Navigator.pop(ctx),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: PlayNedTokens.space16),
+                _buildModeTile(
+                  ctx: ctx,
+                  icon: Icons.gavel,
+                  title: "IPL Mini Auction (NEW & FEATURED)",
+                  subtitle: "10-Franchise War Room, ₹120 Cr Purse, Marquee Icons & Live Bidding Wars",
+                  onTap: () {
+                    Navigator.pop(ctx);
+                    context.push('/games/cricket/auction');
+                  },
+                ),
+                const SizedBox(height: PlayNedTokens.space10),
+                _buildModeTile(
+                  ctx: ctx,
+                  icon: Icons.sports_cricket,
+                  title: "Super Over Duel",
+                  subtitle: "Tactical 6-ball innings with custom batter & bowler matchups",
+                  onTap: () {
+                    Navigator.pop(ctx);
+                    context.push('/games/cricket/super-over?mode=local');
+                  },
+                ),
+                const SizedBox(height: PlayNedTokens.space10),
+                _buildModeTile(
+                  ctx: ctx,
+                  icon: Icons.analytics_outlined,
+                  title: "Stat Clash",
+                  subtitle: "Draft a 5-player squad to reach statistical milestones without busting",
+                  onTap: () {
+                    Navigator.pop(ctx);
+                    context.push('/games/cricket/stat-clash');
+                  },
+                ),
+                const SizedBox(height: PlayNedTokens.space10),
+                _buildModeTile(
+                  ctx: ctx,
+                  icon: Icons.hub_outlined,
+                  title: "Cricket Hub Arena",
+                  subtitle: "Browse all cricket game modes, rules, and live leaderboards",
+                  onTap: () {
+                    Navigator.pop(ctx);
+                    context.push('/games/cricket/hub');
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   void _showUltimateTicTacToeModeSelector() {

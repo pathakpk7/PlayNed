@@ -216,14 +216,34 @@ ACTIVE_IPL_AUCTION_PLAYERS = [
         "overall_rating": 96
     },
     {
+        "id": "ms_dhoni",
+        "name": "MS Dhoni",
+        "country": "India",
+        "role": "Wicketkeeper",
+        "is_overseas": False,
+        "is_marquee": True,
+        "base_price": 2.0,
+        "overall_rating": 96
+    },
+    {
         "id": "shreyas_iyer",
         "name": "Shreyas Iyer",
         "country": "India",
         "role": "Batter",
         "is_overseas": False,
-        "is_marquee": False,
+        "is_marquee": True,
         "base_price": 2.0,
-        "overall_rating": 90
+        "overall_rating": 93
+    },
+    {
+        "id": "ishan_kishan",
+        "name": "Ishan Kishan",
+        "country": "India",
+        "role": "Wicketkeeper",
+        "is_overseas": False,
+        "is_marquee": True,
+        "base_price": 2.0,
+        "overall_rating": 91
     },
     {
         "id": "ravindra_jadeja",

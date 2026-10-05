@@ -285,6 +285,13 @@ class _PlatformHomePageState extends ConsumerState<PlatformHomePage> {
                             onPressed: () => _scrollToKey(_exploreKey),
                           ),
                           PlayNedButton(
+                            label: "IPL MINI AUCTION",
+                            icon: Icons.gavel,
+                            variant: PlayNedButtonVariant.secondary,
+                            customAccent: PlayNedTokens.brandGold,
+                            onPressed: () => context.push('/games/cricket/auction'),
+                          ),
+                          PlayNedButton(
                             label: "JOIN A ROOM",
                             icon: Icons.meeting_room_outlined,
                             variant: PlayNedButtonVariant.outlined,
@@ -351,15 +358,23 @@ class _PlatformHomePageState extends ConsumerState<PlatformHomePage> {
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: _games.map((game) {
-              return Padding(
+            children: [
+              Padding(
                 padding: const EdgeInsets.only(right: PlayNedTokens.space12),
-                child: _QuickPlayCard(
-                  game: game,
-                  onTap: () => context.push('/games/${game.id}'),
+                child: _FeaturedAuctionQuickPlayCard(
+                  onTap: () => context.push('/games/cricket/auction'),
                 ),
-              );
-            }).toList(),
+              ),
+              ..._games.map((game) {
+                return Padding(
+                  padding: const EdgeInsets.only(right: PlayNedTokens.space12),
+                  child: _QuickPlayCard(
+                    game: game,
+                    onTap: () => context.push('/games/${game.id}'),
+                  ),
+                );
+              }),
+            ],
           ),
         ),
       ],
@@ -671,6 +686,120 @@ class _QuickPlayCardState extends State<_QuickPlayCard> {
                     Text(
                       "~${g.estimatedDurationMinutes} MIN",
                       style: PlayNedTokens.metadata.copyWith(fontSize: 8.5, color: PlayNedTokens.textMuted),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Featured IPL Mini Auction Quick Play Card
+class _FeaturedAuctionQuickPlayCard extends StatefulWidget {
+  final VoidCallback onTap;
+
+  const _FeaturedAuctionQuickPlayCard({required this.onTap});
+
+  @override
+  State<_FeaturedAuctionQuickPlayCard> createState() => _FeaturedAuctionQuickPlayCardState();
+}
+
+class _FeaturedAuctionQuickPlayCardState extends State<_FeaturedAuctionQuickPlayCard> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: AnimatedContainer(
+          duration: PlayNedTokens.animMicro,
+          width: 190,
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: _isHovered
+                  ? [const Color(0xFF2E2005), const Color(0xFF1B2B20)]
+                  : [const Color(0xFF221703), const Color(0xFF142219)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(PlayNedTokens.radiusMd),
+            border: Border.all(
+              color: PlayNedTokens.brandGold.withOpacity(_isHovered ? 1.0 : 0.7),
+              width: 1.4,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: PlayNedTokens.brandGold.withOpacity(_isHovered ? 0.35 : 0.15),
+                blurRadius: _isHovered ? 14 : 8,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  color: PlayNedTokens.brandGold.withOpacity(0.18),
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: const Icon(Icons.gavel, size: 20, color: PlayNedTokens.brandGold),
+              ),
+              const SizedBox(width: PlayNedTokens.space10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      children: [
+                        Flexible(
+                          child: Text(
+                            "IPL AUCTION",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.inter(
+                              fontSize: 11.5,
+                              fontWeight: FontWeight.w800,
+                              color: PlayNedTokens.brandGold,
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 4),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                          decoration: BoxDecoration(
+                            color: PlayNedTokens.brandGold,
+                            borderRadius: BorderRadius.circular(3),
+                          ),
+                          child: Text(
+                            "NEW",
+                            style: GoogleFonts.inter(
+                              fontSize: 7.5,
+                              fontWeight: FontWeight.w900,
+                              color: PlayNedTokens.textInverse,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      "WAR ROOM • ₹120 CR",
+                      style: PlayNedTokens.metadata.copyWith(
+                        fontSize: 8.5,
+                        color: PlayNedTokens.textSecondary,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ],
                 ),
