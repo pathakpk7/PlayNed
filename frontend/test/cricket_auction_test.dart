@@ -368,5 +368,46 @@ void main() {
       expect(extraEval.isAccepted, isFalse);
       expect(extraEval.reason.contains('Maximum trade limit reached'), isTrue);
     });
+
+    test('Pass directly shows last bid and anchors to real-life IPL bid if user did not bid', () {
+      final engine = AuctionEngine();
+      engine.finalizeRetentionsAndStartLiveAuction();
+
+      // Find a player with known realLifeSoldPrice
+      final realStar = engine.allPlayers.firstWhere((p) => p.realLifeSoldPrice != null && p.realLifeSoldPrice! > 0 && p.status == PlayerAuctionStatus.unauctioned);
+      engine.auctionQueue.insert(0, realStar);
+      engine.nextPlayerInAuction();
+
+      expect(engine.currentPlayer?.id, equals(realStar.id));
+      expect(engine.userHasBidOnCurrentPlayer, isFalse);
+
+      // User clicks pass without bidding
+      engine.passAndResolveDirectly();
+
+      // Must be resolved immediately: hammerStage 3, last bid shown directly
+      expect(engine.hammerStage, equals(3));
+      expect(engine.currentPlayer?.status, equals(PlayerAuctionStatus.sold));
+      expect(engine.currentBid, equals(realStar.realLifeSoldPrice));
+      expect(engine.currentBidLeader, isNotNull);
+      expect(engine.currentBidLeader?.isHuman, isFalse);
+    });
+
+    test('Cost restrictions and minimum squad enforcement guarantees at least 20 players per franchise', () {
+      final engine = AuctionEngine();
+      engine.finalizeRetentionsAndStartLiveAuction();
+
+      expect(engine.config.minSquad, equals(20));
+
+      // Simulate auction completion
+      while (engine.nextPlayerInAuction()) {
+        engine.passAndResolveDirectly();
+      }
+
+      // Verify all 10 franchises have secured at least 20 players
+      for (final team in engine.franchises) {
+        expect(team.squad.length, greaterThanOrEqualTo(20));
+        expect(team.purseRemaining, greaterThanOrEqualTo(0.0));
+      }
+    });
   });
 }

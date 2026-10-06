@@ -22,6 +22,7 @@ class AuctionEngine {
   final List<AuctionBid> currentBidHistory = [];
   int hammerStage = 0; // 0: Live, 1: Going Once, 2: Going Twice, 3: Sold / Unsold
   bool humanPassedCurrentPlayer = false;
+  bool userHasBidOnCurrentPlayer = false;
 
   final List<String> activityLog = [];
   final Random _rng = Random();
@@ -224,6 +225,7 @@ class AuctionEngine {
 
     // Group into Sets progressively
     final categories = [
+      AuctionCategory.marquee,
       AuctionCategory.batters,
       AuctionCategory.wicketkeepers,
       AuctionCategory.allRounders,
@@ -239,6 +241,13 @@ class AuctionEngine {
       inCat.shuffle(_rng);
       auctionQueue.addAll(inCat);
     }
+
+    // Ensure all remaining players from the dataset are included
+    final leftovers = remaining.where((p) => !auctionQueue.contains(p)).toList();
+    if (leftovers.isNotEmpty) {
+      leftovers.shuffle(_rng);
+      auctionQueue.addAll(leftovers);
+    }
   }
 
   // ==========================================
@@ -253,8 +262,9 @@ class AuctionEngine {
         acceleratedQueue.clear();
         _log('Entering ACCELERATED AUCTION ROUND for unsold players.');
       } else {
+        _ensureAllFranchisesReachMinSquad();
         phase = AuctionPhase.squadReview;
-        _log('All auction lots concluded! Proceeding to Squad Analysis.');
+        _log('All auction lots concluded! All 10 franchises have secured at least 20 players.');
         return false;
       }
     }
@@ -266,6 +276,7 @@ class AuctionEngine {
     currentBidHistory.clear();
     hammerStage = 0;
     humanPassedCurrentPlayer = false;
+    userHasBidOnCurrentPlayer = false;
 
     _log('Lot #${soldPlayers.length + unsoldPlayers.length + 1}: ${currentPlayer!.name} (${currentPlayer!.role}, Base: ₹${currentBid.toStringAsFixed(2)} Cr)');
     return true;
@@ -295,6 +306,7 @@ class AuctionEngine {
     currentBid = amount;
     currentBidLeader = humanTeam;
     hammerStage = 0;
+    userHasBidOnCurrentPlayer = true;
 
     final bid = AuctionBid(
       teamId: humanTeam.id,
@@ -309,8 +321,87 @@ class AuctionEngine {
   }
 
   void humanPass() {
+    passAndResolveDirectly();
+  }
+
+  /// When user clicks Pass:
+  /// 1. If user did not bid on this player, winning bid equals the actual real-life IPL bid of the previous year.
+  /// 2. If user had bid earlier, resolve remaining AI bids directly.
+  /// In both cases, the last bid is directly shown on screen without waiting.
+  void passAndResolveDirectly() {
     humanPassedCurrentPlayer = true;
-    _log('${humanTeam.name} passed on ${currentPlayer?.name}');
+    if (currentPlayer == null) return;
+
+    if (!userHasBidOnCurrentPlayer) {
+      _resolveUncontestedLotWithRealLifeBid();
+    } else {
+      _fastForwardRemainingAIBidding();
+    }
+  }
+
+  void _resolveUncontestedLotWithRealLifeBid() {
+    if (currentPlayer == null) return;
+
+    // Check if player had a real-life IPL winning bid
+    if (currentPlayer!.realLifeSoldPrice != null && currentPlayer!.realLifeSoldPrice! > 0) {
+      final realPrice = currentPlayer!.realLifeSoldPrice!;
+      final candidates = franchises.where((t) => !t.isHuman).toList();
+      final eligible = candidates.where((team) =>
+        team.canBidFor(currentPlayer!, realPrice, minSlotReserve: config.minReservePerSlot)
+      ).toList();
+
+      if (eligible.isNotEmpty) {
+        eligible.sort((a, b) {
+          final countA = a.squad.where((p) => p.role == currentPlayer!.role).length;
+          final countB = b.squad.where((p) => p.role == currentPlayer!.role).length;
+          if (countA != countB) return countA.compareTo(countB);
+          return b.purseRemaining.compareTo(a.purseRemaining);
+        });
+
+        final winner = eligible.first;
+        currentBid = realPrice;
+        currentBidLeader = winner;
+        hammerStage = 3;
+
+        final bid = AuctionBid(
+          teamId: winner.id,
+          teamName: winner.name,
+          amount: realPrice,
+          timestamp: DateTime.now(),
+        );
+        currentBidHistory.insert(0, bid);
+        _finalizeCurrentPlayer();
+        _log('SOLD! 🔨 ${currentPlayer!.name} sold to ${winner.name} for ₹${realPrice.toStringAsFixed(2)} Cr (Actual Real-Life IPL Bid)');
+        return;
+      }
+    }
+
+    // Player went unsold in real-life IPL or no AI franchise can accommodate:
+    currentBidLeader = null;
+    hammerStage = 3;
+    _finalizeCurrentPlayer();
+    _log('UNSOLD: ${currentPlayer!.name} finds no buyer (Real-Life IPL Unsold / Passed).');
+  }
+
+  void _fastForwardRemainingAIBidding() {
+    int safetyLimit = 30;
+    while (safetyLimit-- > 0) {
+      final aiBidder = _findInterestedAITeam();
+      if (aiBidder == null) break;
+      final amount = nextBidAmount;
+      currentBid = amount;
+      currentBidLeader = aiBidder;
+      final bid = AuctionBid(
+        teamId: aiBidder.id,
+        teamName: aiBidder.name,
+        amount: amount,
+        timestamp: DateTime.now(),
+      );
+      currentBidHistory.insert(0, bid);
+      _log('BID: ${aiBidder.name} bids ₹${amount.toStringAsFixed(2)} Cr!');
+    }
+    hammerStage = 3;
+    _finalizeCurrentPlayer();
   }
 
   /// Evaluates whether an AI team wants to outbid
@@ -344,47 +435,64 @@ class AuctionEngine {
   }
 
   double _calculateValuation(AuctionTeam team, AuctionPlayer player) {
-    double base = player.basePrice;
-    double ratingMultiplier = (player.overallRating - 75).clamp(1, 25).toDouble();
+    // 1. Hard reserve budget: team must have enough purse left to buy at least 20 players!
+    final slotsRemaining = (config.minSquad - team.squadSize).clamp(1, config.minSquad);
+    final reserveNeeded = (slotsRemaining - 1) * config.minReservePerSlot;
+    final maxAffordable = max(player.basePrice, team.purseRemaining - reserveNeeded);
 
-    // Star player price ceiling
-    double valuation = base + (ratingMultiplier * 0.7);
+    double valuation;
 
-    if (player.overallRating >= 95) {
-      valuation += 6.0;
-    } else if (player.overallRating >= 90) {
-      valuation += 3.5;
-    } else if (player.overallRating >= 85) {
-      valuation += 1.5;
-    }
-
-    // AI personality modifiers
-    if (team.personality.starFocus > 0.8 && player.overallRating >= 90) {
-      valuation *= 1.25;
-    }
-    if (team.personality.paceBias > 0.8 && player.bowlingStyle.contains('fast')) {
-      valuation *= 1.20;
-    }
-    if (team.personality.spinBias > 0.8 && player.bowlingStyle.contains('spin')) {
-      valuation *= 1.20;
-    }
-    if (team.personality.youthBias > 0.8 && player.cappedStatus == 'Uncapped') {
-      valuation *= 1.30;
+    // 2. Realistic price anchor: if player has a real-life IPL price, anchor to it!
+    if (player.realLifeSoldPrice != null && player.realLifeSoldPrice! > 0) {
+      final realPrice = player.realLifeSoldPrice!;
+      double factor = 1.0;
+      if (team.personality.starFocus > 0.8 && player.overallRating >= 90) factor += 0.05;
+      if (team.personality == AIPersonality.moneyball) factor -= 0.10;
+      valuation = realPrice * factor;
+    } else {
+      // Domestic / uncapped players without real-life sold price:
+      // STRICTLY do not overprice! Keep price disciplined and affordable.
+      double base = player.basePrice;
+      double bonus = ((player.overallRating - 75).clamp(0, 15) * 0.10);
+      valuation = base + bonus;
     }
 
-    // Role need check
+    // Modest role need adjustment
     final roleCount = team.squad.where((p) => p.role == player.role).length;
     if (roleCount < 3) {
-      valuation *= 1.15; // In urgent need of this role
+      valuation *= 1.05;
     } else if (roleCount >= 6) {
-      valuation *= 0.70; // Surplus
+      valuation *= 0.85;
     }
 
-    // Purse discipline
-    final purseRatio = team.purseRemaining / 120.0;
-    valuation *= (0.7 + (purseRatio * 0.5));
+    return valuation.clamp(player.basePrice, maxAffordable);
+  }
 
-    return valuation.clamp(player.basePrice, team.purseRemaining);
+  void _ensureAllFranchisesReachMinSquad() {
+    final available = allPlayers
+        .where((p) => p.status == PlayerAuctionStatus.unauctioned || p.status == PlayerAuctionStatus.unsold)
+        .toList();
+
+    for (var team in franchises) {
+      while (team.squadSize < config.minSquad && available.isNotEmpty) {
+        final p = available.firstWhere(
+          (cand) => !cand.isOverseas || team.overseasCount < config.maxOverseas,
+          orElse: () => available.first,
+        );
+        available.remove(p);
+
+        final price = min(p.basePrice, max(0.20, team.purseRemaining));
+        p.status = PlayerAuctionStatus.sold;
+        p.soldPrice = price;
+        p.soldToTeamId = team.id;
+        p.soldToTeamName = team.name;
+
+        team.addPlayer(p, price);
+        if (!soldPlayers.contains(p)) soldPlayers.add(p);
+        unsoldPlayers.removeWhere((u) => u.id == p.id);
+        _log('${team.name} signed ${p.name} (₹${price.toStringAsFixed(2)} Cr) to meet minimum squad rule of 20 players.');
+      }
+    }
   }
 
   /// Advance the auction hammer or accept AI bid

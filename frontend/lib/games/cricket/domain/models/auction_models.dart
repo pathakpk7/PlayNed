@@ -81,6 +81,8 @@ class AuctionPlayer {
   final String? set2024;
   final String? set2025;
   final String? set2026;
+  final double? realLifeSoldPrice;
+  final String? realLifeTeam;
 
   // Mutable auction runtime state
   PlayerAuctionStatus status;
@@ -114,6 +116,8 @@ class AuctionPlayer {
     this.set2024,
     this.set2025,
     this.set2026,
+    this.realLifeSoldPrice,
+    this.realLifeTeam,
     this.status = PlayerAuctionStatus.unauctioned,
     this.soldPrice,
     this.soldToTeamId,
@@ -128,6 +132,8 @@ class AuctionPlayer {
     String? set2024,
     String? set2025,
     String? set2026,
+    double? realLifeSoldPrice,
+    String? realLifeTeam,
   }) {
     return AuctionPlayer(
       id: id,
@@ -155,6 +161,8 @@ class AuctionPlayer {
       set2024: set2024 ?? this.set2024,
       set2025: set2025 ?? this.set2025,
       set2026: set2026 ?? this.set2026,
+      realLifeSoldPrice: realLifeSoldPrice ?? this.realLifeSoldPrice,
+      realLifeTeam: realLifeTeam ?? this.realLifeTeam,
       status: status ?? this.status,
       soldPrice: soldPrice ?? this.soldPrice,
       soldToTeamId: soldToTeamId ?? this.soldToTeamId,
@@ -187,6 +195,8 @@ class AuctionPlayer {
         'set2024': set2024,
         'set2025': set2025,
         'set2026': set2026,
+        'realLifeSoldPrice': realLifeSoldPrice,
+        'realLifeTeam': realLifeTeam,
         'status': status.name,
         'soldPrice': soldPrice,
         'soldToTeamId': soldToTeamId,
@@ -302,7 +312,7 @@ class AuctionTeam {
   int get overseasCount => squad.where((p) => p.isOverseas).length;
   int get squadSize => squad.length;
   int get availableSlots => 25 - squadSize;
-  int get slotsNeededForMinSquad => (18 - squadSize).clamp(0, 18);
+  int get slotsNeededForMinSquad => (20 - squadSize).clamp(0, 20);
 
   bool canBidFor(AuctionPlayer player, double nextBid, {double minSlotReserve = 0.20}) {
     // 1. Max squad cap check
@@ -314,8 +324,8 @@ class AuctionTeam {
     // 3. Absolute purse check
     if (purseRemaining < nextBid) return false;
 
-    // 4. Reserve buffer check: must keep at least 0.20 Cr for each slot to reach min squad (18)
-    final slotsRemainingAfterThis = (18 - (squadSize + 1)).clamp(0, 18);
+    // 4. Reserve buffer check: must keep at least 0.20 Cr for each slot to reach min squad (20)
+    final slotsRemainingAfterThis = (20 - (squadSize + 1)).clamp(0, 20);
     final requiredPurseBuffer = slotsRemainingAfterThis * minSlotReserve;
     if ((purseRemaining - nextBid) < requiredPurseBuffer) return false;
 
@@ -438,7 +448,7 @@ class AuctionBid {
 
 class AuctionRulesConfig {
   final double initialPurse; // 120.0 Cr
-  final int minSquad; // 18
+  final int minSquad; // 20
   final int maxSquad; // 25
   final int maxOverseas; // 8
   final int maxPlayingXIOverseas; // 4
@@ -448,7 +458,7 @@ class AuctionRulesConfig {
 
   const AuctionRulesConfig({
     this.initialPurse = 120.0,
-    this.minSquad = 18,
+    this.minSquad = 20,
     this.maxSquad = 25,
     this.maxOverseas = 8,
     this.maxPlayingXIOverseas = 4,

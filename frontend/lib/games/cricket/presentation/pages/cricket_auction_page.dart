@@ -56,10 +56,12 @@ class _CricketAuctionPageState extends State<CricketAuctionPage> {
         if (!ongoing) {
           // Lot concluded; pause briefly then load next player
           timer.cancel();
-          Future.delayed(const Duration(milliseconds: 1800), () {
+          Future.delayed(const Duration(milliseconds: 2200), () {
             if (mounted) {
               final hasNext = _engine.nextPlayerInAuction();
-              setState(() {});
+              setState(() {
+                _scoutedSlotCategory = null;
+              });
               if (hasNext && _autoRun) {
                 _startAuctionTimer();
               }
@@ -68,6 +70,39 @@ class _CricketAuctionPageState extends State<CricketAuctionPage> {
         }
       }
     });
+  }
+
+  void _handlePassClicked() {
+    _auctionTimer?.cancel();
+    setState(() {
+      _engine.passAndResolveDirectly();
+    });
+
+    if (_autoRun) {
+      // Pause briefly so user clearly observes the last bid directly, then loads next player
+      Future.delayed(const Duration(milliseconds: 2200), () {
+        if (mounted && _autoRun && _engine.hammerStage >= 3) {
+          final hasNext = _engine.nextPlayerInAuction();
+          setState(() {
+            _scoutedSlotCategory = null;
+          });
+          if (hasNext && _autoRun) {
+            _startAuctionTimer();
+          }
+        }
+      });
+    }
+  }
+
+  void _loadNextLotManually() {
+    _auctionTimer?.cancel();
+    final hasNext = _engine.nextPlayerInAuction();
+    setState(() {
+      _scoutedSlotCategory = null;
+    });
+    if (hasNext && _autoRun) {
+      _startAuctionTimer();
+    }
   }
 
   void _toggleAutoRun() {
@@ -90,7 +125,9 @@ class _CricketAuctionPageState extends State<CricketAuctionPage> {
       Future.delayed(const Duration(milliseconds: 1000), () {
         if (mounted) {
           _engine.nextPlayerInAuction();
-          setState(() {});
+          setState(() {
+            _scoutedSlotCategory = null;
+          });
         }
       });
     }
@@ -969,8 +1006,8 @@ class _CricketAuctionPageState extends State<CricketAuctionPage> {
                       ],
                     ),
                     Text(
-                      '${player.primaryRole} • ${player.battingStyle}',
-                      style: GoogleFonts.inter(fontSize: 11, color: const Color(0xFFE5A93C), fontWeight: FontWeight.w500),
+                      '${player.role} • Set: ${player.set2025 ?? player.set2024 ?? player.set2026 ?? "Open"}${player.realLifeSoldPrice != null ? " • Prev IPL: ₹${player.realLifeSoldPrice!.toStringAsFixed(2)} Cr" : ""}',
+                      style: GoogleFonts.inter(fontSize: 10, color: const Color(0xFFE5A93C), fontWeight: FontWeight.w600),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],
@@ -1070,6 +1107,63 @@ class _CricketAuctionPageState extends State<CricketAuctionPage> {
 
           const SizedBox(height: 12),
 
+          // Direct Resolution Banner: When lot concludes, display the winning bid directly
+          if (_engine.hammerStage >= 3 ||
+              _engine.currentPlayer?.status == PlayerAuctionStatus.sold ||
+              _engine.currentPlayer?.status == PlayerAuctionStatus.unsold) ...[
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+              decoration: BoxDecoration(
+                color: _engine.currentBidLeader != null ? const Color(0xFF1E3A2B) : const Color(0xFF3A1E1E),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: _engine.currentBidLeader != null ? const Color(0xFF48BB78) : const Color(0xFFE53E3E),
+                ),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          _engine.currentBidLeader != null ? 'FINAL WINNING BID 🔨' : 'UNSOLD LOT',
+                          style: GoogleFonts.inter(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            color: _engine.currentBidLeader != null ? const Color(0xFF48BB78) : const Color(0xFFE53E3E),
+                          ),
+                        ),
+                        Text(
+                          _engine.currentBidLeader != null
+                              ? '₹${_engine.currentBid.toStringAsFixed(2)} Cr • ${_engine.currentBidLeader?.name}'
+                              : 'No bids placed • Marked Unsold',
+                          style: GoogleFonts.inter(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: const Color(0xFFF1EBDD),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: _loadNextLotManually,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFE5A93C),
+                      foregroundColor: const Color(0xFF0F1E16),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                    ),
+                    child: const Text('NEXT LOT ▶', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11)),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 8),
+          ],
+
           // Row 4: Action Buttons
           Row(
             children: [
@@ -1100,13 +1194,7 @@ class _CricketAuctionPageState extends State<CricketAuctionPage> {
               Expanded(
                 flex: 2,
                 child: OutlinedButton(
-                  onPressed: _engine.humanPassedCurrentPlayer
-                      ? null
-                      : () {
-                          setState(() {
-                            _engine.humanPass();
-                          });
-                        },
+                  onPressed: _engine.humanPassedCurrentPlayer ? null : _handlePassClicked,
                   style: OutlinedButton.styleFrom(
                     foregroundColor: const Color(0xFFE53E3E),
                     side: const BorderSide(color: Color(0xFFE53E3E)),

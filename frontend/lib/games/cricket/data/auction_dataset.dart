@@ -166,6 +166,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA5',
         set2026: 'UFA6',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'aaron_hardie',
@@ -192,6 +194,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL5',
         set2026: null,
+        realLifeSoldPrice: 1.25,
+        realLifeTeam: 'Punjab Kings',
       ),
       AuctionPlayer(
         id: 'aaron_varghese',
@@ -218,6 +222,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UBA4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'aarya_desai',
@@ -244,6 +250,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UBA2',
         set2026: 'UBA1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'abdul_bazith',
@@ -270,6 +278,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL6',
         set2026: 'UAL4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'abdul_samad',
@@ -296,6 +306,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL1',
         set2026: null,
+        realLifeSoldPrice: 4.2,
+        realLifeTeam: 'Lucknow Super Giants',
       ),
       AuctionPlayer(
         id: 'abhay_choudhary',
@@ -322,6 +334,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL14',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'abhijeet_tomar',
@@ -348,6 +362,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA7',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'abhilash_shetty',
@@ -374,6 +390,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: 'UFA3',
         set2026: 'UFA3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'abhimanyu_easwaran',
@@ -400,6 +418,8 @@ class AuctionDataset {
         set2024: 'UBA2',
         set2025: 'UBA6',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'abhimanyusingh_rajput',
@@ -426,6 +446,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: null,
         set2026: 'UAL7',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'abhinandan_singh',
@@ -452,6 +474,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA6',
         set2026: null,
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Royal Challengers Bengaluru',
       ),
       AuctionPlayer(
         id: 'abhinav_manohar',
@@ -478,6 +502,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA1',
         set2026: 'UBA1',
+        realLifeSoldPrice: 3.2,
+        realLifeTeam: 'Sunrisers Hyderabad',
       ),
       AuctionPlayer(
         id: 'abhinav_tejrana',
@@ -504,6 +530,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UBA1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'abhishek_nair',
@@ -530,6 +558,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA8',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'abhishek_pathak',
@@ -556,6 +586,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UWK2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'abhishek_saini',
@@ -582,6 +614,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA10',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'abid_mushtaq',
@@ -608,6 +642,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UAL8',
         set2026: 'UAL3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ackeem_auguste',
@@ -634,6 +670,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'BA2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'adam_milne',
@@ -660,6 +698,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: 'FA6',
         set2026: 'FA2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'adam_zampa',
@@ -686,6 +726,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'SP1',
         set2026: null,
+        realLifeSoldPrice: 2.4,
+        realLifeTeam: 'Sunrisers Hyderabad',
       ),
       AuctionPlayer(
         id: 'adarsh_singh',
@@ -712,6 +754,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UBA3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'adil_rashid',
@@ -738,6 +782,8 @@ class AuctionDataset {
         set2024: 'SP1',
         set2025: 'SP2',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'aditya_tare',
@@ -764,6 +810,8 @@ class AuctionDataset {
         set2024: 'UWK2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'agni_chopra',
@@ -790,6 +838,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA6',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ahammed_imran',
@@ -816,6 +866,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UBA4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'aiden_markram',
@@ -842,6 +894,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'BA1',
         set2026: null,
+        realLifeSoldPrice: 2.0,
+        realLifeTeam: 'Lucknow Super Giants',
       ),
       AuctionPlayer(
         id: 'ajay_ahlawat',
@@ -868,6 +922,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL10',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ajay_mandal',
@@ -894,6 +950,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL4',
         set2026: null,
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Delhi Capitals',
       ),
       AuctionPlayer(
         id: 'ajinkya_rahane',
@@ -920,6 +978,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'BA2',
         set2026: null,
+        realLifeSoldPrice: 1.5,
+        realLifeTeam: 'Kolkata Knight Riders',
       ),
       AuctionPlayer(
         id: 'ajitesh_guruswamy',
@@ -946,6 +1006,8 @@ class AuctionDataset {
         set2024: 'UWK2',
         set2025: 'UWK4',
         set2026: 'UWK3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'akash_deep',
@@ -972,6 +1034,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA2',
         set2026: 'FA1',
+        realLifeSoldPrice: 8.0,
+        realLifeTeam: 'Lucknow Super Giants',
       ),
       AuctionPlayer(
         id: 'akash_madhwal',
@@ -998,6 +1062,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA1',
         set2026: 'UFA1',
+        realLifeSoldPrice: 1.2,
+        realLifeTeam: 'Rajasthan Royals',
       ),
       AuctionPlayer(
         id: 'akash_parkar',
@@ -1024,6 +1090,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL15',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'akash_pugazhanthi',
@@ -1050,6 +1118,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL7',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'akash_sengupta',
@@ -1076,6 +1146,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'akash_singh',
@@ -1102,6 +1174,8 @@ class AuctionDataset {
         set2024: 'UFA1',
         set2025: 'UFA3',
         set2026: null,
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Lucknow Super Giants',
       ),
       AuctionPlayer(
         id: 'akash_singh_arca',
@@ -1128,6 +1202,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UWK5',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'akash_vashisht',
@@ -1154,6 +1230,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UAL9',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'akeal_hosein',
@@ -1180,6 +1258,8 @@ class AuctionDataset {
         set2024: 'SP1',
         set2025: 'SP2',
         set2026: 'SP1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'akhil_chaudhary',
@@ -1206,6 +1286,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA4',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'akhil_rawat',
@@ -1232,6 +1314,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA6',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'akhil_scaria',
@@ -1258,6 +1342,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL9',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'akhin_sathar',
@@ -1284,6 +1370,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'akshat_raghuwanshi',
@@ -1310,6 +1398,8 @@ class AuctionDataset {
         set2024: 'UBA2',
         set2025: 'UBA4',
         set2026: 'UBA2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'akshu_bajwa',
@@ -1336,6 +1426,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL10',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'alex_carey',
@@ -1362,6 +1454,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'WK2',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ali_khan',
@@ -1388,6 +1482,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA6',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'alick_athanaze',
@@ -1414,6 +1510,8 @@ class AuctionDataset {
         set2024: 'BA2',
         set2025: 'AL10',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'allah_ghazanfar',
@@ -1440,6 +1538,8 @@ class AuctionDataset {
         set2024: 'USP2',
         set2025: 'SP2',
         set2026: null,
+        realLifeSoldPrice: 4.8,
+        realLifeTeam: 'Mumbai Indians',
       ),
       AuctionPlayer(
         id: 'alzarri_joseph',
@@ -1466,6 +1566,8 @@ class AuctionDataset {
         set2024: 'FA1',
         set2025: 'FA4',
         set2026: 'FA3',
+        realLifeSoldPrice: 11.5,
+        realLifeTeam: 'Royal Challengers Bengaluru',
       ),
       AuctionPlayer(
         id: 'aman_khan',
@@ -1492,6 +1594,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UAL6',
         set2026: 'UAL2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'aman_rao_perala',
@@ -1518,6 +1622,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UBA2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'aman_shekhawat',
@@ -1544,6 +1650,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UFA6',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'amandeep_khare',
@@ -1570,6 +1678,8 @@ class AuctionDataset {
         set2024: 'UBA2',
         set2025: 'UBA5',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'amit_kumar',
@@ -1596,6 +1706,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'USP3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'andre_fletcher',
@@ -1622,6 +1734,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'WK4',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'andre_siddarth',
@@ -1648,6 +1762,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA3',
         set2026: null,
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Chennai Super Kings',
       ),
       AuctionPlayer(
         id: 'andrew_tye',
@@ -1674,6 +1790,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA10',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'angkrish_raghuvanshi',
@@ -1700,6 +1818,8 @@ class AuctionDataset {
         set2024: 'UBA1',
         set2025: 'UBA1',
         set2026: null,
+        realLifeSoldPrice: 3.0,
+        realLifeTeam: 'Kolkata Knight Riders',
       ),
       AuctionPlayer(
         id: 'aniket_verma',
@@ -1726,6 +1846,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA5',
         set2026: null,
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Sunrisers Hyderabad',
       ),
       AuctionPlayer(
         id: 'aniketh_reddy',
@@ -1752,6 +1874,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'anirudh_chowdhary',
@@ -1778,6 +1902,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA7',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'anirudh_kanwar',
@@ -1804,6 +1930,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA9',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ankit_kumar',
@@ -1830,6 +1958,8 @@ class AuctionDataset {
         set2024: 'UBA2',
         set2025: null,
         set2026: 'UBA2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ankit_singh_rajpoot',
@@ -1856,6 +1986,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA5',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'anmol_malhotra',
@@ -1882,6 +2014,8 @@ class AuctionDataset {
         set2024: 'UWK2',
         set2025: 'UWK5',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'anmolpreet_singh',
@@ -1908,6 +2042,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA1',
         set2026: 'UBA1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'anrich_nortje',
@@ -1934,6 +2070,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA1',
         set2026: 'FA1',
+        realLifeSoldPrice: 6.5,
+        realLifeTeam: 'Kolkata Knight Riders',
       ),
       AuctionPlayer(
         id: 'ansh_gosai',
@@ -1960,6 +2098,8 @@ class AuctionDataset {
         set2024: 'UBA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ansh_patel',
@@ -1986,6 +2126,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'anshul_kamboj',
@@ -2012,6 +2154,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UAL2',
         set2026: null,
+        realLifeSoldPrice: 3.4,
+        realLifeTeam: 'Chennai Super Kings',
       ),
       AuctionPlayer(
         id: 'anshuman_hooda',
@@ -2038,6 +2182,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA7',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'anuj_rawat',
@@ -2064,6 +2210,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UWK1',
         set2026: null,
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Gujarat Titans',
       ),
       AuctionPlayer(
         id: 'anuj_thakral',
@@ -2090,6 +2238,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL8',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'anukul_roy',
@@ -2116,6 +2266,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL2',
         set2026: null,
+        realLifeSoldPrice: 0.4,
+        realLifeTeam: 'Kolkata Knight Riders',
       ),
       AuctionPlayer(
         id: 'apoorv_wankhade',
@@ -2142,6 +2294,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA3',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'arab_gul',
@@ -2168,6 +2322,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'USP4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'aradhya_shukla',
@@ -2194,6 +2350,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UFA6',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'arfaz_mohammad',
@@ -2220,6 +2378,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL8',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'arjun_azad',
@@ -2246,6 +2406,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL14',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'arjun_tendulkar',
@@ -2272,6 +2434,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA2',
         set2026: null,
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Mumbai Indians',
       ),
       AuctionPlayer(
         id: 'arpit_guleria',
@@ -2298,6 +2462,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: 'UFA4',
         set2026: 'UFA3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'arpit_rana',
@@ -2324,6 +2490,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL7',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'arsh_kabir_ranga',
@@ -2350,6 +2518,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UBA3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'arshdeep_singh',
@@ -2376,6 +2546,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'M1',
         set2026: null,
+        realLifeSoldPrice: 18.0,
+        realLifeTeam: 'Punjab Kings',
       ),
       AuctionPlayer(
         id: 'arshin_kulkarni',
@@ -2402,6 +2574,8 @@ class AuctionDataset {
         set2024: 'UAL1',
         set2025: 'UAL3',
         set2026: null,
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Lucknow Super Giants',
       ),
       AuctionPlayer(
         id: 'aryaman_singh_dhaliwal',
@@ -2428,6 +2602,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UWK3',
         set2026: 'UAL8',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'aryan_juyal',
@@ -2454,6 +2630,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UWK1',
         set2026: null,
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Lucknow Super Giants',
       ),
       AuctionPlayer(
         id: 'ashish_dahariya',
@@ -2480,6 +2658,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA7',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ashok_sharma',
@@ -2506,6 +2686,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: 'UFA8',
         set2026: 'UFA1',
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Rajasthan Royals',
       ),
       AuctionPlayer(
         id: 'ashton_agar',
@@ -2532,6 +2714,8 @@ class AuctionDataset {
         set2024: 'AL2',
         set2025: 'AL9',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ashton_turner',
@@ -2558,6 +2742,8 @@ class AuctionDataset {
         set2024: 'BA2',
         set2025: 'BA3',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ashutosh_sharma',
@@ -2584,6 +2770,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UAL1',
         set2026: null,
+        realLifeSoldPrice: 3.8,
+        realLifeTeam: 'Delhi Capitals',
       ),
       AuctionPlayer(
         id: 'ashwani_kumar',
@@ -2610,6 +2798,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: 'UFA3',
         set2026: null,
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Mumbai Indians',
       ),
       AuctionPlayer(
         id: 'ashwin_das',
@@ -2636,6 +2826,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ashwin_hebbar',
@@ -2662,6 +2854,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA4',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'atal_rai',
@@ -2688,6 +2882,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: null,
         set2026: 'UFA5',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'atharva_ankolekar',
@@ -2714,6 +2910,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UAL11',
         set2026: 'UAL4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'atharva_kale',
@@ -2740,6 +2938,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA8',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'atharva_taide',
@@ -2766,6 +2966,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA1',
         set2026: 'UBA1',
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Sunrisers Hyderabad',
       ),
       AuctionPlayer(
         id: 'atif_mushtaq',
@@ -2792,6 +2994,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA9',
         set2026: 'UFA5',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'atit_sheth',
@@ -2818,6 +3022,8 @@ class AuctionDataset {
         set2024: 'UAL1',
         set2025: 'UAL8',
         set2026: 'UAL3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'auqib_dar',
@@ -2844,6 +3050,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL11',
         set2026: 'UAL1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'avanish_aravelly',
@@ -2870,6 +3078,8 @@ class AuctionDataset {
         set2024: 'UWK2',
         set2025: 'UWK2',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'avesh_khan',
@@ -2896,6 +3106,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA1',
         set2026: null,
+        realLifeSoldPrice: 9.75,
+        realLifeTeam: 'Lucknow Super Giants',
       ),
       AuctionPlayer(
         id: 'avinash_singh',
@@ -2922,6 +3134,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA9',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'avneesh_sudha',
@@ -2948,6 +3162,8 @@ class AuctionDataset {
         set2024: 'UWK2',
         set2025: 'UBA3',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ayaz_khan',
@@ -2974,6 +3190,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA9',
         set2026: 'UBA4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ayush_doseja',
@@ -3000,6 +3218,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UBA3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ayush_mhatre',
@@ -3026,6 +3246,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA5',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ayush_pandey',
@@ -3052,6 +3274,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA4',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ayush_vartak',
@@ -3078,6 +3302,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL11',
         set2026: 'UAL4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'azim_kazi',
@@ -3104,6 +3330,8 @@ class AuctionDataset {
         set2024: 'UBA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'azmatullah_omarzai',
@@ -3130,6 +3358,8 @@ class AuctionDataset {
         set2024: 'AL1',
         set2025: 'AL3',
         set2026: null,
+        realLifeSoldPrice: 2.4,
+        realLifeTeam: 'Punjab Kings',
       ),
       AuctionPlayer(
         id: 'b_surya',
@@ -3156,6 +3386,8 @@ class AuctionDataset {
         set2024: 'USP2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'b_r_sharath',
@@ -3182,6 +3414,8 @@ class AuctionDataset {
         set2024: 'UWK2',
         set2025: 'UWK2',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'baba_aparajith',
@@ -3208,6 +3442,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UAL12',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'baba_indrajith',
@@ -3234,6 +3470,8 @@ class AuctionDataset {
         set2024: 'UWK2',
         set2025: 'UWK6',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'bailapudi_yeswanth',
@@ -3260,6 +3498,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'USP3',
         set2026: 'USP2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'bal_krishna',
@@ -3286,6 +3526,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL6',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'baltej_dhanda',
@@ -3312,6 +3554,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA6',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'barinder_sran',
@@ -3338,6 +3582,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'basil_thampi',
@@ -3364,6 +3610,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: 'UFA3',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'basit_bashir',
@@ -3390,6 +3638,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'bayanda_majola',
@@ -3416,6 +3666,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UFA6',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'beau_webster',
@@ -3442,6 +3694,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'AL3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ben_cutting',
@@ -3468,6 +3722,8 @@ class AuctionDataset {
         set2024: 'AL2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ben_duckett',
@@ -3494,6 +3750,8 @@ class AuctionDataset {
         set2024: 'WK2',
         set2025: 'BA3',
         set2026: 'WK1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ben_dwarshuis',
@@ -3520,6 +3778,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: 'FA7',
         set2026: 'AL2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ben_howell',
@@ -3546,6 +3806,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UAL13',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ben_mcdermott',
@@ -3572,6 +3834,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'WK3',
         set2026: 'WK2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'benjamin_sears',
@@ -3598,6 +3862,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA8',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'bevan_john_jacobs',
@@ -3624,6 +3890,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA8',
         set2026: 'AL3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'bhagmender_lather',
@@ -3650,6 +3918,8 @@ class AuctionDataset {
         set2024: 'UWK2',
         set2025: 'UWK6',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'bhanu_pania',
@@ -3676,6 +3946,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UBA3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'bhanuka_rajapaksa',
@@ -3702,6 +3974,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'BA4',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'bharat_sharma',
@@ -3728,6 +4002,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL13',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'bhupen_lalwani',
@@ -3754,6 +4030,8 @@ class AuctionDataset {
         set2024: 'UBA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'bhuvneshwar_kumar',
@@ -3780,6 +4058,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA2',
         set2026: null,
+        realLifeSoldPrice: 10.75,
+        realLifeTeam: 'Royal Challengers Bengaluru',
       ),
       AuctionPlayer(
         id: 'bhuwan_rohilla',
@@ -3806,6 +4086,8 @@ class AuctionDataset {
         set2024: 'USP2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'billy_stanlake',
@@ -3832,6 +4114,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: null,
         set2026: 'FA5',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'binura_fernando',
@@ -3858,6 +4142,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'FA5',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'bipin_saurabh',
@@ -3884,6 +4170,8 @@ class AuctionDataset {
         set2024: 'UWK2',
         set2025: 'UWK3',
         set2026: 'UWK3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'blessing_muzarabani',
@@ -3910,6 +4198,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: 'FA8',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'brandon_king',
@@ -3936,6 +4226,8 @@ class AuctionDataset {
         set2024: 'BA2',
         set2025: 'BA4',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'brandon_mcmullen',
@@ -3962,6 +4254,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL8',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'brijesh_sharma',
@@ -3988,6 +4282,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UFA6',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'brydon_carse',
@@ -4014,6 +4310,8 @@ class AuctionDataset {
         set2024: 'AL2',
         set2025: 'AL5',
         set2026: null,
+        realLifeSoldPrice: 1.0,
+        realLifeTeam: 'Sunrisers Hyderabad',
       ),
       AuctionPlayer(
         id: 'cameron_green',
@@ -4040,6 +4338,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'BA1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'charith_asalanka',
@@ -4066,6 +4366,8 @@ class AuctionDataset {
         set2024: 'AL2',
         set2025: 'AL6',
         set2026: 'AL4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'chetan_sakariya',
@@ -4092,6 +4394,8 @@ class AuctionDataset {
         set2024: 'FA1',
         set2025: 'FA6',
         set2026: 'FA2',
+        realLifeSoldPrice: 0.5,
+        realLifeTeam: 'Kolkata Knight Riders',
       ),
       AuctionPlayer(
         id: 'chetan_sharma',
@@ -4118,6 +4422,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA9',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'chintal_gandhi',
@@ -4144,6 +4450,8 @@ class AuctionDataset {
         set2024: 'USP2',
         set2025: 'USP3',
         set2026: 'USP3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'chirag_gandhi',
@@ -4170,6 +4478,8 @@ class AuctionDataset {
         set2024: 'UBA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'chris_green',
@@ -4196,6 +4506,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL8',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'chris_jordan',
@@ -4222,6 +4534,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: 'FA9',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'chris_woakes',
@@ -4248,6 +4562,8 @@ class AuctionDataset {
         set2024: 'AL1',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: 4.2,
+        realLifeTeam: 'Punjab Kings',
       ),
       AuctionPlayer(
         id: 'chris_wood',
@@ -4274,6 +4590,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'colin_munro',
@@ -4300,6 +4618,8 @@ class AuctionDataset {
         set2024: 'BA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'connor_esterhuizen',
@@ -4326,6 +4646,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UWK3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'cooper_connolly',
@@ -4352,6 +4674,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL7',
         set2026: 'AL3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'corbin_bosch',
@@ -4378,6 +4702,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UAL10',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'daksh_kamra',
@@ -4404,6 +4730,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL8',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'dan_lawrence',
@@ -4430,6 +4758,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL9',
         set2026: 'AL3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'daniel_lategan',
@@ -4456,6 +4786,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UBA4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'daniel_mousley',
@@ -4482,6 +4814,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL6',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'daniel_sams',
@@ -4508,6 +4842,8 @@ class AuctionDataset {
         set2024: 'AL2',
         set2025: 'AL7',
         set2026: 'AL2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'daniel_worrall',
@@ -4534,6 +4870,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA7',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'danish_malewar',
@@ -4560,6 +4898,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UBA2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'darshan_misal',
@@ -4586,6 +4926,8 @@ class AuctionDataset {
         set2024: 'UWK2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'darshan_nalkande',
@@ -4612,6 +4954,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL2',
         set2026: 'UAL2',
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Delhi Capitals',
       ),
       AuctionPlayer(
         id: 'daryl_mitchell',
@@ -4638,6 +4982,8 @@ class AuctionDataset {
         set2024: 'AL1',
         set2025: 'AL2',
         set2026: 'AL2',
+        realLifeSoldPrice: 14.0,
+        realLifeTeam: 'Chennai Super Kings',
       ),
       AuctionPlayer(
         id: 'daryn_dupavillon',
@@ -4664,6 +5010,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA10',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'dasun_shanaka',
@@ -4690,6 +5038,8 @@ class AuctionDataset {
         set2024: 'AL2',
         set2025: 'AL8',
         set2026: 'AL2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'david_miller',
@@ -4716,6 +5066,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'M2',
         set2026: 'BA1',
+        realLifeSoldPrice: 7.5,
+        realLifeTeam: 'Lucknow Super Giants',
       ),
       AuctionPlayer(
         id: 'david_payne',
@@ -4742,6 +5094,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA9',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'david_warner',
@@ -4768,6 +5122,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'BA1',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'david_wiese',
@@ -4794,6 +5150,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'david_willey',
@@ -4820,6 +5178,8 @@ class AuctionDataset {
         set2024: 'AL2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'deepak_chahar',
@@ -4846,6 +5206,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA2',
         set2026: null,
+        realLifeSoldPrice: 9.25,
+        realLifeTeam: 'Mumbai Indians',
       ),
       AuctionPlayer(
         id: 'deepak_devadiga',
@@ -4872,6 +5234,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'USP5',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'deepak_hooda',
@@ -4898,6 +5262,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL3',
         set2026: 'AL1',
+        realLifeSoldPrice: 1.7,
+        realLifeTeam: 'Chennai Super Kings',
       ),
       AuctionPlayer(
         id: 'deependra_singh',
@@ -4924,6 +5290,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UFA5',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'delano_potgieter',
@@ -4950,6 +5318,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL6',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'dev_lakra',
@@ -4976,6 +5346,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'devang_karamta',
@@ -5002,6 +5374,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'devdutt_padikkal',
@@ -5028,6 +5402,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'BA1',
         set2026: null,
+        realLifeSoldPrice: 2.0,
+        realLifeTeam: 'Royal Challengers Bengaluru',
       ),
       AuctionPlayer(
         id: 'devendra_singh_bora',
@@ -5054,6 +5430,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'devon_conway',
@@ -5080,6 +5458,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'BA1',
         set2026: 'BA1',
+        realLifeSoldPrice: 6.25,
+        realLifeTeam: 'Chennai Super Kings',
       ),
       AuctionPlayer(
         id: 'dewald_brevis',
@@ -5106,6 +5486,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'BA3',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'dharmendrasinh_jadeja',
@@ -5132,6 +5514,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'USP3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'dhruv_kaushik',
@@ -5158,6 +5542,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL15',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'dhruv_shorey',
@@ -5184,6 +5570,8 @@ class AuctionDataset {
         set2024: 'UBA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'dhurmil_matkar',
@@ -5210,6 +5598,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL10',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'dian_forrester',
@@ -5236,6 +5626,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL10',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'digvesh_singh',
@@ -5262,6 +5654,8 @@ class AuctionDataset {
         set2024: 'USP2',
         set2025: 'USP2',
         set2026: null,
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Lucknow Super Giants',
       ),
       AuctionPlayer(
         id: 'digvijay_deshmukh',
@@ -5288,6 +5682,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL12',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'dilshan_madushanka',
@@ -5314,6 +5710,8 @@ class AuctionDataset {
         set2024: 'FA1',
         set2025: 'FA6',
         set2026: null,
+        realLifeSoldPrice: 4.6,
+        realLifeTeam: 'Mumbai Indians',
       ),
       AuctionPlayer(
         id: 'dinesh_bana',
@@ -5340,6 +5738,8 @@ class AuctionDataset {
         set2024: 'UBA2',
         set2025: 'UWK4',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'dipesh_parwani',
@@ -5366,6 +5766,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA9',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'divesh_sharma',
@@ -5392,6 +5794,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: 'UFA5',
         set2026: 'UFA3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'divij_mehra',
@@ -5418,6 +5822,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'dominic_drakes',
@@ -5444,6 +5850,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL10',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'donovan_ferreira',
@@ -5470,6 +5878,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'WK2',
         set2026: null,
+        realLifeSoldPrice: 0.75,
+        realLifeTeam: 'Delhi Capitals',
       ),
       AuctionPlayer(
         id: 'duan_jansen',
@@ -5496,6 +5906,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UAL12',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'dumindu_sewmina',
@@ -5522,6 +5934,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA10',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'dunith_wellalage',
@@ -5548,6 +5962,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL6',
         set2026: 'AL4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'dushan_hemantha',
@@ -5574,6 +5990,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL7',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'dushmantha_chameera',
@@ -5600,6 +6018,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: 'FA5',
         set2026: null,
+        realLifeSoldPrice: 0.75,
+        realLifeTeam: 'Delhi Capitals',
       ),
       AuctionPlayer(
         id: 'dwaine_pretorius',
@@ -5626,6 +6046,8 @@ class AuctionDataset {
         set2024: 'AL2',
         set2025: 'AL8',
         set2026: 'AL4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'edhen_tom',
@@ -5652,6 +6074,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ekant_sen',
@@ -5678,6 +6102,8 @@ class AuctionDataset {
         set2024: 'UBA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'emanjot_chahal',
@@ -5704,6 +6130,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL5',
         set2026: 'UAL6',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'esakkimuthu_ayyakutti',
@@ -5730,6 +6158,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UFA4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'eshan_malinga',
@@ -5756,6 +6186,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA10',
         set2026: null,
+        realLifeSoldPrice: 1.2,
+        realLifeTeam: 'Sunrisers Hyderabad',
       ),
       AuctionPlayer(
         id: 'evin_lewis',
@@ -5782,6 +6214,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'BA4',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'fabian_allen',
@@ -5808,6 +6242,8 @@ class AuctionDataset {
         set2024: 'AL2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'faf_du_plessis',
@@ -5834,6 +6270,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'BA2',
         set2026: null,
+        realLifeSoldPrice: 2.0,
+        realLifeTeam: 'Delhi Capitals',
       ),
       AuctionPlayer(
         id: 'fareed_ahmad',
@@ -5860,6 +6298,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'faridoon_dawoodzai',
@@ -5886,6 +6326,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA8',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'fazalhaq_farooqi',
@@ -5912,6 +6354,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA4',
         set2026: 'FA1',
+        realLifeSoldPrice: 2.0,
+        realLifeTeam: 'Rajasthan Royals',
       ),
       AuctionPlayer(
         id: 'finn_allen',
@@ -5938,6 +6382,8 @@ class AuctionDataset {
         set2024: 'BA2',
         set2025: 'BA3',
         set2026: 'WK1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ganesh_chaudhary',
@@ -5964,6 +6410,8 @@ class AuctionDataset {
         set2024: 'USP2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'gaurav_gambhir',
@@ -5990,6 +6438,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL14',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'george_garton',
@@ -6016,6 +6466,8 @@ class AuctionDataset {
         set2024: 'AL2',
         set2025: null,
         set2026: 'AL4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'george_linde',
@@ -6042,6 +6494,8 @@ class AuctionDataset {
         set2024: 'AL2',
         set2025: null,
         set2026: 'AL3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'george_scrimshaw',
@@ -6068,6 +6522,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'gerald_coetzee',
@@ -6094,6 +6550,8 @@ class AuctionDataset {
         set2024: 'AL1',
         set2025: 'FA2',
         set2026: 'FA1',
+        realLifeSoldPrice: 2.4,
+        realLifeTeam: 'Gujarat Titans',
       ),
       AuctionPlayer(
         id: 'girinath_reddy',
@@ -6120,6 +6578,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL10',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'glenn_maxwell',
@@ -6146,6 +6606,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL1',
         set2026: null,
+        realLifeSoldPrice: 4.2,
+        realLifeTeam: 'Punjab Kings',
       ),
       AuctionPlayer(
         id: 'glenn_phillips',
@@ -6172,6 +6634,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'BA2',
         set2026: null,
+        realLifeSoldPrice: 2.0,
+        realLifeTeam: 'Gujarat Titans',
       ),
       AuctionPlayer(
         id: 'gourav_choudhary',
@@ -6198,6 +6662,8 @@ class AuctionDataset {
         set2024: 'UWK2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'gourav_yadav',
@@ -6224,6 +6690,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'gudakesh_motie',
@@ -6250,6 +6718,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL6',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'gulbadin_naib',
@@ -6276,6 +6746,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL4',
         set2026: 'AL3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'gurjapneet_singh',
@@ -6302,6 +6774,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: 'UFA3',
         set2026: null,
+        realLifeSoldPrice: 2.2,
+        realLifeTeam: 'Chennai Super Kings',
       ),
       AuctionPlayer(
         id: 'gurnoor_singh_brar',
@@ -6328,6 +6802,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: 'UFA2',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'gus_atkinson',
@@ -6354,6 +6830,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: 'AL4',
         set2026: 'AL1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'hanuma_vihari',
@@ -6380,6 +6858,8 @@ class AuctionDataset {
         set2024: 'AL2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'hardik_raj',
@@ -6406,6 +6886,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL6',
         set2026: 'UAL6',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'hardik_tamore',
@@ -6432,6 +6914,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UWK6',
         set2026: 'UWK3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'harnoor_pannu',
@@ -6458,6 +6942,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA3',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'harpreet_brar',
@@ -6484,6 +6970,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL1',
         set2026: null,
+        realLifeSoldPrice: 1.5,
+        realLifeTeam: 'Punjab Kings',
       ),
       AuctionPlayer(
         id: 'harry_brook',
@@ -6510,6 +6998,8 @@ class AuctionDataset {
         set2024: 'BA1',
         set2025: 'BA1',
         set2026: null,
+        realLifeSoldPrice: 6.25,
+        realLifeTeam: 'Delhi Capitals',
       ),
       AuctionPlayer(
         id: 'harry_tector',
@@ -6536,6 +7026,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'BA5',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'harsh_dubey',
@@ -6562,6 +7054,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UAL7',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'harsh_tyagi',
@@ -6588,6 +7082,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL6',
         set2026: 'UAL2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'harshal_patel',
@@ -6614,6 +7110,8 @@ class AuctionDataset {
         set2024: 'AL1',
         set2025: 'AL1',
         set2026: null,
+        realLifeSoldPrice: 8.0,
+        realLifeTeam: 'Sunrisers Hyderabad',
       ),
       AuctionPlayer(
         id: 'harvik_desai',
@@ -6640,6 +7138,8 @@ class AuctionDataset {
         set2024: 'UWK2',
         set2025: 'UWK2',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'hasan_mahmud',
@@ -6666,6 +7166,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA9',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'hemang_patel',
@@ -6692,6 +7194,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL8',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'hemanth_kumar',
@@ -6718,6 +7222,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL13',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'hilton_cartwright',
@@ -6744,6 +7250,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL10',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'himanshu_bisht',
@@ -6770,6 +7278,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL7',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'himanshu_chauhan',
@@ -6796,6 +7306,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA4',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'himanshu_sharma',
@@ -6822,6 +7334,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'USP2',
         set2026: 'USP2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'himanshu_singh_bica',
@@ -6848,6 +7362,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'USP5',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'himanshu_singh_mca',
@@ -6874,6 +7390,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'USP4',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'himmat_singh',
@@ -6900,6 +7418,8 @@ class AuctionDataset {
         set2024: 'UBA2',
         set2025: 'UBA2',
         set2026: null,
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Lucknow Super Giants',
       ),
       AuctionPlayer(
         id: 'hritik_shokeen',
@@ -6926,6 +7446,8 @@ class AuctionDataset {
         set2024: 'UAL1',
         set2025: 'UAL5',
         set2026: 'UAL3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ibrahim_zadran',
@@ -6952,6 +7474,8 @@ class AuctionDataset {
         set2024: 'BA2',
         set2025: 'BA5',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'irfan_umair',
@@ -6978,6 +7502,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UFA3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ish_sodhi',
@@ -7004,6 +7530,8 @@ class AuctionDataset {
         set2024: 'SP1',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ishan_kishan',
@@ -7030,6 +7558,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'WK1',
         set2026: null,
+        realLifeSoldPrice: 11.25,
+        realLifeTeam: 'Sunrisers Hyderabad',
       ),
       AuctionPlayer(
         id: 'ishan_mulchandani',
@@ -7056,6 +7586,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL9',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ishan_porel',
@@ -7082,6 +7614,8 @@ class AuctionDataset {
         set2024: 'UFA1',
         set2025: 'UFA3',
         set2026: 'UFA4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ishant_sharma',
@@ -7108,6 +7642,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA3',
         set2026: null,
+        realLifeSoldPrice: 0.75,
+        realLifeTeam: 'Gujarat Titans',
       ),
       AuctionPlayer(
         id: 'izaz_sawariya',
@@ -7134,6 +7670,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'USP4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'izharulhuq_naveed',
@@ -7160,6 +7698,8 @@ class AuctionDataset {
         set2024: 'USP2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'jack_edwards',
@@ -7186,6 +7726,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL10',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'jacob_bethell_england',
@@ -7212,6 +7754,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL5',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'jacob_duffy',
@@ -7238,6 +7782,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'FA1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'jafar_jamal',
@@ -7264,6 +7810,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA9',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'jagadeesha_suchith',
@@ -7290,6 +7838,8 @@ class AuctionDataset {
         set2024: 'USP2',
         set2025: 'USP3',
         set2026: 'UAL3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'jake_fraser_mcgurk',
@@ -7316,6 +7866,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'BA1',
         set2026: null,
+        realLifeSoldPrice: 9.0,
+        realLifeTeam: 'Delhi Capitals',
       ),
       AuctionPlayer(
         id: 'jake_fraser_mcgurk',
@@ -7342,6 +7894,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'BA1',
+        realLifeSoldPrice: 9.0,
+        realLifeTeam: 'Delhi Capitals',
       ),
       AuctionPlayer(
         id: 'jalaj_saxena',
@@ -7368,6 +7922,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UAL10',
         set2026: 'UAL3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'james_anderson',
@@ -7394,6 +7950,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA9',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'james_vince',
@@ -7420,6 +7978,8 @@ class AuctionDataset {
         set2024: 'BA2',
         set2025: 'BA3',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'jamie_overton',
@@ -7446,6 +8006,8 @@ class AuctionDataset {
         set2024: 'AL2',
         set2025: 'AL6',
         set2026: null,
+        realLifeSoldPrice: 1.5,
+        realLifeTeam: 'Chennai Super Kings',
       ),
       AuctionPlayer(
         id: 'jamie_smith',
@@ -7472,6 +8034,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'WK1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'jasmer_dhankhar',
@@ -7498,6 +8062,8 @@ class AuctionDataset {
         set2024: 'USP2',
         set2025: 'USP4',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'jason_behrendorff',
@@ -7524,6 +8090,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA5',
         set2026: 'FA4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'jason_holder',
@@ -7550,6 +8118,8 @@ class AuctionDataset {
         set2024: 'AL2',
         set2025: 'AL7',
         set2026: 'AL2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'jass_inder_baidwan',
@@ -7576,6 +8146,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'USP4',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'jayant_yadav',
@@ -7602,6 +8174,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL4',
         set2026: null,
+        realLifeSoldPrice: 0.75,
+        realLifeTeam: 'Gujarat Titans',
       ),
       AuctionPlayer(
         id: 'jaydev_unadkat',
@@ -7628,6 +8202,8 @@ class AuctionDataset {
         set2024: 'FA1',
         set2025: 'FA3',
         set2026: null,
+        realLifeSoldPrice: 1.0,
+        realLifeTeam: 'Sunrisers Hyderabad',
       ),
       AuctionPlayer(
         id: 'jeffery_vandersay',
@@ -7654,6 +8230,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'SP3',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'jhathavedh_subramanyan',
@@ -7680,6 +8258,8 @@ class AuctionDataset {
         set2024: 'USP2',
         set2025: 'USP2',
         set2026: 'USP3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'jhye_richardson',
@@ -7706,6 +8286,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: 'FA5',
         set2026: 'FA3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'jikku_bright',
@@ -7732,6 +8314,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'USP4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'jimmy_neesham',
@@ -7758,6 +8342,8 @@ class AuctionDataset {
         set2024: 'AL2',
         set2025: 'AL7',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'jitender_pal',
@@ -7784,6 +8370,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'jitesh_sharma',
@@ -7810,6 +8398,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'WK1',
         set2026: null,
+        realLifeSoldPrice: 11.0,
+        realLifeTeam: 'Royal Challengers Bengaluru',
       ),
       AuctionPlayer(
         id: 'joe_clarke',
@@ -7836,6 +8426,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UWK3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'jofra_archer',
@@ -7862,6 +8454,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA1',
         set2026: null,
+        realLifeSoldPrice: 12.5,
+        realLifeTeam: 'Rajasthan Royals',
       ),
       AuctionPlayer(
         id: 'john_turner',
@@ -7888,6 +8482,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA8',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'johnson_charles',
@@ -7914,6 +8510,8 @@ class AuctionDataset {
         set2024: 'WK2',
         set2025: 'WK4',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'jonny_bairstow',
@@ -7940,6 +8538,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'WK1',
         set2026: 'WK1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'jonty_sidhu',
@@ -7966,6 +8566,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL8',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'jordan_cox',
@@ -7992,6 +8594,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'WK3',
         set2026: 'WK2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'jos_buttler',
@@ -8018,6 +8622,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'M1',
         set2026: null,
+        realLifeSoldPrice: 15.75,
+        realLifeTeam: 'Gujarat Titans',
       ),
       AuctionPlayer(
         id: 'josh_hazlewood',
@@ -8044,6 +8650,8 @@ class AuctionDataset {
         set2024: 'FA1',
         set2025: 'FA1',
         set2026: null,
+        realLifeSoldPrice: 12.5,
+        realLifeTeam: 'Royal Challengers Bengaluru',
       ),
       AuctionPlayer(
         id: 'josh_inglis',
@@ -8070,6 +8678,8 @@ class AuctionDataset {
         set2024: 'WK1',
         set2025: 'WK2',
         set2026: 'WK2',
+        realLifeSoldPrice: 2.6,
+        realLifeTeam: 'Punjab Kings',
       ),
       AuctionPlayer(
         id: 'josh_little',
@@ -8096,6 +8706,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA5',
         set2026: 'FA5',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'josh_philippe',
@@ -8122,6 +8734,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'WK3',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'joshua_brown',
@@ -8148,6 +8762,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA8',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'joshua_tongue',
@@ -8174,6 +8790,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'FA4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'junior_dala',
@@ -8200,6 +8818,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL9',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'k_ajay_singh',
@@ -8226,6 +8846,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL9',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'k_c_cariappa',
@@ -8252,6 +8874,8 @@ class AuctionDataset {
         set2024: 'USP2',
         set2025: 'UAL6',
         set2026: 'USP2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'k_m_asif',
@@ -8278,6 +8902,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: 'UFA4',
         set2026: 'UFA2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'k_s_bharat',
@@ -8304,6 +8930,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'WK2',
         set2026: null,
+        realLifeSoldPrice: 0.5,
+        realLifeTeam: 'Kolkata Knight Riders',
       ),
       AuctionPlayer(
         id: 'k_s_bharat',
@@ -8330,6 +8958,8 @@ class AuctionDataset {
         set2024: 'WK1',
         set2025: null,
         set2026: 'WK1',
+        realLifeSoldPrice: 0.5,
+        realLifeTeam: 'Kolkata Knight Riders',
       ),
       AuctionPlayer(
         id: 'kagiso_rabada',
@@ -8356,6 +8986,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'M1',
         set2026: null,
+        realLifeSoldPrice: 10.75,
+        realLifeTeam: 'Gujarat Titans',
       ),
       AuctionPlayer(
         id: 'kamal_tripathi',
@@ -8382,6 +9014,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL14',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'kamindu_mendis',
@@ -8408,6 +9042,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL5',
         set2026: null,
+        realLifeSoldPrice: 0.75,
+        realLifeTeam: 'Sunrisers Hyderabad',
       ),
       AuctionPlayer(
         id: 'kamlesh_nagarkoti',
@@ -8434,6 +9070,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UAL6',
         set2026: 'UAL1',
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Chennai Super Kings',
       ),
       AuctionPlayer(
         id: 'kane_williamson',
@@ -8460,6 +9098,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'BA2',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'kanishk_chouhan',
@@ -8486,6 +9126,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL7',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'karan_lal',
@@ -8512,6 +9154,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'karim_janat',
@@ -8538,6 +9182,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL7',
         set2026: null,
+        realLifeSoldPrice: 0.75,
+        realLifeTeam: 'Gujarat Titans',
       ),
       AuctionPlayer(
         id: 'karn_sharma',
@@ -8564,6 +9210,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'USP1',
         set2026: 'USP1',
+        realLifeSoldPrice: 0.5,
+        realLifeTeam: 'Mumbai Indians',
       ),
       AuctionPlayer(
         id: 'karteek_sharma',
@@ -8590,6 +9238,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UWK5',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'kartik_chadha',
@@ -8616,6 +9266,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL9',
         set2026: 'USP2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'kartik_sharma',
@@ -8642,6 +9294,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UWK1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'kartik_tyagi',
@@ -8668,6 +9322,8 @@ class AuctionDataset {
         set2024: 'UFA1',
         set2025: 'UFA1',
         set2026: 'UFA1',
+        realLifeSoldPrice: 5.0,
+        realLifeTeam: 'Gujarat Titans',
       ),
       AuctionPlayer(
         id: 'karun_nair',
@@ -8694,6 +9350,8 @@ class AuctionDataset {
         set2024: 'BA1',
         set2025: 'UBA1',
         set2026: null,
+        realLifeSoldPrice: 0.5,
+        realLifeTeam: 'Delhi Capitals',
       ),
       AuctionPlayer(
         id: 'kaushik_maity',
@@ -8720,6 +9378,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UBA9',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'keemo_paul',
@@ -8746,6 +9406,8 @@ class AuctionDataset {
         set2024: 'AL2',
         set2025: 'AL10',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'keshav_maharaj',
@@ -8772,6 +9434,8 @@ class AuctionDataset {
         set2024: 'AL2',
         set2025: 'SP2',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'khilan_patel',
@@ -8798,6 +9462,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL6',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'khrievitso_kense',
@@ -8824,6 +9490,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL15',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'kiran_chormale',
@@ -8850,6 +9518,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA7',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'kl_rahul',
@@ -8876,6 +9546,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'M2',
         set2026: null,
+        realLifeSoldPrice: 14.0,
+        realLifeTeam: 'Delhi Capitals',
       ),
       AuctionPlayer(
         id: 'krains_fuletra',
@@ -8902,6 +9574,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL5',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'krish_bhagat',
@@ -8928,6 +9602,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL7',
         set2026: 'UAL9',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'krishnappa_gowtham',
@@ -8954,6 +9630,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL4',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'kritagya_singh',
@@ -8980,6 +9658,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL12',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'krunal_pandya',
@@ -9006,6 +9686,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL2',
         set2026: null,
+        realLifeSoldPrice: 5.75,
+        realLifeTeam: 'Royal Challengers Bengaluru',
       ),
       AuctionPlayer(
         id: 'kuldeep_sen',
@@ -9032,6 +9714,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA4',
         set2026: 'FA2',
+        realLifeSoldPrice: 0.8,
+        realLifeTeam: 'Punjab Kings',
       ),
       AuctionPlayer(
         id: 'kuldip_yadav',
@@ -9058,6 +9742,8 @@ class AuctionDataset {
         set2024: 'UFA1',
         set2025: 'UFA4',
         set2026: 'UFA3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'kulwant_khejroliya',
@@ -9084,6 +9770,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: 'UFA5',
         set2026: 'UFA4',
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Gujarat Titans',
       ),
       AuctionPlayer(
         id: 'kumar_kartikeya_singh',
@@ -9110,6 +9798,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'USP1',
         set2026: 'USP1',
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Rajasthan Royals',
       ),
       AuctionPlayer(
         id: 'kumar_kushagra',
@@ -9136,6 +9826,8 @@ class AuctionDataset {
         set2024: 'UWK1',
         set2025: 'UWK1',
         set2026: null,
+        realLifeSoldPrice: 0.65,
+        realLifeTeam: 'Gujarat Titans',
       ),
       AuctionPlayer(
         id: 'kunal_chandela',
@@ -9162,6 +9854,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UBA3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'kunal_rathore',
@@ -9188,6 +9882,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UWK2',
         set2026: 'UWK2',
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Rajasthan Royals',
       ),
       AuctionPlayer(
         id: 'kunal_singh_chibb',
@@ -9214,6 +9910,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'USP5',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'kusal_mendis',
@@ -9240,6 +9938,8 @@ class AuctionDataset {
         set2024: 'WK1',
         set2025: 'WK3',
         set2026: 'WK2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'kusal_perera',
@@ -9266,6 +9966,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'WK3',
         set2026: 'WK2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'kwena_maphaka',
@@ -9292,6 +9994,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: 'FA4',
         set2026: null,
+        realLifeSoldPrice: 1.5,
+        realLifeTeam: 'Rajasthan Royals',
       ),
       AuctionPlayer(
         id: 'kyle_jamieson',
@@ -9318,6 +10022,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: 'FA9',
         set2026: 'FA2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'kyle_mayers',
@@ -9344,6 +10050,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL5',
         set2026: 'AL4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'kyle_verreynne',
@@ -9370,6 +10078,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'WK4',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'l_r_chethan',
@@ -9396,6 +10106,8 @@ class AuctionDataset {
         set2024: 'UWK2',
         set2025: 'UWK3',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'lahiru_kumara',
@@ -9422,6 +10134,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: 'FA10',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'lakshay_jain',
@@ -9448,6 +10162,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL12',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'lalit_yadav',
@@ -9474,6 +10190,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: 'UAL3',
         set2026: 'UAL8',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'lance_morris',
@@ -9500,6 +10218,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: 'FA7',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'leus_du_plooy',
@@ -9526,6 +10246,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA4',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'liam_dawson',
@@ -9552,6 +10274,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'AL4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'liam_livingstone',
@@ -9578,6 +10302,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'M2',
         set2026: 'AL1',
+        realLifeSoldPrice: 8.75,
+        realLifeTeam: 'Royal Challengers Bengaluru',
       ),
       AuctionPlayer(
         id: 'litton_das',
@@ -9604,6 +10330,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'WK4',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'lizaad_williams',
@@ -9630,6 +10358,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: 'FA4',
         set2026: null,
+        realLifeSoldPrice: 0.75,
+        realLifeTeam: 'Mumbai Indians',
       ),
       AuctionPlayer(
         id: 'lockie_ferguson',
@@ -9656,6 +10386,8 @@ class AuctionDataset {
         set2024: 'FA1',
         set2025: 'FA2',
         set2026: null,
+        realLifeSoldPrice: 2.0,
+        realLifeTeam: 'Punjab Kings',
       ),
       AuctionPlayer(
         id: 'luckyrajsinh_vaghela',
@@ -9682,6 +10414,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL9',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'luke_wood',
@@ -9708,6 +10442,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: 'FA4',
         set2026: 'FA3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'lukman_hussain_meriwala',
@@ -9734,6 +10470,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'lungisani_ngidi',
@@ -9760,6 +10498,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA6',
         set2026: 'FA2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'luvnith_sisodia',
@@ -9786,6 +10526,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UWK1',
         set2026: null,
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Kolkata Knight Riders',
       ),
       AuctionPlayer(
         id: 'm_ajnas',
@@ -9812,6 +10554,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UWK6',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'm_siddharth',
@@ -9838,6 +10582,8 @@ class AuctionDataset {
         set2024: 'USP1',
         set2025: 'USP2',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'm_dheeraj_kumar',
@@ -9864,6 +10610,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UBA3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'macneil_noronha',
@@ -9890,6 +10638,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL5',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'madhav_bajaj',
@@ -9916,6 +10666,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL10',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'madhav_kaushik',
@@ -9942,6 +10694,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA2',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'madhav_tiwari',
@@ -9968,6 +10722,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL14',
         set2026: null,
+        realLifeSoldPrice: 0.4,
+        realLifeTeam: 'Delhi Capitals',
       ),
       AuctionPlayer(
         id: 'mahedi_hasan',
@@ -9994,6 +10750,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL9',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'maheesh_theekshana',
@@ -10020,6 +10778,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'SP1',
         set2026: 'SP1',
+        realLifeSoldPrice: 4.4,
+        realLifeTeam: 'Rajasthan Royals',
       ),
       AuctionPlayer(
         id: 'mahesh_pithiya',
@@ -10046,6 +10806,8 @@ class AuctionDataset {
         set2024: 'UWK2',
         set2025: 'UAL8',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'mahipal_lomror',
@@ -10072,6 +10834,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL1',
         set2026: 'UAL1',
+        realLifeSoldPrice: 1.7,
+        realLifeTeam: 'Gujarat Titans',
       ),
       AuctionPlayer(
         id: 'manan_bhardwaj',
@@ -10098,6 +10862,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'USP3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'manan_vohra',
@@ -10124,6 +10890,8 @@ class AuctionDataset {
         set2024: 'UBA1',
         set2025: 'UBA5',
         set2026: 'UBA2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'manav_suthar',
@@ -10150,6 +10918,8 @@ class AuctionDataset {
         set2024: 'USP1',
         set2025: 'USP1',
         set2026: null,
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Gujarat Titans',
       ),
       AuctionPlayer(
         id: 'mangesh_yadav',
@@ -10176,6 +10946,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'mani_sankar_mura_singh',
@@ -10202,6 +10974,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'manish_pandey',
@@ -10228,6 +11002,8 @@ class AuctionDataset {
         set2024: 'BA1',
         set2025: 'BA3',
         set2026: null,
+        realLifeSoldPrice: 0.75,
+        realLifeTeam: 'Kolkata Knight Riders',
       ),
       AuctionPlayer(
         id: 'manish_reddy',
@@ -10254,6 +11030,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: 'UFA9',
         set2026: 'UFA5',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'manit_singh',
@@ -10280,6 +11058,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'manoj_bhandage',
@@ -10306,6 +11086,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL4',
         set2026: 'UAL3',
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Royal Challengers Bengaluru',
       ),
       AuctionPlayer(
         id: 'manvanth_kumar',
@@ -10332,6 +11114,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UAL5',
         set2026: 'UAL3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'maramreddy_reddy',
@@ -10358,6 +11142,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL8',
         set2026: 'UAL7',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'marco_jansen',
@@ -10384,6 +11170,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL2',
         set2026: null,
+        realLifeSoldPrice: 7.0,
+        realLifeTeam: 'Punjab Kings',
       ),
       AuctionPlayer(
         id: 'marcus_stoinis',
@@ -10410,6 +11198,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL1',
         set2026: null,
+        realLifeSoldPrice: 11.0,
+        realLifeTeam: 'Punjab Kings',
       ),
       AuctionPlayer(
         id: 'mark_chapman',
@@ -10436,6 +11226,8 @@ class AuctionDataset {
         set2024: 'BA2',
         set2025: 'BA4',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'matheesha_pathirana',
@@ -10462,6 +11254,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'FA1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'matt_henry',
@@ -10488,6 +11282,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: 'FA4',
         set2026: 'FA1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'matthew_breetzke',
@@ -10514,6 +11310,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'BA4',
         set2026: null,
+        realLifeSoldPrice: 0.75,
+        realLifeTeam: 'Lucknow Super Giants',
       ),
       AuctionPlayer(
         id: 'matthew_forde',
@@ -10540,6 +11338,8 @@ class AuctionDataset {
         set2024: 'AL2',
         set2025: 'AL10',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'matthew_potts',
@@ -10566,6 +11366,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA8',
         set2026: 'FA4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'matthew_short',
@@ -10592,6 +11394,8 @@ class AuctionDataset {
         set2024: 'AL2',
         set2025: 'AL5',
         set2026: 'AL2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'mayank_agarawal',
@@ -10618,6 +11422,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'BA2',
         set2026: 'BA2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'mayank_dagar',
@@ -10644,6 +11450,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL2',
         set2026: 'UAL3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'mayank_gusain',
@@ -10670,6 +11478,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL10',
         set2026: 'UAL7',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'mayank_markande',
@@ -10696,6 +11506,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'USP1',
         set2026: null,
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Kolkata Knight Riders',
       ),
       AuctionPlayer(
         id: 'mayank_rawat',
@@ -10722,6 +11534,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL5',
         set2026: 'UAL2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'mehidy_hasan_miraz',
@@ -10748,6 +11562,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL8',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'michael_bracewell',
@@ -10774,6 +11590,8 @@ class AuctionDataset {
         set2024: 'AL2',
         set2025: 'AL6',
         set2026: 'AL2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'michael_neser',
@@ -10800,6 +11618,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL10',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'michael_pepper',
@@ -10826,6 +11646,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UWK4',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'mikyle_louis',
@@ -10852,6 +11674,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'BA5',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'miles_hammond',
@@ -10878,6 +11702,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UBA4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'mitchell_marsh',
@@ -10904,6 +11730,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL1',
         set2026: null,
+        realLifeSoldPrice: 3.4,
+        realLifeTeam: 'Lucknow Super Giants',
       ),
       AuctionPlayer(
         id: 'mitchell_santner',
@@ -10930,6 +11758,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL4',
         set2026: null,
+        realLifeSoldPrice: 2.0,
+        realLifeTeam: 'Mumbai Indians',
       ),
       AuctionPlayer(
         id: 'mitchell_starc',
@@ -10956,6 +11786,8 @@ class AuctionDataset {
         set2024: 'FA1',
         set2025: 'M1',
         set2026: null,
+        realLifeSoldPrice: 11.75,
+        realLifeTeam: 'Delhi Capitals',
       ),
       AuctionPlayer(
         id: 'moeen_ali',
@@ -10982,6 +11814,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL3',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'mohamed_ali',
@@ -11008,6 +11842,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL11',
         set2026: 'UAL10',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'mohammad_izhar',
@@ -11034,6 +11870,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UFA2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'mohammad_kaif',
@@ -11060,6 +11898,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'mohammad_nabi',
@@ -11086,6 +11926,8 @@ class AuctionDataset {
         set2024: 'AL2',
         set2025: 'AL4',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'mohammad_shami',
@@ -11112,6 +11954,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'M2',
         set2026: null,
+        realLifeSoldPrice: 10.0,
+        realLifeTeam: 'Sunrisers Hyderabad',
       ),
       AuctionPlayer(
         id: 'mohammad_siraj',
@@ -11138,6 +11982,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'M2',
         set2026: null,
+        realLifeSoldPrice: 12.25,
+        realLifeTeam: 'Gujarat Titans',
       ),
       AuctionPlayer(
         id: 'mohammed_azharuddeen',
@@ -11164,6 +12010,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UWK3',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'mohammed_kaif',
@@ -11190,6 +12038,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'mohd_arslan_khan',
@@ -11216,6 +12066,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'mohd_arshad_khan',
@@ -11242,6 +12094,8 @@ class AuctionDataset {
         set2024: 'UAL1',
         set2025: 'UAL2',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'mohit_ahlawat',
@@ -11268,6 +12122,8 @@ class AuctionDataset {
         set2024: 'UWK2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'mohit_avasthi',
@@ -11294,6 +12150,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: 'UFA8',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'mohit_rathee',
@@ -11320,6 +12178,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'USP4',
         set2026: 'USP2',
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Royal Challengers Bengaluru',
       ),
       AuctionPlayer(
         id: 'mohit_redkar',
@@ -11346,6 +12206,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'mohit_sharma',
@@ -11372,6 +12234,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA1',
         set2026: null,
+        realLifeSoldPrice: 2.2,
+        realLifeTeam: 'Delhi Capitals',
       ),
       AuctionPlayer(
         id: 'money_grewal',
@@ -11398,6 +12262,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: 'UFA3',
         set2026: 'UFA3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'monish_reddy',
@@ -11424,6 +12290,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'mridul_surroch',
@@ -11450,6 +12318,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL8',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'mrinmoy_dutta',
@@ -11476,6 +12346,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'muhammad_abbas',
@@ -11502,6 +12374,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'AL4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'muhammed_khan',
@@ -11528,6 +12402,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UWK6',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'muhammed_sharafuddeen',
@@ -11554,6 +12430,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL9',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'mujeeb_ur_rahman',
@@ -11580,6 +12458,8 @@ class AuctionDataset {
         set2024: 'SP1',
         set2025: 'SP2',
         set2026: 'SP1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'mujtaba_yousuf',
@@ -11606,6 +12486,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: 'UFA8',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'mukesh_choudhary',
@@ -11632,6 +12514,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA2',
         set2026: null,
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Chennai Super Kings',
       ),
       AuctionPlayer(
         id: 'mukesh_kumar',
@@ -11658,6 +12542,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA2',
         set2026: null,
+        realLifeSoldPrice: 8.0,
+        realLifeTeam: 'Delhi Capitals',
       ),
       AuctionPlayer(
         id: 'mukhtar_hussain',
@@ -11684,6 +12570,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: 'UAL10',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'mukul_choudhary',
@@ -11710,6 +12598,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UWK1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'murugan_abhishek',
@@ -11736,6 +12626,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'murugan_ashwin',
@@ -11762,6 +12654,8 @@ class AuctionDataset {
         set2024: 'USP1',
         set2025: 'USP3',
         set2026: 'USP2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'musaif_ajaz',
@@ -11788,6 +12682,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA6',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'musheer_khan',
@@ -11814,6 +12710,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UAL5',
         set2026: null,
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Punjab Kings',
       ),
       AuctionPlayer(
         id: 'mustafizur_rahman',
@@ -11840,6 +12738,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: 'FA3',
         set2026: 'FA2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'mustaq_beg',
@@ -11866,6 +12766,8 @@ class AuctionDataset {
         set2024: 'USP2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'nahid_rana',
@@ -11892,6 +12794,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA9',
         set2026: 'FA4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'najibullah_zadran',
@@ -11918,6 +12822,8 @@ class AuctionDataset {
         set2024: 'BA2',
         set2025: 'BA5',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'naman_dhir',
@@ -11944,6 +12850,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UAL1',
         set2026: null,
+        realLifeSoldPrice: 5.25,
+        realLifeTeam: 'Mumbai Indians',
       ),
       AuctionPlayer(
         id: 'naman_pushpak',
@@ -11970,6 +12878,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'USP4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'naman_tiwari',
@@ -11996,6 +12906,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA5',
         set2026: 'UFA1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'nandre_burger',
@@ -12022,6 +12934,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: 'FA3',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'nangeyalia_kharote',
@@ -12048,6 +12962,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL9',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'narayan_jagadeesan',
@@ -12074,6 +12990,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UWK4',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'nasir_lone',
@@ -12100,6 +13018,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UAL8',
         set2026: 'UAL9',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'nathan_ellis',
@@ -12126,6 +13046,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA5',
         set2026: null,
+        realLifeSoldPrice: 2.0,
+        realLifeTeam: 'Chennai Super Kings',
       ),
       AuctionPlayer(
         id: 'nathan_smith',
@@ -12152,6 +13074,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL9',
         set2026: 'AL4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'naushad_shaikh',
@@ -12178,6 +13102,8 @@ class AuctionDataset {
         set2024: 'UBA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'navdeep_saini',
@@ -12204,6 +13130,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA5',
         set2026: 'FA3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'naveen_ul_haq',
@@ -12230,6 +13158,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA3',
         set2026: 'FA3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'nehal_wadhera',
@@ -12256,6 +13186,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA1',
         set2026: null,
+        realLifeSoldPrice: 4.2,
+        realLifeTeam: 'Punjab Kings',
       ),
       AuctionPlayer(
         id: 'nihal_ullal',
@@ -12282,6 +13214,8 @@ class AuctionDataset {
         set2024: 'UWK2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'nikhil_chaudhary',
@@ -12308,6 +13242,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL5',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'nikhil_gangta',
@@ -12334,6 +13270,8 @@ class AuctionDataset {
         set2024: 'UBA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'nikhil_naik',
@@ -12360,6 +13298,8 @@ class AuctionDataset {
         set2024: 'UWK2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ninad_rathva',
@@ -12386,6 +13326,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UAL7',
         set2026: 'UAL5',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'nishant_sindhu',
@@ -12412,6 +13354,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL1',
         set2026: null,
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Gujarat Titans',
       ),
       AuctionPlayer(
         id: 'nishanth_saranu',
@@ -12438,6 +13382,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA4',
         set2026: 'UFA5',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'nishunk_birla',
@@ -12464,6 +13410,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL12',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'nitin_sai_yadav',
@@ -12490,6 +13438,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL8',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'nitin_verma',
@@ -12516,6 +13466,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'nitish_rana',
@@ -12542,6 +13494,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL2',
         set2026: null,
+        realLifeSoldPrice: 4.2,
+        realLifeTeam: 'Rajasthan Royals',
       ),
       AuctionPlayer(
         id: 'noor_ahmad',
@@ -12568,6 +13522,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'SP1',
         set2026: null,
+        realLifeSoldPrice: 10.0,
+        realLifeTeam: 'Chennai Super Kings',
       ),
       AuctionPlayer(
         id: 'nqabayomzi_peter',
@@ -12594,6 +13550,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'SP3',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'nuwan_thushara',
@@ -12620,6 +13578,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: 'FA3',
         set2026: null,
+        realLifeSoldPrice: 1.6,
+        realLifeTeam: 'Royal Challengers Bengaluru',
       ),
       AuctionPlayer(
         id: 'obed_mccoy',
@@ -12646,6 +13606,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'obed_mccoy',
@@ -12672,6 +13634,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA7',
         set2026: 'FA5',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'odean_smith',
@@ -12698,6 +13662,8 @@ class AuctionDataset {
         set2024: 'AL2',
         set2025: 'AL10',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'oliver_davies',
@@ -12724,6 +13690,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA8',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ollie_pope',
@@ -12750,6 +13718,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'WK4',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ollie_robinson',
@@ -12776,6 +13746,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'olly_stone',
@@ -12802,6 +13774,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: 'FA7',
         set2026: 'FA4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'onkar_tarmale',
@@ -12828,6 +13802,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UFA2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'oshane_thomas',
@@ -12854,6 +13830,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ottneil_baartman',
@@ -12880,6 +13858,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: 'FA6',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'p_vignesh',
@@ -12906,6 +13886,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL12',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'p_a_abdul',
@@ -12932,6 +13914,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'pankaj_jaswal',
@@ -12958,6 +13942,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA8',
         set2026: 'UFA4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'pankaj_yadav',
@@ -12984,6 +13970,8 @@ class AuctionDataset {
         set2024: 'USP2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'parikshit_dhanak',
@@ -13010,6 +13998,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'USP3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'parikshit_valsangkar',
@@ -13036,6 +14026,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL10',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'parth_rekhade',
@@ -13062,6 +14054,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL6',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'parth_vats',
@@ -13088,6 +14082,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL8',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'pat_cummins',
@@ -13114,6 +14110,8 @@ class AuctionDataset {
         set2024: 'AL1',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: 20.5,
+        realLifeTeam: 'Sunrisers Hyderabad',
       ),
       AuctionPlayer(
         id: 'pathum_nissanka',
@@ -13140,6 +14138,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'BA4',
         set2026: 'BA2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'patrick_kruger',
@@ -13166,6 +14166,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL10',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'paul_van_meekeren',
@@ -13192,6 +14194,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'phil_salt',
@@ -13218,6 +14222,8 @@ class AuctionDataset {
         set2024: 'WK1',
         set2025: 'WK1',
         set2026: null,
+        realLifeSoldPrice: 11.5,
+        realLifeTeam: 'Royal Challengers Bengaluru',
       ),
       AuctionPlayer(
         id: 'piyush_chawla',
@@ -13244,6 +14250,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'USP1',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'pradosh_paul',
@@ -13270,6 +14278,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UWK5',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'pradyuman_kumar_singh',
@@ -13296,6 +14306,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA10',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'praful_hinge',
@@ -13322,6 +14334,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA8',
         set2026: 'UFA4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'prasad_pawar',
@@ -13348,6 +14362,8 @@ class AuctionDataset {
         set2024: 'UWK2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'prashant_chauhan',
@@ -13374,6 +14390,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL15',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'prashant_sai_painkra',
@@ -13400,6 +14418,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA7',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'prashant_solanki',
@@ -13426,6 +14446,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'USP2',
         set2026: 'USP1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'prashant_veer',
@@ -13452,6 +14474,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'prasidh_krishna',
@@ -13478,6 +14502,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA1',
         set2026: null,
+        realLifeSoldPrice: 9.5,
+        realLifeTeam: 'Gujarat Titans',
       ),
       AuctionPlayer(
         id: 'prateek_yadav',
@@ -13504,6 +14530,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA6',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'pratham_singh',
@@ -13530,6 +14558,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL13',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'pravin_dubey',
@@ -13556,6 +14586,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL4',
         set2026: 'USP2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'prayas_ray_barman',
@@ -13582,6 +14614,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA9',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'prenelan_subrayen',
@@ -13608,6 +14642,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'prerak_mankad',
@@ -13634,6 +14670,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL4',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'prerit_dutta',
@@ -13660,6 +14698,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UAL9',
         set2026: 'UAL9',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'prince_choudhary',
@@ -13686,6 +14726,8 @@ class AuctionDataset {
         set2024: 'USP2',
         set2025: 'USP2',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'prince_rai',
@@ -13712,6 +14754,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'prince_yadav',
@@ -13738,6 +14782,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA5',
         set2026: null,
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Lucknow Super Giants',
       ),
       AuctionPlayer(
         id: 'prithvi_shaw',
@@ -13764,6 +14810,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'BA2',
         set2026: 'BA1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'prithviraj_yarra',
@@ -13790,6 +14838,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: 'UFA4',
         set2026: 'UFA2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'priyam_garg',
@@ -13816,6 +14866,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA3',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'priyank_panchal',
@@ -13842,6 +14894,8 @@ class AuctionDataset {
         set2024: 'UBA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'priyansh_arya',
@@ -13868,6 +14922,8 @@ class AuctionDataset {
         set2024: 'UBA1',
         set2025: 'UAL4',
         set2026: null,
+        realLifeSoldPrice: 3.8,
+        realLifeTeam: 'Punjab Kings',
       ),
       AuctionPlayer(
         id: 'pukhraj_mann',
@@ -13894,6 +14950,8 @@ class AuctionDataset {
         set2024: 'UBA2',
         set2025: 'UBA2',
         set2026: 'UBA2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'pulkit_narang',
@@ -13920,6 +14978,8 @@ class AuctionDataset {
         set2024: 'USP1',
         set2025: 'USP4',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'purav_agarwal',
@@ -13946,6 +15006,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'USP4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'pyla_avinash',
@@ -13972,6 +15034,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA7',
         set2026: null,
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Punjab Kings',
       ),
       AuctionPlayer(
         id: 'qais_ahmad',
@@ -13998,6 +15062,8 @@ class AuctionDataset {
         set2024: 'AL2',
         set2025: 'AL6',
         set2026: 'SP2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'qamran_iqbal',
@@ -14024,6 +15090,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UBA3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'quinton_de_kock',
@@ -14050,6 +15118,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'WK1',
         set2026: 'WK1',
+        realLifeSoldPrice: 3.6,
+        realLifeTeam: 'Kolkata Knight Riders',
       ),
       AuctionPlayer(
         id: 'r_rajkumar',
@@ -14076,6 +15146,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL5',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'r_sai_kishore',
@@ -14102,6 +15174,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL3',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'r_s_ambrish',
@@ -14128,6 +15202,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL5',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'rachin_ravindra',
@@ -14154,6 +15230,8 @@ class AuctionDataset {
         set2024: 'AL1',
         set2025: 'AL1',
         set2026: 'AL1',
+        realLifeSoldPrice: 4.0,
+        realLifeTeam: 'Chennai Super Kings',
       ),
       AuctionPlayer(
         id: 'raghav_goyal',
@@ -14180,6 +15258,8 @@ class AuctionDataset {
         set2024: 'USP2',
         set2025: 'USP3',
         set2026: 'UAL3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'rahmanullah_gurbaz',
@@ -14206,6 +15286,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'WK1',
         set2026: 'WK1',
+        realLifeSoldPrice: 2.0,
+        realLifeTeam: 'Kolkata Knight Riders',
       ),
       AuctionPlayer(
         id: 'rahul_buddhi',
@@ -14232,6 +15314,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: null,
         set2026: 'UWK2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'rahul_chahar',
@@ -14258,6 +15342,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'SP1',
         set2026: 'SP1',
+        realLifeSoldPrice: 3.2,
+        realLifeTeam: 'Sunrisers Hyderabad',
       ),
       AuctionPlayer(
         id: 'rahul_shukla',
@@ -14284,6 +15370,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'rahul_tripathi',
@@ -14310,6 +15398,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'BA1',
         set2026: 'BA2',
+        realLifeSoldPrice: 3.4,
+        realLifeTeam: 'Chennai Super Kings',
       ),
       AuctionPlayer(
         id: 'raj_angad_bawa',
@@ -14336,6 +15426,8 @@ class AuctionDataset {
         set2024: 'UAL1',
         set2025: 'UAL5',
         set2026: null,
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Mumbai Indians',
       ),
       AuctionPlayer(
         id: 'raj_chaudhary',
@@ -14362,6 +15454,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'raj_limbani',
@@ -14388,6 +15482,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: 'UAL7',
         set2026: 'UFA1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'rajan_kumar',
@@ -14414,6 +15510,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA2',
         set2026: 'UFA4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'rajat_dey',
@@ -14440,6 +15538,8 @@ class AuctionDataset {
         set2024: 'UBA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'rajat_verma',
@@ -14466,6 +15566,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UFA5',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'rajneesh_gurbani',
@@ -14492,6 +15594,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL9',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'rajvardhan_hangargekar',
@@ -14518,6 +15622,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL3',
         set2026: 'UAL1',
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Lucknow Super Giants',
       ),
       AuctionPlayer(
         id: 'rakibul_hasan',
@@ -14544,6 +15650,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'USP4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'rakshan_readdi',
@@ -14570,6 +15678,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: null,
         set2026: 'UFA5',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ramakrishna_ghosh',
@@ -14596,6 +15706,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL7',
         set2026: null,
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Chennai Super Kings',
       ),
       AuctionPlayer(
         id: 'ramandeep_singh',
@@ -14622,6 +15734,8 @@ class AuctionDataset {
         set2024: 'UAL1',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: 0.2,
+        realLifeTeam: 'Kolkata Knight Riders',
       ),
       AuctionPlayer(
         id: 'ramesh_prasad',
@@ -14648,6 +15762,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'USP5',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'rasikh_dar',
@@ -14674,6 +15790,8 @@ class AuctionDataset {
         set2024: 'UFA1',
         set2025: 'UFA1',
         set2026: null,
+        realLifeSoldPrice: 6.0,
+        realLifeTeam: 'Royal Challengers Bengaluru',
       ),
       AuctionPlayer(
         id: 'rassie_van_der_dussen',
@@ -14700,6 +15818,8 @@ class AuctionDataset {
         set2024: 'BA2',
         set2025: 'BA5',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ravi_bishnoi',
@@ -14726,6 +15846,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'SP1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ravi_chauhan',
@@ -14752,6 +15874,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ravi_kumar',
@@ -14778,6 +15902,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: 'UFA6',
         set2026: 'UFA4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ravi_singh',
@@ -14804,6 +15930,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UWK2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ravi_teja',
@@ -14830,6 +15958,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ravi_yadav',
@@ -14856,6 +15986,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL13',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ravichandaran_ashwin',
@@ -14882,6 +16014,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL1',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'reece_topley',
@@ -14908,6 +16042,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA4',
         set2026: null,
+        realLifeSoldPrice: 0.75,
+        realLifeTeam: 'Mumbai Indians',
       ),
       AuctionPlayer(
         id: 'reeza_hendricks',
@@ -14934,6 +16070,8 @@ class AuctionDataset {
         set2024: 'BA2',
         set2025: null,
         set2026: 'BA2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'rehan_ahmed',
@@ -14960,6 +16098,8 @@ class AuctionDataset {
         set2024: 'AL2',
         set2025: null,
         set2026: 'AL3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'richard_gleeson',
@@ -14986,6 +16126,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: 'FA4',
         set2026: 'FA3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'richard_ngarava',
@@ -15012,6 +16154,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: 'FA10',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ricky_bhui',
@@ -15038,6 +16182,8 @@ class AuctionDataset {
         set2024: 'UWK1',
         set2025: 'UBA2',
         set2026: 'UWK2',
+        realLifeSoldPrice: 0.2,
+        realLifeTeam: 'Delhi Capitals',
       ),
       AuctionPlayer(
         id: 'rilee_rossouw',
@@ -15064,6 +16210,8 @@ class AuctionDataset {
         set2024: 'BA1',
         set2025: 'BA3',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'riley_meredith',
@@ -15090,6 +16238,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: 'FA7',
         set2026: 'FA3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ripal_patel',
@@ -15116,6 +16266,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL9',
         set2026: 'UAL4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'rishabh_chauhan',
@@ -15142,6 +16294,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL10',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'rishabh_pant',
@@ -15168,6 +16322,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'M1',
         set2026: null,
+        realLifeSoldPrice: 27.0,
+        realLifeTeam: 'Lucknow Super Giants',
       ),
       AuctionPlayer(
         id: 'rishad_hossain',
@@ -15194,6 +16350,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'SP3',
         set2026: 'SP2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'rishi_dhawan',
@@ -15220,6 +16378,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL3',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'rithik_easwaran',
@@ -15246,6 +16406,8 @@ class AuctionDataset {
         set2024: 'UBA2',
         set2025: 'UWK5',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ritik_tada',
@@ -15272,6 +16434,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL9',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'rituraj_sharma',
@@ -15298,6 +16462,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA9',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'robin_minz',
@@ -15324,6 +16490,8 @@ class AuctionDataset {
         set2024: 'UWK2',
         set2025: 'UWK1',
         set2026: null,
+        realLifeSoldPrice: 0.65,
+        realLifeTeam: 'Mumbai Indians',
       ),
       AuctionPlayer(
         id: 'rohan_kunnummal',
@@ -15350,6 +16518,8 @@ class AuctionDataset {
         set2024: 'UBA1',
         set2025: 'UBA4',
         set2026: 'UBA2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'rohan_rana',
@@ -15376,6 +16546,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL13',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'rohit_rayudu',
@@ -15402,6 +16574,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UAL11',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'rohit_yadav',
@@ -15428,6 +16602,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UFA5',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'romario_shepherd',
@@ -15454,6 +16630,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL3',
         set2026: null,
+        realLifeSoldPrice: 1.5,
+        realLifeTeam: 'Royal Challengers Bengaluru',
       ),
       AuctionPlayer(
         id: 'roshan_wagshare',
@@ -15480,6 +16658,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'USP3',
         set2026: 'USP4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'roston_chase',
@@ -15506,6 +16686,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL9',
         set2026: 'AL4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'rovman_powell',
@@ -15532,6 +16714,8 @@ class AuctionDataset {
         set2024: 'BA1',
         set2025: 'BA2',
         set2026: null,
+        realLifeSoldPrice: 1.5,
+        realLifeTeam: 'Kolkata Knight Riders',
       ),
       AuctionPlayer(
         id: 'ruchit_ahir',
@@ -15558,6 +16742,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UWK1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'ryan_rickelton',
@@ -15584,6 +16770,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'WK2',
         set2026: null,
+        realLifeSoldPrice: 1.0,
+        realLifeTeam: 'Mumbai Indians',
       ),
       AuctionPlayer(
         id: 's_midhun',
@@ -15610,6 +16798,8 @@ class AuctionDataset {
         set2024: 'USP2',
         set2025: 'UAL8',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sabhay_chadha',
@@ -15636,6 +16826,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL13',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sabir_khan',
@@ -15662,6 +16854,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UFA6',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sachin_baby',
@@ -15688,6 +16882,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA3',
         set2026: null,
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Sunrisers Hyderabad',
       ),
       AuctionPlayer(
         id: 'sachin_bhosale',
@@ -15714,6 +16910,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sachin_dhas',
@@ -15740,6 +16938,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA4',
         set2026: 'UBA4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sadek_hussain',
@@ -15766,6 +16966,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UFA6',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'safvan_patel',
@@ -15792,6 +16994,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UFA4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sagar_solanki',
@@ -15818,6 +17022,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL7',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sahil_parakh',
@@ -15844,6 +17050,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UBA3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sairaj_patil',
@@ -15870,6 +17078,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UAL14',
         set2026: 'UAL2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sakib_hussain',
@@ -15896,6 +17106,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: 'UFA2',
         set2026: 'UFA2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'salil_arora',
@@ -15922,6 +17134,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UWK4',
         set2026: 'UWK2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'salman_nizar',
@@ -15948,6 +17162,8 @@ class AuctionDataset {
         set2024: 'UBA2',
         set2025: 'UBA5',
         set2026: 'UBA2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sam_billings',
@@ -15974,6 +17190,8 @@ class AuctionDataset {
         set2024: 'WK2',
         set2025: 'WK3',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sam_curran',
@@ -16000,6 +17218,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL2',
         set2026: null,
+        realLifeSoldPrice: 2.4,
+        realLifeTeam: 'Chennai Super Kings',
       ),
       AuctionPlayer(
         id: 'samarth_nagraj',
@@ -16026,6 +17246,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA10',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'samarth_vyas',
@@ -16052,6 +17274,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA5',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sameer_rizvi',
@@ -16078,6 +17302,8 @@ class AuctionDataset {
         set2024: 'UBA1',
         set2025: 'UAL1',
         set2026: null,
+        realLifeSoldPrice: 0.95,
+        realLifeTeam: 'Delhi Capitals',
       ),
       AuctionPlayer(
         id: 'sammar_gajjar',
@@ -16104,6 +17330,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL9',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'samuel_hain',
@@ -16130,6 +17358,8 @@ class AuctionDataset {
         set2024: 'BA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sandeep_warrier',
@@ -16156,6 +17386,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: 'FA6',
         set2026: 'FA4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sanjay_pahal',
@@ -16182,6 +17414,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sanjay_yadav',
@@ -16208,6 +17442,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL10',
         set2026: 'UAL4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sanskar_rawat',
@@ -16234,6 +17470,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UWK3',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sanvir_singh',
@@ -16260,6 +17498,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL2',
         set2026: 'UAL1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'saqib_mahmood',
@@ -16286,6 +17526,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'FA2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'saransh_jain',
@@ -16312,6 +17554,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UAL9',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sarfaraz_khan',
@@ -16338,6 +17582,8 @@ class AuctionDataset {
         set2024: 'UAL1',
         set2025: 'AL5',
         set2026: 'BA1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sarthak_ranjan',
@@ -16364,6 +17610,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA7',
         set2026: 'UAL6',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'satvik_deswal',
@@ -16390,6 +17638,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'saumy_pandey',
@@ -16416,6 +17666,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'USP4',
         set2026: 'USP3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'saurabh_dubey',
@@ -16442,6 +17694,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: 'UFA5',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'saurabh_kumar',
@@ -16468,6 +17722,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'saurabh_netravalkar',
@@ -16494,6 +17750,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL15',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'saurav_chauhan',
@@ -16520,6 +17778,8 @@ class AuctionDataset {
         set2024: 'UBA1',
         set2025: 'UWK2',
         set2026: 'UWK2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sayan_ghosh',
@@ -16546,6 +17806,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UFA3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sayed_irfan_aftab',
@@ -16572,6 +17834,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA7',
         set2026: 'UFA4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sean_abbott',
@@ -16598,6 +17862,8 @@ class AuctionDataset {
         set2024: 'AL2',
         set2025: 'AL5',
         set2026: 'AL2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sediqullah_atal',
@@ -16624,6 +17890,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'BA4',
         set2026: 'BA2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'shahbaz_ahamad',
@@ -16650,6 +17918,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL3',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'shahrukh_khan',
@@ -16676,6 +17946,8 @@ class AuctionDataset {
         set2024: 'UAL1',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: 7.4,
+        realLifeTeam: 'Gujarat Titans',
       ),
       AuctionPlayer(
         id: 'shai_hope',
@@ -16702,6 +17974,8 @@ class AuctionDataset {
         set2024: 'WK2',
         set2025: 'WK2',
         set2026: 'WK2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'shaik_rasheed',
@@ -16728,6 +18002,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA2',
         set2026: null,
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Chennai Super Kings',
       ),
       AuctionPlayer(
         id: 'shakib_al_hasan',
@@ -16754,6 +18030,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL8',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'shakir_gandhi',
@@ -16780,6 +18058,8 @@ class AuctionDataset {
         set2024: 'UWK2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'shamar_joseph',
@@ -16806,6 +18086,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: 'FA5',
         set2026: 'FA3',
+        realLifeSoldPrice: 0.75,
+        realLifeTeam: 'Lucknow Super Giants',
       ),
       AuctionPlayer(
         id: 'shams_mulani',
@@ -16832,6 +18114,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL3',
         set2026: 'UAL4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'shardul_thakur',
@@ -16858,6 +18142,8 @@ class AuctionDataset {
         set2024: 'AL1',
         set2025: 'AL2',
         set2026: null,
+        realLifeSoldPrice: 4.0,
+        realLifeTeam: 'Chennai Super Kings',
       ),
       AuctionPlayer(
         id: 'shashank_singh',
@@ -16884,6 +18170,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'shashank_singh_cab',
@@ -16910,6 +18198,8 @@ class AuctionDataset {
         set2024: 'UBA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'shashwat_rawat',
@@ -16936,6 +18226,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA3',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sherfane_rutherford',
@@ -16962,6 +18254,8 @@ class AuctionDataset {
         set2024: 'BA2',
         set2025: 'BA3',
         set2026: null,
+        realLifeSoldPrice: 2.6,
+        realLifeTeam: 'Gujarat Titans',
       ),
       AuctionPlayer(
         id: 'shiva_singh',
@@ -16988,6 +18282,8 @@ class AuctionDataset {
         set2024: 'USP1',
         set2025: 'UAL7',
         set2026: 'UAL10',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'shivalik_sharma',
@@ -17014,6 +18310,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UAL4',
         set2026: 'UAL5',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'shivam_mavi',
@@ -17040,6 +18338,8 @@ class AuctionDataset {
         set2024: 'FA1',
         set2025: 'FA5',
         set2026: 'FA1',
+        realLifeSoldPrice: 6.4,
+        realLifeTeam: 'Lucknow Super Giants',
       ),
       AuctionPlayer(
         id: 'shivam_sharma',
@@ -17066,6 +18366,8 @@ class AuctionDataset {
         set2024: 'USP2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'shivam_shukla',
@@ -17092,6 +18394,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'USP5',
         set2026: 'USP1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'shivam_singh',
@@ -17118,6 +18422,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL3',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'shivang_kumar',
@@ -17144,6 +18450,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'shoriful_islam',
@@ -17170,6 +18478,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: 'FA8',
         set2026: 'FA5',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'shoun_roger',
@@ -17196,6 +18506,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA4',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'shreevatsha_acharya',
@@ -17222,6 +18534,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UFA6',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'shreyan_chakraborty',
@@ -17248,6 +18562,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL7',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'shreyas_chavan',
@@ -17274,6 +18590,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'USP3',
         set2026: 'USP3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'shreyas_gopal',
@@ -17300,6 +18618,8 @@ class AuctionDataset {
         set2024: 'USP1',
         set2025: 'USP1',
         set2026: null,
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Chennai Super Kings',
       ),
       AuctionPlayer(
         id: 'shreyas_gurav',
@@ -17326,6 +18646,8 @@ class AuctionDataset {
         set2024: 'USP2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'shreyas_iyer',
@@ -17352,6 +18674,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'M1',
         set2026: null,
+        realLifeSoldPrice: 26.75,
+        realLifeTeam: 'Punjab Kings',
       ),
       AuctionPlayer(
         id: 'shrijith_krishnan',
@@ -17378,6 +18702,8 @@ class AuctionDataset {
         set2024: 'UWK2',
         set2025: 'UWK4',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'shubham_agrawal',
@@ -17404,6 +18730,8 @@ class AuctionDataset {
         set2024: 'USP2',
         set2025: 'USP4',
         set2026: 'USP2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'shubham_dubey',
@@ -17430,6 +18758,8 @@ class AuctionDataset {
         set2024: 'UBA1',
         set2025: 'UBA2',
         set2026: null,
+        realLifeSoldPrice: 0.8,
+        realLifeTeam: 'Rajasthan Royals',
       ),
       AuctionPlayer(
         id: 'shubham_garhwal',
@@ -17456,6 +18786,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL14',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'shubham_kapse',
@@ -17482,6 +18814,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: 'UFA9',
         set2026: 'UFA6',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'shubham_khajuria',
@@ -17508,6 +18842,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA6',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'shubham_rana',
@@ -17534,6 +18870,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL7',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'shubham_singh_pundir',
@@ -17560,6 +18898,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'shubhang_hegde',
@@ -17586,6 +18926,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UAL9',
         set2026: 'UAL6',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'siddhant_rana',
@@ -17612,6 +18954,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UBA4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'siddharth_joon',
@@ -17638,6 +18982,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UWK3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'siddharth_kaul',
@@ -17664,6 +19010,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: 'UFA7',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'siddharth_yadav',
@@ -17690,6 +19038,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UWK5',
         set2026: 'UAL5',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sikandar_raza',
@@ -17716,6 +19066,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL4',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'simarjeet_singh',
@@ -17742,6 +19094,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA1',
         set2026: 'UFA1',
+        realLifeSoldPrice: 1.5,
+        realLifeTeam: 'Sunrisers Hyderabad',
       ),
       AuctionPlayer(
         id: 'smaran_ravichandran',
@@ -17768,6 +19122,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA3',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sohraab_dhaliwal',
@@ -17794,6 +19150,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL7',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sonu_yadav',
@@ -17820,6 +19178,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL5',
         set2026: 'UAL5',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'spencer_johnson',
@@ -17846,6 +19206,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: 'FA3',
         set2026: 'FA1',
+        realLifeSoldPrice: 2.8,
+        realLifeTeam: 'Kolkata Knight Riders',
       ),
       AuctionPlayer(
         id: 'srihari_nair',
@@ -17872,6 +19234,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UFA6',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'steve_smith',
@@ -17898,6 +19262,8 @@ class AuctionDataset {
         set2024: 'BA1',
         set2025: 'BA4',
         set2026: 'BA2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'subhranshu_senapati',
@@ -17924,6 +19290,8 @@ class AuctionDataset {
         set2024: 'UBA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sudip_gharami',
@@ -17950,6 +19318,8 @@ class AuctionDataset {
         set2024: 'UBA2',
         set2025: 'UBA6',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sumeet_verma',
@@ -17976,6 +19346,8 @@ class AuctionDataset {
         set2024: 'UBA2',
         set2025: 'UBA5',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sumit_ghadigaonkar',
@@ -18002,6 +19374,8 @@ class AuctionDataset {
         set2024: 'UWK2',
         set2025: 'UWK6',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sumit_kumar',
@@ -18028,6 +19402,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UAL6',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sumit_kumar_beniwal',
@@ -18054,6 +19430,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL12',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sunil_kumar',
@@ -18080,6 +19458,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UFA3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'sunny_sandhu',
@@ -18106,6 +19486,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL5',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'suryansh_shedge',
@@ -18132,6 +19514,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UAL5',
         set2026: null,
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Punjab Kings',
       ),
       AuctionPlayer(
         id: 'sushant_mishra',
@@ -18158,6 +19542,8 @@ class AuctionDataset {
         set2024: 'UFA1',
         set2025: 'UFA2',
         set2026: 'UFA1',
+        realLifeSoldPrice: 2.2,
+        realLifeTeam: 'Gujarat Titans',
       ),
       AuctionPlayer(
         id: 'suyash_prabhudessai',
@@ -18184,6 +19570,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL2',
         set2026: 'UAL2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'suyash_sharma',
@@ -18210,6 +19598,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'USP1',
         set2026: null,
+        realLifeSoldPrice: 2.6,
+        realLifeTeam: 'Royal Challengers Bengaluru',
       ),
       AuctionPlayer(
         id: 'swapnil_singh',
@@ -18236,6 +19626,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UAL2',
         set2026: null,
+        realLifeSoldPrice: 0.5,
+        realLifeTeam: 'Royal Challengers Bengaluru',
       ),
       AuctionPlayer(
         id: 'swastik_chhikara',
@@ -18262,6 +19654,8 @@ class AuctionDataset {
         set2024: 'UBA2',
         set2025: 'UBA2',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'syed_khaleel_ahmed',
@@ -18288,6 +19682,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA1',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 't_natarajan',
@@ -18314,6 +19710,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA1',
         set2026: null,
+        realLifeSoldPrice: 10.75,
+        realLifeTeam: 'Delhi Capitals',
       ),
       AuctionPlayer(
         id: 'tabraiz_shamsi',
@@ -18340,6 +19738,8 @@ class AuctionDataset {
         set2024: 'SP1',
         set2025: 'SP3',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'tanay_thyagarajann',
@@ -18366,6 +19766,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UWK3',
         set2026: 'UAL3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'tanmay_agarwal',
@@ -18392,6 +19794,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA5',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'tanmay_mishra',
@@ -18418,6 +19822,8 @@ class AuctionDataset {
         set2024: 'UBA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'tanush_kotian',
@@ -18444,6 +19850,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UAL3',
         set2026: 'UAL1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'tanveer_sangha',
@@ -18470,6 +19878,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'SP3',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'tanzim_hasan_sakib',
@@ -18496,6 +19906,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA8',
         set2026: 'FA4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'taskin_ahmed',
@@ -18522,6 +19934,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: 'FA7',
         set2026: 'FA3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'tejas_baroka',
@@ -18548,6 +19962,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'USP2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'tejasvi_dahiya',
@@ -18574,6 +19990,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UWK6',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'tejasvi_jaiswal',
@@ -18600,6 +20018,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL14',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'tejasvi_singh',
@@ -18626,6 +20046,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UWK5',
         set2026: 'UWK1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'tejpreet_singh',
@@ -18652,6 +20074,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'USP5',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'tiaan_van_vuuren',
@@ -18678,6 +20102,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL6',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'tim_david',
@@ -18704,6 +20130,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL3',
         set2026: null,
+        realLifeSoldPrice: 3.0,
+        realLifeTeam: 'Royal Challengers Bengaluru',
       ),
       AuctionPlayer(
         id: 'tim_robinson',
@@ -18730,6 +20158,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'BA2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'tim_seifert',
@@ -18756,6 +20186,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'WK3',
         set2026: 'WK2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'tim_southee',
@@ -18782,6 +20214,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: 'FA8',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'tom_banton',
@@ -18808,6 +20242,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'WK3',
         set2026: 'WK2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'tom_curran',
@@ -18834,6 +20270,8 @@ class AuctionDataset {
         set2024: 'AL2',
         set2025: 'AL4',
         set2026: 'AL3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'tom_kohler_cadmore',
@@ -18860,6 +20298,8 @@ class AuctionDataset {
         set2024: 'UWK1',
         set2025: 'UWK2',
         set2026: null,
+        realLifeSoldPrice: 0.4,
+        realLifeTeam: 'Rajasthan Royals',
       ),
       AuctionPlayer(
         id: 'tom_latham',
@@ -18886,6 +20326,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'WK4',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'tom_moores',
@@ -18912,6 +20354,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UWK3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'towhid_hridoy',
@@ -18938,6 +20382,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'BA5',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'traveen_mathew',
@@ -18964,6 +20410,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'USP4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'travis_head',
@@ -18990,6 +20438,8 @@ class AuctionDataset {
         set2024: 'BA1',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: 6.8,
+        realLifeTeam: 'Sunrisers Hyderabad',
       ),
       AuctionPlayer(
         id: 'trent_boult',
@@ -19016,6 +20466,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA1',
         set2026: null,
+        realLifeSoldPrice: 12.5,
+        realLifeTeam: 'Mumbai Indians',
       ),
       AuctionPlayer(
         id: 'tripurana_vijay',
@@ -19042,6 +20494,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL13',
         set2026: null,
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Delhi Capitals',
       ),
       AuctionPlayer(
         id: 'tripuresh_singh',
@@ -19068,6 +20522,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL15',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'tristan_luus',
@@ -19094,6 +20550,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UFA3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'tristan_stubbs',
@@ -19120,6 +20578,8 @@ class AuctionDataset {
         set2024: 'WK1',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: 0.5,
+        realLifeTeam: 'Delhi Capitals',
       ),
       AuctionPlayer(
         id: 'tushar_deshpande',
@@ -19146,6 +20606,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA2',
         set2026: null,
+        realLifeSoldPrice: 6.5,
+        realLifeTeam: 'Rajasthan Royals',
       ),
       AuctionPlayer(
         id: 'tushar_raheja',
@@ -19172,6 +20634,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA7',
         set2026: 'UWK1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'tymal_mills',
@@ -19198,6 +20662,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: 'FA9',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'uday_saharan',
@@ -19224,6 +20690,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL11',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'umang_kumar',
@@ -19250,6 +20718,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL11',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'umesh_yadav',
@@ -19276,6 +20746,8 @@ class AuctionDataset {
         set2024: 'FA1',
         set2025: 'FA3',
         set2026: 'FA2',
+        realLifeSoldPrice: 5.8,
+        realLifeTeam: 'Gujarat Titans',
       ),
       AuctionPlayer(
         id: 'umran_malik',
@@ -19302,6 +20774,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA3',
         set2026: null,
+        realLifeSoldPrice: 0.75,
+        realLifeTeam: 'Kolkata Knight Riders',
       ),
       AuctionPlayer(
         id: 'unmukt_chand',
@@ -19328,6 +20802,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UWK6',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'upendra_singh_yadav',
@@ -19354,6 +20830,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UWK1',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'urvil_patel',
@@ -19380,6 +20858,8 @@ class AuctionDataset {
         set2024: 'UWK1',
         set2025: 'UWK3',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'utkarsh_singh',
@@ -19406,6 +20886,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UAL1',
         set2026: 'UAL4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'vaibhav_arora',
@@ -19432,6 +20914,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA1',
         set2026: null,
+        realLifeSoldPrice: 1.8,
+        realLifeTeam: 'Kolkata Knight Riders',
       ),
       AuctionPlayer(
         id: 'vaibhav_suryavanshi',
@@ -19458,6 +20942,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA9',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'vaisakh_chandran',
@@ -19484,6 +20970,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UAL11',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'vansh_bedi',
@@ -19510,6 +20998,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UWK2',
         set2026: 'UWK1',
+        realLifeSoldPrice: 0.55,
+        realLifeTeam: 'Chennai Super Kings',
       ),
       AuctionPlayer(
         id: 'varun_aaron',
@@ -19536,6 +21026,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'varun_raj_singh_bisht',
@@ -19562,6 +21054,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL10',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'vasu_vats',
@@ -19588,6 +21082,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA10',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'venkata_satyanarayana_penmetsa',
@@ -19614,6 +21110,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA7',
         set2026: 'UFA2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'venkatesh_iyer',
@@ -19640,6 +21138,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL1',
         set2026: 'AL1',
+        realLifeSoldPrice: 23.75,
+        realLifeTeam: 'Kolkata Knight Riders',
       ),
       AuctionPlayer(
         id: 'venkatesh_muralidhara',
@@ -19666,6 +21166,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'vicky_ostwal',
@@ -19692,6 +21194,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL4',
         set2026: 'UAL2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'vidwath_kaverappa',
@@ -19718,6 +21222,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA2',
         set2026: 'UFA2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'vidyadhar_patil',
@@ -19744,6 +21250,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA6',
         set2026: 'UFA2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'vignesh_puthur',
@@ -19770,6 +21278,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL15',
         set2026: 'USP1',
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Mumbai Indians',
       ),
       AuctionPlayer(
         id: 'vihaan_malhotra',
@@ -19796,6 +21306,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL6',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'vijay_kumar',
@@ -19822,6 +21334,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA8',
         set2026: 'UFA2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'vijay_shankar',
@@ -19848,6 +21362,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL1',
         set2026: 'UAL1',
+        realLifeSoldPrice: 1.2,
+        realLifeTeam: 'Chennai Super Kings',
       ),
       AuctionPlayer(
         id: 'vijay_yadav',
@@ -19874,6 +21390,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL15',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'vijayakanth_viyaskanth',
@@ -19900,6 +21418,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'SP2',
         set2026: 'SP2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'vineet_dhankhar',
@@ -19926,6 +21446,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'vineet_panwar',
@@ -19952,6 +21474,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA6',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'vipraj_nigam',
@@ -19978,6 +21502,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL4',
         set2026: null,
+        realLifeSoldPrice: 0.5,
+        realLifeTeam: 'Delhi Capitals',
       ),
       AuctionPlayer(
         id: 'virat_singh',
@@ -20004,6 +21530,8 @@ class AuctionDataset {
         set2024: 'UBA2',
         set2025: 'UBA4',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'vishal_godara',
@@ -20030,6 +21558,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: 'UFA10',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'vishal_mandwal',
@@ -20056,6 +21586,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UAL8',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'vishal_nishad',
@@ -20082,6 +21614,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'USP3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'vishnu_solanki',
@@ -20108,6 +21642,8 @@ class AuctionDataset {
         set2024: 'UWK1',
         set2025: 'UWK4',
         set2026: 'UWK3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'vishnu_vinod',
@@ -20134,6 +21670,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UWK1',
         set2026: null,
+        realLifeSoldPrice: 0.95,
+        realLifeTeam: 'Punjab Kings',
       ),
       AuctionPlayer(
         id: 'vishu_kashyap',
@@ -20160,6 +21698,8 @@ class AuctionDataset {
         set2024: 'USP2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'vishvarajsinh_jadeja',
@@ -20186,6 +21726,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UBA4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'vishwanath_pratap_singh',
@@ -20212,6 +21754,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UBA8',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'vivrant_sharma',
@@ -20238,6 +21782,8 @@ class AuctionDataset {
         set2024: 'UAL1',
         set2025: 'UAL7',
         set2026: 'UAL4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'vyshak_vijaykumar',
@@ -20264,6 +21810,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA1',
         set2026: null,
+        realLifeSoldPrice: 1.8,
+        realLifeTeam: 'Punjab Kings',
       ),
       AuctionPlayer(
         id: 'wahidullah_zadran',
@@ -20290,6 +21838,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'USP1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'wanindu_hasaranga',
@@ -20316,6 +21866,8 @@ class AuctionDataset {
         set2024: 'AL1',
         set2025: 'SP1',
         set2026: 'AL1',
+        realLifeSoldPrice: 5.25,
+        realLifeTeam: 'Rajasthan Royals',
       ),
       AuctionPlayer(
         id: 'waqar_salamkheil',
@@ -20342,6 +21894,8 @@ class AuctionDataset {
         set2024: 'SP1',
         set2025: 'SP1',
         set2026: 'SP2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'waseem_bashir',
@@ -20368,6 +21922,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: null,
         set2026: 'UFA5',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'washington_sundar',
@@ -20394,6 +21950,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL2',
         set2026: null,
+        realLifeSoldPrice: 3.2,
+        realLifeTeam: 'Gujarat Titans',
       ),
       AuctionPlayer(
         id: 'wayne_parnell',
@@ -20420,6 +21978,8 @@ class AuctionDataset {
         set2024: 'FA2',
         set2025: 'FA10',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'wesley_agar',
@@ -20446,6 +22006,8 @@ class AuctionDataset {
         set2024: 'AL2',
         set2025: null,
         set2026: 'FA5',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'wiaan_mulder',
@@ -20472,6 +22034,8 @@ class AuctionDataset {
         set2024: 'AL2',
         set2025: 'AL8',
         set2026: 'AL1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'will_jacks',
@@ -20498,6 +22062,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL3',
         set2026: null,
+        realLifeSoldPrice: 5.25,
+        realLifeTeam: 'Mumbai Indians',
       ),
       AuctionPlayer(
         id: 'will_young',
@@ -20524,6 +22090,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'BA5',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'william_o_rourke',
@@ -20550,6 +22118,8 @@ class AuctionDataset {
         set2024: 'UFA2',
         set2025: 'FA6',
         set2026: 'FA2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'william_salzmann',
@@ -20576,6 +22146,8 @@ class AuctionDataset {
         set2024: 'UWK2',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'william_sutherland',
@@ -20602,6 +22174,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL7',
         set2026: 'AL3',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'writtick_chatterjee',
@@ -20628,6 +22202,8 @@ class AuctionDataset {
         set2024: 'UAL2',
         set2025: 'UAL9',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'xavier_bartlett',
@@ -20654,6 +22230,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'FA6',
         set2026: null,
+        realLifeSoldPrice: 0.8,
+        realLifeTeam: 'Punjab Kings',
       ),
       AuctionPlayer(
         id: 'yajas_sharma',
@@ -20680,6 +22258,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL10',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'yash_dabas',
@@ -20706,6 +22286,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL15',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'yash_dayal',
@@ -20732,6 +22314,8 @@ class AuctionDataset {
         set2024: 'UFA1',
         set2025: null,
         set2026: null,
+        realLifeSoldPrice: 5.0,
+        realLifeTeam: 'Royal Challengers Bengaluru',
       ),
       AuctionPlayer(
         id: 'yash_dhull',
@@ -20758,6 +22342,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UBA1',
         set2026: 'UBA1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'yash_dicholkar',
@@ -20784,6 +22370,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'USP4',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'yash_raj_punja',
@@ -20810,6 +22398,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'USP1',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'yash_thakur',
@@ -20836,6 +22426,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA1',
         set2026: null,
+        realLifeSoldPrice: 1.6,
+        realLifeTeam: 'Punjab Kings',
       ),
       AuctionPlayer(
         id: 'yashvardhan_dalal',
@@ -20862,6 +22454,8 @@ class AuctionDataset {
         set2024: null,
         set2025: null,
         set2026: 'UWK2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'yeddala_reddy',
@@ -20888,6 +22482,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UFA7',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'yudhvir_charak',
@@ -20914,6 +22510,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL3',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'yuvraj_chaudhary',
@@ -20940,6 +22538,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'UAL6',
         set2026: 'UAL2',
+        realLifeSoldPrice: 0.3,
+        realLifeTeam: 'Lucknow Super Giants',
       ),
       AuctionPlayer(
         id: 'yuvraj_chudasama',
@@ -20966,6 +22566,8 @@ class AuctionDataset {
         set2024: 'USP2',
         set2025: 'USP5',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'yuzvendra_chahal',
@@ -20992,6 +22594,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'M2',
         set2026: null,
+        realLifeSoldPrice: 18.0,
+        realLifeTeam: 'Punjab Kings',
       ),
       AuctionPlayer(
         id: 'zahir_khan_pakten',
@@ -21018,6 +22622,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'SP3',
         set2026: null,
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'zak_foulkes',
@@ -21044,6 +22650,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'AL8',
         set2026: 'AL2',
+        realLifeSoldPrice: null,
+        realLifeTeam: null,
       ),
       AuctionPlayer(
         id: 'zeeshan_ansari',
@@ -21070,6 +22678,8 @@ class AuctionDataset {
         set2024: null,
         set2025: 'USP2',
         set2026: null,
+        realLifeSoldPrice: 0.4,
+        realLifeTeam: 'Sunrisers Hyderabad',
       ),
     ];
   }
