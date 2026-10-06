@@ -36,7 +36,11 @@ class AuctionEngine {
         allPlayers = AuctionDataset.getAllAuctionPlayers(),
         marqueePool = AuctionDataset.getAllAuctionPlayers()
             .where((p) => p.category == AuctionCategory.marquee)
-            .toList();
+            .toList() {
+    for (var f in this.franchises) {
+      f.isHuman = (f.id == humanTeamId);
+    }
+  }
 
   AuctionTeam get humanTeam =>
       franchises.firstWhere((t) => t.id == humanTeamId, orElse: () => franchises.first);
@@ -346,9 +350,13 @@ class AuctionEngine {
     // Star player price ceiling
     double valuation = base + (ratingMultiplier * 0.7);
 
-    if (player.overallRating >= 95) valuation += 6.0;
-    else if (player.overallRating >= 90) valuation += 3.5;
-    else if (player.overallRating >= 85) valuation += 1.5;
+    if (player.overallRating >= 95) {
+      valuation += 6.0;
+    } else if (player.overallRating >= 90) {
+      valuation += 3.5;
+    } else if (player.overallRating >= 85) {
+      valuation += 1.5;
+    }
 
     // AI personality modifiers
     if (team.personality.starFocus > 0.8 && player.overallRating >= 90) {
@@ -566,5 +574,207 @@ class AuctionEngine {
       'championSquad': sortedTeams.first,
       'mostPurseLeft': (List<AuctionTeam>.from(franchises)..sort((a, b) => b.purseRemaining.compareTo(a.purseRemaining))).first,
     };
+  }
+
+  // ==========================================
+  // SLOT TARGETING & DISCOVERY
+  // ==========================================
+
+  final Set<String> targetedPlayerIds = {};
+
+  void togglePlayerTarget(String playerId) {
+    if (targetedPlayerIds.contains(playerId)) {
+      targetedPlayerIds.remove(playerId);
+    } else {
+      targetedPlayerIds.add(playerId);
+    }
+  }
+
+  bool isPlayerTargeted(String playerId) => targetedPlayerIds.contains(playerId);
+
+  List<AuctionPlayer> getPlayersInSlot(AuctionCategory category) {
+    return allPlayers.where((p) => p.category == category).toList();
+  }
+
+  List<AuctionPlayer> getCurrentSlotPlayers() {
+    if (currentPlayer == null) return [];
+    return getPlayersInSlot(currentPlayer!.category);
+  }
+
+  // ==========================================
+  // POST-AUCTION TRADING WINDOW (MAX 2 TRADES)
+  // ==========================================
+
+  int tradesCompleted = 0;
+  static const int maxTradesAllowed = 2;
+  int get remainingTrades => (maxTradesAllowed - tradesCompleted).clamp(0, maxTradesAllowed);
+
+  TradeEvaluationResult evaluateTradeProposal({
+    required AuctionTeam humanTeam,
+    required AuctionPlayer humanPlayer,
+    required AuctionTeam targetTeam,
+    required AuctionPlayer targetPlayer,
+    required TradeMode mode,
+    double cashOffered = 0.0,
+  }) {
+    if (tradesCompleted >= maxTradesAllowed) {
+      return const TradeEvaluationResult(
+        isAccepted: false,
+        reason: 'Maximum trade limit reached: only 2 player exchanges are permitted per franchise.',
+      );
+    }
+
+    if (!humanTeam.squad.any((p) => p.id == humanPlayer.id)) {
+      return const TradeEvaluationResult(
+        isAccepted: false,
+        reason: 'The offered player is not in your squad roster.',
+      );
+    }
+
+    if (!targetTeam.squad.any((p) => p.id == targetPlayer.id)) {
+      return TradeEvaluationResult(
+        isAccepted: false,
+        reason: 'The requested player is not in ${targetTeam.name}\'s squad roster.',
+      );
+    }
+
+    // 1. Overseas cap check
+    final humanOsCount = humanTeam.overseasCount -
+        (humanPlayer.isOverseas ? 1 : 0) +
+        (targetPlayer.isOverseas ? 1 : 0);
+    if (humanOsCount > config.maxOverseas) {
+      return TradeEvaluationResult(
+        isAccepted: false,
+        reason: 'Trade would exceed the limit of ${config.maxOverseas} overseas players for ${humanTeam.name}.',
+      );
+    }
+
+    final targetOsCount = targetTeam.overseasCount -
+        (targetPlayer.isOverseas ? 1 : 0) +
+        (humanPlayer.isOverseas ? 1 : 0);
+    if (targetOsCount > config.maxOverseas) {
+      return TradeEvaluationResult(
+        isAccepted: false,
+        reason: 'Trade would exceed the limit of ${config.maxOverseas} overseas players for ${targetTeam.name}.',
+      );
+    }
+
+    if (mode == TradeMode.sameAmount) {
+      // Pick-price parity swap
+      final humanPrice = humanPlayer.soldPrice ?? humanPlayer.basePrice;
+      final targetPrice = targetPlayer.soldPrice ?? targetPlayer.basePrice;
+      final priceDiff = targetPrice - humanPrice;
+
+      if (priceDiff > 0 && humanTeam.purseRemaining < priceDiff) {
+        return TradeEvaluationResult(
+          isAccepted: false,
+          reason: 'Insufficient purse balance. You need ₹${priceDiff.toStringAsFixed(2)} Cr more to cover the pick amount difference.',
+        );
+      }
+
+      if (priceDiff < 0 && targetTeam.purseRemaining < -priceDiff) {
+        return TradeEvaluationResult(
+          isAccepted: false,
+          reason: '${targetTeam.name} has insufficient purse (needs ₹${(-priceDiff).toStringAsFixed(2)} Cr) to cover the pick amount difference.',
+        );
+      }
+
+      return TradeEvaluationResult(
+        isAccepted: true,
+        reason: 'Trade agreed at pick-price parity. Difference of ₹${priceDiff.abs().toStringAsFixed(2)} Cr adjusted via franchise purse balances.',
+        cashAdjustment: priceDiff,
+      );
+    } else {
+      // Mutual Decision (Player + Money)
+      if (cashOffered > humanTeam.purseRemaining) {
+        return TradeEvaluationResult(
+          isAccepted: false,
+          reason: 'Cannot offer ₹${cashOffered.toStringAsFixed(2)} Cr. Your purse only has ₹${humanTeam.purseRemaining.toStringAsFixed(2)} Cr remaining.',
+        );
+      }
+
+      if (cashOffered < 0 && (-cashOffered) > targetTeam.purseRemaining) {
+        return TradeEvaluationResult(
+          isAccepted: false,
+          reason: '${targetTeam.name} does not have sufficient purse to pay ₹${(-cashOffered).toStringAsFixed(2)} Cr.',
+        );
+      }
+
+      // Valuation based on player ratings and AI personality
+      final ratingDelta = (humanPlayer.overallRating - targetPlayer.overallRating).toDouble();
+      double ratingValue = ratingDelta * 1.5;
+
+      // Top star protection: AI franchises are reluctant to let go of 92+ rating icons
+      if (targetPlayer.overallRating >= 92) {
+        ratingValue -= 3.0;
+      }
+      if (humanPlayer.overallRating >= 90) {
+        ratingValue += 2.0;
+      }
+
+      // Role scarcity check
+      final targetRoleCount = targetTeam.squad.where((p) => p.role == targetPlayer.role).length;
+      if (targetRoleCount <= 2) {
+        ratingValue -= 2.5;
+      }
+
+      final netValuation = ratingValue + cashOffered;
+
+      if (netValuation < -0.25) {
+        final deficit = ((-netValuation) * 1.0).clamp(0.5, 25.0);
+        return TradeEvaluationResult(
+          isAccepted: false,
+          reason: '${targetTeam.name} declined this offer. They value ${targetPlayer.name} higher. Add at least ₹${deficit.toStringAsFixed(1)} Cr in purse cash to reach mutual agreement.',
+        );
+      }
+
+      return TradeEvaluationResult(
+        isAccepted: true,
+        reason: 'Mutual agreement reached! Both franchises agree to the swap with a ₹${cashOffered.abs().toStringAsFixed(2)} Cr purse adjustment.',
+        cashAdjustment: cashOffered,
+      );
+    }
+  }
+
+  bool executeTrade({
+    required AuctionTeam humanTeam,
+    required AuctionPlayer humanPlayer,
+    required AuctionTeam targetTeam,
+    required AuctionPlayer targetPlayer,
+    required TradeMode mode,
+    double cashOffered = 0.0,
+  }) {
+    final eval = evaluateTradeProposal(
+      humanTeam: humanTeam,
+      humanPlayer: humanPlayer,
+      targetTeam: targetTeam,
+      targetPlayer: targetPlayer,
+      mode: mode,
+      cashOffered: cashOffered,
+    );
+
+    if (!eval.isAccepted) return false;
+
+    // Swap players in squads
+    humanTeam.removePlayer(humanPlayer);
+    targetTeam.removePlayer(targetPlayer);
+
+    humanPlayer.soldToTeamId = targetTeam.id;
+    humanPlayer.soldToTeamName = targetTeam.name;
+
+    targetPlayer.soldToTeamId = humanTeam.id;
+    targetPlayer.soldToTeamName = humanTeam.name;
+
+    humanTeam.squad.add(targetPlayer);
+    targetTeam.squad.add(humanPlayer);
+
+    // Adjust purses
+    humanTeam.purseRemaining -= eval.cashAdjustment;
+    targetTeam.purseRemaining += eval.cashAdjustment;
+
+    tradesCompleted++;
+
+    _log('TRADE COMPLETED: ${humanTeam.name} exchanged ${humanPlayer.name} with ${targetTeam.name} for ${targetPlayer.name} (${eval.reason})');
+    return true;
   }
 }

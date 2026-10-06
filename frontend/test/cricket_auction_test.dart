@@ -217,5 +217,156 @@ void main() {
       expect(xiResult.xiBattingRating, greaterThan(0));
       expect(xiResult.xiBowlingRating, greaterThan(0));
     });
+
+    test('Slot player retrieval and bookmarking targets', () {
+      final engine = AuctionEngine();
+      final batterSlot = engine.getPlayersInSlot(AuctionCategory.batters);
+      expect(batterSlot, isNotEmpty);
+      for (final p in batterSlot) {
+        expect(p.category, equals(AuctionCategory.batters));
+      }
+
+      final p = batterSlot.first;
+      expect(engine.isPlayerTargeted(p.id), isFalse);
+      engine.togglePlayerTarget(p.id);
+      expect(engine.isPlayerTargeted(p.id), isTrue);
+      engine.togglePlayerTarget(p.id);
+      expect(engine.isPlayerTargeted(p.id), isFalse);
+    });
+
+    test('Categorized squad building correctly groups batters, bowlers, spinners, and WK', () {
+      final engine = AuctionEngine();
+      final team = engine.humanTeam;
+
+      final kohli = engine.allPlayers.firstWhere((p) => p.id == 'virat_kohli'); // Batter
+      final bumrah = engine.allPlayers.firstWhere((p) => p.id == 'jasprit_bumrah'); // Fast Bowler
+      final chahal = engine.allPlayers.firstWhere((p) => p.id == 'yuzvendra_chahal'); // Spinner
+      final klaasen = engine.allPlayers.firstWhere((p) => p.id == 'heinrich_klaasen'); // WK
+
+      team.addPlayer(kohli, 18.0);
+      team.addPlayer(bumrah, 14.0);
+      team.addPlayer(chahal, 10.0);
+      team.addPlayer(klaasen, 12.0);
+
+      expect(team.batters.any((p) => p.id == 'virat_kohli'), isTrue);
+      expect(team.fastBowlers.any((p) => p.id == 'jasprit_bumrah'), isTrue);
+      expect(team.spinners.any((p) => p.id == 'yuzvendra_chahal'), isTrue);
+      expect(team.wicketkeepers.any((p) => p.id == 'heinrich_klaasen'), isTrue);
+    });
+
+    test('Post-Auction Trading: Direct Swap (Same Pick Amount)', () {
+      final engine = AuctionEngine();
+      final human = engine.humanTeam;
+      final targetTeam = engine.franchises.firstWhere((t) => t.id != human.id);
+
+      final p1 = engine.allPlayers.firstWhere((p) => p.id == 'virat_kohli');
+      p1.soldPrice = 18.0;
+      human.addPlayer(p1, 18.0);
+
+      final p2 = engine.allPlayers.firstWhere((p) => p.id == 'rohit_sharma');
+      p2.soldPrice = 16.0;
+      targetTeam.addPlayer(p2, 16.0);
+
+      final eval = engine.evaluateTradeProposal(
+        humanTeam: human,
+        humanPlayer: p1,
+        targetTeam: targetTeam,
+        targetPlayer: p2,
+        mode: TradeMode.sameAmount,
+      );
+
+      expect(eval.isAccepted, isTrue);
+      expect(eval.cashAdjustment, equals(-2.0)); // 16 - 18 = -2.0 (human receives 2.0 Cr difference)
+
+      final success = engine.executeTrade(
+        humanTeam: human,
+        humanPlayer: p1,
+        targetTeam: targetTeam,
+        targetPlayer: p2,
+        mode: TradeMode.sameAmount,
+      );
+
+      expect(success, isTrue);
+      expect(engine.tradesCompleted, equals(1));
+      expect(engine.remainingTrades, equals(1));
+      expect(human.squad.any((p) => p.id == 'rohit_sharma'), isTrue);
+      expect(human.squad.any((p) => p.id == 'virat_kohli'), isFalse);
+      expect(targetTeam.squad.any((p) => p.id == 'virat_kohli'), isTrue);
+    });
+
+    test('Post-Auction Trading: Mutual Decision with Cash Sweetener and max 2 trades limit', () {
+      final engine = AuctionEngine();
+      final human = engine.humanTeam;
+      final targetTeam = engine.franchises.firstWhere((t) => t.id != human.id);
+
+      // Trade 1: Low rated player for top star without cash -> AI declines
+      final sortedIndian = List<AuctionPlayer>.from(engine.allPlayers.where((p) => !p.isOverseas))
+        ..sort((a, b) => a.overallRating.compareTo(b.overallRating));
+      final lowPlayer = sortedIndian.firstWhere((p) => p.overallRating >= 90);
+      final starPlayer = sortedIndian.firstWhere((p) => p.overallRating >= 93 && p.id != lowPlayer.id);
+
+      human.addPlayer(lowPlayer, 10.0);
+      targetTeam.addPlayer(starPlayer, 14.0);
+
+      final unfairEval = engine.evaluateTradeProposal(
+        humanTeam: human,
+        humanPlayer: lowPlayer,
+        targetTeam: targetTeam,
+        targetPlayer: starPlayer,
+        mode: TradeMode.mutualDecision,
+        cashOffered: 0.0,
+      );
+      expect(unfairEval.isAccepted, isFalse);
+
+      // Offer ₹10.0 Cr cash sweetener -> AI agrees
+      final fairEval = engine.evaluateTradeProposal(
+        humanTeam: human,
+        humanPlayer: lowPlayer,
+        targetTeam: targetTeam,
+        targetPlayer: starPlayer,
+        mode: TradeMode.mutualDecision,
+        cashOffered: 10.0,
+      );
+      expect(fairEval.isAccepted, isTrue);
+
+      // Execute Trade 1
+      engine.executeTrade(
+        humanTeam: human,
+        humanPlayer: lowPlayer,
+        targetTeam: targetTeam,
+        targetPlayer: starPlayer,
+        mode: TradeMode.mutualDecision,
+        cashOffered: 10.0,
+      );
+      expect(engine.tradesCompleted, equals(1));
+      expect(engine.remainingTrades, equals(1));
+
+      // Execute Trade 2
+      final pA = engine.allPlayers.firstWhere((p) => p.id == 'jasprit_bumrah');
+      final pB = engine.allPlayers.firstWhere((p) => p.id == 'pat_cummins');
+      human.addPlayer(pA, 14.0);
+      targetTeam.addPlayer(pB, 14.0);
+
+      engine.executeTrade(
+        humanTeam: human,
+        humanPlayer: pA,
+        targetTeam: targetTeam,
+        targetPlayer: pB,
+        mode: TradeMode.sameAmount,
+      );
+      expect(engine.tradesCompleted, equals(2));
+      expect(engine.remainingTrades, equals(0));
+
+      // Attempt Trade 3 -> Must be rejected due to max 2 trades cap
+      final extraEval = engine.evaluateTradeProposal(
+        humanTeam: human,
+        humanPlayer: starPlayer,
+        targetTeam: targetTeam,
+        targetPlayer: lowPlayer,
+        mode: TradeMode.sameAmount,
+      );
+      expect(extraEval.isAccepted, isFalse);
+      expect(extraEval.reason.contains('Maximum trade limit reached'), isTrue);
+    });
   });
 }

@@ -311,6 +311,56 @@ class AuctionTeam {
     squad.add(player);
   }
 
+  void removePlayer(AuctionPlayer player) {
+    squad.removeWhere((p) => p.id == player.id);
+  }
+
+  static bool isWicketkeeperPlayer(AuctionPlayer p) =>
+      p.role == 'Wicketkeeper' ||
+      p.category == AuctionCategory.wicketkeepers ||
+      p.primaryRole.toLowerCase().contains('keeper') ||
+      p.primaryRole.toLowerCase().contains('gloveman');
+
+  static bool isSpinnerPlayer(AuctionPlayer p) {
+    final s = p.bowlingStyle.toLowerCase();
+    final r = p.primaryRole.toLowerCase();
+    return p.category == AuctionCategory.spinBowlers ||
+        s.contains('spin') ||
+        s.contains('orthodox') ||
+        s.contains('chinaman') ||
+        r.contains('spin');
+  }
+
+  static bool isFastBowlerPlayer(AuctionPlayer p) {
+    if (isSpinnerPlayer(p)) return false;
+    final s = p.bowlingStyle.toLowerCase();
+    final r = p.primaryRole.toLowerCase();
+    return p.category == AuctionCategory.fastBowlers ||
+        (p.role == 'Bowler' && !isSpinnerPlayer(p)) ||
+        s.contains('fast') ||
+        s.contains('pace') ||
+        s.contains('medium') ||
+        r.contains('fast') ||
+        r.contains('pace') ||
+        r.contains('seamer');
+  }
+
+  static bool isBatterPlayer(AuctionPlayer p) {
+    if (isWicketkeeperPlayer(p)) return false;
+    return p.role == 'Batter' || p.category == AuctionCategory.batters;
+  }
+
+  static bool isAllRounderPlayer(AuctionPlayer p) {
+    if (isWicketkeeperPlayer(p)) return false;
+    return p.role == 'All-Rounder' || p.category == AuctionCategory.allRounders;
+  }
+
+  List<AuctionPlayer> get batters => squad.where(isBatterPlayer).toList();
+  List<AuctionPlayer> get wicketkeepers => squad.where(isWicketkeeperPlayer).toList();
+  List<AuctionPlayer> get fastBowlers => squad.where(isFastBowlerPlayer).toList();
+  List<AuctionPlayer> get spinners => squad.where(isSpinnerPlayer).toList();
+  List<AuctionPlayer> get allRounders => squad.where(isAllRounderPlayer).toList();
+
   double get battingStrength {
     if (squad.isEmpty) return 0;
     final bats = squad.where((p) => p.role == 'Batter' || p.role == 'All-Rounder' || p.role == 'Wicketkeeper').toList();
@@ -337,6 +387,23 @@ class AuctionTeam {
     final overseasBonus = (overseasCount >= 5 && overseasCount <= 8) ? 4.0 : 1.0;
     return (bat * 0.45 + bowl * 0.45 + depthBonus + overseasBonus).clamp(0, 99.9);
   }
+}
+
+enum TradeMode {
+  sameAmount,
+  mutualDecision,
+}
+
+class TradeEvaluationResult {
+  final bool isAccepted;
+  final String reason;
+  final double cashAdjustment;
+
+  const TradeEvaluationResult({
+    required this.isAccepted,
+    required this.reason,
+    this.cashAdjustment = 0.0,
+  });
 }
 
 class AuctionBid {
