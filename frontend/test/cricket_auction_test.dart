@@ -25,17 +25,29 @@ void main() {
       expect(marquee.length, greaterThanOrEqualTo(10));
 
       // Key stars exist with valid active stats
-      final kohli = players.firstWhere((p) => p.id == 'shreyas_iyer');
-      expect(kohli.name, equals('Shreyas Iyer'));
+      final kohli = players.firstWhere((p) => p.id == 'virat_kohli');
+      expect(kohli.name, equals('Virat Kohli'));
       expect(kohli.isOverseas, isFalse);
       expect(kohli.cappedStatus, equals('Capped'));
       expect(kohli.basePrice, equals(2.0));
+      expect(kohli.category, equals(AuctionCategory.marquee));
 
-      final bumrah = players.firstWhere((p) => p.id == 'mohammad_shami');
-      expect(bumrah.bowlingRating, greaterThanOrEqualTo(85));
+      final dhoni = players.firstWhere((p) => p.id == 'ms_dhoni');
+      expect(dhoni.name, equals('MS Dhoni'));
+      expect(dhoni.category, equals(AuctionCategory.marquee));
 
-      final klaasen = players.firstWhere((p) => p.id == 'jos_buttler');
+      final bumrah = players.firstWhere((p) => p.id == 'jasprit_bumrah');
+      expect(bumrah.name, equals('Jasprit Bumrah'));
+      expect(bumrah.category, equals(AuctionCategory.marquee));
+      expect(bumrah.bowlingRating, greaterThanOrEqualTo(95));
+
+      final bhuvi = players.firstWhere((p) => p.id == 'bhuvneshwar_kumar');
+      expect(bhuvi.name, equals('Bhuvneshwar Kumar'));
+      expect(bhuvi.category, equals(AuctionCategory.marquee));
+
+      final klaasen = players.firstWhere((p) => p.id == 'heinrich_klaasen');
       expect(klaasen.isOverseas, isTrue);
+      expect(klaasen.category, equals(AuctionCategory.marquee));
     });
 
     test('Marquee Phase: Selection costs ₹18.0 Cr and AI franchises pick 1 marquee icon each', () {
@@ -43,7 +55,7 @@ void main() {
       engine.setHumanTeam('mumbai_mariners');
       engine.startMarqueePhase();
 
-      final kohli = engine.marqueePool.firstWhere((p) => p.id == 'shreyas_iyer');
+      final kohli = engine.marqueePool.firstWhere((p) => p.id == 'virat_kohli');
       final selected = engine.selectHumanMarquee(kohli);
       expect(selected, isTrue);
 
@@ -52,7 +64,7 @@ void main() {
       expect(human.squad.length, equals(1));
       expect(human.retentions.length, equals(1));
       expect(human.purseRemaining, equals(102.0)); // 120 - 18
-      expect(human.squad.first.name, equals('Shreyas Iyer'));
+      expect(human.squad.first.name, equals('Virat Kohli'));
 
       // All 10 teams must have drafted exactly 1 marquee player
       for (final team in engine.franchises) {
@@ -66,13 +78,14 @@ void main() {
       final engine = AuctionEngine();
       engine.setHumanTeam('mumbai_mariners');
       engine.startMarqueePhase();
-      final kohli = engine.marqueePool.firstWhere((p) => p.id == 'shreyas_iyer');
+      final kohli = engine.marqueePool.firstWhere((p) => p.id == 'virat_kohli');
       engine.selectHumanMarquee(kohli);
 
       // Next retention cost should be Slab 2: ₹14.0 Cr
       expect(engine.getNextRetentionCost(engine.humanTeam), equals(14.0));
 
       final available = engine.getAvailablePlayersForRetention();
+      expect(available.any((p) => p.id == 'jasprit_bumrah' || p.id == 'ms_dhoni' || p.id == 'bhuvneshwar_kumar'), isTrue);
       final p1 = available[0];
       final r1 = engine.retainPlayerForHuman(p1);
       expect(r1, isTrue);

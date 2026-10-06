@@ -27,20 +27,38 @@ class AuctionEngine {
   final List<String> activityLog = [];
   final Random _rng = Random();
 
-  AuctionEngine({
-    AuctionRulesConfig? config,
-    List<AuctionTeam>? franchises,
-    this.humanTeamId = 'mumbai_mariners',
-    this.aiDifficulty = 'Normal',
-  })  : config = config ?? const AuctionRulesConfig(),
-        franchises = franchises ?? AuctionDataset.getInitialFranchises(),
-        allPlayers = AuctionDataset.getAllAuctionPlayers(),
-        marqueePool = AuctionDataset.getAllAuctionPlayers()
-            .where((p) => p.category == AuctionCategory.marquee)
-            .toList() {
-    for (var f in this.franchises) {
+  AuctionEngine._({
+    required this.config,
+    required this.franchises,
+    required this.allPlayers,
+    required this.marqueePool,
+    required this.humanTeamId,
+    required this.aiDifficulty,
+  }) {
+    for (var f in franchises) {
       f.isHuman = (f.id == humanTeamId);
     }
+  }
+
+  factory AuctionEngine({
+    AuctionRulesConfig? config,
+    List<AuctionTeam>? franchises,
+    List<AuctionPlayer>? allPlayers,
+    String humanTeamId = 'mumbai_mariners',
+    String aiDifficulty = 'Normal',
+  }) {
+    final conf = config ?? const AuctionRulesConfig();
+    final teams = franchises ?? AuctionDataset.getInitialFranchises();
+    final players = allPlayers ?? AuctionDataset.getAllAuctionPlayers();
+    final marquees = players.where((p) => p.category == AuctionCategory.marquee).toList();
+    return AuctionEngine._(
+      config: conf,
+      franchises: teams,
+      allPlayers: players,
+      marqueePool: marquees,
+      humanTeamId: humanTeamId,
+      aiDifficulty: aiDifficulty,
+    );
   }
 
   AuctionTeam get humanTeam =>
@@ -138,10 +156,9 @@ class AuctionEngine {
 
   List<AuctionPlayer> getAvailablePlayersForRetention() {
     return allPlayers
-        .where((p) =>
-            p.status == PlayerAuctionStatus.unauctioned &&
-            p.category != AuctionCategory.marquee)
-        .toList();
+        .where((p) => p.status == PlayerAuctionStatus.unauctioned)
+        .toList()
+      ..sort((a, b) => b.overallRating.compareTo(a.overallRating));
   }
 
   double getNextRetentionCost(AuctionTeam team) {
