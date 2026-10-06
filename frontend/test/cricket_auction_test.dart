@@ -25,16 +25,16 @@ void main() {
       expect(marquee.length, greaterThanOrEqualTo(10));
 
       // Key stars exist with valid active stats
-      final kohli = players.firstWhere((p) => p.id == 'virat_kohli');
-      expect(kohli.name, equals('Virat Kohli'));
+      final kohli = players.firstWhere((p) => p.id == 'shreyas_iyer');
+      expect(kohli.name, equals('Shreyas Iyer'));
       expect(kohli.isOverseas, isFalse);
       expect(kohli.cappedStatus, equals('Capped'));
       expect(kohli.basePrice, equals(2.0));
 
-      final bumrah = players.firstWhere((p) => p.id == 'jasprit_bumrah');
-      expect(bumrah.bowlingRating, greaterThanOrEqualTo(95));
+      final bumrah = players.firstWhere((p) => p.id == 'mohammad_shami');
+      expect(bumrah.bowlingRating, greaterThanOrEqualTo(85));
 
-      final klaasen = players.firstWhere((p) => p.id == 'heinrich_klaasen');
+      final klaasen = players.firstWhere((p) => p.id == 'jos_buttler');
       expect(klaasen.isOverseas, isTrue);
     });
 
@@ -43,7 +43,7 @@ void main() {
       engine.setHumanTeam('mumbai_mariners');
       engine.startMarqueePhase();
 
-      final kohli = engine.marqueePool.firstWhere((p) => p.id == 'virat_kohli');
+      final kohli = engine.marqueePool.firstWhere((p) => p.id == 'shreyas_iyer');
       final selected = engine.selectHumanMarquee(kohli);
       expect(selected, isTrue);
 
@@ -52,7 +52,7 @@ void main() {
       expect(human.squad.length, equals(1));
       expect(human.retentions.length, equals(1));
       expect(human.purseRemaining, equals(102.0)); // 120 - 18
-      expect(human.squad.first.name, equals('Virat Kohli'));
+      expect(human.squad.first.name, equals('Shreyas Iyer'));
 
       // All 10 teams must have drafted exactly 1 marquee player
       for (final team in engine.franchises) {
@@ -66,7 +66,7 @@ void main() {
       final engine = AuctionEngine();
       engine.setHumanTeam('mumbai_mariners');
       engine.startMarqueePhase();
-      final kohli = engine.marqueePool.firstWhere((p) => p.id == 'virat_kohli');
+      final kohli = engine.marqueePool.firstWhere((p) => p.id == 'shreyas_iyer');
       engine.selectHumanMarquee(kohli);
 
       // Next retention cost should be Slab 2: ₹14.0 Cr
@@ -238,20 +238,20 @@ void main() {
       final engine = AuctionEngine();
       final team = engine.humanTeam;
 
-      final kohli = engine.allPlayers.firstWhere((p) => p.id == 'virat_kohli'); // Batter
-      final bumrah = engine.allPlayers.firstWhere((p) => p.id == 'jasprit_bumrah'); // Fast Bowler
+      final kohli = engine.allPlayers.firstWhere((p) => p.id == 'shreyas_iyer'); // Batter
+      final bumrah = engine.allPlayers.firstWhere((p) => p.id == 'mohammad_shami'); // Fast Bowler
       final chahal = engine.allPlayers.firstWhere((p) => p.id == 'yuzvendra_chahal'); // Spinner
-      final klaasen = engine.allPlayers.firstWhere((p) => p.id == 'heinrich_klaasen'); // WK
+      final klaasen = engine.allPlayers.firstWhere((p) => p.id == 'jos_buttler'); // WK
 
       team.addPlayer(kohli, 18.0);
       team.addPlayer(bumrah, 14.0);
       team.addPlayer(chahal, 10.0);
       team.addPlayer(klaasen, 12.0);
 
-      expect(team.batters.any((p) => p.id == 'virat_kohli'), isTrue);
-      expect(team.fastBowlers.any((p) => p.id == 'jasprit_bumrah'), isTrue);
+      expect(team.batters.any((p) => p.id == 'shreyas_iyer'), isTrue);
+      expect(team.fastBowlers.any((p) => p.id == 'mohammad_shami'), isTrue);
       expect(team.spinners.any((p) => p.id == 'yuzvendra_chahal'), isTrue);
-      expect(team.wicketkeepers.any((p) => p.id == 'heinrich_klaasen'), isTrue);
+      expect(team.wicketkeepers.any((p) => p.id == 'jos_buttler'), isTrue);
     });
 
     test('Post-Auction Trading: Direct Swap (Same Pick Amount)', () {
@@ -259,11 +259,11 @@ void main() {
       final human = engine.humanTeam;
       final targetTeam = engine.franchises.firstWhere((t) => t.id != human.id);
 
-      final p1 = engine.allPlayers.firstWhere((p) => p.id == 'virat_kohli');
+      final p1 = engine.allPlayers.firstWhere((p) => p.id == 'shreyas_iyer');
       p1.soldPrice = 18.0;
       human.addPlayer(p1, 18.0);
 
-      final p2 = engine.allPlayers.firstWhere((p) => p.id == 'rohit_sharma');
+      final p2 = engine.allPlayers.firstWhere((p) => p.id == 'rishabh_pant');
       p2.soldPrice = 16.0;
       targetTeam.addPlayer(p2, 16.0);
 
@@ -289,9 +289,9 @@ void main() {
       expect(success, isTrue);
       expect(engine.tradesCompleted, equals(1));
       expect(engine.remainingTrades, equals(1));
-      expect(human.squad.any((p) => p.id == 'rohit_sharma'), isTrue);
-      expect(human.squad.any((p) => p.id == 'virat_kohli'), isFalse);
-      expect(targetTeam.squad.any((p) => p.id == 'virat_kohli'), isTrue);
+      expect(human.squad.any((p) => p.id == 'rishabh_pant'), isTrue);
+      expect(human.squad.any((p) => p.id == 'shreyas_iyer'), isFalse);
+      expect(targetTeam.squad.any((p) => p.id == 'shreyas_iyer'), isTrue);
     });
 
     test('Post-Auction Trading: Mutual Decision with Cash Sweetener and max 2 trades limit', () {
@@ -342,7 +342,7 @@ void main() {
       expect(engine.remainingTrades, equals(1));
 
       // Execute Trade 2
-      final pA = engine.allPlayers.firstWhere((p) => p.id == 'jasprit_bumrah');
+      final pA = engine.allPlayers.firstWhere((p) => p.id == 'mohammad_shami');
       final pB = engine.allPlayers.firstWhere((p) => p.id == 'pat_cummins');
       human.addPlayer(pA, 14.0);
       targetTeam.addPlayer(pB, 14.0);

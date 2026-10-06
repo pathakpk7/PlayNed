@@ -78,6 +78,10 @@ class AuctionPlayer {
   final AuctionCategory category;
   final Color avatarColor;
 
+  final String? set2024;
+  final String? set2025;
+  final String? set2026;
+
   // Mutable auction runtime state
   PlayerAuctionStatus status;
   double? soldPrice;
@@ -107,6 +111,9 @@ class AuctionPlayer {
     required this.shortDescription,
     required this.category,
     required this.avatarColor,
+    this.set2024,
+    this.set2025,
+    this.set2026,
     this.status = PlayerAuctionStatus.unauctioned,
     this.soldPrice,
     this.soldToTeamId,
@@ -118,6 +125,9 @@ class AuctionPlayer {
     double? soldPrice,
     String? soldToTeamId,
     String? soldToTeamName,
+    String? set2024,
+    String? set2025,
+    String? set2026,
   }) {
     return AuctionPlayer(
       id: id,
@@ -142,6 +152,9 @@ class AuctionPlayer {
       shortDescription: shortDescription,
       category: category,
       avatarColor: avatarColor,
+      set2024: set2024 ?? this.set2024,
+      set2025: set2025 ?? this.set2025,
+      set2026: set2026 ?? this.set2026,
       status: status ?? this.status,
       soldPrice: soldPrice ?? this.soldPrice,
       soldToTeamId: soldToTeamId ?? this.soldToTeamId,
@@ -171,6 +184,9 @@ class AuctionPlayer {
         'auctionYears': auctionYears,
         'shortDescription': shortDescription,
         'category': category.name,
+        'set2024': set2024,
+        'set2025': set2025,
+        'set2026': set2026,
         'status': status.name,
         'soldPrice': soldPrice,
         'soldToTeamId': soldToTeamId,
