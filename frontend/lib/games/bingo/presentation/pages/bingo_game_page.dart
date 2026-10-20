@@ -51,6 +51,7 @@ class _BingoGamePageState extends ConsumerState<BingoGamePage> {
   StreamSubscription? _wsSubscription;
   bool _isConnected = false;
   bool _isHost = false;
+  String? _opponentName;
   bool _opponentDisconnected = false;
 
   // Statistics recorded flag
@@ -491,7 +492,9 @@ class _BingoGamePageState extends ConsumerState<BingoGamePage> {
             ),
             const SizedBox(height: 8),
             Text(
-              'Waiting for opponent to reconnect to room ${widget.roomCode}...',
+              _opponentName != null
+                  ? 'Waiting for $_opponentName to reconnect to room ${widget.roomCode}...'
+                  : 'Waiting for opponent to reconnect to room ${widget.roomCode}...',
               style: PlayNedTokens.bodyMuted,
               textAlign: TextAlign.center,
             ),
