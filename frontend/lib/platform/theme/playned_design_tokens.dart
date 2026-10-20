@@ -38,6 +38,7 @@ class PlayNedTokens {
   static const Color accentRajaMantri = Color(0xFFD97706); // Warm Amber Royal Gold
   static const Color accentBluff = Color(0xFF8B5CF6); // Royal Violet / Amethyst
   static const Color accentSpyfall = Color(0xFFE11D48); // Espionage Crimson / Classified Red
+  static const Color accentMafia = Color(0xFFDC2626);   // Noir Blood Red / Mafia Crimson
 
   static Color getGameAccent(String gameId) {
     switch (gameId.toLowerCase()) {
@@ -69,6 +70,9 @@ class PlayNedTokens {
         return accentBluff;
       case 'spyfall':
         return accentSpyfall;
+      case 'mafia':
+      case 'werewolf':
+        return accentMafia;
       default:
         return brandGold;
     }

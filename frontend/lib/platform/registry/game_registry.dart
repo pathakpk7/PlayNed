@@ -299,6 +299,31 @@ class PlayNedGameRegistry {
         'Spy scores +3 for guessing the location correctly, or +2 for surviving undetected. Non-spies score +2 for convicting the Spy.',
       ],
     ),
+    const GameMetadata(
+      id: 'mafia',
+      name: 'Mafia / Werewolf',
+      tagline: 'Deceive, deduce, and eliminate in the ultimate social deduction game.',
+      description:
+          'A tense, conspiratorial party game for 5 to 12 players. The Town must uncover and exile hidden Mafia conspirators before the Mafia outnumbers them, with help from a nighttime Doctor and Detective.',
+      category: 'Social Deduction / Party Games',
+      minPlayers: 5,
+      maxPlayers: 12,
+      supportsLocal: true,
+      supportsOnline: true,
+      supportsTeams: true,
+      estimatedDurationMinutes: 10,
+      accentColor: Color(0xFFDC2626),
+      backgroundColor: Color(0xFF1C0D0D),
+      icon: Icons.groups_2_rounded,
+      rulesSummary: [
+        'Secret roles are assigned at the beginning: Villagers, Doctor, Detective, and Mafia (plus optional Jester and Bodyguard).',
+        'Night Phase: The town sleeps while the Mafia chooses a hit target, the Doctor protects a patient, and the Detective investigates a suspect.',
+        'Morning Phase: Casualties from the night are announced to the surviving townspeople.',
+        'Day Discussion: Survivors debate, question alibis, and share deduction clues under a timed clock.',
+        'Day Voting: Players cast secret or open votes to exile a suspect. Ties result in no exile.',
+        'Victory Conditions: Town wins when all Mafia are eliminated. Mafia wins when they equal or outnumber the living Town. Jester wins if exiled by vote.',
+      ],
+    ),
   ];
 
   static GameMetadata? getGame(String id) {

@@ -66,6 +66,9 @@ class GameCardVisual extends StatelessWidget {
         return _BluffVisual(accentColor: accentColor, isHovered: isHovered);
       case 'spyfall':
         return _SpyfallVisual(accentColor: accentColor, isHovered: isHovered);
+      case 'mafia':
+      case 'werewolf':
+        return _MafiaVisual(accentColor: accentColor, isHovered: isHovered);
       default:
         return Center(
           child: Icon(Icons.sports_esports, size: 36, color: accentColor.withOpacity(0.5)),
@@ -1266,3 +1269,111 @@ class _SpyfallVisual extends StatelessWidget {
     );
   }
 }
+
+/// 13. Mafia / Werewolf Card Visual: Noir Town Silhouette + Blood Red Accent
+class _MafiaVisual extends StatelessWidget {
+  final Color accentColor;
+  final bool isHovered;
+
+  const _MafiaVisual({required this.accentColor, required this.isHovered});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // Noir Role Card Preview
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            width: 72,
+            height: 80,
+            decoration: BoxDecoration(
+              color: PlayNedTokens.surfaceElevated,
+              borderRadius: BorderRadius.circular(6),
+              border: Border.all(
+                color: isHovered ? accentColor : accentColor.withOpacity(0.5),
+                width: isHovered ? 1.5 : 1.0,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: accentColor.withOpacity(isHovered ? 0.3 : 0.1),
+                  blurRadius: isHovered ? 10 : 4,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Positioned(
+                  top: 4,
+                  left: 4,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 1),
+                    decoration: BoxDecoration(
+                      color: accentColor.withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                    child: Text(
+                      'TOWN',
+                      style: GoogleFonts.spaceMono(
+                        fontSize: 5.5,
+                        fontWeight: FontWeight.w800,
+                        color: accentColor,
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                  ),
+                ),
+                Icon(
+                  Icons.groups_2_rounded,
+                  size: 26,
+                  color: isHovered ? accentColor : accentColor.withOpacity(0.85),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 14),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
+                decoration: BoxDecoration(
+                  color: PlayNedTokens.surfaceElevated,
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border.all(color: accentColor.withOpacity(0.4)),
+                ),
+                child: Text(
+                  '5–12 PLAYERS',
+                  style: GoogleFonts.spaceMono(
+                    fontSize: 8.5,
+                    fontWeight: FontWeight.w700,
+                    color: accentColor,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                'COVERT ELIMINATION',
+                style: GoogleFonts.spaceMono(
+                  fontSize: 8,
+                  fontWeight: FontWeight.bold,
+                  color: PlayNedTokens.textPrimary,
+                ),
+              ),
+              Text(
+                'MAFIA VS TOWN',
+                style: PlayNedTokens.metadata.copyWith(fontSize: 7.5, color: PlayNedTokens.textMuted),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+

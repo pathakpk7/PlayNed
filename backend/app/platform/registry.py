@@ -12,6 +12,7 @@ from backend.app.games.bingo.engine import BingoEngine, BINGO_METADATA
 from backend.app.games.raja_mantri_chor_sipahi.engine import RajaMantriEngine, RAJA_MANTRI_METADATA
 from backend.app.games.bluff.engine import BluffEngine, BLUFF_METADATA
 from backend.app.games.spyfall.engine import SpyfallEngine, SPYFALL_METADATA
+from backend.app.games.mafia.engine import MafiaEngine, MAFIA_METADATA
 
 class GameRegistry:
     def __init__(self):
@@ -31,6 +32,7 @@ class GameRegistry:
         self.register_game(RAJA_MANTRI_METADATA, RajaMantriEngine())
         self.register_game(BLUFF_METADATA, BluffEngine())
         self.register_game(SPYFALL_METADATA, SpyfallEngine())
+        self.register_game(MAFIA_METADATA, MafiaEngine())
 
     def register_game(self, metadata: GameMetadata, engine: BaseGameEngine):
         self._games[metadata.id] = (metadata, engine)

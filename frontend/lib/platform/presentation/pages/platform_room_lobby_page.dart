@@ -167,6 +167,8 @@ class _PlatformRoomLobbyPageState extends ConsumerState<PlatformRoomLobbyPage> {
       context.go('/games/bluff/play?mode=online&room=${room.roomCode}&pid=${_getLocalPlayerId()}');
     } else if (gameId == 'spyfall') {
       context.go('/games/spyfall/play?mode=online&room=${room.roomCode}&pid=${_getLocalPlayerId()}');
+    } else if (gameId == 'mafia' || gameId == 'werewolf') {
+      context.go('/games/mafia/play?mode=online&room=${room.roomCode}&pid=${_getLocalPlayerId()}');
     }
   }
 

@@ -3,9 +3,9 @@ import 'package:hangman_reimagined/platform/registry/game_registry.dart';
 
 void main() {
   group('PlayNed Game Registry Tests', () {
-    test('All 12 launch games are registered with complete metadata', () {
+    test('All 13 launch games are registered with complete metadata', () {
       final games = PlayNedGameRegistry.allGames;
-      expect(games.length, 12);
+      expect(games.length, 13);
 
       final hangman = PlayNedGameRegistry.getGame('hangman');
       expect(hangman, isNotNull);
@@ -84,6 +84,15 @@ void main() {
       expect(spyfall.maxPlayers, 8);
       expect(spyfall.supportsLocal, isTrue);
       expect(spyfall.supportsOnline, isTrue);
+
+      final mafia = PlayNedGameRegistry.getGame('mafia');
+      expect(mafia, isNotNull);
+      expect(mafia!.name, 'Mafia / Werewolf');
+      expect(mafia.category, 'Social Deduction / Party Games');
+      expect(mafia.minPlayers, 5);
+      expect(mafia.maxPlayers, 12);
+      expect(mafia.supportsLocal, isTrue);
+      expect(mafia.supportsOnline, isTrue);
     });
   });
 }

@@ -59,6 +59,8 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
       _showBluffModeSelector();
     } else if (_game!.id == 'spyfall') {
       _showSpyfallModeSelector();
+    } else if (_game!.id == 'mafia' || _game!.id == 'werewolf') {
+      _showMafiaModeSelector();
     }
   }
 
@@ -947,6 +949,214 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
                           },
                           child: Text(
                             "START $selectedPlayerCount-AGENT MISSION",
+                            style: GoogleFonts.spaceMono(fontSize: 12, fontWeight: FontWeight.w800),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  void _showMafiaModeSelector() {
+    int selectedPlayerCount = 6;
+    int selectedDiscussionSeconds = 120;
+    bool includeJester = false;
+    bool includeBodyguard = false;
+    bool allowSelfHeal = false;
+
+    final controllers = List.generate(
+      12,
+      (i) => TextEditingController(text: 'Citizen ${i + 1}'),
+    );
+
+    showDialog(
+      context: context,
+      builder: (ctx) => StatefulBuilder(
+        builder: (context, setModalState) {
+          return Dialog(
+            backgroundColor: PlayNedTokens.surface,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(PlayNedTokens.radiusLg),
+              side: const BorderSide(color: PlayNedTokens.accentMafia, width: 1.5),
+            ),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 560, maxHeight: 720),
+              child: Padding(
+                padding: const EdgeInsets.all(PlayNedTokens.space24),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(Icons.groups_2_rounded, color: PlayNedTokens.accentMafia, size: 24),
+                              const SizedBox(width: PlayNedTokens.space10),
+                              Text("SETUP LOCAL MAFIA GAME", style: PlayNedTokens.gameTitle.copyWith(fontSize: 16)),
+                            ],
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.close, color: PlayNedTokens.textSecondary, size: 20),
+                            onPressed: () => Navigator.pop(ctx),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: PlayNedTokens.space6),
+                      Text(
+                        "Pass-and-play social deduction for 5 to 12 citizens on one device.",
+                        style: PlayNedTokens.gameTagline,
+                      ),
+                      const SizedBox(height: PlayNedTokens.space16),
+
+                      // Player count selector
+                      Text("NUMBER OF PLAYERS", style: PlayNedTokens.bodyMuted.copyWith(fontSize: 10, fontWeight: FontWeight.bold)),
+                      const SizedBox(height: PlayNedTokens.space8),
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: List.generate(8, (i) {
+                          final count = i + 5; // 5 to 12
+                          final isSelected = selectedPlayerCount == count;
+                          return ChoiceChip(
+                            label: Text('$count Players'),
+                            selected: isSelected,
+                            onSelected: (val) {
+                              if (val) setModalState(() => selectedPlayerCount = count);
+                            },
+                            selectedColor: PlayNedTokens.accentMafia,
+                            backgroundColor: PlayNedTokens.surfaceElevated,
+                            labelStyle: GoogleFonts.spaceMono(
+                              color: isSelected ? Colors.white : PlayNedTokens.textSecondary,
+                              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                              fontSize: 11,
+                            ),
+                          );
+                        }),
+                      ),
+                      const SizedBox(height: PlayNedTokens.space16),
+
+                      // Discussion Timer selector
+                      Text("DISCUSSION TIME LIMIT", style: PlayNedTokens.bodyMuted.copyWith(fontSize: 10, fontWeight: FontWeight.bold)),
+                      const SizedBox(height: PlayNedTokens.space8),
+                      Row(
+                        children: [60, 90, 120, 180].map((sec) {
+                          final isSelected = selectedDiscussionSeconds == sec;
+                          return Padding(
+                            padding: const EdgeInsets.only(right: 8),
+                            child: ChoiceChip(
+                              label: Text('${sec}s'),
+                              selected: isSelected,
+                              onSelected: (val) {
+                                if (val) setModalState(() => selectedDiscussionSeconds = sec);
+                              },
+                              selectedColor: PlayNedTokens.accentMafia,
+                              backgroundColor: PlayNedTokens.surfaceElevated,
+                              labelStyle: GoogleFonts.spaceMono(
+                                color: isSelected ? Colors.white : PlayNedTokens.textSecondary,
+                                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                                fontSize: 11,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                      const SizedBox(height: PlayNedTokens.space16),
+
+                      // Role Options
+                      Text("OPTIONAL RULES", style: PlayNedTokens.bodyMuted.copyWith(fontSize: 10, fontWeight: FontWeight.bold)),
+                      const SizedBox(height: PlayNedTokens.space8),
+                      SwitchListTile(
+                        contentPadding: EdgeInsets.zero,
+                        title: Text('Include Jester', style: GoogleFonts.spaceMono(color: PlayNedTokens.textPrimary, fontSize: 12)),
+                        subtitle: Text('Neutral role that wins alone if exiled by town vote.', style: GoogleFonts.spaceMono(color: PlayNedTokens.textMuted, fontSize: 10)),
+                        value: includeJester,
+                        activeColor: PlayNedTokens.brandGold,
+                        onChanged: (val) => setModalState(() => includeJester = val),
+                      ),
+                      SwitchListTile(
+                        contentPadding: EdgeInsets.zero,
+                        title: Text('Include Bodyguard', style: GoogleFonts.spaceMono(color: PlayNedTokens.textPrimary, fontSize: 12)),
+                        subtitle: Text('Protects a player at night by blocking elimination.', style: GoogleFonts.spaceMono(color: PlayNedTokens.textMuted, fontSize: 10)),
+                        value: includeBodyguard,
+                        activeColor: PlayNedTokens.sageGreen,
+                        onChanged: (val) => setModalState(() => includeBodyguard = val),
+                      ),
+                      SwitchListTile(
+                        contentPadding: EdgeInsets.zero,
+                        title: Text('Doctor Self-Heal', style: GoogleFonts.spaceMono(color: PlayNedTokens.textPrimary, fontSize: 12)),
+                        subtitle: Text('Allow the Doctor to target and protect themselves at night.', style: GoogleFonts.spaceMono(color: PlayNedTokens.textMuted, fontSize: 10)),
+                        value: allowSelfHeal,
+                        activeColor: PlayNedTokens.accentDots,
+                        onChanged: (val) => setModalState(() => allowSelfHeal = val),
+                      ),
+                      const SizedBox(height: PlayNedTokens.space16),
+
+                      // Player Names
+                      Text("CITIZEN NAMES", style: PlayNedTokens.bodyMuted.copyWith(fontSize: 10, fontWeight: FontWeight.bold)),
+                      const SizedBox(height: PlayNedTokens.space8),
+                      ...List.generate(selectedPlayerCount, (i) {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 8),
+                          child: TextField(
+                            controller: controllers[i],
+                            style: GoogleFonts.spaceMono(color: PlayNedTokens.textPrimary, fontSize: 12),
+                            decoration: InputDecoration(
+                              prefixIcon: const Icon(Icons.person, color: PlayNedTokens.textMuted, size: 16),
+                              labelText: 'Player ${i + 1}',
+                              labelStyle: GoogleFonts.spaceMono(color: PlayNedTokens.textMuted, fontSize: 11),
+                              filled: true,
+                              fillColor: PlayNedTokens.surfaceElevated,
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                            ),
+                          ),
+                        );
+                      }),
+                      const SizedBox(height: PlayNedTokens.space20),
+
+                      // Start Game Button
+                      SizedBox(
+                        width: double.infinity,
+                        height: 48,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: PlayNedTokens.accentMafia,
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                          ),
+                          onPressed: () {
+                            Navigator.pop(ctx);
+                            final qParams = <String, String>{
+                              'mode': 'local',
+                              'players': selectedPlayerCount.toString(),
+                              'discussion': selectedDiscussionSeconds.toString(),
+                              'jester': includeJester.toString(),
+                              'bodyguard': includeBodyguard.toString(),
+                              'self_heal': allowSelfHeal.toString(),
+                            };
+                            for (int i = 0; i < selectedPlayerCount; i++) {
+                              final name = controllers[i].text.trim().isEmpty
+                                  ? 'Citizen ${i + 1}'
+                                  : controllers[i].text.trim();
+                              qParams['p${i + 1}'] = name;
+                            }
+                            final uri = Uri(
+                              path: '/games/mafia/play',
+                              queryParameters: qParams,
+                            );
+                            context.push(uri.toString());
+                          },
+                          child: Text(
+                            "START $selectedPlayerCount-CITIZEN MATCH",
                             style: GoogleFonts.spaceMono(fontSize: 12, fontWeight: FontWeight.w800),
                           ),
                         ),

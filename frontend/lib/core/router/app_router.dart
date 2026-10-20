@@ -20,6 +20,7 @@ import '../../games/bingo/models/bingo_models.dart';
 import '../../games/raja_mantri_chor_sipahi/presentation/pages/raja_mantri_game_page.dart';
 import '../../games/bluff/presentation/pages/bluff_game_page.dart';
 import '../../games/spyfall/presentation/pages/spyfall_game_page.dart';
+import '../../games/mafia/presentation/pages/mafia_game_page.dart';
 import '../../features/home/presentation/pages/home_page.dart';
 import '../../features/game/presentation/pages/game_page.dart';
 import '../../features/game/presentation/pages/level_map_page.dart';
@@ -324,6 +325,40 @@ final GoRouter appRouter = GoRouter(
           roundDurationMinutes: duration,
           totalRounds: rounds,
           category: category,
+        );
+      },
+    ),
+
+    // Mafia / Werewolf
+    GoRoute(
+      path: '/games/mafia/play',
+      builder: (context, state) {
+        final room = state.uri.queryParameters['room'];
+        final mode = state.uri.queryParameters['mode'] ?? (room != null ? 'online' : 'local');
+        final pid = state.uri.queryParameters['pid'];
+        final countStr = state.uri.queryParameters['players'];
+        final count = int.tryParse(countStr ?? '6') ?? 6;
+        final discussionStr = state.uri.queryParameters['discussion'];
+        final discussion = int.tryParse(discussionStr ?? '120') ?? 120;
+        final jester = state.uri.queryParameters['jester'] == 'true';
+        final bodyguard = state.uri.queryParameters['bodyguard'] == 'true';
+        final selfHeal = state.uri.queryParameters['self_heal'] == 'true';
+
+        final names = <String>[];
+        for (int i = 1; i <= count; i++) {
+          final pName = state.uri.queryParameters['p$i'];
+          names.add(pName ?? 'Citizen $i');
+        }
+
+        return MafiaGamePage(
+          mode: mode,
+          roomCode: room,
+          localPlayerId: pid,
+          initialPlayerNames: names.isNotEmpty ? names : null,
+          discussionDurationSeconds: discussion,
+          includeJester: jester,
+          includeBodyguard: bodyguard,
+          allowSelfHeal: selfHeal,
         );
       },
     ),
