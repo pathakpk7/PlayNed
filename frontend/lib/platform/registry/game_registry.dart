@@ -273,6 +273,32 @@ class PlayNedGameRegistry {
         'Win by emptying your hand and surviving any challenge on your final play!',
       ],
     ),
+    const GameMetadata(
+      id: 'spyfall',
+      name: 'Spyfall',
+      tagline: 'Ask subtle questions, blend in or deduce the hidden spy!',
+      description:
+          'A classic social deduction and deception party game for 3 to 8 players. Everyone is given a secret location dossier except the hidden Spy. Non-spies probe each other with clever questions to expose the Spy, while the Spy tries to deduce the secret location without getting caught!',
+      category: 'Social Deduction / Party Games',
+      minPlayers: 3,
+      maxPlayers: 8,
+      supportsLocal: true,
+      supportsOnline: true,
+      supportsTeams: false,
+      estimatedDurationMinutes: 8,
+      accentColor: Color(0xFFE11D48),
+      backgroundColor: Color(0xFF1A0E13),
+      icon: Icons.fingerprint,
+      rulesSummary: [
+        'Each round, all players receive the same secret location—except one player who is secretly assigned as the SPY.',
+        'The Spy has no location information and must blend in seamlessly.',
+        'Players take turns asking each other probing questions about the environment (e.g., "Is it cold here?", "Are uniforms required?").',
+        'Answers must be subtle: specific enough to prove you know the location, but vague enough not to give it away to the Spy.',
+        'At any time, players can accuse a suspect of being the Spy. If a strict majority votes "Guilty", the suspect is convicted.',
+        'If the Spy is convicted or remaining in the shadows, the Spy can attempt to guess the secret location.',
+        'Spy scores +3 for guessing the location correctly, or +2 for surviving undetected. Non-spies score +2 for convicting the Spy.',
+      ],
+    ),
   ];
 
   static GameMetadata? getGame(String id) {

@@ -37,6 +37,7 @@ class PlayNedTokens {
   static const Color accentBingo = Color(0xFFF59E0B); // Warm Amber / Gold
   static const Color accentRajaMantri = Color(0xFFD97706); // Warm Amber Royal Gold
   static const Color accentBluff = Color(0xFF8B5CF6); // Royal Violet / Amethyst
+  static const Color accentSpyfall = Color(0xFFE11D48); // Espionage Crimson / Classified Red
 
   static Color getGameAccent(String gameId) {
     switch (gameId.toLowerCase()) {
@@ -66,6 +67,8 @@ class PlayNedTokens {
       case 'bluff':
       case 'bluff_cheat':
         return accentBluff;
+      case 'spyfall':
+        return accentSpyfall;
       default:
         return brandGold;
     }
@@ -95,6 +98,7 @@ class PlayNedTokens {
   static const double radiusLg = 12.0;
   static const double radiusXl = 16.0;
   static const double radiusPill = 999.0;
+  static const double radiusFull = 999.0;
 
   // Animation Timings
   static const Duration animMicro = Duration(milliseconds: 140);
@@ -127,10 +131,18 @@ class PlayNedTokens {
         letterSpacing: 0.3,
       );
 
+  static TextStyle get sectionHeader => sectionHeading;
+
   static TextStyle get gameTitle => GoogleFonts.dmSerifDisplay(
         fontSize: 20,
         color: textPrimary,
         letterSpacing: 0.4,
+      );
+
+  static TextStyle get gameTagline => GoogleFonts.inter(
+        fontSize: 13,
+        color: textSecondary,
+        height: 1.4,
       );
 
   static TextStyle get cardTitle => GoogleFonts.dmSerifDisplay(

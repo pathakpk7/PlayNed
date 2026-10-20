@@ -27,6 +27,7 @@ KNOWN_SECTIONS = {
     "bingo": ["classic", "four_corners", "x_pattern", "blackout", "solo_ai", "multiplayer"],
     "raja_mantri_chor_sipahi": ["classic", "local_pass_and_play", "multiplayer"],
     "bluff": ["classic", "local_pass_and_play", "multiplayer"],
+    "spyfall": ["classic", "local_pass_and_play", "multiplayer"],
 }
 
 @router.post("/record", response_model=GameSectionStatItem)

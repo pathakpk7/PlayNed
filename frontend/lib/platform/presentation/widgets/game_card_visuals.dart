@@ -64,6 +64,8 @@ class GameCardVisual extends StatelessWidget {
       case 'bluff':
       case 'bluff_cheat':
         return _BluffVisual(accentColor: accentColor, isHovered: isHovered);
+      case 'spyfall':
+        return _SpyfallVisual(accentColor: accentColor, isHovered: isHovered);
       default:
         return Center(
           child: Icon(Icons.sports_esports, size: 36, color: accentColor.withOpacity(0.5)),
@@ -1149,6 +1151,112 @@ class _BluffVisual extends StatelessWidget {
               ),
               Text(
                 'DECEPTION & STRATEGY',
+                style: PlayNedTokens.metadata.copyWith(fontSize: 7.5, color: PlayNedTokens.textMuted),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// 12. Spyfall Card Visual: Classified dossier / Espionage radar
+class _SpyfallVisual extends StatelessWidget {
+  final Color accentColor;
+  final bool isHovered;
+
+  const _SpyfallVisual({required this.accentColor, required this.isHovered});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 48,
+            height: 58,
+            decoration: BoxDecoration(
+              color: PlayNedTokens.surfaceElevated,
+              borderRadius: BorderRadius.circular(PlayNedTokens.radiusSm),
+              border: Border.all(
+                color: isHovered ? accentColor : accentColor.withOpacity(0.5),
+                width: isHovered ? 1.5 : 1,
+              ),
+              boxShadow: isHovered
+                  ? [
+                      BoxShadow(
+                        color: accentColor.withOpacity(0.25),
+                        blurRadius: 10,
+                        spreadRadius: 1,
+                      )
+                    ]
+                  : null,
+            ),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Positioned(
+                  top: 4,
+                  left: 4,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 1),
+                    decoration: BoxDecoration(
+                      color: accentColor.withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                    child: Text(
+                      'SECRET',
+                      style: GoogleFonts.spaceMono(
+                        fontSize: 5.5,
+                        fontWeight: FontWeight.w800,
+                        color: accentColor,
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                  ),
+                ),
+                Icon(
+                  Icons.fingerprint,
+                  size: 26,
+                  color: isHovered ? accentColor : accentColor.withOpacity(0.8),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 14),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
+                decoration: BoxDecoration(
+                  color: PlayNedTokens.surfaceElevated,
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border.all(color: accentColor.withOpacity(0.4)),
+                ),
+                child: Text(
+                  '3–8 PLAYERS',
+                  style: GoogleFonts.spaceMono(
+                    fontSize: 8.5,
+                    fontWeight: FontWeight.w700,
+                    color: accentColor,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                'CLASSIFIED DOSSIER',
+                style: GoogleFonts.spaceMono(
+                  fontSize: 8,
+                  fontWeight: FontWeight.bold,
+                  color: PlayNedTokens.textPrimary,
+                ),
+              ),
+              Text(
+                'EXPOSE THE SPY',
                 style: PlayNedTokens.metadata.copyWith(fontSize: 7.5, color: PlayNedTokens.textMuted),
               ),
             ],

@@ -17,6 +17,7 @@ class PlayNedButton extends StatefulWidget {
   final IconData? icon;
   final PlayNedButtonVariant variant;
   final Color? customAccent;
+  final Color? accentColor;
   final bool isLoading;
   final double? width;
   final EdgeInsetsGeometry? padding;
@@ -28,6 +29,7 @@ class PlayNedButton extends StatefulWidget {
     this.icon,
     this.variant = PlayNedButtonVariant.primary,
     this.customAccent,
+    this.accentColor,
     this.isLoading = false,
     this.width,
     this.padding,
@@ -43,7 +45,7 @@ class _PlayNedButtonState extends State<PlayNedButton> {
 
   @override
   Widget build(BuildContext context) {
-    final accent = widget.customAccent ?? PlayNedTokens.brandGold;
+    final accent = widget.accentColor ?? widget.customAccent ?? PlayNedTokens.brandGold;
     final isEnabled = widget.onPressed != null && !widget.isLoading;
 
     Color bg;

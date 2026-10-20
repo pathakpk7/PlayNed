@@ -19,6 +19,7 @@ import '../../games/bingo/presentation/pages/bingo_game_page.dart';
 import '../../games/bingo/models/bingo_models.dart';
 import '../../games/raja_mantri_chor_sipahi/presentation/pages/raja_mantri_game_page.dart';
 import '../../games/bluff/presentation/pages/bluff_game_page.dart';
+import '../../games/spyfall/presentation/pages/spyfall_game_page.dart';
 import '../../features/home/presentation/pages/home_page.dart';
 import '../../features/game/presentation/pages/game_page.dart';
 import '../../features/game/presentation/pages/level_map_page.dart';
@@ -290,6 +291,39 @@ final GoRouter appRouter = GoRouter(
           roomCode: room,
           localPlayerId: pid,
           initialPlayerNames: names.isNotEmpty ? names : null,
+        );
+      },
+    ),
+
+    // Spyfall
+    GoRoute(
+      path: '/games/spyfall/play',
+      builder: (context, state) {
+        final room = state.uri.queryParameters['room'];
+        final mode = state.uri.queryParameters['mode'] ?? (room != null ? 'online' : 'local');
+        final pid = state.uri.queryParameters['pid'];
+        final countStr = state.uri.queryParameters['players'];
+        final count = int.tryParse(countStr ?? '4') ?? 4;
+        final durationStr = state.uri.queryParameters['duration'];
+        final duration = int.tryParse(durationStr ?? '8') ?? 8;
+        final roundsStr = state.uri.queryParameters['rounds'];
+        final rounds = int.tryParse(roundsStr ?? '3') ?? 3;
+        final category = state.uri.queryParameters['category'] ?? 'All';
+
+        final names = <String>[];
+        for (int i = 1; i <= count; i++) {
+          final pName = state.uri.queryParameters['p$i'];
+          names.add(pName ?? 'Agent $i');
+        }
+
+        return SpyfallGamePage(
+          mode: mode,
+          roomCode: room,
+          localPlayerId: pid,
+          initialPlayerNames: names.isNotEmpty ? names : null,
+          roundDurationMinutes: duration,
+          totalRounds: rounds,
+          category: category,
         );
       },
     ),

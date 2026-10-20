@@ -57,6 +57,8 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
       _showRajaMantriModeSelector();
     } else if (_game!.id == 'bluff' || _game!.id == 'bluff_cheat') {
       _showBluffModeSelector();
+    } else if (_game!.id == 'spyfall') {
+      _showSpyfallModeSelector();
     }
   }
 
@@ -700,6 +702,251 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
                           },
                           child: Text(
                             "START $selectedPlayerCount-PLAYER MATCH",
+                            style: GoogleFonts.spaceMono(fontSize: 12, fontWeight: FontWeight.w800),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  void _showSpyfallModeSelector() {
+    int selectedPlayerCount = 4;
+    int selectedDuration = 8;
+    int selectedRounds = 3;
+    final controllers = List.generate(
+      8,
+      (i) => TextEditingController(text: 'Agent ${i + 1}'),
+    );
+
+    showDialog(
+      context: context,
+      builder: (ctx) => StatefulBuilder(
+        builder: (context, setModalState) {
+          return Dialog(
+            backgroundColor: PlayNedTokens.surface,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(PlayNedTokens.radiusLg),
+              side: const BorderSide(color: PlayNedTokens.accentSpyfall, width: 1.5),
+            ),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 540, maxHeight: 680),
+              child: Padding(
+                padding: const EdgeInsets.all(PlayNedTokens.space24),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(Icons.fingerprint, color: PlayNedTokens.accentSpyfall, size: 24),
+                              const SizedBox(width: PlayNedTokens.space10),
+                              Text("SETUP LOCAL SPYFALL MISSION", style: PlayNedTokens.gameTitle.copyWith(fontSize: 16)),
+                            ],
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.close, color: PlayNedTokens.textSecondary, size: 20),
+                            onPressed: () => Navigator.pop(ctx),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: PlayNedTokens.space6),
+                      Text(
+                        "Pass-and-play social deduction for 3 to 8 agents on one device.",
+                        style: PlayNedTokens.gameTagline,
+                      ),
+                      const SizedBox(height: PlayNedTokens.space16),
+
+                      // Player Count Selection
+                      Text("NUMBER OF AGENTS (3–8)", style: PlayNedTokens.sectionHeader.copyWith(fontSize: 12)),
+                      const SizedBox(height: PlayNedTokens.space8),
+                      Row(
+                        children: [3, 4, 5, 6, 7, 8].map((count) {
+                          final isSelected = selectedPlayerCount == count;
+                          return Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 2),
+                              child: InkWell(
+                                onTap: () => setModalState(() => selectedPlayerCount = count),
+                                borderRadius: BorderRadius.circular(PlayNedTokens.radiusSm),
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(vertical: 8),
+                                  decoration: BoxDecoration(
+                                    color: isSelected ? PlayNedTokens.accentSpyfall : PlayNedTokens.surfaceElevated,
+                                    borderRadius: BorderRadius.circular(PlayNedTokens.radiusSm),
+                                    border: Border.all(
+                                      color: isSelected ? PlayNedTokens.accentSpyfall : PlayNedTokens.border,
+                                    ),
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    "$count",
+                                    style: GoogleFonts.spaceMono(
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: 13,
+                                      color: isSelected ? Colors.white : PlayNedTokens.textPrimary,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                      const SizedBox(height: PlayNedTokens.space16),
+
+                      // Discussion Timer Duration
+                      Text("ROUND DURATION", style: PlayNedTokens.sectionHeader.copyWith(fontSize: 12)),
+                      const SizedBox(height: PlayNedTokens.space8),
+                      Row(
+                        children: [5, 8, 10].map((mins) {
+                          final isSelected = selectedDuration == mins;
+                          return Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 3),
+                              child: InkWell(
+                                onTap: () => setModalState(() => selectedDuration = mins),
+                                borderRadius: BorderRadius.circular(PlayNedTokens.radiusSm),
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(vertical: 8),
+                                  decoration: BoxDecoration(
+                                    color: isSelected ? PlayNedTokens.accentSpyfall.withOpacity(0.2) : PlayNedTokens.surfaceElevated,
+                                    borderRadius: BorderRadius.circular(PlayNedTokens.radiusSm),
+                                    border: Border.all(
+                                      color: isSelected ? PlayNedTokens.accentSpyfall : PlayNedTokens.border,
+                                    ),
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    "$mins MINS",
+                                    style: GoogleFonts.spaceMono(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 11,
+                                      color: isSelected ? PlayNedTokens.accentSpyfall : PlayNedTokens.textSecondary,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                      const SizedBox(height: PlayNedTokens.space16),
+
+                      // Total Rounds
+                      Text("TOTAL ROUNDS", style: PlayNedTokens.sectionHeader.copyWith(fontSize: 12)),
+                      const SizedBox(height: PlayNedTokens.space8),
+                      Row(
+                        children: [1, 3, 5].map((rounds) {
+                          final isSelected = selectedRounds == rounds;
+                          return Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 3),
+                              child: InkWell(
+                                onTap: () => setModalState(() => selectedRounds = rounds),
+                                borderRadius: BorderRadius.circular(PlayNedTokens.radiusSm),
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(vertical: 8),
+                                  decoration: BoxDecoration(
+                                    color: isSelected ? PlayNedTokens.accentSpyfall.withOpacity(0.2) : PlayNedTokens.surfaceElevated,
+                                    borderRadius: BorderRadius.circular(PlayNedTokens.radiusSm),
+                                    border: Border.all(
+                                      color: isSelected ? PlayNedTokens.accentSpyfall : PlayNedTokens.border,
+                                    ),
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    "$rounds ${rounds == 1 ? 'ROUND' : 'ROUNDS'}",
+                                    style: GoogleFonts.spaceMono(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 11,
+                                      color: isSelected ? PlayNedTokens.accentSpyfall : PlayNedTokens.textSecondary,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                      const SizedBox(height: PlayNedTokens.space16),
+
+                      // Agent Names
+                      Text("AGENT ALIASES", style: PlayNedTokens.sectionHeader.copyWith(fontSize: 12)),
+                      const SizedBox(height: PlayNedTokens.space8),
+                      for (int i = 0; i < selectedPlayerCount; i++)
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: PlayNedTokens.space8),
+                          child: TextField(
+                            controller: controllers[i],
+                            style: GoogleFonts.spaceGrotesk(fontSize: 13, color: PlayNedTokens.textPrimary),
+                            decoration: InputDecoration(
+                              labelText: "Agent ${i + 1}",
+                              labelStyle: GoogleFonts.spaceMono(fontSize: 11, color: PlayNedTokens.textMuted),
+                              isDense: true,
+                              filled: true,
+                              fillColor: PlayNedTokens.surfaceElevated,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(PlayNedTokens.radiusSm),
+                                borderSide: const BorderSide(color: PlayNedTokens.border),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(PlayNedTokens.radiusSm),
+                                borderSide: const BorderSide(color: PlayNedTokens.border),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(PlayNedTokens.radiusSm),
+                                borderSide: const BorderSide(color: PlayNedTokens.accentSpyfall),
+                              ),
+                            ),
+                          ),
+                        ),
+                      const SizedBox(height: PlayNedTokens.space16),
+
+                      SizedBox(
+                        width: double.infinity,
+                        height: 44,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: PlayNedTokens.accentSpyfall,
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(PlayNedTokens.radiusMd),
+                            ),
+                          ),
+                          onPressed: () {
+                            Navigator.pop(ctx);
+                            final qParams = <String, String>{
+                              'mode': 'local',
+                              'players': selectedPlayerCount.toString(),
+                              'duration': selectedDuration.toString(),
+                              'rounds': selectedRounds.toString(),
+                            };
+                            for (int i = 0; i < selectedPlayerCount; i++) {
+                              final name = controllers[i].text.trim().isEmpty
+                                  ? 'Agent ${i + 1}'
+                                  : controllers[i].text.trim();
+                              qParams['p${i + 1}'] = name;
+                            }
+                            final uri = Uri(
+                              path: '/games/spyfall/play',
+                              queryParameters: qParams,
+                            );
+                            context.push(uri.toString());
+                          },
+                          child: Text(
+                            "START $selectedPlayerCount-AGENT MISSION",
                             style: GoogleFonts.spaceMono(fontSize: 12, fontWeight: FontWeight.w800),
                           ),
                         ),
