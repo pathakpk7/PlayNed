@@ -17,6 +17,7 @@ import '../../games/reversi/presentation/pages/reversi_hub_page.dart';
 import '../../games/reversi/presentation/pages/reversi_game_page.dart';
 import '../../games/bingo/presentation/pages/bingo_game_page.dart';
 import '../../games/bingo/models/bingo_models.dart';
+import '../../games/raja_mantri_chor_sipahi/presentation/pages/raja_mantri_game_page.dart';
 import '../../features/home/presentation/pages/home_page.dart';
 import '../../features/game/presentation/pages/game_page.dart';
 import '../../features/game/presentation/pages/level_map_page.dart';
@@ -175,6 +176,72 @@ final GoRouter appRouter = GoRouter(
           difficulty: diffStr == 'easy'
               ? BingoDifficulty.easy
               : (diffStr == 'hard' ? BingoDifficulty.hard : BingoDifficulty.medium),
+        );
+      },
+    ),
+
+    // Raja Mantri Chor Sipahi
+    GoRoute(
+      path: '/games/raja_mantri_chor_sipahi/play',
+      builder: (context, state) {
+        final room = state.uri.queryParameters['room'];
+        final mode = state.uri.queryParameters['mode'] ?? (room != null ? 'online' : 'local');
+        final pid = state.uri.queryParameters['pid'];
+        final roundsStr = state.uri.queryParameters['rounds'];
+        final totalRounds = int.tryParse(roundsStr ?? '5') ?? 5;
+        final p1 = state.uri.queryParameters['p1'];
+        final p2 = state.uri.queryParameters['p2'];
+        final p3 = state.uri.queryParameters['p3'];
+        final p4 = state.uri.queryParameters['p4'];
+
+        List<String>? initialNames;
+        if (p1 != null || p2 != null || p3 != null || p4 != null) {
+          initialNames = [
+            p1 ?? 'Player 1',
+            p2 ?? 'Player 2',
+            p3 ?? 'Player 3',
+            p4 ?? 'Player 4',
+          ];
+        }
+
+        return RajaMantriGamePage(
+          mode: mode,
+          roomCode: room,
+          localPlayerId: pid,
+          totalRounds: totalRounds,
+          initialPlayerNames: initialNames,
+        );
+      },
+    ),
+    GoRoute(
+      path: '/games/raja_mantri/play',
+      builder: (context, state) {
+        final room = state.uri.queryParameters['room'];
+        final mode = state.uri.queryParameters['mode'] ?? (room != null ? 'online' : 'local');
+        final pid = state.uri.queryParameters['pid'];
+        final roundsStr = state.uri.queryParameters['rounds'];
+        final totalRounds = int.tryParse(roundsStr ?? '5') ?? 5;
+        final p1 = state.uri.queryParameters['p1'];
+        final p2 = state.uri.queryParameters['p2'];
+        final p3 = state.uri.queryParameters['p3'];
+        final p4 = state.uri.queryParameters['p4'];
+
+        List<String>? initialNames;
+        if (p1 != null || p2 != null || p3 != null || p4 != null) {
+          initialNames = [
+            p1 ?? 'Player 1',
+            p2 ?? 'Player 2',
+            p3 ?? 'Player 3',
+            p4 ?? 'Player 4',
+          ];
+        }
+
+        return RajaMantriGamePage(
+          mode: mode,
+          roomCode: room,
+          localPlayerId: pid,
+          totalRounds: totalRounds,
+          initialPlayerNames: initialNames,
         );
       },
     ),

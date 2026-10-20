@@ -3,6 +3,7 @@ from pydantic import BaseModel, Field
 from fastapi import APIRouter, HTTPException, status
 from backend.app.platform.room_manager import room_manager, RoomData
 from backend.app.platform.websocket_manager import ws_manager
+from backend.app.platform.registry import game_registry
 
 router = APIRouter(prefix="/rooms", tags=["Platform Rooms"])
 
@@ -46,10 +47,18 @@ def create_room(req: CreatePlatformRoomRequest):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
 
 @router.get("/{room_code}", response_model=RoomData)
-def get_room(room_code: str):
+def get_room(room_code: str, player_id: Optional[str] = None):
     room = room_manager.get_room(room_code)
     if not room:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Room not found.")
+
+    if room.match_state and room.game_id:
+        engine = game_registry.get_game_engine(room.game_id)
+        if engine and hasattr(engine, "filter_state_for_player"):
+            masked_state = engine.filter_state_for_player(room.match_state, player_id)
+            masked_room = room.model_copy(update={"match_state": masked_state})
+            return masked_room
+
     return room
 
 @router.post("/{room_code}/join", response_model=RoomData)

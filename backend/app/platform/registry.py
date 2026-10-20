@@ -9,6 +9,7 @@ from backend.app.games.cricket.engine import CricketHubEngine, CRICKET_METADATA
 from backend.app.games.reversi.engine import ReversiEngine, REVERSI_METADATA
 from backend.app.games.ultimate_tic_tac_toe.engine import UltimateTicTacToeEngine, ULTIMATE_TIC_TAC_TOE_METADATA
 from backend.app.games.bingo.engine import BingoEngine, BINGO_METADATA
+from backend.app.games.raja_mantri_chor_sipahi.engine import RajaMantriEngine, RAJA_MANTRI_METADATA
 
 class GameRegistry:
     def __init__(self):
@@ -25,6 +26,7 @@ class GameRegistry:
         self.register_game(REVERSI_METADATA, ReversiEngine())
         self.register_game(ULTIMATE_TIC_TAC_TOE_METADATA, UltimateTicTacToeEngine())
         self.register_game(BINGO_METADATA, BingoEngine())
+        self.register_game(RAJA_MANTRI_METADATA, RajaMantriEngine())
 
     def register_game(self, metadata: GameMetadata, engine: BaseGameEngine):
         self._games[metadata.id] = (metadata, engine)

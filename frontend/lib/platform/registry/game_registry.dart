@@ -221,6 +221,32 @@ class PlayNedGameRegistry {
         'Complete the active pattern (Classic line, Four Corners, X, or Blackout) to win!',
       ],
     ),
+    const GameMetadata(
+      id: 'raja_mantri_chor_sipahi',
+      name: 'Raja Mantri Chor Sipahi',
+      tagline: 'Chit-drawing deduction party game.',
+      description:
+          'A traditional Indian 4-player bluffing and deduction classic. Draw your secret chit: Raja commands, Mantri deduces, Sipahi guards, and Chor sneaks! Find the thief to claim kingdom glory.',
+      category: 'Classic Indian Games / Party Games',
+      minPlayers: 4,
+      maxPlayers: 4,
+      supportsLocal: true,
+      supportsOnline: true,
+      supportsTeams: false,
+      estimatedDurationMinutes: 8,
+      accentColor: Color(0xFFD97706),
+      backgroundColor: Color(0xFF18130C),
+      icon: Icons.military_tech,
+      rulesSummary: [
+        'Exactly 4 players per round receive one random secret chit: Raja, Mantri, Sipahi, or Chor.',
+        'Scoring is fixed per role held: Raja = 1000 pts, Mantri = 0 pts, Sipahi = 500 pts, Chor = 800 pts.',
+        'Phase 1: Each player privately views their role chit without revealing it to others.',
+        'Phase 2: Raja announces their regal presence ("Mera Mantri Kaun Hai?").',
+        'Phase 3: The Mantri steps forward to serve the crown.',
+        'Phase 4: The Mantri must guess who the hidden Chor is between the two remaining unrevealed players.',
+        'Phase 5: All roles are revealed, round points awarded, and scores accumulate across rounds!',
+      ],
+    ),
   ];
 
   static GameMetadata? getGame(String id) {

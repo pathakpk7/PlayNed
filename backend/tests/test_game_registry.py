@@ -9,6 +9,7 @@ def test_registry_games_exist():
     assert "quoridor" in game_ids
     assert "pentago" in game_ids
     assert "bingo" in game_ids
+    assert "raja_mantri_chor_sipahi" in game_ids
 
 def test_game_metadata():
     meta = game_registry.get_game_metadata("quoridor")

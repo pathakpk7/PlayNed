@@ -33,10 +33,28 @@ class WebSocketManager:
         if code not in self._active_connections:
             return
 
+        room_data = message.get("room")
+        game_id = room_data.get("game_id") if isinstance(room_data, dict) else None
+        
+        engine = None
+        if game_id:
+            try:
+                from backend.app.platform.registry import game_registry
+                engine = game_registry.get_game_engine(game_id)
+            except Exception:
+                engine = None
+
         dead_connections = []
         for ws, pid in self._active_connections[code]:
             try:
-                await ws.send_json(message)
+                if engine and hasattr(engine, "filter_state_for_player") and isinstance(room_data, dict) and room_data.get("match_state"):
+                    player_room = dict(room_data)
+                    player_room["match_state"] = engine.filter_state_for_player(room_data["match_state"], pid)
+                    player_msg = dict(message)
+                    player_msg["room"] = player_room
+                    await ws.send_json(player_msg)
+                else:
+                    await ws.send_json(message)
             except Exception as e:
                 logger.warning(f"Error broadcasting to player {pid} in room {code}: {e}")
                 dead_connections.append((ws, pid))

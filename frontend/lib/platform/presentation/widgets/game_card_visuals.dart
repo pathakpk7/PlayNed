@@ -58,6 +58,9 @@ class GameCardVisual extends StatelessWidget {
         return _UltimateTicTacToeVisual(accentColor: accentColor, isHovered: isHovered);
       case 'bingo':
         return _BingoVisual(accentColor: accentColor, isHovered: isHovered);
+      case 'raja_mantri_chor_sipahi':
+      case 'raja_mantri':
+        return _RajaMantriVisual(accentColor: accentColor, isHovered: isHovered);
       default:
         return Center(
           child: Icon(Icons.sports_esports, size: 36, color: accentColor.withOpacity(0.5)),
@@ -906,6 +909,103 @@ class _BingoVisual extends StatelessWidget {
               const SizedBox(height: 5),
               Text("5x5 BINGO GRID", style: PlayNedTokens.metadata.copyWith(fontSize: 8, color: accentColor)),
               Text("75 NUMBERS • CLASSIC", style: PlayNedTokens.metadata.copyWith(fontSize: 7.5, color: PlayNedTokens.textMuted)),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+/// 10. Raja Mantri Chor Sipahi Card Visual: 4 Chit Badges + Royal Seal
+class _RajaMantriVisual extends StatelessWidget {
+  final Color accentColor;
+  final bool isHovered;
+
+  const _RajaMantriVisual({required this.accentColor, required this.isHovered});
+
+  @override
+  Widget build(BuildContext context) {
+    const roles = [
+      {'name': 'RAJA', 'pts': '1000', 'color': Color(0xFFEAB308), 'icon': Icons.workspace_premium},
+      {'name': 'MANTRI', 'pts': '0', 'color': Color(0xFF38BDF8), 'icon': Icons.auto_stories},
+      {'name': 'SIPAHI', 'pts': '500', 'color': Color(0xFF10B981), 'icon': Icons.shield},
+      {'name': 'CHOR', 'pts': '800', 'color': Color(0xFFF43F5E), 'icon': Icons.masks},
+    ];
+
+    return Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: roles.map((r) {
+              final color = r['color'] as Color;
+              return Container(
+                margin: const EdgeInsets.symmetric(horizontal: 2.5),
+                width: 28,
+                height: 52,
+                decoration: BoxDecoration(
+                  color: isHovered ? color.withOpacity(0.18) : PlayNedTokens.surfaceElevated,
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border.all(
+                    color: isHovered ? color : PlayNedTokens.border,
+                    width: 1,
+                  ),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(r['icon'] as IconData, size: 14, color: color),
+                    const SizedBox(height: 4),
+                    Text(
+                      (r['name'] as String)[0],
+                      style: GoogleFonts.cinzel(
+                        fontSize: 9,
+                        fontWeight: FontWeight.w800,
+                        color: PlayNedTokens.textPrimary,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }).toList(),
+          ),
+          const SizedBox(width: 14),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
+                decoration: BoxDecoration(
+                  color: PlayNedTokens.surfaceElevated,
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border.all(color: accentColor.withOpacity(0.4)),
+                ),
+                child: Text(
+                  '4 SECRET CHITS',
+                  style: GoogleFonts.spaceMono(
+                    fontSize: 8.5,
+                    fontWeight: FontWeight.w700,
+                    color: accentColor,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                '1000 • 0 • 500 • 800',
+                style: GoogleFonts.spaceMono(
+                  fontSize: 8,
+                  fontWeight: FontWeight.bold,
+                  color: PlayNedTokens.textPrimary,
+                ),
+              ),
+              Text(
+                'DEDUCTION CLASSIC',
+                style: PlayNedTokens.metadata.copyWith(fontSize: 7.5, color: PlayNedTokens.textMuted),
+              ),
             ],
           ),
         ],

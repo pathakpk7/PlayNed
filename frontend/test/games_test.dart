@@ -3,9 +3,9 @@ import 'package:hangman_reimagined/platform/registry/game_registry.dart';
 
 void main() {
   group('PlayNed Game Registry Tests', () {
-    test('All 9 launch games are registered with complete metadata', () {
+    test('All 10 launch games are registered with complete metadata', () {
       final games = PlayNedGameRegistry.allGames;
-      expect(games.length, 9);
+      expect(games.length, 10);
 
       final hangman = PlayNedGameRegistry.getGame('hangman');
       expect(hangman, isNotNull);
@@ -59,6 +59,13 @@ void main() {
       expect(bingo.category, 'Casual / Luck / Puzzle');
       expect(bingo.minPlayers, 1);
       expect(bingo.maxPlayers, 2);
+
+      final rm = PlayNedGameRegistry.getGame('raja_mantri_chor_sipahi');
+      expect(rm, isNotNull);
+      expect(rm!.name, 'Raja Mantri Chor Sipahi');
+      expect(rm.category, 'Classic Indian Games / Party Games');
+      expect(rm.minPlayers, 4);
+      expect(rm.maxPlayers, 4);
     });
   });
 }

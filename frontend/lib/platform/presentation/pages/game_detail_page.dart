@@ -53,6 +53,8 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
       _showUltimateTicTacToeModeSelector();
     } else if (_game!.id == 'bingo') {
       _showBingoModeSelector();
+    } else if (_game!.id == 'raja_mantri_chor_sipahi' || _game!.id == 'raja_mantri') {
+      _showRajaMantriModeSelector();
     }
   }
 
@@ -398,6 +400,146 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
         side: BorderSide(color: selected ? PlayNedTokens.brandGold : PlayNedTokens.borderSubtle),
       ),
       onSelected: onSelected,
+    );
+  }
+
+  void _showRajaMantriModeSelector() {
+    int selectedRounds = 5;
+    final p1Ctrl = TextEditingController(text: 'Player 1');
+    final p2Ctrl = TextEditingController(text: 'Player 2');
+    final p3Ctrl = TextEditingController(text: 'Player 3');
+    final p4Ctrl = TextEditingController(text: 'Player 4');
+
+    showDialog(
+      context: context,
+      builder: (ctx) => StatefulBuilder(
+        builder: (context, setDialogState) {
+          return Dialog(
+            backgroundColor: PlayNedTokens.surface,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(PlayNedTokens.radiusLg),
+              side: const BorderSide(color: Color(0xFFD97706), width: 1.5),
+            ),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 520),
+              child: Padding(
+                padding: const EdgeInsets.all(PlayNedTokens.space24),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(Icons.military_tech, color: Color(0xFFD97706), size: 22),
+                              const SizedBox(width: 10),
+                              Text("SETUP 4P LOCAL MATCH", style: PlayNedTokens.gameTitle),
+                            ],
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.close, size: 18, color: PlayNedTokens.textSecondary),
+                            onPressed: () => Navigator.pop(ctx),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: PlayNedTokens.space12),
+
+                      Text(
+                        "MATCH LENGTH",
+                        style: GoogleFonts.inter(fontSize: 10, fontWeight: FontWeight.w700, color: PlayNedTokens.textSecondary, letterSpacing: 0.8),
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        children: [1, 5, 10].map((r) {
+                          final isSel = selectedRounds == r;
+                          return Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: ChoiceChip(
+                              label: Text('$r ${r == 1 ? "Round" : "Rounds"}'),
+                              selected: isSel,
+                              selectedColor: const Color(0xFFD97706),
+                              backgroundColor: PlayNedTokens.surfaceElevated,
+                              labelStyle: GoogleFonts.inter(
+                                fontSize: 11,
+                                fontWeight: FontWeight.w700,
+                                color: isSel ? PlayNedTokens.textInverse : PlayNedTokens.textPrimary,
+                              ),
+                              onSelected: (_) => setDialogState(() => selectedRounds = r),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                      const SizedBox(height: 16),
+
+                      Text(
+                        "ENTER 4 PLAYER NAMES",
+                        style: GoogleFonts.inter(fontSize: 10, fontWeight: FontWeight.w700, color: PlayNedTokens.textSecondary, letterSpacing: 0.8),
+                      ),
+                      const SizedBox(height: 8),
+                      ...[
+                        {'ctrl': p1Ctrl, 'hint': 'Player 1'},
+                        {'ctrl': p2Ctrl, 'hint': 'Player 2'},
+                        {'ctrl': p3Ctrl, 'hint': 'Player 3'},
+                        {'ctrl': p4Ctrl, 'hint': 'Player 4'},
+                      ].map((item) {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: TextField(
+                            controller: item['ctrl'] as TextEditingController,
+                            style: GoogleFonts.inter(fontSize: 12, color: PlayNedTokens.textPrimary),
+                            decoration: InputDecoration(
+                              isDense: true,
+                              filled: true,
+                              fillColor: PlayNedTokens.surfaceElevated,
+                              hintText: item['hint'] as String,
+                              hintStyle: GoogleFonts.inter(color: PlayNedTokens.textMuted, fontSize: 12),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(PlayNedTokens.radiusSm),
+                                borderSide: const BorderSide(color: PlayNedTokens.border),
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                            ),
+                          ),
+                        );
+                      }),
+                      const SizedBox(height: 16),
+
+                      SizedBox(
+                        width: double.infinity,
+                        height: 44,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFFD97706),
+                            foregroundColor: PlayNedTokens.textInverse,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PlayNedTokens.radiusSm)),
+                          ),
+                          onPressed: () {
+                            Navigator.pop(ctx);
+                            final p1 = p1Ctrl.text.trim().isEmpty ? 'Player 1' : p1Ctrl.text.trim();
+                            final p2 = p2Ctrl.text.trim().isEmpty ? 'Player 2' : p2Ctrl.text.trim();
+                            final p3 = p3Ctrl.text.trim().isEmpty ? 'Player 3' : p3Ctrl.text.trim();
+                            final p4 = p4Ctrl.text.trim().isEmpty ? 'Player 4' : p4Ctrl.text.trim();
+                            context.push(
+                              '/games/raja_mantri_chor_sipahi/play?mode=local&rounds=$selectedRounds&p1=${Uri.encodeComponent(p1)}&p2=${Uri.encodeComponent(p2)}&p3=${Uri.encodeComponent(p3)}&p4=${Uri.encodeComponent(p4)}',
+                            );
+                          },
+                          child: Text(
+                            "START 4P LOCAL MATCH",
+                            style: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w800),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 
