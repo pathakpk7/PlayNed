@@ -159,6 +159,8 @@ class _PlatformRoomLobbyPageState extends ConsumerState<PlatformRoomLobbyPage> {
       context.go('/games/ultimate_tic_tac_toe/play?room=${room.roomCode}&pid=${_getLocalPlayerId()}');
     } else if (gameId == 'reversi') {
       context.go('/games/reversi/play?mode=online&room=${room.roomCode}&pid=${_getLocalPlayerId()}');
+    } else if (gameId == 'bingo') {
+      context.go('/games/bingo/play?mode=online&room=${room.roomCode}&pid=${_getLocalPlayerId()}');
     }
   }
 

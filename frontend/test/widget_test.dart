@@ -12,8 +12,8 @@ void main() {
     expect(find.text('PLAYNED'), findsWidgets);
     expect(find.text('ONE PLATFORM.\nMANY WAYS TO PLAY.'), findsOneWidget);
 
-    // Verify all 8 launch games are in the registry
-    expect(PlayNedGameRegistry.allGames.length, 8);
+    // Verify all 9 launch games are in the registry
+    expect(PlayNedGameRegistry.allGames.length, 9);
     expect(find.text('Hangman Reimagined'), findsWidgets);
     expect(find.text('Dots & Boxes'), findsWidgets);
     expect(find.text('Quoridor'), findsWidgets);
@@ -22,5 +22,6 @@ void main() {
     expect(find.text('Cricket Hub'), findsWidgets);
     expect(find.text('Reversi & Othello'), findsWidgets);
     expect(find.text('Ultimate Tic-Tac-Toe'), findsWidgets);
+    expect(find.text('Bingo'), findsWidgets);
   });
 }

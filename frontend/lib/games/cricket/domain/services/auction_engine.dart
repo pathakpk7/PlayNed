@@ -498,7 +498,9 @@ class AuctionEngine {
         );
         available.remove(p);
 
-        final price = min(p.basePrice, max(0.20, team.purseRemaining));
+        final price = team.purseRemaining <= 0
+            ? 0.0
+            : min(p.basePrice, team.purseRemaining);
         p.status = PlayerAuctionStatus.sold;
         p.soldPrice = price;
         p.soldToTeamId = team.id;

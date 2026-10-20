@@ -197,6 +197,30 @@ class PlayNedGameRegistry {
         'Ultimate Victory: Claim 3 micro boards in a row on the macro grid to triumph and win the match!',
       ],
     ),
+    const GameMetadata(
+      id: 'bingo',
+      name: 'Bingo',
+      tagline: 'Mark your numbers. Complete the pattern. Call Bingo.',
+      description:
+          'A timeless classic of number drawing and pattern completion. Play 1v1 local pass-and-play, challenge an AI bot across 3 difficulty tiers, or create online rooms with real-time ball calling and customizable win patterns!',
+      category: 'Casual / Luck / Puzzle',
+      minPlayers: 1,
+      maxPlayers: 2,
+      supportsLocal: true,
+      supportsOnline: true,
+      supportsTeams: false,
+      estimatedDurationMinutes: 5,
+      accentColor: Color(0xFFF59E0B),
+      backgroundColor: Color(0xFF16140E),
+      icon: Icons.grid_on,
+      rulesSummary: [
+        'Standard 5x5 Bingo card with columns B (1-15), I (16-30), N (31-45), G (46-60), and O (61-75).',
+        'The center cell is FREE and starts permanently marked.',
+        'Numbers 1 to 75 are randomly drawn one-by-one without replacement.',
+        'Called numbers are automatically marked on your card.',
+        'Complete the active pattern (Classic line, Four Corners, X, or Blackout) to win!',
+      ],
+    ),
   ];
 
   static GameMetadata? getGame(String id) {

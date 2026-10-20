@@ -51,6 +51,8 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
       context.push('/games/reversi/hub');
     } else if (_game!.id == 'ultimate_tic_tac_toe' || _game!.id == 'ultimate-tic-tac-toe') {
       _showUltimateTicTacToeModeSelector();
+    } else if (_game!.id == 'bingo') {
+      _showBingoModeSelector();
     }
   }
 
@@ -193,6 +195,209 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
           ),
         ),
       ),
+    );
+  }
+
+  void _showBingoModeSelector() {
+    String selectedPattern = 'classic';
+    String selectedDifficulty = 'medium';
+
+    showDialog(
+      context: context,
+      builder: (ctx) => StatefulBuilder(
+        builder: (context, setDialogState) {
+          return Dialog(
+            backgroundColor: PlayNedTokens.surface,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(PlayNedTokens.radiusLg),
+              side: const BorderSide(color: PlayNedTokens.brandGold, width: 1.5),
+            ),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 540),
+              child: Padding(
+                padding: const EdgeInsets.all(PlayNedTokens.space24),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(Icons.grid_on, color: PlayNedTokens.brandGold, size: 22),
+                            const SizedBox(width: 10),
+                            Text("SELECT BINGO MODE", style: PlayNedTokens.gameTitle),
+                          ],
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.close, size: 18, color: PlayNedTokens.textSecondary),
+                          onPressed: () => Navigator.pop(ctx),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: PlayNedTokens.space12),
+
+                    // Win Pattern Selector
+                    Text(
+                      "WINNING PATTERN",
+                      style: GoogleFonts.inter(fontSize: 10, fontWeight: FontWeight.w700, color: PlayNedTokens.textSecondary, letterSpacing: 0.8),
+                    ),
+                    const SizedBox(height: 6),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          _buildPatternChoiceChip(
+                            label: "Classic Line",
+                            value: "classic",
+                            selected: selectedPattern == "classic",
+                            onSelected: (v) => setDialogState(() => selectedPattern = "classic"),
+                          ),
+                          const SizedBox(width: 6),
+                          _buildPatternChoiceChip(
+                            label: "Four Corners",
+                            value: "fourCorners",
+                            selected: selectedPattern == "fourCorners",
+                            onSelected: (v) => setDialogState(() => selectedPattern = "fourCorners"),
+                          ),
+                          const SizedBox(width: 6),
+                          _buildPatternChoiceChip(
+                            label: "X Pattern",
+                            value: "xPattern",
+                            selected: selectedPattern == "xPattern",
+                            onSelected: (v) => setDialogState(() => selectedPattern = "xPattern"),
+                          ),
+                          const SizedBox(width: 6),
+                          _buildPatternChoiceChip(
+                            label: "Blackout",
+                            value: "blackout",
+                            selected: selectedPattern == "blackout",
+                            onSelected: (v) => setDialogState(() => selectedPattern = "blackout"),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: PlayNedTokens.space16),
+
+                    // Mode 1: 1 vs Computer with Difficulty
+                    Container(
+                      padding: const EdgeInsets.all(PlayNedTokens.space12),
+                      decoration: BoxDecoration(
+                        color: PlayNedTokens.surfaceElevated,
+                        borderRadius: BorderRadius.circular(PlayNedTokens.radiusMd),
+                        border: Border.all(color: PlayNedTokens.border),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  const Icon(Icons.smart_toy_outlined, color: PlayNedTokens.brandGold, size: 20),
+                                  const SizedBox(width: 8),
+                                  Text("1 vs Computer", style: PlayNedTokens.buttonLabel.copyWith(color: PlayNedTokens.textPrimary)),
+                                ],
+                              ),
+                              Row(
+                                children: ["easy", "medium", "hard"].map((diff) {
+                                  final isSel = selectedDifficulty == diff;
+                                  return Padding(
+                                    padding: const EdgeInsets.only(left: 4.0),
+                                    child: InkWell(
+                                      borderRadius: BorderRadius.circular(4),
+                                      onTap: () => setDialogState(() => selectedDifficulty = diff),
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                        decoration: BoxDecoration(
+                                          color: isSel ? PlayNedTokens.brandGold : PlayNedTokens.surface,
+                                          borderRadius: BorderRadius.circular(4),
+                                          border: Border.all(color: isSel ? PlayNedTokens.brandGold : PlayNedTokens.borderSubtle),
+                                        ),
+                                        child: Text(
+                                          diff.toUpperCase(),
+                                          style: GoogleFonts.spaceMono(
+                                            fontSize: 9,
+                                            fontWeight: FontWeight.bold,
+                                            color: isSel ? PlayNedTokens.textInverse : PlayNedTokens.textMuted,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 6),
+                          Text("Play solo against an automated AI card player.", style: PlayNedTokens.bodyMuted.copyWith(fontSize: 11)),
+                          const SizedBox(height: 10),
+                          SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: PlayNedTokens.brandGold,
+                                foregroundColor: PlayNedTokens.textInverse,
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PlayNedTokens.radiusSm)),
+                                padding: const EdgeInsets.symmetric(vertical: 8),
+                                elevation: 0,
+                              ),
+                              onPressed: () {
+                                Navigator.pop(ctx);
+                                context.push('/games/bingo/play?mode=ai&pattern=$selectedPattern&difficulty=$selectedDifficulty');
+                              },
+                              child: Text("PLAY VS CPU", style: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w800)),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: PlayNedTokens.space12),
+
+                    // Mode 2: 1 vs 1 Local (Pass & Play)
+                    _buildModeTile(
+                      ctx: ctx,
+                      icon: Icons.people_outline,
+                      title: "1 vs 1 — Local (Pass & Play)",
+                      subtitle: "Two players battle on the same device with synchronized draws",
+                      onTap: () {
+                        Navigator.pop(ctx);
+                        context.push('/games/bingo/play?mode=local&pattern=$selectedPattern');
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildPatternChoiceChip({
+    required String label,
+    required String value,
+    required bool selected,
+    required ValueChanged<bool> onSelected,
+  }) {
+    return ChoiceChip(
+      label: Text(label),
+      labelStyle: GoogleFonts.inter(
+        fontSize: 11,
+        fontWeight: selected ? FontWeight.bold : FontWeight.w500,
+        color: selected ? PlayNedTokens.textInverse : PlayNedTokens.textSecondary,
+      ),
+      selected: selected,
+      selectedColor: PlayNedTokens.brandGold,
+      backgroundColor: PlayNedTokens.surfaceElevated,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(PlayNedTokens.radiusPill),
+        side: BorderSide(color: selected ? PlayNedTokens.brandGold : PlayNedTokens.borderSubtle),
+      ),
+      onSelected: onSelected,
     );
   }
 

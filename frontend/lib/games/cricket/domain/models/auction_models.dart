@@ -333,7 +333,10 @@ class AuctionTeam {
   }
 
   void addPlayer(AuctionPlayer player, double price) {
-    purseRemaining -= price;
+    purseRemaining = double.parse((purseRemaining - price).toStringAsFixed(2));
+    if (purseRemaining < 0 && purseRemaining > -0.01) {
+      purseRemaining = 0.0;
+    }
     squad.add(player);
   }
 

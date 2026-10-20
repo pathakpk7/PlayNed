@@ -3,9 +3,9 @@ import 'package:hangman_reimagined/platform/registry/game_registry.dart';
 
 void main() {
   group('PlayNed Game Registry Tests', () {
-    test('All 8 launch games are registered with complete metadata', () {
+    test('All 9 launch games are registered with complete metadata', () {
       final games = PlayNedGameRegistry.allGames;
-      expect(games.length, 8);
+      expect(games.length, 9);
 
       final hangman = PlayNedGameRegistry.getGame('hangman');
       expect(hangman, isNotNull);
@@ -52,6 +52,13 @@ void main() {
       expect(uttt.category, 'Strategy');
       expect(uttt.minPlayers, 2);
       expect(uttt.maxPlayers, 2);
+
+      final bingo = PlayNedGameRegistry.getGame('bingo');
+      expect(bingo, isNotNull);
+      expect(bingo!.name, 'Bingo');
+      expect(bingo.category, 'Casual / Luck / Puzzle');
+      expect(bingo.minPlayers, 1);
+      expect(bingo.maxPlayers, 2);
     });
   });
 }

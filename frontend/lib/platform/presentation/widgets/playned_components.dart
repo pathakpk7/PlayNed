@@ -203,6 +203,8 @@ class GameCategoryBadge extends StatelessWidget {
       ),
       child: Text(
         category.toUpperCase(),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
         style: GoogleFonts.inter(
           fontSize: 9.5,
           fontWeight: FontWeight.w800,

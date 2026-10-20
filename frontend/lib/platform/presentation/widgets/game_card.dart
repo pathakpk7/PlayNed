@@ -68,10 +68,13 @@ class _PlayNedGameCardState extends State<PlayNedGameCard> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      GameCategoryBadge(
-                        category: game.category,
-                        accentColor: accent,
+                      Flexible(
+                        child: GameCategoryBadge(
+                          category: game.category,
+                          accentColor: accent,
+                        ),
                       ),
+                      const SizedBox(width: PlayNedTokens.space8),
                       PlayerCountBadge(
                         minPlayers: game.minPlayers,
                         maxPlayers: game.maxPlayers,

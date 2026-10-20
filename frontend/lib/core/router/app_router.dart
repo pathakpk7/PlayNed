@@ -15,6 +15,8 @@ import '../../games/cricket/presentation/pages/cricket_draft_game_page.dart';
 import '../../games/cricket/presentation/pages/cricket_auction_page.dart';
 import '../../games/reversi/presentation/pages/reversi_hub_page.dart';
 import '../../games/reversi/presentation/pages/reversi_game_page.dart';
+import '../../games/bingo/presentation/pages/bingo_game_page.dart';
+import '../../games/bingo/models/bingo_models.dart';
 import '../../features/home/presentation/pages/home_page.dart';
 import '../../features/game/presentation/pages/game_page.dart';
 import '../../features/game/presentation/pages/level_map_page.dart';
@@ -152,6 +154,27 @@ final GoRouter appRouter = GoRouter(
           difficulty: diff,
           roomCode: room,
           localPlayerId: pid,
+        );
+      },
+    ),
+
+    // Bingo
+    GoRoute(
+      path: '/games/bingo/play',
+      builder: (context, state) {
+        final room = state.uri.queryParameters['room'];
+        final mode = state.uri.queryParameters['mode'] ?? (room != null ? 'online' : 'local');
+        final pid = state.uri.queryParameters['pid'];
+        final patternStr = state.uri.queryParameters['pattern'];
+        final diffStr = state.uri.queryParameters['difficulty'];
+        return BingoGamePage(
+          mode: mode,
+          roomCode: room,
+          localPlayerId: pid,
+          pattern: BingoPattern.fromString(patternStr),
+          difficulty: diffStr == 'easy'
+              ? BingoDifficulty.easy
+              : (diffStr == 'hard' ? BingoDifficulty.hard : BingoDifficulty.medium),
         );
       },
     ),

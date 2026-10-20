@@ -56,6 +56,8 @@ class GameCardVisual extends StatelessWidget {
       case 'ultimate_tic_tac_toe':
       case 'ultimate-tic-tac-toe':
         return _UltimateTicTacToeVisual(accentColor: accentColor, isHovered: isHovered);
+      case 'bingo':
+        return _BingoVisual(accentColor: accentColor, isHovered: isHovered);
       default:
         return Center(
           child: Icon(Icons.sports_esports, size: 36, color: accentColor.withOpacity(0.5)),
@@ -767,6 +769,143 @@ class _UltimateTicTacToeVisual extends StatelessWidget {
               const SizedBox(height: 6),
               Text("RECURSIVE STRATEGY", style: PlayNedTokens.metadata.copyWith(fontSize: 7.5, color: accentColor)),
               Text("TARGET ROUTING", style: PlayNedTokens.metadata.copyWith(fontSize: 7.5, color: PlayNedTokens.brandGold)),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+/// 9. Bingo Card Visual: 5x5 Mini Grid + Calling Ball Badge
+class _BingoVisual extends StatelessWidget {
+  final Color accentColor;
+  final bool isHovered;
+
+  const _BingoVisual({required this.accentColor, required this.isHovered});
+
+  @override
+  Widget build(BuildContext context) {
+    // Cells marked in mini visual: main diagonal + center FREE
+    final markedCells = isHovered
+        ? {0, 6, 12, 18, 24, 4, 8, 16, 20} // X pattern on hover!
+        : {0, 6, 12, 18, 24};              // diagonal line normally
+
+    return Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // 5x5 Mini Bingo Grid
+          Container(
+            width: 76,
+            height: 76,
+            padding: const EdgeInsets.all(3),
+            decoration: BoxDecoration(
+              color: PlayNedTokens.surfaceElevated,
+              borderRadius: BorderRadius.circular(6),
+              border: Border.all(
+                color: isHovered ? accentColor.withOpacity(0.6) : PlayNedTokens.border,
+                width: 1.2,
+              ),
+            ),
+            child: Column(
+              children: [
+                // Mini B I N G O Header
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: ['B', 'I', 'N', 'G', 'O'].map((letter) {
+                    return Text(
+                      letter,
+                      style: GoogleFonts.outfit(
+                        fontSize: 7.5,
+                        fontWeight: FontWeight.w900,
+                        color: accentColor,
+                      ),
+                    );
+                  }).toList(),
+                ),
+                const SizedBox(height: 2),
+                // 5x5 dots
+                Expanded(
+                  child: GridView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 5,
+                      crossAxisSpacing: 2,
+                      mainAxisSpacing: 2,
+                    ),
+                    itemCount: 25,
+                    itemBuilder: (context, idx) {
+                      final isMarked = markedCells.contains(idx);
+                      final isCenter = idx == 12;
+
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: isMarked
+                              ? accentColor.withOpacity(0.85)
+                              : PlayNedTokens.surface,
+                          borderRadius: BorderRadius.circular(1.5),
+                          border: Border.all(
+                            color: isMarked ? accentColor : PlayNedTokens.borderSubtle,
+                            width: 0.5,
+                          ),
+                        ),
+                        child: isCenter
+                            ? Center(
+                                child: Icon(
+                                  Icons.star_rounded,
+                                  size: 6,
+                                  color: isMarked ? PlayNedTokens.textInverse : accentColor,
+                                ),
+                              )
+                            : null,
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 14),
+
+          // Right side caller badge
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                decoration: BoxDecoration(
+                  color: PlayNedTokens.surfaceElevated,
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border.all(color: accentColor.withOpacity(0.4)),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 1),
+                      decoration: BoxDecoration(
+                        color: accentColor,
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                      child: Text(
+                        "G",
+                        style: GoogleFonts.outfit(fontSize: 9, fontWeight: FontWeight.w900, color: PlayNedTokens.textInverse),
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      isHovered ? "52" : "48",
+                      style: GoogleFonts.spaceMono(fontSize: 10, fontWeight: FontWeight.bold, color: PlayNedTokens.textPrimary),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 5),
+              Text("5x5 BINGO GRID", style: PlayNedTokens.metadata.copyWith(fontSize: 8, color: accentColor)),
+              Text("75 NUMBERS • CLASSIC", style: PlayNedTokens.metadata.copyWith(fontSize: 7.5, color: PlayNedTokens.textMuted)),
             ],
           ),
         ],
