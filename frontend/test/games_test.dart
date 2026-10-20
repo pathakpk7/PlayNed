@@ -3,9 +3,9 @@ import 'package:hangman_reimagined/platform/registry/game_registry.dart';
 
 void main() {
   group('PlayNed Game Registry Tests', () {
-    test('All 10 launch games are registered with complete metadata', () {
+    test('All 11 launch games are registered with complete metadata', () {
       final games = PlayNedGameRegistry.allGames;
-      expect(games.length, 10);
+      expect(games.length, 11);
 
       final hangman = PlayNedGameRegistry.getGame('hangman');
       expect(hangman, isNotNull);
@@ -66,6 +66,15 @@ void main() {
       expect(rm.category, 'Classic Indian Games / Party Games');
       expect(rm.minPlayers, 4);
       expect(rm.maxPlayers, 4);
+
+      final bluff = PlayNedGameRegistry.getGame('bluff');
+      expect(bluff, isNotNull);
+      expect(bluff!.name, 'Bluff / Cheat');
+      expect(bluff.category, 'Classic Card Games / Party Games');
+      expect(bluff.minPlayers, 3);
+      expect(bluff.maxPlayers, 6);
+      expect(bluff.supportsLocal, isTrue);
+      expect(bluff.supportsOnline, isTrue);
     });
   });
 }

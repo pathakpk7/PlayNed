@@ -36,6 +36,7 @@ class PlayNedTokens {
   static const Color accentUltimateTicTacToe = Color(0xFFF59E0B); // Amber Orange Gold
   static const Color accentBingo = Color(0xFFF59E0B); // Warm Amber / Gold
   static const Color accentRajaMantri = Color(0xFFD97706); // Warm Amber Royal Gold
+  static const Color accentBluff = Color(0xFF8B5CF6); // Royal Violet / Amethyst
 
   static Color getGameAccent(String gameId) {
     switch (gameId.toLowerCase()) {
@@ -62,6 +63,9 @@ class PlayNedTokens {
       case 'raja_mantri_chor_sipahi':
       case 'raja_mantri':
         return accentRajaMantri;
+      case 'bluff':
+      case 'bluff_cheat':
+        return accentBluff;
       default:
         return brandGold;
     }

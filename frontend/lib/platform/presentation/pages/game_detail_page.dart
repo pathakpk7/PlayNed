@@ -55,6 +55,8 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
       _showBingoModeSelector();
     } else if (_game!.id == 'raja_mantri_chor_sipahi' || _game!.id == 'raja_mantri') {
       _showRajaMantriModeSelector();
+    } else if (_game!.id == 'bluff' || _game!.id == 'bluff_cheat') {
+      _showBluffModeSelector();
     }
   }
 
@@ -529,6 +531,176 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
                           child: Text(
                             "START 4P LOCAL MATCH",
                             style: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w800),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  void _showBluffModeSelector() {
+    int selectedPlayerCount = 3;
+    final controllers = List.generate(
+      6,
+      (i) => TextEditingController(text: 'Player ${i + 1}'),
+    );
+
+    showDialog(
+      context: context,
+      builder: (ctx) => StatefulBuilder(
+        builder: (context, setDialogState) {
+          return Dialog(
+            backgroundColor: PlayNedTokens.surface,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(PlayNedTokens.radiusLg),
+              side: const BorderSide(color: Color(0xFF8B5CF6), width: 1.5),
+            ),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 520),
+              child: Padding(
+                padding: const EdgeInsets.all(PlayNedTokens.space24),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(Icons.style, color: Color(0xFF8B5CF6), size: 22),
+                              const SizedBox(width: 10),
+                              Text("SETUP LOCAL BLUFF MATCH", style: PlayNedTokens.gameTitle),
+                            ],
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.close, size: 18, color: PlayNedTokens.textSecondary),
+                            onPressed: () => Navigator.pop(ctx),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: PlayNedTokens.space12),
+
+                      Text(
+                        "NUMBER OF PLAYERS (3–6)",
+                        style: GoogleFonts.inter(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                          color: PlayNedTokens.textSecondary,
+                          letterSpacing: 0.8,
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      Row(
+                        children: [3, 4, 5, 6].map((count) {
+                          final isSelected = selectedPlayerCount == count;
+                          return Padding(
+                            padding: const EdgeInsets.only(right: 8),
+                            child: ChoiceChip(
+                              label: Text('$count Players'),
+                              labelStyle: GoogleFonts.spaceMono(
+                                fontSize: 11,
+                                fontWeight: isSelected ? FontWeight.bold : FontWeight.w600,
+                                color: isSelected ? Colors.white : PlayNedTokens.textSecondary,
+                              ),
+                              selected: isSelected,
+                              selectedColor: const Color(0xFF8B5CF6),
+                              backgroundColor: PlayNedTokens.surfaceElevated,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(PlayNedTokens.radiusPill),
+                                side: BorderSide(
+                                  color: isSelected ? const Color(0xFF8B5CF6) : PlayNedTokens.borderSubtle,
+                                ),
+                              ),
+                              onSelected: (_) {
+                                setDialogState(() => selectedPlayerCount = count);
+                              },
+                            ),
+                          );
+                        }).toList(),
+                      ),
+
+                      const SizedBox(height: PlayNedTokens.space16),
+
+                      Text(
+                        "PLAYER NAMES",
+                        style: GoogleFonts.inter(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                          color: PlayNedTokens.textSecondary,
+                          letterSpacing: 0.8,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+
+                      for (int i = 0; i < selectedPlayerCount; i++) ...[
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 8),
+                          child: TextField(
+                            controller: controllers[i],
+                            style: GoogleFonts.inter(fontSize: 12, color: PlayNedTokens.textPrimary),
+                            decoration: InputDecoration(
+                              labelText: "Player ${i + 1} Name",
+                              labelStyle: GoogleFonts.inter(fontSize: 11, color: PlayNedTokens.textSecondary),
+                              isDense: true,
+                              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                              filled: true,
+                              fillColor: PlayNedTokens.surfaceElevated,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(PlayNedTokens.radiusSm),
+                                borderSide: const BorderSide(color: PlayNedTokens.borderSubtle),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(PlayNedTokens.radiusSm),
+                                borderSide: const BorderSide(color: Color(0xFF8B5CF6)),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+
+                      const SizedBox(height: PlayNedTokens.space16),
+
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF8B5CF6),
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(PlayNedTokens.radiusMd),
+                            ),
+                          ),
+                          onPressed: () {
+                            Navigator.pop(ctx);
+                            final qParams = <String, String>{
+                              'mode': 'local',
+                              'players': selectedPlayerCount.toString(),
+                            };
+                            for (int i = 0; i < selectedPlayerCount; i++) {
+                              final name = controllers[i].text.trim().isEmpty
+                                  ? 'Player ${i + 1}'
+                                  : controllers[i].text.trim();
+                              qParams['p${i + 1}'] = name;
+                            }
+                            final uri = Uri(
+                              path: '/games/bluff/play',
+                              queryParameters: qParams,
+                            );
+                            context.push(uri.toString());
+                          },
+                          child: Text(
+                            "START $selectedPlayerCount-PLAYER MATCH",
+                            style: GoogleFonts.spaceMono(fontSize: 12, fontWeight: FontWeight.w800),
                           ),
                         ),
                       ),

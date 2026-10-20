@@ -247,6 +247,32 @@ class PlayNedGameRegistry {
         'Phase 5: All roles are revealed, round points awarded, and scores accumulate across rounds!',
       ],
     ),
+    const GameMetadata(
+      id: 'bluff',
+      name: 'Bluff / Cheat',
+      tagline: 'Play cards face-down, declare ranks, and call bluffs!',
+      description:
+          'Classic 3–6 player deception card game. Discard cards face-down and claim they match the required sequential rank. Tell the truth or bluff your way to an empty hand—just don\'t get caught!',
+      category: 'Classic Card Games / Party Games',
+      minPlayers: 3,
+      maxPlayers: 6,
+      supportsLocal: true,
+      supportsOnline: true,
+      supportsTeams: false,
+      estimatedDurationMinutes: 8,
+      accentColor: Color(0xFF8B5CF6),
+      backgroundColor: Color(0xFF151022),
+      icon: Icons.style,
+      rulesSummary: [
+        'Standard 52-card deck dealt fairly among 3 to 6 players.',
+        'Starting rank is Ace (A). Ranks advance sequentially: A -> 2 -> 3 -> ... -> K -> A.',
+        'On your turn, play 1 or more cards face-down in the center pile and declare the required rank.',
+        'You may play truthful cards or bluff with any other cards from your hand.',
+        'Any opponent can call "Bluff!" before the next turn begins.',
+        'If caught bluffing, the bluffer takes the entire central pile. If truthful, the challenger takes the pile.',
+        'Win by emptying your hand and surviving any challenge on your final play!',
+      ],
+    ),
   ];
 
   static GameMetadata? getGame(String id) {

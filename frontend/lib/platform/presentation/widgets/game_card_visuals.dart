@@ -61,6 +61,9 @@ class GameCardVisual extends StatelessWidget {
       case 'raja_mantri_chor_sipahi':
       case 'raja_mantri':
         return _RajaMantriVisual(accentColor: accentColor, isHovered: isHovered);
+      case 'bluff':
+      case 'bluff_cheat':
+        return _BluffVisual(accentColor: accentColor, isHovered: isHovered);
       default:
         return Center(
           child: Icon(Icons.sports_esports, size: 36, color: accentColor.withOpacity(0.5)),
@@ -1004,6 +1007,148 @@ class _RajaMantriVisual extends StatelessWidget {
               ),
               Text(
                 'DEDUCTION CLASSIC',
+                style: PlayNedTokens.metadata.copyWith(fontSize: 7.5, color: PlayNedTokens.textMuted),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+/// 11. Bluff / Cheat Card Visual: Tactile stacked cards with Ace reveal & Bluff callout
+class _BluffVisual extends StatelessWidget {
+  final Color accentColor;
+  final bool isHovered;
+
+  const _BluffVisual({required this.accentColor, required this.isHovered});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+      child: Row(
+        children: [
+          // Stacked cards
+          SizedBox(
+            width: 72,
+            height: 58,
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                // Card 1: Face down tilted
+                Positioned(
+                  left: 0,
+                  top: 4,
+                  child: Transform.rotate(
+                    angle: -0.15,
+                    child: Container(
+                      width: 34,
+                      height: 48,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF1E1B4B),
+                        borderRadius: BorderRadius.circular(4),
+                        border: Border.all(color: const Color(0xFF7C3AED).withOpacity(0.5)),
+                      ),
+                      child: Center(
+                        child: Icon(Icons.shield, size: 14, color: const Color(0xFFA78BFA).withOpacity(0.6)),
+                      ),
+                    ),
+                  ),
+                ),
+                // Card 2: Face down upright
+                Positioned(
+                  left: 14,
+                  top: 2,
+                  child: Container(
+                    width: 34,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF2E1065),
+                      borderRadius: BorderRadius.circular(4),
+                      border: Border.all(color: const Color(0xFFA78BFA).withOpacity(0.7)),
+                    ),
+                    child: Center(
+                      child: Icon(Icons.shield, size: 14, color: const Color(0xFFA78BFA).withOpacity(0.8)),
+                    ),
+                  ),
+                ),
+                // Card 3: Face up Ace of Spades
+                Positioned(
+                  left: 28,
+                  top: 0,
+                  child: Transform.rotate(
+                    angle: 0.12,
+                    child: Container(
+                      width: 34,
+                      height: 48,
+                      decoration: BoxDecoration(
+                        color: isHovered ? const Color(0xFF2A2A38) : const Color(0xFF1E1E28),
+                        borderRadius: BorderRadius.circular(4),
+                        border: Border.all(
+                          color: isHovered ? accentColor : PlayNedTokens.borderBright,
+                          width: 1.2,
+                        ),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'A',
+                            style: GoogleFonts.spaceMono(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w900,
+                              color: const Color(0xFFE2E8F0),
+                              height: 1.0,
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          const Text(
+                            '♠',
+                            style: TextStyle(fontSize: 11, color: Color(0xFFCBD5E1), height: 1.0),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 14),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
+                decoration: BoxDecoration(
+                  color: PlayNedTokens.surfaceElevated,
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border.all(color: accentColor.withOpacity(0.4)),
+                ),
+                child: Text(
+                  '3–6 PLAYERS',
+                  style: GoogleFonts.spaceMono(
+                    fontSize: 8.5,
+                    fontWeight: FontWeight.w700,
+                    color: accentColor,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                'CALL BLUFF OR PASS',
+                style: GoogleFonts.spaceMono(
+                  fontSize: 8,
+                  fontWeight: FontWeight.bold,
+                  color: PlayNedTokens.textPrimary,
+                ),
+              ),
+              Text(
+                'DECEPTION & STRATEGY',
                 style: PlayNedTokens.metadata.copyWith(fontSize: 7.5, color: PlayNedTokens.textMuted),
               ),
             ],
