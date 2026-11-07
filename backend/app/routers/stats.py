@@ -29,6 +29,7 @@ KNOWN_SECTIONS = {
     "bluff": ["classic", "local_pass_and_play", "multiplayer"],
     "spyfall": ["classic", "local_pass_and_play", "multiplayer"],
     "mafia": ["classic", "local_pass_and_play", "multiplayer"],
+    "higher_or_lower": ["classic", "quick", "extended", "local_pass_and_play", "multiplayer"],
 }
 
 @router.post("/record", response_model=GameSectionStatItem)

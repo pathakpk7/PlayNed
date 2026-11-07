@@ -61,6 +61,8 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
       _showSpyfallModeSelector();
     } else if (_game!.id == 'mafia' || _game!.id == 'werewolf') {
       _showMafiaModeSelector();
+    } else if (_game!.id == 'higher_or_lower' || _game!.id == 'higher_lower') {
+      context.push('/games/higher_or_lower');
     }
   }
 
@@ -1365,12 +1367,19 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
                         const SizedBox(height: PlayNedTokens.space16),
 
                         // Title & Tagline
-                        Text(game.name, style: PlayNedTokens.heroDisplay.copyWith(fontSize: 30)),
-                        const SizedBox(height: PlayNedTokens.space4),
+                        Text(
+                          game.name,
+                          style: GoogleFonts.plusJakartaSans(
+                            fontSize: 28,
+                            fontWeight: FontWeight.w800,
+                            letterSpacing: -0.5,
+                            color: PlayNedTokens.textPrimary,
+                          ),
+                        ),
+                        const SizedBox(height: PlayNedTokens.space6),
                         Text(
                           game.tagline,
                           style: PlayNedTokens.body.copyWith(
-                            fontStyle: FontStyle.italic,
                             color: accent,
                             fontWeight: FontWeight.w500,
                           ),
@@ -1378,7 +1387,7 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
                         const SizedBox(height: PlayNedTokens.space12),
                         Text(
                           game.description,
-                          style: PlayNedTokens.bodyMuted.copyWith(fontSize: 13.5, height: 1.45),
+                          style: PlayNedTokens.bodyMuted.copyWith(fontSize: 13.5, height: 1.5),
                         ),
 
                         const SizedBox(height: PlayNedTokens.space20),
@@ -1390,17 +1399,17 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
                           children: [
                             _MetaBadge(
                               icon: Icons.group_outlined,
-                              label: "${game.minPlayers}–${game.maxPlayers} PLAYERS",
+                              label: "${game.minPlayers}–${game.maxPlayers} players",
                               color: accent,
                             ),
                             _MetaBadge(
                               icon: Icons.timer_outlined,
-                              label: "~${game.estimatedDurationMinutes} MIN MATCH",
+                              label: "~${game.estimatedDurationMinutes} min match",
                               color: accent,
                             ),
                             _MetaBadge(
                               icon: Icons.devices,
-                              label: "LOCAL & ONLINE MULTIPLAYER",
+                              label: "Local & online multiplayer",
                               color: accent,
                             ),
                           ],
@@ -1418,7 +1427,7 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
                         children: [
                           Expanded(
                             child: PlayNedButton(
-                              label: "LOCAL PASS & PLAY",
+                              label: "Pass & play",
                               icon: Icons.play_circle_fill,
                               variant: PlayNedButtonVariant.primary,
                               customAccent: accent,
@@ -1429,7 +1438,7 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
                           const SizedBox(width: PlayNedTokens.space12),
                           Expanded(
                             child: PlayNedButton(
-                              label: "CREATE ONLINE ROOM",
+                              label: "Create online room",
                               icon: Icons.wifi,
                               variant: PlayNedButtonVariant.outlined,
                               customAccent: PlayNedTokens.brandGold,
@@ -1454,9 +1463,10 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
                                 const Icon(Icons.menu_book_outlined, size: 18, color: PlayNedTokens.brandGold),
                                 const SizedBox(width: PlayNedTokens.space8),
                                 Text(
-                                  "HOW TO PLAY & OFFICIAL RULES",
-                                  style: PlayNedTokens.metadata.copyWith(
-                                    fontSize: 11,
+                                  "Rules and gameplay",
+                                  style: GoogleFonts.plusJakartaSans(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w700,
                                     color: PlayNedTokens.textPrimary,
                                   ),
                                 ),
@@ -1469,22 +1479,14 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Container(
-                                      margin: const EdgeInsets.only(top: 2, right: PlayNedTokens.space12),
-                                      width: 20,
-                                      height: 20,
-                                      decoration: BoxDecoration(
-                                        color: accent.withOpacity(0.18),
-                                        borderRadius: BorderRadius.circular(4),
-                                        border: Border.all(color: accent.withOpacity(0.5)),
-                                      ),
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        "${entry.key + 1}",
-                                        style: GoogleFonts.inter(
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.bold,
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 4, right: 10),
+                                      child: Container(
+                                        width: 5,
+                                        height: 5,
+                                        decoration: BoxDecoration(
                                           color: accent,
+                                          shape: BoxShape.circle,
                                         ),
                                       ),
                                     ),
@@ -1493,7 +1495,7 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
                                         entry.value,
                                         style: PlayNedTokens.bodyMuted.copyWith(
                                           fontSize: 13,
-                                          height: 1.4,
+                                          height: 1.45,
                                         ),
                                       ),
                                     ),

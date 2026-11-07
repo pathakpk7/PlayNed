@@ -1,44 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-/// Centralized Design Tokens for the PlayNed 2D Game Platform
+/// Art-Directed Design Tokens for PlayNed
+/// Eliminates generic clichés in favor of architectural hierarchy,
+/// intentional contrast, contemporary typography, and refined motion.
 class PlayNedTokens {
-  // Base Palette
-  static const Color background = Color(0xFF0E0E0C);
-  static const Color surface = Color(0xFF161614);
-  static const Color surfaceElevated = Color(0xFF1E1E1B);
-  static const Color surfaceHover = Color(0xFF252521);
-  static const Color border = Color(0xFF2A2A26);
-  static const Color borderSubtle = Color(0xFF1F1F1C);
-  static const Color borderBright = Color(0xFF3D3D36);
+  // --- Surface & Canvas System ---
+  static const Color background = Color(0xFF090A0D);
+  static const Color surface = Color(0xFF12141A);
+  static const Color surfaceElevated = Color(0xFF191C24);
+  static const Color surfaceHover = Color(0xFF222631);
+  static const Color border = Color(0xFF242834);
+  static const Color borderSubtle = Color(0xFF1A1D27);
+  static const Color borderBright = Color(0xFF383E50);
 
-  // Typography Palette
-  static const Color textPrimary = Color(0xFFF1EBDD);
-  static const Color textSecondary = Color(0xFFA9A396);
-  static const Color textMuted = Color(0xFF6E695F);
-  static const Color textInverse = Color(0xFF0E0E0C);
+  // --- Typography Palette ---
+  static const Color textPrimary = Color(0xFFF5F6F8);
+  static const Color textSecondary = Color(0xFF9DA2B3);
+  static const Color textMuted = Color(0xFF64687A);
+  static const Color textInverse = Color(0xFF090A0D);
 
-  // Brand Palette
-  static const Color brandGold = Color(0xFFD5A84B);
-  static const Color brandGoldBright = Color(0xFFE5BA5C);
-  static const Color brandGoldMuted = Color(0xFF8A6C2E);
-  static const Color terracotta = Color(0xFFB95745);
-  static const Color sageGreen = Color(0xFF879873);
+  // --- Signature Brand Accents ---
+  static const Color brandGold = Color(0xFFF59E0B);
+  static const Color brandGoldBright = Color(0xFFFBBF24);
+  static const Color brandGoldMuted = Color(0xFFB45309);
+  static const Color brandElectric = Color(0xFF3B82F6);
+  static const Color terracotta = Color(0xFFF43F5E);
+  static const Color sageGreen = Color(0xFF10B981);
 
-  // Game-Specific Controlled Accents
-  static const Color accentHangman = Color(0xFFD5A84B); // Amber Gold
-  static const Color accentDots = Color(0xFF3B82F6);    // Electric Blue
-  static const Color accentQuoridor = Color(0xFFE06C54); // Coral Red
-  static const Color accentPentago = Color(0xFF10B981);  // Emerald
-  static const Color accentShutTheBox = Color(0xFFE5A93C); // Warm Bronze / Amber
-  static const Color accentCricket = Color(0xFF22C55E);  // Deep Field Green
-  static const Color accentReversi = Color(0xFF10B981);  // Tactile Emerald Green
-  static const Color accentUltimateTicTacToe = Color(0xFFF59E0B); // Amber Orange Gold
-  static const Color accentBingo = Color(0xFFF59E0B); // Warm Amber / Gold
-  static const Color accentRajaMantri = Color(0xFFD97706); // Warm Amber Royal Gold
-  static const Color accentBluff = Color(0xFF8B5CF6); // Royal Violet / Amethyst
-  static const Color accentSpyfall = Color(0xFFE11D48); // Espionage Crimson / Classified Red
-  static const Color accentMafia = Color(0xFFDC2626);   // Noir Blood Red / Mafia Crimson
+  // --- Game-Specific Cohesive Accents ---
+  static const Color accentHangman = Color(0xFFF59E0B);
+  static const Color accentDots = Color(0xFF3B82F6);
+  static const Color accentQuoridor = Color(0xFFF43F5E);
+  static const Color accentPentago = Color(0xFF10B981);
+  static const Color accentShutTheBox = Color(0xFFD97706);
+  static const Color accentCricket = Color(0xFF22C55E);
+  static const Color accentReversi = Color(0xFF14B8A6);
+  static const Color accentUltimateTicTacToe = Color(0xFFEAB308);
+  static const Color accentBingo = Color(0xFFF97316);
+  static const Color accentRajaMantri = Color(0xFFE11D48);
+  static const Color accentBluff = Color(0xFF8B5CF6);
+  static const Color accentSpyfall = Color(0xFFEC4899);
+  static const Color accentMafia = Color(0xFFEF4444);
+  static const Color accentHigherOrLower = Color(0xFF6366F1);
 
   static Color getGameAccent(String gameId) {
     switch (gameId.toLowerCase()) {
@@ -73,12 +77,15 @@ class PlayNedTokens {
       case 'mafia':
       case 'werewolf':
         return accentMafia;
+      case 'higher_or_lower':
+      case 'higher_lower':
+        return accentHigherOrLower;
       default:
         return brandGold;
     }
   }
 
-  // Spacing System
+  // --- Spatial Scale ---
   static const double space2 = 2.0;
   static const double space4 = 4.0;
   static const double space6 = 6.0;
@@ -94,89 +101,100 @@ class PlayNedTokens {
   static const double space40 = 40.0;
   static const double space48 = 48.0;
   static const double space64 = 64.0;
+  static const double space80 = 80.0;
 
-  // Border Radii
+  // --- Geometry Scale (No Squircles or Pill Clichés) ---
   static const double radiusXs = 4.0;
   static const double radiusSm = 6.0;
-  static const double radiusMd = 8.0;
-  static const double radiusLg = 12.0;
-  static const double radiusXl = 16.0;
-  static const double radiusPill = 999.0;
+  static const double radiusMd = 10.0;
+  static const double radiusLg = 14.0;
+  static const double radiusXl = 18.0;
+  static const double radiusPill = 20.0;
   static const double radiusFull = 999.0;
 
-  // Animation Timings
+  // --- Motion Design Principles ---
   static const Duration animMicro = Duration(milliseconds: 140);
-  static const Duration animFast = Duration(milliseconds: 180);
-  static const Duration animStandard = Duration(milliseconds: 220);
-  static const Duration animPage = Duration(milliseconds: 320);
+  static const Duration animFast = Duration(milliseconds: 200);
+  static const Duration animStandard = Duration(milliseconds: 300);
+  static const Duration animPage = Duration(milliseconds: 450);
   static const Curve animCurve = Curves.easeOutCubic;
+  static const Curve animSpringCurve = Curves.easeOutQuart;
 
-  // Breakpoints
+  // --- Breakpoints ---
   static const double bpMobile = 600.0;
   static const double bpTablet = 960.0;
   static const double bpDesktop = 1200.0;
   static const double breakpointSm = 600.0;
   static const double breakpointMd = 768.0;
   static const double breakpointLg = 1024.0;
+  static const double breakpointXl = 1380.0;
 
-  // Typography Styles
-  static TextStyle get heroDisplay => GoogleFonts.dmSerifDisplay(
-        fontSize: 36,
+  // --- Typography: Bold, Contemporary, Readable ---
+  static TextStyle get heroDisplay => GoogleFonts.plusJakartaSans(
+        fontSize: 48,
+        fontWeight: FontWeight.w800,
         color: textPrimary,
-        height: 1.15,
-        letterSpacing: 0.5,
+        height: 1.08,
+        letterSpacing: -1.0,
       );
 
   static TextStyle get heroTitle => heroDisplay;
 
-  static TextStyle get sectionHeading => GoogleFonts.dmSerifDisplay(
-        fontSize: 24,
+  static TextStyle get sectionHeading => GoogleFonts.plusJakartaSans(
+        fontSize: 28,
+        fontWeight: FontWeight.w700,
         color: textPrimary,
-        letterSpacing: 0.3,
+        height: 1.2,
+        letterSpacing: -0.5,
       );
 
   static TextStyle get sectionHeader => sectionHeading;
 
-  static TextStyle get gameTitle => GoogleFonts.dmSerifDisplay(
+  static TextStyle get gameTitle => GoogleFonts.plusJakartaSans(
         fontSize: 20,
+        fontWeight: FontWeight.w700,
         color: textPrimary,
-        letterSpacing: 0.4,
+        letterSpacing: -0.3,
       );
 
   static TextStyle get gameTagline => GoogleFonts.inter(
-        fontSize: 13,
+        fontSize: 13.5,
+        fontWeight: FontWeight.w400,
         color: textSecondary,
-        height: 1.4,
-      );
-
-  static TextStyle get cardTitle => GoogleFonts.dmSerifDisplay(
-        fontSize: 17,
-        color: textPrimary,
-        letterSpacing: 0.2,
-      );
-
-  static TextStyle get body => GoogleFonts.inter(
-        fontSize: 14,
-        color: textPrimary,
         height: 1.45,
       );
 
+  static TextStyle get cardTitle => GoogleFonts.plusJakartaSans(
+        fontSize: 18,
+        fontWeight: FontWeight.w700,
+        color: textPrimary,
+        letterSpacing: -0.2,
+      );
+
+  static TextStyle get body => GoogleFonts.inter(
+        fontSize: 14.5,
+        fontWeight: FontWeight.w400,
+        color: textPrimary,
+        height: 1.5,
+      );
+
   static TextStyle get bodyMuted => GoogleFonts.inter(
-        fontSize: 13,
+        fontSize: 13.5,
+        fontWeight: FontWeight.w400,
         color: textSecondary,
-        height: 1.4,
+        height: 1.45,
       );
 
   static TextStyle get metadata => GoogleFonts.inter(
-        fontSize: 10.5,
-        fontWeight: FontWeight.bold,
-        letterSpacing: 1.2,
+        fontSize: 11.5,
+        fontWeight: FontWeight.w600,
         color: textSecondary,
+        letterSpacing: 0.2,
       );
 
-  static TextStyle get buttonLabel => GoogleFonts.inter(
-        fontSize: 12.5,
-        fontWeight: FontWeight.bold,
-        letterSpacing: 0.8,
+  static TextStyle get buttonLabel => GoogleFonts.plusJakartaSans(
+        fontSize: 13.5,
+        fontWeight: FontWeight.w600,
+        letterSpacing: 0.1,
       );
 }

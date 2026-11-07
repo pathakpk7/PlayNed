@@ -69,6 +69,9 @@ class GameCardVisual extends StatelessWidget {
       case 'mafia':
       case 'werewolf':
         return _MafiaVisual(accentColor: accentColor, isHovered: isHovered);
+      case 'higher_or_lower':
+      case 'higher_lower':
+        return _HigherOrLowerVisual(accentColor: accentColor, isHovered: isHovered);
       default:
         return Center(
           child: Icon(Icons.sports_esports, size: 36, color: accentColor.withOpacity(0.5)),
@@ -1376,4 +1379,114 @@ class _MafiaVisual extends StatelessWidget {
     );
   }
 }
+
+/// 14. Higher or Lower Visual: Playing cards with up/down arrows
+class _HigherOrLowerVisual extends StatelessWidget {
+  final Color accentColor;
+  final bool isHovered;
+
+  const _HigherOrLowerVisual({required this.accentColor, required this.isHovered});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // Base Card
+          AnimatedContainer(
+            duration: PlayNedTokens.animFast,
+            width: 48,
+            height: 68,
+            decoration: BoxDecoration(
+              color: PlayNedTokens.surfaceElevated,
+              borderRadius: BorderRadius.circular(6),
+              border: Border.all(color: accentColor.withOpacity(0.6), width: 1.2),
+              boxShadow: [
+                BoxShadow(
+                  color: accentColor.withOpacity(isHovered ? 0.25 : 0.1),
+                  blurRadius: 8,
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'K',
+                  style: GoogleFonts.plusJakartaSans(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w800,
+                    color: accentColor,
+                  ),
+                ),
+                Icon(Icons.favorite, size: 14, color: accentColor),
+              ],
+            ),
+          ),
+          const SizedBox(width: 14),
+          // Direction Predictor Indicators
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AnimatedContainer(
+                duration: PlayNedTokens.animFast,
+                padding: const EdgeInsets.all(4),
+                decoration: BoxDecoration(
+                  color: isHovered ? accentColor : accentColor.withOpacity(0.15),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.arrow_upward,
+                  size: 14,
+                  color: isHovered ? PlayNedTokens.textInverse : accentColor,
+                ),
+              ),
+              const SizedBox(height: 8),
+              AnimatedContainer(
+                duration: PlayNedTokens.animFast,
+                padding: const EdgeInsets.all(4),
+                decoration: BoxDecoration(
+                  color: !isHovered ? accentColor.withOpacity(0.2) : accentColor.withOpacity(0.1),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.arrow_downward,
+                  size: 14,
+                  color: accentColor.withOpacity(0.8),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(width: 14),
+          // Hidden / Next Card
+          AnimatedContainer(
+            duration: PlayNedTokens.animFast,
+            width: 48,
+            height: 68,
+            decoration: BoxDecoration(
+              color: PlayNedTokens.background,
+              borderRadius: BorderRadius.circular(6),
+              border: Border.all(
+                color: isHovered ? accentColor : PlayNedTokens.borderSubtle,
+                width: 1.2,
+              ),
+            ),
+            child: Center(
+              child: Text(
+                '?',
+                style: GoogleFonts.plusJakartaSans(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
+                  color: isHovered ? accentColor : PlayNedTokens.textMuted,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 

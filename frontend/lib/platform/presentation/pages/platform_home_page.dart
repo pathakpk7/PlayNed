@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,17 +24,17 @@ class _PlatformHomePageState extends ConsumerState<PlatformHomePage> {
   final GlobalKey _exploreKey = GlobalKey();
   final GlobalKey _quickPlayKey = GlobalKey();
 
-  String _selectedCategory = 'ALL';
+  String _selectedCategory = 'All';
   List<GameMetadata> _games = PlayNedGameRegistry.allGames;
   bool _isLoading = false;
 
   final List<String> _categories = [
-    'ALL',
-    'BOARD',
-    'STRATEGY',
-    'WORD & PUZZLE',
-    'SPORTS',
-    'CASUAL',
+    'All',
+    'Board',
+    'Strategy',
+    'Word & Puzzle',
+    'Sports',
+    'Casual',
   ];
 
   @override
@@ -69,29 +70,29 @@ class _PlatformHomePageState extends ConsumerState<PlatformHomePage> {
     if (context != null) {
       Scrollable.ensureVisible(
         context,
-        duration: const Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: 550),
         curve: PlayNedTokens.animCurve,
       );
     }
   }
 
   List<GameMetadata> _getFilteredGames() {
-    if (_selectedCategory == 'ALL') return _games;
+    if (_selectedCategory == 'All') return _games;
     return _games.where((g) {
-      final cat = g.category.toUpperCase();
+      final cat = g.category.toLowerCase();
       switch (_selectedCategory) {
-        case 'BOARD':
-          return cat.contains('BOARD') || g.id == 'quoridor' || g.id == 'pentago' || g.id == 'dots_and_boxes';
-        case 'STRATEGY':
-          return cat.contains('STRAT') || g.id == 'quoridor' || g.id == 'pentago' || g.id == 'cricket';
-        case 'WORD & PUZZLE':
-          return cat.contains('WORD') || cat.contains('PUZZLE') || g.id == 'hangman';
-        case 'SPORTS':
-          return cat.contains('SPORT') || g.id == 'cricket';
-        case 'CASUAL':
-          return cat.contains('CASUAL') || g.id == 'shut_the_box' || g.id == 'dots_and_boxes';
+        case 'Board':
+          return cat.contains('board') || g.id == 'quoridor' || g.id == 'pentago' || g.id == 'dots_and_boxes' || g.id == 'reversi';
+        case 'Strategy':
+          return cat.contains('strat') || g.id == 'quoridor' || g.id == 'pentago' || g.id == 'cricket' || g.id == 'ultimate_tic_tac_toe';
+        case 'Word & Puzzle':
+          return cat.contains('word') || cat.contains('puzzle') || g.id == 'hangman';
+        case 'Sports':
+          return cat.contains('sport') || g.id == 'cricket';
+        case 'Casual':
+          return cat.contains('casual') || g.id == 'shut_the_box' || g.id == 'dots_and_boxes' || g.id == 'bingo' || g.id == 'higher_or_lower';
         default:
-          return cat.contains(_selectedCategory);
+          return cat.contains(_selectedCategory.toLowerCase());
       }
     }).toList();
   }
@@ -125,11 +126,11 @@ class _PlatformHomePageState extends ConsumerState<PlatformHomePage> {
           controller: _scrollController,
           child: Center(
             child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 1600),
+              constraints: const BoxConstraints(maxWidth: 1440),
               child: Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: PlayNedTokens.space24,
-                  vertical: PlayNedTokens.space24,
+                  vertical: PlayNedTokens.space32,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -137,27 +138,27 @@ class _PlatformHomePageState extends ConsumerState<PlatformHomePage> {
                     // 1. HERO SECTION
                     _buildHeroSection(context),
 
-                    const SizedBox(height: PlayNedTokens.space32),
+                    const SizedBox(height: PlayNedTokens.space64),
 
-                    // 2. QUICK PLAY LAUNCHER
+                    // 2. QUICK PLAY STRIP
                     _buildQuickPlaySection(context),
 
-                    const SizedBox(height: PlayNedTokens.space40),
+                    const SizedBox(height: PlayNedTokens.space64),
 
-                    // 3. EXPLORE GAMES / CATALOG
+                    // 3. EXPLORE GAMES CATALOG
                     _buildExploreSection(context, filteredGames),
 
-                    const SizedBox(height: PlayNedTokens.space48),
+                    const SizedBox(height: PlayNedTokens.space64),
 
-                    // 4. MULTIPLAYER / PLAY WITH FRIENDS
+                    // 4. MULTIPLAYER SECTION
                     _buildMultiplayerSection(context),
 
-                    const SizedBox(height: PlayNedTokens.space48),
+                    const SizedBox(height: PlayNedTokens.space80),
 
-                    // 5. EDITORIAL FOOTER
+                    // 5. REFINED FOOTER
                     _buildFooter(context),
 
-                    const SizedBox(height: PlayNedTokens.space24),
+                    const SizedBox(height: PlayNedTokens.space32),
                   ],
                 ),
               ),
@@ -171,203 +172,153 @@ class _PlatformHomePageState extends ConsumerState<PlatformHomePage> {
   // --- 1. HERO SECTION ---
   Widget _buildHeroSection(BuildContext context) {
     final isDesktop = MediaQuery.of(context).size.width >= PlayNedTokens.breakpointMd;
+    final isMobile = MediaQuery.of(context).size.width < PlayNedTokens.breakpointSm;
 
     return Container(
       width: double.infinity,
+      padding: EdgeInsets.symmetric(
+        horizontal: isDesktop ? PlayNedTokens.space48 : PlayNedTokens.space24,
+        vertical: isDesktop ? PlayNedTokens.space64 : PlayNedTokens.space40,
+      ),
       decoration: BoxDecoration(
         color: PlayNedTokens.surface,
         borderRadius: BorderRadius.circular(PlayNedTokens.radiusLg),
-        border: Border.all(
-          color: PlayNedTokens.brandGold.withOpacity(0.35),
-          width: 1.2,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.4),
-            blurRadius: 20,
-            offset: const Offset(0, 8),
-          ),
-        ],
+        border: Border.all(color: PlayNedTokens.borderSubtle),
       ),
-      child: Stack(
-        children: [
-          // Background 2D Geometric Universe Elements
-          Positioned.fill(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(PlayNedTokens.radiusLg),
-              child: CustomPaint(
-                painter: _HeroUniversePainter(),
-              ),
-            ),
-          ),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Hero Editorial Typography & CTAs
+              Expanded(
+                flex: 7,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Headline
+                    Text(
+                      "One platform, endless ways to play",
+                      style: (isDesktop
+                              ? PlayNedTokens.heroDisplay
+                              : GoogleFonts.plusJakartaSans(
+                                  fontSize: isMobile ? 32 : 38,
+                                  fontWeight: FontWeight.w800,
+                                  height: 1.12,
+                                  color: PlayNedTokens.textPrimary,
+                                  letterSpacing: -0.8,
+                                ))
+                          .copyWith(color: PlayNedTokens.textPrimary),
+                    )
+                        .animate()
+                        .fadeIn(duration: 400.ms, curve: Curves.easeOutCubic)
+                        .slideY(begin: 0.12, end: 0),
 
-          // Content
-          Padding(
-            padding: EdgeInsets.all(isDesktop ? PlayNedTokens.space32 : PlayNedTokens.space20),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Tag & Badge
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3.5),
-                            decoration: BoxDecoration(
-                              color: PlayNedTokens.brandGold,
-                              borderRadius: BorderRadius.circular(PlayNedTokens.radiusXs),
-                            ),
-                            child: Text(
-                              "PLAYNED V1.4.3",
-                              style: GoogleFonts.inter(
-                                fontSize: 9.5,
-                                fontWeight: FontWeight.w900,
-                                letterSpacing: 1.4,
-                                color: PlayNedTokens.textInverse,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: PlayNedTokens.space10),
-                          Text(
-                            "MODULAR 2D MULTIPLAYER",
-                            style: PlayNedTokens.metadata.copyWith(
-                              color: PlayNedTokens.textSecondary,
-                              fontSize: 10,
-                            ),
-                          ),
-                        ],
-                      ),
+                    const SizedBox(height: PlayNedTokens.space16),
 
-                      const SizedBox(height: PlayNedTokens.space16),
-
-                      // Hero Headline
-                      Text(
-                        "ONE PLATFORM.\nMANY WAYS TO PLAY.",
-                        style: isDesktop
-                            ? PlayNedTokens.heroDisplay
-                            : GoogleFonts.dmSerifDisplay(
-                                fontSize: 28,
-                                height: 1.15,
-                                color: PlayNedTokens.textPrimary,
-                                letterSpacing: 0.5,
-                              ),
-                      ),
-
-                      const SizedBox(height: PlayNedTokens.space12),
-
-                      // Supporting Copy
-                      ConstrainedBox(
-                        constraints: const BoxConstraints(maxWidth: 580),
-                        child: Text(
-                          "Board games, word games, strategy, sports, and quick competitive matches — play solo, pass the screen, or invite a friend with 6-character room codes.",
-                          style: PlayNedTokens.bodyMuted.copyWith(
-                            fontSize: isDesktop ? 14 : 12.5,
-                            height: 1.45,
-                          ),
+                    // Subtitle Narrative
+                    ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 580),
+                      child: Text(
+                        "Step into strategic board classics, word deduction, tactical sports, and high-stakes card matches. Play solo against intelligent AI, pass the device locally, or invite friends with instant room codes",
+                        style: PlayNedTokens.body.copyWith(
+                          color: PlayNedTokens.textSecondary,
+                          fontSize: isDesktop ? 16 : 14,
+                          height: 1.55,
                         ),
                       ),
+                    )
+                        .animate()
+                        .fadeIn(delay: 150.ms, duration: 450.ms, curve: Curves.easeOutCubic)
+                        .slideY(begin: 0.12, end: 0),
 
-                      const SizedBox(height: PlayNedTokens.space24),
+                    const SizedBox(height: PlayNedTokens.space32),
 
-                      // CTAs
-                      Wrap(
-                        spacing: PlayNedTokens.space12,
-                        runSpacing: PlayNedTokens.space10,
-                        children: [
-                          PlayNedButton(
-                            label: "EXPLORE GAMES",
-                            icon: Icons.grid_view_rounded,
-                            variant: PlayNedButtonVariant.primary,
-                            onPressed: () => _scrollToKey(_exploreKey),
-                          ),
-                          PlayNedButton(
-                            label: "IPL MINI AUCTION",
-                            icon: Icons.gavel,
-                            variant: PlayNedButtonVariant.secondary,
-                            customAccent: PlayNedTokens.brandGold,
-                            onPressed: () => context.push('/games/cricket/auction'),
-                          ),
-                          PlayNedButton(
-                            label: "JOIN A ROOM",
-                            icon: Icons.meeting_room_outlined,
-                            variant: PlayNedButtonVariant.outlined,
-                            onPressed: _showJoinRoom,
-                          ),
-                          PlayNedButton(
-                            label: "CREATE MATCH",
-                            icon: Icons.add_circle_outline,
-                            variant: PlayNedButtonVariant.secondary,
-                            onPressed: _showCreateRoom,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-
-                if (isDesktop) ...[
-                  const SizedBox(width: PlayNedTokens.space24),
-                  Container(
-                    width: 140,
-                    height: 140,
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: PlayNedTokens.surfaceElevated,
-                      shape: BoxShape.circle,
-                      border: Border.all(color: PlayNedTokens.brandGold.withOpacity(0.4), width: 1.5),
-                      boxShadow: [
-                        BoxShadow(
-                          color: PlayNedTokens.brandGold.withOpacity(0.18),
-                          blurRadius: 28,
-                          spreadRadius: 4,
+                    // Call to Action Buttons
+                    Wrap(
+                      spacing: PlayNedTokens.space12,
+                      runSpacing: PlayNedTokens.space12,
+                      children: [
+                        PlayNedButton(
+                          label: "Browse games",
+                          icon: Icons.grid_view_rounded,
+                          variant: PlayNedButtonVariant.primary,
+                          onPressed: () => _scrollToKey(_exploreKey),
+                        ),
+                        PlayNedButton(
+                          label: "IPL Mini Auction",
+                          icon: Icons.gavel,
+                          variant: PlayNedButtonVariant.secondary,
+                          customAccent: PlayNedTokens.brandGold,
+                          onPressed: () => context.push('/games/cricket/auction'),
+                        ),
+                        PlayNedButton(
+                          label: "Join match",
+                          icon: Icons.meeting_room_outlined,
+                          variant: PlayNedButtonVariant.outlined,
+                          onPressed: _showJoinRoom,
+                        ),
+                        PlayNedButton(
+                          label: "Host room",
+                          icon: Icons.add,
+                          variant: PlayNedButtonVariant.ghost,
+                          onPressed: _showCreateRoom,
                         ),
                       ],
-                    ),
-                    child: const Center(
-                      child: PlayNedLogo(
-                        size: 110,
-                        showText: false,
-                      ),
-                    ),
-                  ),
-                ],
+                    )
+                        .animate()
+                        .fadeIn(delay: 250.ms, duration: 500.ms, curve: Curves.easeOutCubic)
+                        .slideY(begin: 0.12, end: 0),
+                  ],
+                ),
+              ),
+
+              // Interactive Graphic Preview Showcase
+              if (isDesktop) ...[
+                const SizedBox(width: PlayNedTokens.space40),
+                Expanded(
+                  flex: 5,
+                  child: _HeroInteractiveShowcase(
+                    games: _games,
+                    onGameSelect: (game) => context.push('/games/${game.id}'),
+                  )
+                      .animate()
+                      .fadeIn(delay: 200.ms, duration: 600.ms, curve: Curves.easeOutCubic)
+                      .scale(begin: const Offset(0.96, 0.96), end: const Offset(1, 1)),
+                ),
               ],
-            ),
-          ),
-        ],
+            ],
+          );
+        },
       ),
     );
   }
 
-  // --- 2. QUICK PLAY LAUNCHER STRIP ---
+  // --- 2. QUICK PLAY SECTION ---
   Widget _buildQuickPlaySection(BuildContext context) {
     return Column(
       key: _quickPlayKey,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SectionHeader(
-          tag: "INSTANT ACCESS",
-          title: "QUICK PLAY",
-          subtitle: "Jump straight into a match without setup",
+          title: "Quick play",
+          subtitle: "Jump straight into a match without room creation",
         ),
-        const SizedBox(height: PlayNedTokens.space14),
+        const SizedBox(height: PlayNedTokens.space20),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
+          physics: const BouncingScrollPhysics(),
           child: Row(
             children: [
               Padding(
-                padding: const EdgeInsets.only(right: PlayNedTokens.space12),
-                child: _FeaturedAuctionQuickPlayCard(
+                padding: const EdgeInsets.only(right: PlayNedTokens.space14),
+                child: _FeaturedAuctionQuickCard(
                   onTap: () => context.push('/games/cricket/auction'),
                 ),
               ),
               ..._games.map((game) {
                 return Padding(
-                  padding: const EdgeInsets.only(right: PlayNedTokens.space12),
+                  padding: const EdgeInsets.only(right: PlayNedTokens.space14),
                   child: _QuickPlayCard(
                     game: game,
                     onTap: () => context.push('/games/${game.id}'),
@@ -388,65 +339,74 @@ class _PlatformHomePageState extends ConsumerState<PlatformHomePage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SectionHeader(
-          tag: "CATALOG",
-          title: "EXPLORE GAMES",
-          subtitle: "Discover all ${_games.length} titles available on PlayNed",
+          title: "Explore games",
+          subtitle: "Explore the complete collection of board, word, and strategy games",
           trailing: Text(
-            "${filteredGames.length} OF ${_games.length} GAMES",
-            style: PlayNedTokens.metadata.copyWith(fontSize: 10, color: PlayNedTokens.textMuted),
+            "${filteredGames.length} titles available",
+            style: GoogleFonts.inter(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: PlayNedTokens.textMuted,
+            ),
           ),
         ),
 
-        const SizedBox(height: PlayNedTokens.space16),
+        const SizedBox(height: PlayNedTokens.space24),
 
-        // Category Filter Tabs
+        // Clean Category Switcher (No pill chip clichés)
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
+          physics: const BouncingScrollPhysics(),
           child: Row(
             children: _categories.map((cat) {
               final isSelected = _selectedCategory == cat;
               return Padding(
                 padding: const EdgeInsets.only(right: PlayNedTokens.space8),
-                child: ChoiceChip(
-                  label: Text(cat),
-                  selected: isSelected,
-                  showCheckmark: false,
-                  selectedColor: PlayNedTokens.brandGold.withOpacity(0.2),
-                  backgroundColor: PlayNedTokens.surface,
-                  side: BorderSide(
-                    color: isSelected ? PlayNedTokens.brandGold : PlayNedTokens.border,
-                    width: isSelected ? 1.2 : 0.8,
+                child: GestureDetector(
+                  onTap: () => setState(() => _selectedCategory = cat),
+                  child: AnimatedContainer(
+                    duration: PlayNedTokens.animFast,
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    decoration: BoxDecoration(
+                      color: isSelected ? PlayNedTokens.surfaceElevated : Colors.transparent,
+                      borderRadius: BorderRadius.circular(PlayNedTokens.radiusSm),
+                      border: Border.all(
+                        color: isSelected ? PlayNedTokens.borderBright : Colors.transparent,
+                        width: 1,
+                      ),
+                    ),
+                    child: Text(
+                      cat,
+                      style: GoogleFonts.plusJakartaSans(
+                        fontSize: 13,
+                        fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                        color: isSelected ? PlayNedTokens.textPrimary : PlayNedTokens.textSecondary,
+                      ),
+                    ),
                   ),
-                  labelStyle: GoogleFonts.inter(
-                    fontSize: 10.5,
-                    fontWeight: isSelected ? FontWeight.w800 : FontWeight.w500,
-                    letterSpacing: 0.8,
-                    color: isSelected ? PlayNedTokens.brandGold : PlayNedTokens.textSecondary,
-                  ),
-                  onSelected: (_) => setState(() => _selectedCategory = cat),
                 ),
               );
             }).toList(),
           ),
         ),
 
-        const SizedBox(height: PlayNedTokens.space20),
+        const SizedBox(height: PlayNedTokens.space28),
 
         // Responsive Grid
         LayoutBuilder(
           builder: (context, constraints) {
             int crossAxisCount = 1;
-            double childAspectRatio = 1.20;
+            double childAspectRatio = 1.15;
 
-            if (constraints.maxWidth >= 1380) {
+            if (constraints.maxWidth >= 1200) {
               crossAxisCount = 4;
-              childAspectRatio = 0.98;
-            } else if (constraints.maxWidth >= 980) {
+              childAspectRatio = 0.95;
+            } else if (constraints.maxWidth >= 900) {
               crossAxisCount = 3;
-              childAspectRatio = 1.05;
-            } else if (constraints.maxWidth >= 640) {
+              childAspectRatio = 1.0;
+            } else if (constraints.maxWidth >= 600) {
               crossAxisCount = 2;
-              childAspectRatio = 1.20;
+              childAspectRatio = 1.12;
             }
 
             return GridView.builder(
@@ -455,13 +415,20 @@ class _PlatformHomePageState extends ConsumerState<PlatformHomePage> {
               itemCount: filteredGames.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: crossAxisCount,
-                crossAxisSpacing: PlayNedTokens.space16,
-                mainAxisSpacing: PlayNedTokens.space16,
+                crossAxisSpacing: PlayNedTokens.space20,
+                mainAxisSpacing: PlayNedTokens.space20,
                 childAspectRatio: childAspectRatio,
               ),
               itemBuilder: (context, index) {
                 final game = filteredGames[index];
-                return PlayNedGameCard(game: game);
+                return PlayNedGameCard(game: game)
+                    .animate()
+                    .fadeIn(
+                      delay: Duration(milliseconds: (index * 40).clamp(0, 400)),
+                      duration: 350.ms,
+                      curve: Curves.easeOutCubic,
+                    )
+                    .slideY(begin: 0.08, end: 0);
               },
             );
           },
@@ -470,93 +437,112 @@ class _PlatformHomePageState extends ConsumerState<PlatformHomePage> {
     );
   }
 
-  // --- 4. MULTIPLAYER / PLAY WITH FRIENDS ---
+  // --- 4. MULTIPLAYER SECTION ---
   Widget _buildMultiplayerSection(BuildContext context) {
     final isDesktop = MediaQuery.of(context).size.width >= PlayNedTokens.breakpointMd;
 
     return Container(
-      padding: EdgeInsets.all(isDesktop ? PlayNedTokens.space28 : PlayNedTokens.space20),
+      padding: EdgeInsets.all(isDesktop ? PlayNedTokens.space40 : PlayNedTokens.space24),
       decoration: BoxDecoration(
         color: PlayNedTokens.surface,
         borderRadius: BorderRadius.circular(PlayNedTokens.radiusLg),
-        border: Border.all(color: PlayNedTokens.border, width: 1.0),
+        border: Border.all(color: PlayNedTokens.borderSubtle),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                padding: const EdgeInsets.all(PlayNedTokens.space10),
-                decoration: BoxDecoration(
-                  color: PlayNedTokens.brandGold.withOpacity(0.15),
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(Icons.people_alt_outlined, color: PlayNedTokens.brandGold, size: 22),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Play with friends anywhere",
+                          style: PlayNedTokens.sectionHeading,
+                        ),
+                        const SizedBox(height: 6),
+                        Text(
+                          "Instant cross-platform rooms with zero downloads or configuration",
+                          style: PlayNedTokens.bodyMuted,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(width: PlayNedTokens.space12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("PLAY WITH FRIENDS", style: PlayNedTokens.gameTitle),
-                    Text("Zero installs, cross-platform multiplayer in 3 simple steps", style: PlayNedTokens.bodyMuted.copyWith(fontSize: 12)),
-                  ],
-                ),
+
+              const SizedBox(height: PlayNedTokens.space32),
+
+              // Steps without artificial "01, 02, 03" numbering
+              LayoutBuilder(
+                builder: (context, stepConstraints) {
+                  final stepCards = [
+                    _buildFeatureItem(
+                      icon: Icons.add_circle_outline,
+                      title: "Host a table",
+                      description: "Select your game and generate a private 6-character room code instantly.",
+                    ),
+                    _buildFeatureItem(
+                      icon: Icons.share_outlined,
+                      title: "Invite your circle",
+                      description: "Send the code or link to your friends on mobile, laptop, or tablet.",
+                    ),
+                    _buildFeatureItem(
+                      icon: Icons.bolt,
+                      title: "Play in real time",
+                      description: "Synchronized turns, live state management, and instant rematching.",
+                    ),
+                  ];
+
+                  if (stepConstraints.maxWidth >= PlayNedTokens.breakpointMd) {
+                    return Row(
+                      children: stepCards.map((c) => Expanded(child: Padding(padding: const EdgeInsets.symmetric(horizontal: 8), child: c))).toList(),
+                    );
+                  } else {
+                    return Column(
+                      children: stepCards.map((c) => Padding(padding: const EdgeInsets.only(bottom: 12), child: c)).toList(),
+                    );
+                  }
+                },
+              ),
+
+              const SizedBox(height: PlayNedTokens.space32),
+
+              // Action Buttons
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  PlayNedButton(
+                    label: "Join with code",
+                    variant: PlayNedButtonVariant.outlined,
+                    onPressed: _showJoinRoom,
+                  ),
+                  const SizedBox(width: PlayNedTokens.space12),
+                  PlayNedButton(
+                    label: "Start new match",
+                    variant: PlayNedButtonVariant.primary,
+                    onPressed: _showCreateRoom,
+                  ),
+                ],
               ),
             ],
-          ),
-
-          const SizedBox(height: PlayNedTokens.space24),
-
-          // 3-Step Flow Row
-          LayoutBuilder(
-            builder: (context, constraints) {
-              final stepCards = [
-                _buildStepItem("01", "CREATE ROOM", "Select your game and generate a private 6-character room code."),
-                _buildStepItem("02", "SHARE CODE", "Send the code or link to your friends on mobile, desktop, or tablet."),
-                _buildStepItem("03", "PLAY TOGETHER", "Real-time state sync with live turns and instant rematching."),
-              ];
-
-              if (constraints.maxWidth >= PlayNedTokens.breakpointMd) {
-                return Row(
-                  children: stepCards.map((c) => Expanded(child: Padding(padding: const EdgeInsets.symmetric(horizontal: 6), child: c))).toList(),
-                );
-              } else {
-                return Column(
-                  children: stepCards.map((c) => Padding(padding: const EdgeInsets.only(bottom: 12), child: c)).toList(),
-                );
-              }
-            },
-          ),
-
-          const SizedBox(height: PlayNedTokens.space24),
-
-          // Action Buttons
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              PlayNedButton(
-                label: "JOIN EXISTING ROOM",
-                variant: PlayNedButtonVariant.outlined,
-                onPressed: _showJoinRoom,
-              ),
-              const SizedBox(width: PlayNedTokens.space12),
-              PlayNedButton(
-                label: "START A NEW MATCH",
-                variant: PlayNedButtonVariant.primary,
-                onPressed: _showCreateRoom,
-              ),
-            ],
-          ),
-        ],
+          );
+        },
       ),
     );
   }
 
-  Widget _buildStepItem(String number, String title, String description) {
+  Widget _buildFeatureItem({
+    required IconData icon,
+    required String title,
+    required String description,
+  }) {
     return Container(
-      padding: const EdgeInsets.all(PlayNedTokens.space16),
+      padding: const EdgeInsets.all(PlayNedTokens.space20),
       decoration: BoxDecoration(
         color: PlayNedTokens.surfaceElevated,
         borderRadius: BorderRadius.circular(PlayNedTokens.radiusMd),
@@ -565,62 +551,228 @@ class _PlatformHomePageState extends ConsumerState<PlatformHomePage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            number,
-            style: GoogleFonts.inter(
-              fontSize: 20,
-              fontWeight: FontWeight.w900,
-              color: PlayNedTokens.brandGold,
-            ),
-          ),
-          const SizedBox(height: PlayNedTokens.space6),
+          Icon(icon, size: 22, color: PlayNedTokens.brandGold),
+          const SizedBox(height: PlayNedTokens.space14),
           Text(
             title,
-            style: PlayNedTokens.buttonLabel.copyWith(fontSize: 12, color: PlayNedTokens.textPrimary),
+            style: GoogleFonts.plusJakartaSans(
+              fontSize: 15,
+              fontWeight: FontWeight.w700,
+              color: PlayNedTokens.textPrimary,
+            ),
           ),
-          const SizedBox(height: PlayNedTokens.space4),
+          const SizedBox(height: 6),
           Text(
             description,
-            style: PlayNedTokens.bodyMuted.copyWith(fontSize: 11.5, height: 1.35),
+            style: PlayNedTokens.bodyMuted.copyWith(fontSize: 13, height: 1.45),
           ),
         ],
       ),
     );
   }
 
-  // --- 5. FOOTER ---
+  // --- 5. REFINED FOOTER ---
   Widget _buildFooter(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              children: [
+                const PlayNedLogo(size: 24, showText: true, fontSize: 13),
+                const SizedBox(width: PlayNedTokens.space16),
+                Text(
+                  "Curated multiplayer gaming",
+                  style: GoogleFonts.inter(fontSize: 12, color: PlayNedTokens.textMuted),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                _FooterLink(label: "Games", onTap: () => _scrollToKey(_exploreKey)),
+                const SizedBox(width: PlayNedTokens.space16),
+                _FooterLink(label: "Settings", onTap: () => context.push('/settings')),
+              ],
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class _FooterLink extends StatefulWidget {
+  final String label;
+  final VoidCallback onTap;
+
+  const _FooterLink({required this.label, required this.onTap});
+
+  @override
+  State<_FooterLink> createState() => _FooterLinkState();
+}
+
+class _FooterLinkState extends State<_FooterLink> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: Text(
+          widget.label,
+          style: GoogleFonts.inter(
+            fontSize: 12.5,
+            fontWeight: FontWeight.w500,
+            color: _isHovered ? PlayNedTokens.textPrimary : PlayNedTokens.textMuted,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Interactive Hero Showcase Component
+class _HeroInteractiveShowcase extends StatefulWidget {
+  final List<GameMetadata> games;
+  final ValueChanged<GameMetadata> onGameSelect;
+
+  const _HeroInteractiveShowcase({
+    required this.games,
+    required this.onGameSelect,
+  });
+
+  @override
+  State<_HeroInteractiveShowcase> createState() => _HeroInteractiveShowcaseState();
+}
+
+class _HeroInteractiveShowcaseState extends State<_HeroInteractiveShowcase> {
+  int _activeIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget.games.isEmpty) return const SizedBox.shrink();
+    final activeGame = widget.games[_activeIndex % widget.games.length];
+
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: PlayNedTokens.space24),
-      decoration: const BoxDecoration(
-        border: Border(top: BorderSide(color: PlayNedTokens.borderSubtle, width: 1.0)),
+      padding: const EdgeInsets.all(PlayNedTokens.space24),
+      decoration: BoxDecoration(
+        color: PlayNedTokens.surfaceElevated,
+        borderRadius: BorderRadius.circular(PlayNedTokens.radiusMd),
+        border: Border.all(color: PlayNedTokens.border),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  const PlayNedLogo(size: 22, showText: true, fontSize: 11),
-                  const SizedBox(width: PlayNedTokens.space12),
-                  Text(
-                    "ONE PLATFORM. MANY WAYS TO PLAY.",
-                    style: PlayNedTokens.metadata.copyWith(fontSize: 9.5, color: PlayNedTokens.textMuted),
-                  ),
-                ],
-              ),
               Text(
-                "VERSION 1.4.3",
-                style: PlayNedTokens.metadata.copyWith(fontSize: 9.5, color: PlayNedTokens.textMuted),
+                "Featured Spotlight",
+                style: GoogleFonts.inter(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: PlayNedTokens.textMuted,
+                ),
+              ),
+              Row(
+                children: List.generate(
+                  widget.games.length.clamp(0, 4),
+                  (idx) => GestureDetector(
+                    onTap: () => setState(() => _activeIndex = idx),
+                    child: AnimatedContainer(
+                      duration: PlayNedTokens.animFast,
+                      margin: const EdgeInsets.only(left: 6),
+                      width: _activeIndex == idx ? 20 : 6,
+                      height: 6,
+                      decoration: BoxDecoration(
+                        color: _activeIndex == idx ? activeGame.accentColor : PlayNedTokens.borderBright,
+                        borderRadius: BorderRadius.circular(3),
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
-          const SizedBox(height: PlayNedTokens.space12),
-          Text(
-            "Built with Flutter, Python FastAPI, WebSockets & Neon PostgreSQL.",
-            style: PlayNedTokens.bodyMuted.copyWith(fontSize: 11),
-            textAlign: TextAlign.center,
+
+          const SizedBox(height: PlayNedTokens.space20),
+
+          // Visual Presentation
+          AnimatedSwitcher(
+            duration: PlayNedTokens.animStandard,
+            child: KeyedSubtree(
+              key: ValueKey(activeGame.id),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: activeGame.accentColor.withOpacity(0.12),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Icon(activeGame.icon, size: 24, color: activeGame.accentColor),
+                      ),
+                      const SizedBox(width: 14),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              activeGame.name,
+                              style: GoogleFonts.plusJakartaSans(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                                color: PlayNedTokens.textPrimary,
+                              ),
+                            ),
+                            Text(
+                              activeGame.category,
+                              style: GoogleFonts.inter(
+                                fontSize: 12,
+                                color: PlayNedTokens.textMuted,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 14),
+                  Text(
+                    activeGame.description,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    style: PlayNedTokens.bodyMuted.copyWith(height: 1.5),
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "${activeGame.minPlayers}–${activeGame.maxPlayers} Players • ~${activeGame.estimatedDurationMinutes} min",
+                        style: GoogleFonts.inter(fontSize: 12, color: PlayNedTokens.textMuted),
+                      ),
+                      PlayNedButton(
+                        label: "Play now",
+                        variant: PlayNedButtonVariant.primary,
+                        customAccent: activeGame.accentColor,
+                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                        onPressed: () => widget.onGameSelect(activeGame),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
       ),
@@ -628,7 +780,7 @@ class _PlatformHomePageState extends ConsumerState<PlatformHomePage> {
   }
 }
 
-/// Quick play horizontal mini card
+/// Quick Play Card
 class _QuickPlayCard extends StatefulWidget {
   final GameMetadata game;
   final VoidCallback onTap;
@@ -653,21 +805,22 @@ class _QuickPlayCardState extends State<_QuickPlayCard> {
       child: GestureDetector(
         onTap: widget.onTap,
         child: AnimatedContainer(
-          duration: PlayNedTokens.animMicro,
-          width: 155,
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+          duration: PlayNedTokens.animFast,
+          transform: Matrix4.translationValues(0, _isHovered ? -3 : 0, 0),
+          width: 175,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           decoration: BoxDecoration(
             color: _isHovered ? PlayNedTokens.surfaceElevated : PlayNedTokens.surface,
-            borderRadius: BorderRadius.circular(PlayNedTokens.radiusMd),
+            borderRadius: BorderRadius.circular(PlayNedTokens.radiusSm),
             border: Border.all(
-              color: _isHovered ? g.accentColor : PlayNedTokens.border,
+              color: _isHovered ? g.accentColor.withOpacity(0.5) : PlayNedTokens.borderSubtle,
               width: 1.0,
             ),
           ),
           child: Row(
             children: [
               Icon(g.icon, size: 20, color: g.accentColor),
-              const SizedBox(width: PlayNedTokens.space10),
+              const SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -677,15 +830,19 @@ class _QuickPlayCardState extends State<_QuickPlayCard> {
                       g.name,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.inter(
-                        fontSize: 11.5,
+                      style: GoogleFonts.plusJakartaSans(
+                        fontSize: 13,
                         fontWeight: FontWeight.w700,
                         color: PlayNedTokens.textPrimary,
                       ),
                     ),
+                    const SizedBox(height: 2),
                     Text(
-                      "~${g.estimatedDurationMinutes} MIN",
-                      style: PlayNedTokens.metadata.copyWith(fontSize: 8.5, color: PlayNedTokens.textMuted),
+                      "~${g.estimatedDurationMinutes} min",
+                      style: GoogleFonts.inter(
+                        fontSize: 11,
+                        color: PlayNedTokens.textMuted,
+                      ),
                     ),
                   ],
                 ),
@@ -699,16 +856,16 @@ class _QuickPlayCardState extends State<_QuickPlayCard> {
 }
 
 /// Featured IPL Mini Auction Quick Play Card
-class _FeaturedAuctionQuickPlayCard extends StatefulWidget {
+class _FeaturedAuctionQuickCard extends StatefulWidget {
   final VoidCallback onTap;
 
-  const _FeaturedAuctionQuickPlayCard({required this.onTap});
+  const _FeaturedAuctionQuickCard({required this.onTap});
 
   @override
-  State<_FeaturedAuctionQuickPlayCard> createState() => _FeaturedAuctionQuickPlayCardState();
+  State<_FeaturedAuctionQuickCard> createState() => _FeaturedAuctionQuickCardState();
 }
 
-class _FeaturedAuctionQuickPlayCardState extends State<_FeaturedAuctionQuickPlayCard> {
+class _FeaturedAuctionQuickCardState extends State<_FeaturedAuctionQuickCard> {
   bool _isHovered = false;
 
   @override
@@ -720,85 +877,44 @@ class _FeaturedAuctionQuickPlayCardState extends State<_FeaturedAuctionQuickPlay
       child: GestureDetector(
         onTap: widget.onTap,
         child: AnimatedContainer(
-          duration: PlayNedTokens.animMicro,
-          width: 190,
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+          duration: PlayNedTokens.animFast,
+          transform: Matrix4.translationValues(0, _isHovered ? -3 : 0, 0),
+          width: 200,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: _isHovered
-                  ? [const Color(0xFF2E2005), const Color(0xFF1B2B20)]
-                  : [const Color(0xFF221703), const Color(0xFF142219)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: BorderRadius.circular(PlayNedTokens.radiusMd),
+            color: _isHovered ? PlayNedTokens.surfaceElevated : PlayNedTokens.surface,
+            borderRadius: BorderRadius.circular(PlayNedTokens.radiusSm),
             border: Border.all(
-              color: PlayNedTokens.brandGold.withOpacity(_isHovered ? 1.0 : 0.7),
-              width: 1.4,
+              color: PlayNedTokens.brandGold.withOpacity(_isHovered ? 0.8 : 0.4),
+              width: 1.2,
             ),
-            boxShadow: [
-              BoxShadow(
-                color: PlayNedTokens.brandGold.withOpacity(_isHovered ? 0.35 : 0.15),
-                blurRadius: _isHovered ? 14 : 8,
-                offset: const Offset(0, 3),
-              ),
-            ],
           ),
           child: Row(
             children: [
-              Container(
-                padding: const EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  color: PlayNedTokens.brandGold.withOpacity(0.18),
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: const Icon(Icons.gavel, size: 20, color: PlayNedTokens.brandGold),
-              ),
-              const SizedBox(width: PlayNedTokens.space10),
+              Icon(Icons.gavel, size: 20, color: PlayNedTokens.brandGold),
+              const SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Row(
-                      children: [
-                        Flexible(
-                          child: Text(
-                            "IPL AUCTION",
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: GoogleFonts.inter(
-                              fontSize: 11.5,
-                              fontWeight: FontWeight.w800,
-                              color: PlayNedTokens.brandGold,
-                              letterSpacing: 0.5,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 4),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
-                          decoration: BoxDecoration(
-                            color: PlayNedTokens.brandGold,
-                            borderRadius: BorderRadius.circular(3),
-                          ),
-                          child: Text(
-                            "NEW",
-                            style: GoogleFonts.inter(
-                              fontSize: 7.5,
-                              fontWeight: FontWeight.w900,
-                              color: PlayNedTokens.textInverse,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
                     Text(
-                      "WAR ROOM • ₹120 CR",
-                      style: PlayNedTokens.metadata.copyWith(
-                        fontSize: 8.5,
+                      "IPL Auction",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.plusJakartaSans(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w800,
+                        color: PlayNedTokens.brandGold,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      "War Room • ₹120 Cr",
+                      style: GoogleFonts.inter(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w500,
                         color: PlayNedTokens.textSecondary,
-                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ],
@@ -810,41 +926,4 @@ class _FeaturedAuctionQuickPlayCardState extends State<_FeaturedAuctionQuickPlay
       ),
     );
   }
-}
-
-/// 2D geometric universe painter for Hero banner
-class _HeroUniversePainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final linePaint = Paint()
-      ..color = PlayNedTokens.brandGold.withOpacity(0.04)
-      ..strokeWidth = 1.0;
-
-    // Subtle isometric grid lines on top right
-    final startX = size.width * 0.55;
-    for (double x = startX; x < size.width + 100; x += 35) {
-      canvas.drawLine(Offset(x, 0), Offset(x - 80, size.height), linePaint);
-      canvas.drawLine(Offset(x, size.height), Offset(x - 80, 0), linePaint);
-    }
-
-    // Subtle abstract 2D dice/tile outlines in background
-    final boxPaint = Paint()
-      ..color = PlayNedTokens.brandGold.withOpacity(0.05)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.5;
-
-    if (size.width > 500) {
-      canvas.drawRRect(
-        RRect.fromRectAndRadius(Rect.fromLTWH(size.width - 120, 25, 45, 45), const Radius.circular(6)),
-        boxPaint,
-      );
-      canvas.drawRRect(
-        RRect.fromRectAndRadius(Rect.fromLTWH(size.width - 60, 60, 35, 35), const Radius.circular(6)),
-        boxPaint,
-      );
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

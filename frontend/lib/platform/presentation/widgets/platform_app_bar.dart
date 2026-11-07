@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -22,7 +23,7 @@ class PlatformAppBar extends ConsumerWidget implements PreferredSizeWidget {
   });
 
   @override
-  Size get preferredSize => const Size.fromHeight(64);
+  Size get preferredSize => const Size.fromHeight(68);
 
   void _showJoinRoomDialog(BuildContext context) {
     showDialog(
@@ -43,7 +44,7 @@ class PlatformAppBar extends ConsumerWidget implements PreferredSizeWidget {
         return SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(
-              horizontal: PlayNedTokens.space20,
+              horizontal: PlayNedTokens.space24,
               vertical: PlayNedTokens.space24,
             ),
             child: Column(
@@ -53,17 +54,20 @@ class PlatformAppBar extends ConsumerWidget implements PreferredSizeWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("PLAYNED NAVIGATION", style: PlayNedTokens.metadata),
+                    Text(
+                      "Menu",
+                      style: PlayNedTokens.sectionHeading.copyWith(fontSize: 18),
+                    ),
                     IconButton(
                       icon: const Icon(Icons.close, size: 18, color: PlayNedTokens.textSecondary),
                       onPressed: () => Navigator.pop(ctx),
                     ),
                   ],
                 ),
-                const SizedBox(height: PlayNedTokens.space12),
-                ListTile(
-                  leading: const Icon(Icons.sports_esports, color: PlayNedTokens.brandGold),
-                  title: Text("GAMES CATALOG", style: PlayNedTokens.buttonLabel),
+                const SizedBox(height: PlayNedTokens.space16),
+                _MobileMenuTile(
+                  icon: Icons.grid_view,
+                  title: "Explore games",
                   onTap: () {
                     Navigator.pop(ctx);
                     if (onGamesClick != null) {
@@ -73,9 +77,9 @@ class PlatformAppBar extends ConsumerWidget implements PreferredSizeWidget {
                     }
                   },
                 ),
-                ListTile(
-                  leading: const Icon(Icons.bolt, color: PlayNedTokens.brandGold),
-                  title: Text("QUICK PLAY", style: PlayNedTokens.buttonLabel),
+                _MobileMenuTile(
+                  icon: Icons.bolt,
+                  title: "Quick play",
                   onTap: () {
                     Navigator.pop(ctx);
                     if (onQuickPlayClick != null) {
@@ -85,24 +89,18 @@ class PlatformAppBar extends ConsumerWidget implements PreferredSizeWidget {
                     }
                   },
                 ),
-                ListTile(
-                  leading: const Icon(Icons.meeting_room_outlined, color: PlayNedTokens.brandGold),
-                  title: Text("JOIN ROOM", style: PlayNedTokens.buttonLabel),
+                _MobileMenuTile(
+                  icon: Icons.meeting_room_outlined,
+                  title: "Join match",
                   onTap: () {
                     Navigator.pop(ctx);
                     _showJoinRoomDialog(context);
                   },
                 ),
-                const Divider(color: PlayNedTokens.border),
-                ListTile(
-                  leading: Icon(
-                    isLoggedIn ? Icons.account_circle : Icons.login,
-                    color: PlayNedTokens.textPrimary,
-                  ),
-                  title: Text(
-                    isLoggedIn ? (username ?? "PROFILE") : "SIGN IN / SIGN UP",
-                    style: PlayNedTokens.buttonLabel,
-                  ),
+                const SizedBox(height: 12),
+                _MobileMenuTile(
+                  icon: isLoggedIn ? Icons.account_circle : Icons.login,
+                  title: isLoggedIn ? (username ?? "Profile") : "Sign in",
                   onTap: () {
                     Navigator.pop(ctx);
                     if (isLoggedIn) {
@@ -112,9 +110,9 @@ class PlatformAppBar extends ConsumerWidget implements PreferredSizeWidget {
                     }
                   },
                 ),
-                ListTile(
-                  leading: const Icon(Icons.settings_outlined, color: PlayNedTokens.textSecondary),
-                  title: Text("SETTINGS", style: PlayNedTokens.buttonLabel),
+                _MobileMenuTile(
+                  icon: Icons.settings_outlined,
+                  title: "Settings",
                   onTap: () {
                     Navigator.pop(ctx);
                     context.push('/settings');
@@ -132,115 +130,135 @@ class PlatformAppBar extends ConsumerWidget implements PreferredSizeWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authProvider);
 
-    return Container(
-      decoration: const BoxDecoration(
-        color: PlayNedTokens.background,
-        border: Border(
-          bottom: BorderSide(color: PlayNedTokens.borderSubtle, width: 1),
-        ),
-      ),
-      child: SafeArea(
-        bottom: false,
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            final isDesktop = constraints.maxWidth >= 880;
+    return ClipRect(
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+        child: Container(
+          decoration: BoxDecoration(
+            color: PlayNedTokens.background.withOpacity(0.85),
+            border: const Border(
+              bottom: BorderSide(color: PlayNedTokens.borderSubtle, width: 1),
+            ),
+          ),
+          child: SafeArea(
+            bottom: false,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final isDesktop = constraints.maxWidth >= 880;
 
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                children: [
-                  // Logo
-                  PlayNedLogo(
-                    size: 28,
-                    showText: true,
-                    onTap: () => context.go('/'),
-                  ),
-                  if (title != null && constraints.maxWidth >= 600) ...[
-                    const SizedBox(width: 8),
-                    Text(
-                      "· $title",
-                      style: GoogleFonts.dmSerifDisplay(
-                        fontSize: 17,
-                        color: PlayNedTokens.textPrimary,
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Row(
+                    children: [
+                      // Brand Logo
+                      PlayNedLogo(
+                        size: 28,
+                        showText: true,
+                        onTap: () => context.go('/'),
                       ),
-                    ),
-                  ],
-
-                  if (isDesktop) ...[
-                    const SizedBox(width: 20),
-                    _NavTextButton(
-                      label: "GAMES",
-                      onPressed: onGamesClick ?? () => context.go('/'),
-                    ),
-                    const SizedBox(width: 6),
-                    _NavTextButton(
-                      label: "QUICK PLAY",
-                      onPressed: onQuickPlayClick ?? () => context.go('/'),
-                    ),
-                    const SizedBox(width: 6),
-                    PlayNedButton(
-                      label: "JOIN ROOM",
-                      icon: Icons.meeting_room_outlined,
-                      variant: PlayNedButtonVariant.outlined,
-                      customAccent: PlayNedTokens.brandGold,
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                      onPressed: () => _showJoinRoomDialog(context),
-                    ),
-                  ],
-
-                  const Spacer(),
-
-                  if (isDesktop) ...[
-                    // Profile
-                    TextButton.icon(
-                      onPressed: () {
-                        if (authState.isLoggedIn) {
-                          context.push('/profile');
-                        } else {
-                          context.push('/auth');
-                        }
-                      },
-                      icon: Icon(
-                        authState.isLoggedIn ? Icons.account_circle_outlined : Icons.login_outlined,
-                        size: 18,
-                        color: authState.isLoggedIn ? PlayNedTokens.brandGold : PlayNedTokens.textPrimary,
-                      ),
-                      label: Text(
-                        authState.isLoggedIn ? (authState.username ?? "PROFILE") : "SIGN IN",
-                        style: PlayNedTokens.buttonLabel.copyWith(
-                          fontSize: 11.5,
-                          color: authState.isLoggedIn ? PlayNedTokens.brandGold : PlayNedTokens.textPrimary,
+                      if (title != null && constraints.maxWidth >= 600) ...[
+                        const SizedBox(width: 14),
+                        Container(
+                          width: 1,
+                          height: 16,
+                          color: PlayNedTokens.borderBright,
                         ),
-                      ),
-                    ),
-                    const SizedBox(width: 6),
-                    IconButton(
-                      icon: const Icon(Icons.settings_outlined, size: 20, color: PlayNedTokens.textSecondary),
-                      tooltip: "Settings",
-                      onPressed: () => context.push('/settings'),
-                    ),
-                  ] else ...[
-                    // Mobile & Tablet actions
-                    IconButton(
-                      icon: const Icon(Icons.meeting_room_outlined, size: 20, color: PlayNedTokens.brandGold),
-                      tooltip: "Join Room",
-                      onPressed: () => _showJoinRoomDialog(context),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.menu, size: 22, color: PlayNedTokens.textPrimary),
-                      tooltip: "Menu",
-                      onPressed: () => _showMobileMenu(
-                        context,
-                        ref,
-                        authState.isLoggedIn,
-                        authState.username,
-                      ),
-                    ),
-                  ],
-                ],
-              ),
-            );
-          },
+                        const SizedBox(width: 14),
+                        Text(
+                          title!,
+                          style: GoogleFonts.plusJakartaSans(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            color: PlayNedTokens.textPrimary,
+                          ),
+                        ),
+                      ],
+
+                      if (isDesktop) ...[
+                        const SizedBox(width: 32),
+                        _NavTextButton(
+                          label: "Games",
+                          onPressed: onGamesClick ?? () => context.go('/'),
+                        ),
+                        const SizedBox(width: 8),
+                        _NavTextButton(
+                          label: "Quick play",
+                          onPressed: onQuickPlayClick ?? () => context.go('/'),
+                        ),
+                        const SizedBox(width: 8),
+                        _NavTextButton(
+                          label: "Join match",
+                          onPressed: () => _showJoinRoomDialog(context),
+                        ),
+                      ],
+
+                      const Spacer(),
+
+                      if (isDesktop) ...[
+                        // Account Action
+                        GestureDetector(
+                          onTap: () {
+                            if (authState.isLoggedIn) {
+                              context.push('/profile');
+                            } else {
+                              context.push('/auth');
+                            }
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(PlayNedTokens.radiusSm),
+                            ),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  authState.isLoggedIn ? Icons.account_circle_outlined : Icons.login_outlined,
+                                  size: 17,
+                                  color: authState.isLoggedIn ? PlayNedTokens.brandGold : PlayNedTokens.textSecondary,
+                                ),
+                                const SizedBox(width: 8),
+                                Text(
+                                  authState.isLoggedIn ? (authState.username ?? "Profile") : "Sign in",
+                                  style: GoogleFonts.inter(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w500,
+                                    color: authState.isLoggedIn ? PlayNedTokens.brandGold : PlayNedTokens.textPrimary,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        IconButton(
+                          icon: const Icon(Icons.settings_outlined, size: 19, color: PlayNedTokens.textSecondary),
+                          tooltip: "Settings",
+                          onPressed: () => context.push('/settings'),
+                        ),
+                      ] else ...[
+                        IconButton(
+                          icon: const Icon(Icons.meeting_room_outlined, size: 20, color: PlayNedTokens.textPrimary),
+                          tooltip: "Join Match",
+                          onPressed: () => _showJoinRoomDialog(context),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.menu, size: 22, color: PlayNedTokens.textPrimary),
+                          tooltip: "Menu",
+                          onPressed: () => _showMobileMenu(
+                            context,
+                            ref,
+                            authState.isLoggedIn,
+                            authState.username,
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
         ),
       ),
     );
@@ -268,17 +286,52 @@ class _NavTextButtonState extends State<_NavTextButton> {
       onExit: (_) => setState(() => _isHovered = false),
       child: GestureDetector(
         onTap: widget.onPressed,
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+        child: AnimatedContainer(
+          duration: PlayNedTokens.animFast,
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+          decoration: BoxDecoration(
+            color: _isHovered ? PlayNedTokens.surfaceElevated : Colors.transparent,
+            borderRadius: BorderRadius.circular(PlayNedTokens.radiusSm),
+          ),
           child: Text(
             widget.label,
-            style: PlayNedTokens.buttonLabel.copyWith(
-              color: _isHovered ? PlayNedTokens.brandGold : PlayNedTokens.textSecondary,
-              letterSpacing: 0.8,
+            style: GoogleFonts.inter(
+              fontSize: 13.5,
+              fontWeight: _isHovered ? FontWeight.w600 : FontWeight.w500,
+              color: _isHovered ? PlayNedTokens.textPrimary : PlayNedTokens.textSecondary,
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class _MobileMenuTile extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final VoidCallback onTap;
+
+  const _MobileMenuTile({
+    required this.icon,
+    required this.title,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+      leading: Icon(icon, color: PlayNedTokens.textPrimary, size: 20),
+      title: Text(
+        title,
+        style: GoogleFonts.plusJakartaSans(
+          fontSize: 14.5,
+          fontWeight: FontWeight.w600,
+          color: PlayNedTokens.textPrimary,
+        ),
+      ),
+      onTap: onTap,
     );
   }
 }

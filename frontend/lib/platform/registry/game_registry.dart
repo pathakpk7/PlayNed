@@ -324,6 +324,30 @@ class PlayNedGameRegistry {
         'Victory Conditions: Town wins when all Mafia are eliminated. Mafia wins when they equal or outnumber the living Town. Jester wins if exiled by vote.',
       ],
     ),
+    const GameMetadata(
+      id: 'higher_or_lower',
+      name: 'Higher or Lower',
+      tagline: 'High-stakes card rank prediction and streak management.',
+      description:
+          'Predict whether the next card dealt from a shuffled deck is higher or lower in rank than the current card. Build winning streaks, bank points, or risk it all!',
+      category: 'Cards / Casual',
+      minPlayers: 1,
+      maxPlayers: 4,
+      supportsLocal: true,
+      supportsOnline: true,
+      supportsTeams: false,
+      estimatedDurationMinutes: 4,
+      accentColor: Color(0xFF6366F1),
+      backgroundColor: Color(0xFF14142B),
+      icon: Icons.unfold_more,
+      rulesSummary: [
+        'A card is dealt face-up on the table.',
+        'Predict whether the next card will be Higher or Lower.',
+        'Aces can be low (1) or high depending on mode.',
+        'Equal rank cards trigger a tie push or penalty depending on mode.',
+        'Consecutive correct predictions compound your score multiplier.',
+      ],
+    ),
   ];
 
   static GameMetadata? getGame(String id) {
