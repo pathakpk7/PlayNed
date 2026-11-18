@@ -21,6 +21,7 @@ import '../../games/raja_mantri_chor_sipahi/presentation/pages/raja_mantri_game_
 import '../../games/bluff/presentation/pages/bluff_game_page.dart';
 import '../../games/spyfall/presentation/pages/spyfall_game_page.dart';
 import '../../games/mafia/presentation/pages/mafia_game_page.dart';
+import '../../games/higher_or_lower/presentation/pages/higher_or_lower_game_page.dart';
 import '../../features/home/presentation/pages/home_page.dart';
 import '../../features/game/presentation/pages/game_page.dart';
 import '../../features/game/presentation/pages/level_map_page.dart';
@@ -113,9 +114,11 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) {
         final room = state.uri.queryParameters['room'];
         final mode = state.uri.queryParameters['mode'] ?? (room != null ? 'online' : 'local');
+        final ruleMode = state.uri.queryParameters['rule_mode'] ?? 'classic';
         final pid = state.uri.queryParameters['pid'];
         return UltimateTicTacToeGamePage(
           mode: mode,
+          ruleMode: ruleMode,
           roomCode: room,
           localPlayerId: pid,
         );
@@ -126,9 +129,11 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) {
         final room = state.uri.queryParameters['room'];
         final mode = state.uri.queryParameters['mode'] ?? (room != null ? 'online' : 'local');
+        final ruleMode = state.uri.queryParameters['rule_mode'] ?? 'classic';
         final pid = state.uri.queryParameters['pid'];
         return UltimateTicTacToeGamePage(
           mode: mode,
+          ruleMode: ruleMode,
           roomCode: room,
           localPlayerId: pid,
         );
@@ -427,6 +432,34 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/games/cricket/auction',
       builder: (context, state) => const CricketAuctionPage(),
+    ),
+
+    // Higher or Lower
+    GoRoute(
+      path: '/games/higher_or_lower',
+      builder: (context, state) {
+        final mode = state.uri.queryParameters['mode'] ?? 'ai';
+        final room = state.uri.queryParameters['room'];
+        final pid = state.uri.queryParameters['pid'];
+        return HigherOrLowerGamePage(
+          mode: mode,
+          roomCode: room,
+          localPlayerId: pid,
+        );
+      },
+    ),
+    GoRoute(
+      path: '/games/higher_or_lower/play',
+      builder: (context, state) {
+        final mode = state.uri.queryParameters['mode'] ?? 'ai';
+        final room = state.uri.queryParameters['room'];
+        final pid = state.uri.queryParameters['pid'];
+        return HigherOrLowerGamePage(
+          mode: mode,
+          roomCode: room,
+          localPlayerId: pid,
+        );
+      },
     ),
 
     // Hangman Reimagined Dedicated Views (Preserved 100%)

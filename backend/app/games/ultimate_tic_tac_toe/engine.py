@@ -57,6 +57,7 @@ class UltimateTicTacToeEngine(BaseGameEngine):
         p1 = player_ids[0] if player_ids else "p1"
         p2 = player_ids[1] if len(player_ids) > 1 else (f"{p1}_opp" if p1 != "p2" else "p2")
         active_pids = [p1, p2]
+        rule_mode = options.get("rule_mode", "classic")  # "classic" or "free"
 
         # 9 micro boards, each with 9 empty cells
         boards = []
@@ -71,6 +72,7 @@ class UltimateTicTacToeEngine(BaseGameEngine):
 
         state = {
             "game_id": "ultimate_tic_tac_toe",
+            "rule_mode": rule_mode,          # "classic" or "free"
             "player_ids": active_pids,
             "player_names": player_names,
             "player_symbols": {
@@ -93,7 +95,7 @@ class UltimateTicTacToeEngine(BaseGameEngine):
             "x_boards_won": 0,
             "o_boards_won": 0,
             "last_move": None,
-            "last_action": f"Match started. {player_names.get(p1, 'Player X')} (X) has Free Move to play in any board."
+            "last_action": f"Match started in {rule_mode.upper()} mode. {player_names.get(p1, 'Player X')} (X) has Free Move to play in any board."
         }
         return state
 
@@ -126,20 +128,32 @@ class UltimateTicTacToeEngine(BaseGameEngine):
         if state.get("status") != "in_progress":
             return []
         
-        next_board = state.get("next_board")
         boards = state.get("boards", [])
+        rule_mode = state.get("rule_mode", "classic")
+
+        # Free play mode: Any board that is NOT completed
+        if rule_mode == "free":
+            return [i for i, b in enumerate(boards) if not self.is_board_completed(b)]
+
+        next_board = state.get("next_board")
 
         # If next_board is specified and that board is NOT completed, player must play there
         if next_board is not None and 0 <= next_board < 9:
             if not self.is_board_completed(boards[next_board]):
                 return [next_board]
 
-        # Free move: Any board that is NOT completed
+        # Free move fallback: Any board that is NOT completed
         return [i for i, b in enumerate(boards) if not self.is_board_completed(b)]
 
     def validate_move(self, state: Dict[str, Any], player_id: str, move: Dict[str, Any]) -> Tuple[bool, Optional[str]]:
         if state.get("status") != "in_progress":
             return False, "Game is already finished."
+
+        if move.get("action") == "set_rule_mode":
+            rule_mode = move.get("rule_mode")
+            if rule_mode not in ("classic", "free"):
+                return False, "Invalid rule_mode. Must be 'classic' or 'free'."
+            return True, None
 
         expected_pid = state.get("current_turn_player_id")
         if player_id != expected_pid:
@@ -156,8 +170,8 @@ class UltimateTicTacToeEngine(BaseGameEngine):
 
         valid_boards = self.get_valid_boards(state)
         if board_idx not in valid_boards:
-            if state.get("next_board") is not None:
-                return False, f"Illegal move: You must play in Board {state['next_board']}."
+            if state.get("rule_mode", "classic") == "classic" and state.get("next_board") is not None:
+                return False, f"Illegal move: In Classic Rules, you must play in Board {state['next_board']}. (Switch to Free Mode to play anywhere!)"
             else:
                 return False, f"Illegal move: Board {board_idx} is already completed."
 
@@ -184,6 +198,16 @@ class UltimateTicTacToeEngine(BaseGameEngine):
         is_valid, err_msg = self.validate_move(state, player_id, move)
         if not is_valid:
             raise ValueError(err_msg)
+
+        if move.get("action") == "set_rule_mode":
+            new_mode = move.get("rule_mode", "classic")
+            state["rule_mode"] = new_mode
+            if new_mode == "free":
+                state["next_board"] = None
+                state["last_action"] = "Rules updated: Free Play Mode active! Players can place marks in any open board."
+            else:
+                state["last_action"] = "Rules updated: Classic Routing Mode active! Moves route to target boards."
+            return state
 
         board_idx = move["board"]
         cell_idx = move["cell"]
@@ -230,16 +254,21 @@ class UltimateTicTacToeEngine(BaseGameEngine):
             action_desc = "MATCH DRAW! All micro-boards completed with no macro 3-in-a-row."
         else:
             # Game continues -> calculate next_board for opponent
-            dest_board_idx = cell_idx
-            dest_board = state["boards"][dest_board_idx]
-            
-            if self.is_board_completed(dest_board):
-                # Target board is completed -> FREE MOVE
+            rule_mode = state.get("rule_mode", "classic")
+            if rule_mode == "free":
                 state["next_board"] = None
-                free_note = "Target board is complete -> ⭐ FREE MOVE granted!"
+                free_note = "Free Mode active: play in any open board."
             else:
-                state["next_board"] = dest_board_idx
-                free_note = f"Next turn in Board {dest_board_idx}."
+                dest_board_idx = cell_idx
+                dest_board = state["boards"][dest_board_idx]
+                
+                if self.is_board_completed(dest_board):
+                    # Target board is completed -> FREE MOVE
+                    state["next_board"] = None
+                    free_note = "Target board is complete -> ⭐ FREE MOVE granted!"
+                else:
+                    state["next_board"] = dest_board_idx
+                    free_note = f"Next turn in Board {dest_board_idx}."
 
             # Switch players
             next_turn_idx = 1 - state["current_turn_index"]

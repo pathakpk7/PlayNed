@@ -8,6 +8,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:hangman_reimagined/platform/theme/playned_design_tokens.dart';
 import 'package:hangman_reimagined/platform/presentation/widgets/platform_app_bar.dart';
 import 'package:hangman_reimagined/platform/presentation/widgets/playned_components.dart';
+import 'package:hangman_reimagined/platform/presentation/widgets/game_how_to_play_demo_dialog.dart';
 import 'package:hangman_reimagined/platform/services/platform_api_service.dart';
 
 import '../../models/bluff_models.dart';
@@ -372,6 +373,13 @@ class _BluffGamePageState extends ConsumerState<BluffGamePage> {
         title: widget.mode == 'local'
             ? 'Bluff (${_state.playerIds.length}P Local)'
             : 'Bluff / Cheat Room',
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.help_outline_rounded, color: Color(0xFF8B5CF6)),
+            tooltip: "Demo & Rules",
+            onPressed: () => GameHowToPlayDemoDialog.show(context, 'bluff'),
+          ),
+        ],
       ),
       body: PlayNedBackgroundPattern(
         child: Stack(

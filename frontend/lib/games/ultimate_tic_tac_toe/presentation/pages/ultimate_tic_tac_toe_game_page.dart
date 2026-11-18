@@ -5,21 +5,25 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
+import '../../../../core/session/client_session.dart';
 import '../../../../features/auth/presentation/providers/auth_provider.dart';
 import '../../../../platform/models/game_model.dart';
+import '../../../../platform/presentation/widgets/game_how_to_play_demo_dialog.dart';
 import '../../../../platform/services/platform_api_service.dart';
 import 'package:hangman_reimagined/games/ultimate_tic_tac_toe/models/ultimate_tic_tac_toe_state.dart';
 
 class UltimateTicTacToeGamePage extends ConsumerStatefulWidget {
   final String? roomCode;
   final String? localPlayerId;
-  final String mode; // 'local' or 'online'
+  final String mode; // 'local', 'ai', or 'online'
+  final String ruleMode; // 'classic' or 'free'
 
   const UltimateTicTacToeGamePage({
     super.key,
     this.roomCode,
     this.localPlayerId,
     this.mode = 'local',
+    this.ruleMode = 'classic',
   });
 
   @override
@@ -86,8 +90,8 @@ class _UltimateTicTacToeGamePageState extends ConsumerState<UltimateTicTacToeGam
   }
 
   void _initLocalState() {
-    final auth = ref.read(authProvider);
-    final p1Name = auth.username ?? "Player 1";
+    final session = ref.read(clientSessionProvider);
+    final p1Name = session.playerName;
     final isAi = widget.mode == 'ai';
     final p2Name = isAi ? "Tactical AI Bot" : "Player 2";
     _playerNames = {"p1": p1Name, "p2": p2Name};
@@ -97,6 +101,7 @@ class _UltimateTicTacToeGamePageState extends ConsumerState<UltimateTicTacToeGam
       p2Id: "p2",
       p1Name: p1Name,
       p2Name: p2Name,
+      ruleMode: widget.ruleMode,
     );
     _statsRecorded = false;
     _isAiThinking = false;
@@ -104,7 +109,8 @@ class _UltimateTicTacToeGamePageState extends ConsumerState<UltimateTicTacToeGam
 
   void _initOnlineMode() async {
     final api = ref.read(platformApiServiceProvider);
-    final pid = widget.localPlayerId ?? 'p1';
+    final session = ref.read(clientSessionProvider);
+    final pid = widget.localPlayerId ?? session.playerId;
 
     try {
       final room = await api.getRoom(widget.roomCode!);
@@ -209,7 +215,35 @@ class _UltimateTicTacToeGamePageState extends ConsumerState<UltimateTicTacToeGam
 
     // Check if target board is valid
     final validBoards = _gameState.validBoards;
-    if (!validBoards.contains(boardIdx)) return;
+    if (!validBoards.contains(boardIdx)) {
+      if (_gameState.nextBoard != null && _gameState.ruleMode != 'free') {
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: const Color(0xFF1E293B),
+            duration: const Duration(seconds: 4),
+            content: Row(
+              children: [
+                const Icon(Icons.info_outline, color: Color(0xFFF59E0B), size: 18),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    "In Classic Rules, moves are routed to Board ${_gameState.nextBoard! + 1}. Want to play anywhere? Switch to Free Mode!",
+                    style: GoogleFonts.inter(fontSize: 12, color: Colors.white),
+                  ),
+                ),
+              ],
+            ),
+            action: SnackBarAction(
+              label: "PLAY FREELY",
+              textColor: const Color(0xFF38BDF8),
+              onPressed: () => _toggleRuleMode('free'),
+            ),
+          ),
+        );
+      }
+      return;
+    }
 
     // Check if cell is empty
     if (_gameState.boards[boardIdx].cells[cellIdx] != null) return;
@@ -250,6 +284,49 @@ class _UltimateTicTacToeGamePageState extends ConsumerState<UltimateTicTacToeGam
     }
 
     _executeLocalMove(boardIdx, cellIdx);
+  }
+
+  void _toggleRuleMode(String newMode) {
+    if (_gameState.ruleMode == newMode) return;
+    setState(() {
+      _gameState = _gameState.copyWith(
+        ruleMode: newMode,
+        nextBoard: newMode == 'free' ? null : _gameState.nextBoard,
+        lastAction: newMode == 'free'
+            ? 'Free Play Mode activated! You may now play in ANY open board.'
+            : 'Classic Routing Mode activated! Opponent moves will dictate the next board.',
+      );
+    });
+
+    if (widget.mode == 'online' && widget.roomCode != null) {
+      if (_wsChannel != null) {
+        _wsChannel!.sink.add(jsonEncode({
+          'type': 'MOVE',
+          'action': 'set_rule_mode',
+          'rule_mode': newMode,
+        }));
+      }
+      final api = ref.read(platformApiServiceProvider);
+      final myPid = widget.localPlayerId ?? 'p1';
+      api.submitMove(
+        roomCode: widget.roomCode!,
+        playerId: myPid,
+        move: {'action': 'set_rule_mode', 'rule_mode': newMode},
+      ).catchError((_) {});
+    }
+
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: const Color(0xFF1E293B),
+        content: Text(
+          newMode == 'free'
+              ? '🔓 Free Play Mode enabled: Pick any open block!'
+              : '🎯 Classic Rules enabled: Next move directs board placement.',
+          style: GoogleFonts.inter(fontSize: 12, color: Colors.white),
+        ),
+      ),
+    );
   }
 
   void _executeLocalMove(int boardIdx, int cellIdx) {
@@ -322,11 +399,15 @@ class _UltimateTicTacToeGamePageState extends ConsumerState<UltimateTicTacToeGam
     // Calculate next board
     int? nextB;
     if (status == 'in_progress') {
-      final targetNext = updatedBoards[cellIdx];
-      if (targetNext.isCompleted) {
-        nextB = null; // Free move
+      if (_gameState.ruleMode == 'free') {
+        nextB = null; // Always free in Free Play Mode!
       } else {
-        nextB = cellIdx;
+        final targetNext = updatedBoards[cellIdx];
+        if (targetNext.isCompleted) {
+          nextB = null; // Free move
+        } else {
+          nextB = cellIdx;
+        }
       }
     }
 
@@ -348,6 +429,8 @@ class _UltimateTicTacToeGamePageState extends ConsumerState<UltimateTicTacToeGam
       lastAction = '$winnerName ($winnerSymbol) won the match with 3 macro boards in a row!';
     } else if (status == 'draw') {
       lastAction = 'The game ended in a draw! All boards completed.';
+    } else if (_gameState.ruleMode == 'free') {
+      lastAction = '$currentPName placed $currentMark at Board ${boardIdx + 1}, Cell ${cellIdx + 1}. Free Mode: $nextPName may play in ANY open board!';
     } else if (nextB == null) {
       lastAction = '$currentPName placed $currentMark at Board ${boardIdx + 1}, Cell ${cellIdx + 1}. $nextPName has a FREE MOVE!';
     } else {
@@ -376,6 +459,7 @@ class _UltimateTicTacToeGamePageState extends ConsumerState<UltimateTicTacToeGam
         oBoardsWon: oWon,
         lastMove: moveRecord,
         lastAction: lastAction,
+        ruleMode: _gameState.ruleMode,
       );
     });
 
@@ -736,10 +820,79 @@ class _UltimateTicTacToeGamePageState extends ConsumerState<UltimateTicTacToeGam
               overflow: TextOverflow.ellipsis,
             ),
           ),
+          // Rule Mode Switcher
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+            decoration: BoxDecoration(
+              color: const Color(0xFF0F172A),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: const Color(0xFF334155)),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                InkWell(
+                  onTap: () => _toggleRuleMode('classic'),
+                  borderRadius: BorderRadius.circular(16),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    decoration: BoxDecoration(
+                      color: _gameState.ruleMode == 'classic' ? const Color(0xFFF59E0B) : Colors.transparent,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.alt_route_rounded, size: 13, color: _gameState.ruleMode == 'classic' ? Colors.black : Colors.white70),
+                        const SizedBox(width: 4),
+                        Text(
+                          "Classic",
+                          style: GoogleFonts.inter(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            color: _gameState.ruleMode == 'classic' ? Colors.black : Colors.white70,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () => _toggleRuleMode('free'),
+                  borderRadius: BorderRadius.circular(16),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    decoration: BoxDecoration(
+                      color: _gameState.ruleMode == 'free' ? const Color(0xFF38BDF8) : Colors.transparent,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.lock_open_rounded, size: 13, color: _gameState.ruleMode == 'free' ? Colors.black : Colors.white70),
+                        const SizedBox(width: 4),
+                        Text(
+                          "Free Play",
+                          style: GoogleFonts.inter(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            color: _gameState.ruleMode == 'free' ? Colors.black : Colors.white70,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 8),
           IconButton(
-            icon: const Icon(Icons.help_outline_rounded, color: Colors.white70),
-            tooltip: "Game Rules",
-            onPressed: _showRulesDialog,
+            icon: const Icon(Icons.help_outline_rounded, color: Color(0xFF38BDF8)),
+            tooltip: "Demo & Rules",
+            onPressed: () => GameHowToPlayDemoDialog.show(
+              context,
+              'ultimate_tic_tac_toe',
+              onPlayFreelyToggled: () => _toggleRuleMode('free'),
+            ),
           ),
           if (widget.mode == 'local' || widget.mode == 'ai')
             IconButton(
@@ -1027,11 +1180,13 @@ class _UltimateTicTacToeGamePageState extends ConsumerState<UltimateTicTacToeGam
       }
     } else if (_isAiThinking) {
       statusText = "Tactical AI is strategizing...";
+    } else if (_gameState.ruleMode == 'free') {
+      statusText = "FREE PLAY MODE: Play in any open board!";
     } else if (isFreeMove) {
       statusText = "FREE MOVE: Play in any open board!";
     } else {
       final boardNum = _gameState.nextBoard! + 1;
-      statusText = "Must play in Board #$boardNum";
+      statusText = "Routed to Board #$boardNum";
     }
 
     return Container(
@@ -1082,6 +1237,36 @@ class _UltimateTicTacToeGamePageState extends ConsumerState<UltimateTicTacToeGam
               overflow: TextOverflow.ellipsis,
             ),
           ),
+          if (!isFinished && _gameState.ruleMode == 'classic' && _gameState.nextBoard != null) ...[
+            const SizedBox(width: 10),
+            InkWell(
+              onTap: () => _toggleRuleMode('free'),
+              borderRadius: BorderRadius.circular(6),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF38BDF8).withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(6),
+                  border: Border.all(color: const Color(0xFF38BDF8).withOpacity(0.6)),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.lock_open_rounded, size: 12, color: Color(0xFF38BDF8)),
+                    const SizedBox(width: 4),
+                    Text(
+                      "Play Freely",
+                      style: GoogleFonts.inter(
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                        color: const Color(0xFF38BDF8),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ],
       ),
     );

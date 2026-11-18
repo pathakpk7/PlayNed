@@ -13,6 +13,7 @@ class PlatformAppBar extends ConsumerWidget implements PreferredSizeWidget {
   final bool showHomeButton;
   final VoidCallback? onGamesClick;
   final VoidCallback? onQuickPlayClick;
+  final List<Widget>? actions;
 
   const PlatformAppBar({
     super.key,
@@ -20,6 +21,7 @@ class PlatformAppBar extends ConsumerWidget implements PreferredSizeWidget {
     this.showHomeButton = true,
     this.onGamesClick,
     this.onQuickPlayClick,
+    this.actions,
   });
 
   @override
@@ -193,6 +195,11 @@ class PlatformAppBar extends ConsumerWidget implements PreferredSizeWidget {
                       ],
 
                       const Spacer(),
+
+                      if (actions != null) ...[
+                        ...actions!,
+                        const SizedBox(width: 8),
+                      ],
 
                       if (isDesktop) ...[
                         // Account Action

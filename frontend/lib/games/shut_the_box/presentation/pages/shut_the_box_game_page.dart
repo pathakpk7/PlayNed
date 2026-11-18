@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import '../../../../features/auth/presentation/providers/auth_provider.dart';
 import '../../../../platform/services/platform_api_service.dart';
+import '../../../../platform/presentation/widgets/game_how_to_play_demo_dialog.dart';
 
 class ShutTheBoxGamePage extends ConsumerStatefulWidget {
   final String mode; // 'local' or 'online'
@@ -510,6 +511,11 @@ class _ShutTheBoxGamePageState extends ConsumerState<ShutTheBoxGamePage> with Ti
           ],
         ),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.help_outline_rounded, size: 20, color: Color(0xFFE5A93C)),
+            tooltip: "Demo & Rules",
+            onPressed: () => GameHowToPlayDemoDialog.show(context, 'shut_the_box'),
+          ),
           IconButton(
             icon: const Icon(Icons.tune, size: 20),
             tooltip: "Match Settings",

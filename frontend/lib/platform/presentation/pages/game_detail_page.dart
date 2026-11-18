@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../../core/session/client_session.dart';
 import '../../../features/auth/presentation/providers/auth_provider.dart';
 import '../../models/game_model.dart';
 import '../../registry/game_registry.dart';
 import '../../services/platform_api_service.dart';
 import 'package:hangman_reimagined/platform/theme/playned_design_tokens.dart';
 import '../widgets/game_card_visuals.dart';
+import '../widgets/game_how_to_play_demo_dialog.dart';
 import '../widgets/platform_app_bar.dart';
 import '../widgets/playned_components.dart';
 
@@ -182,23 +184,59 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
                 _buildModeTile(
                   ctx: ctx,
                   icon: Icons.smart_toy_outlined,
-                  title: "Solo vs Tactical AI",
-                  subtitle: "Sharpen your routing strategy against an intelligent AI bot",
+                  title: "Solo vs AI (Classic Rules)",
+                  subtitle: "Sharpen routing strategy against an AI bot. Moves route to target blocks.",
                   onTap: () {
                     Navigator.pop(ctx);
-                    context.push('/games/ultimate_tic_tac_toe/play?mode=ai');
+                    context.push('/games/ultimate_tic_tac_toe/play?mode=ai&rule_mode=classic');
+                  },
+                ),
+                const SizedBox(height: PlayNedTokens.space10),
+                _buildModeTile(
+                  ctx: ctx,
+                  icon: Icons.lock_open_rounded,
+                  title: "Solo vs AI (Free Play Mode)",
+                  subtitle: "Play freely in ANY open block on every turn without restrictions!",
+                  onTap: () {
+                    Navigator.pop(ctx);
+                    context.push('/games/ultimate_tic_tac_toe/play?mode=ai&rule_mode=free');
                   },
                 ),
                 const SizedBox(height: PlayNedTokens.space10),
                 _buildModeTile(
                   ctx: ctx,
                   icon: Icons.people_outline,
-                  title: "Pass & Play (2 Players)",
-                  subtitle: "Turn-based local match on the same screen",
+                  title: "Pass & Play - Classic Rules",
+                  subtitle: "Turn-based local match using official routing rules",
                   onTap: () {
                     Navigator.pop(ctx);
-                    context.push('/games/ultimate_tic_tac_toe/play?mode=local');
+                    context.push('/games/ultimate_tic_tac_toe/play?mode=local&rule_mode=classic');
                   },
+                ),
+                const SizedBox(height: PlayNedTokens.space10),
+                _buildModeTile(
+                  ctx: ctx,
+                  icon: Icons.sports_esports_outlined,
+                  title: "Pass & Play - Free Choice (Play Anywhere)",
+                  subtitle: "No block restrictions! Both players can choose any block on every turn.",
+                  onTap: () {
+                    Navigator.pop(ctx);
+                    context.push('/games/ultimate_tic_tac_toe/play?mode=local&rule_mode=free');
+                  },
+                ),
+                const SizedBox(height: PlayNedTokens.space14),
+                Center(
+                  child: TextButton.icon(
+                    icon: const Icon(Icons.play_circle_outline, color: Color(0xFF38BDF8), size: 18),
+                    label: Text(
+                      "Watch How to Play Demo",
+                      style: GoogleFonts.inter(color: const Color(0xFF38BDF8), fontWeight: FontWeight.bold, fontSize: 13),
+                    ),
+                    onPressed: () {
+                      Navigator.pop(ctx);
+                      GameHowToPlayDemoDialog.show(context, 'ultimate_tic_tac_toe');
+                    },
+                  ),
                 ),
               ],
             ),
@@ -1271,14 +1309,15 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
     setState(() => _isLoading = true);
 
     try {
-      final auth = ref.read(authProvider);
+      final session = ref.read(clientSessionProvider);
       final api = ref.read(platformApiServiceProvider);
-      final hostName = auth.username ?? "Host Player";
+      final hostName = session.playerName;
+      final hostId = session.playerId;
 
       final room = await api.createRoom(
         gameId: _game!.id,
         playerName: hostName,
-        playerId: auth.userId,
+        playerId: hostId,
         maxPlayers: _game!.maxPlayers,
       );
 
@@ -1449,6 +1488,15 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
                           ),
                         ],
                       ),
+                      const SizedBox(height: PlayNedTokens.space12),
+                      PlayNedButton(
+                        label: "Watch how-to-play demo",
+                        icon: Icons.play_lesson_outlined,
+                        variant: PlayNedButtonVariant.secondary,
+                        customAccent: const Color(0xFF38BDF8),
+                        padding: const EdgeInsets.symmetric(vertical: PlayNedTokens.space14),
+                        onPressed: () => GameHowToPlayDemoDialog.show(context, game.id),
+                      ),
 
                       const SizedBox(height: PlayNedTokens.space20),
 
@@ -1459,15 +1507,41 @@ class _GameDetailPageState extends ConsumerState<GameDetailPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Icon(Icons.menu_book_outlined, size: 18, color: PlayNedTokens.brandGold),
-                                const SizedBox(width: PlayNedTokens.space8),
-                                Text(
-                                  "Rules and gameplay",
-                                  style: GoogleFonts.plusJakartaSans(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w700,
-                                    color: PlayNedTokens.textPrimary,
+                                Row(
+                                  children: [
+                                    const Icon(Icons.menu_book_outlined, size: 18, color: PlayNedTokens.brandGold),
+                                    const SizedBox(width: PlayNedTokens.space8),
+                                    Text(
+                                      "Rules and gameplay",
+                                      style: GoogleFonts.plusJakartaSans(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w700,
+                                        color: PlayNedTokens.textPrimary,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                InkWell(
+                                  onTap: () => GameHowToPlayDemoDialog.show(context, game.id),
+                                  borderRadius: BorderRadius.circular(6),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                    child: Row(
+                                      children: [
+                                        const Icon(Icons.ondemand_video_outlined, size: 14, color: Color(0xFF38BDF8)),
+                                        const SizedBox(width: 4),
+                                        Text(
+                                          "View Demo",
+                                          style: GoogleFonts.inter(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                            color: const Color(0xFF38BDF8),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ],

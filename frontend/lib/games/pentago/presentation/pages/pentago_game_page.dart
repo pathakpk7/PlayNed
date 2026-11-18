@@ -9,6 +9,7 @@ import '../../../../features/auth/presentation/providers/auth_provider.dart';
 import '../../../../platform/models/game_model.dart';
 import '../../../../platform/services/platform_api_service.dart';
 import '../../../../platform/presentation/widgets/platform_app_bar.dart';
+import '../../../../platform/presentation/widgets/game_how_to_play_demo_dialog.dart';
 
 class PentagoGamePage extends ConsumerStatefulWidget {
   final String? roomCode;
@@ -296,6 +297,13 @@ class _PentagoGamePageState extends ConsumerState<PentagoGamePage> {
       backgroundColor: const Color(0xFF0F0F0D),
       appBar: PlatformAppBar(
         title: widget.roomCode != null ? "PENTAGO · ${widget.roomCode}" : "PENTAGO",
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.help_outline_rounded, color: Color(0xFF48BB78)),
+            tooltip: "Demo & Rules",
+            onPressed: () => GameHowToPlayDemoDialog.show(context, 'pentago'),
+          ),
+        ],
       ),
       body: Center(
         child: ConstrainedBox(

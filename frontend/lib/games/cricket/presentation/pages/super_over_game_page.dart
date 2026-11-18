@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import '../../../../features/auth/presentation/providers/auth_provider.dart';
 import '../../../../platform/services/platform_api_service.dart';
+import '../../../../platform/presentation/widgets/game_how_to_play_demo_dialog.dart';
 import '../../data/cricket_dataset.dart';
 import '../../domain/models/cricket_models.dart';
 import '../widgets/chit_bowl_widget.dart';
@@ -581,6 +582,13 @@ class _SuperOverGamePageState extends ConsumerState<SuperOverGamePage> {
           icon: const Icon(Icons.arrow_back, color: Color(0xFFF1EBDD)),
           onPressed: () => context.pop(),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.help_outline_rounded, color: Color(0xFFE5A93C)),
+            tooltip: "Demo & Rules",
+            onPressed: () => GameHowToPlayDemoDialog.show(context, 'cricket'),
+          ),
+        ],
       ),
       body: SafeArea(
         child: Center(

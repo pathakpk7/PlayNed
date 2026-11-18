@@ -6,10 +6,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
+import '../../../core/session/client_session.dart';
 import '../../../features/auth/presentation/providers/auth_provider.dart';
 import '../../models/game_model.dart';
 import '../../registry/game_registry.dart';
 import '../../services/platform_api_service.dart';
+import '../widgets/game_how_to_play_demo_dialog.dart';
 import '../widgets/platform_app_bar.dart';
 
 class PlatformRoomLobbyPage extends ConsumerStatefulWidget {
@@ -49,9 +51,9 @@ class _PlatformRoomLobbyPageState extends ConsumerState<PlatformRoomLobbyPage> {
 
   Future<void> _fetchRoomAndConnect() async {
     final api = ref.read(platformApiServiceProvider);
-    final auth = ref.read(authProvider);
-    final playerId = auth.userId ?? 'player_guest';
-    final playerName = auth.username ?? 'Player';
+    final session = ref.read(clientSessionProvider);
+    final playerId = session.playerId;
+    final playerName = session.playerName;
 
     try {
       // First try to join or get room
@@ -169,17 +171,17 @@ class _PlatformRoomLobbyPageState extends ConsumerState<PlatformRoomLobbyPage> {
       context.go('/games/spyfall/play?mode=online&room=${room.roomCode}&pid=${_getLocalPlayerId()}');
     } else if (gameId == 'mafia' || gameId == 'werewolf') {
       context.go('/games/mafia/play?mode=online&room=${room.roomCode}&pid=${_getLocalPlayerId()}');
+    } else if (gameId == 'higher_or_lower' || gameId == 'higher_lower') {
+      context.go('/games/higher_or_lower/play?mode=online&room=${room.roomCode}&pid=${_getLocalPlayerId()}');
     }
   }
 
   String _getLocalPlayerId() {
-    final auth = ref.read(authProvider);
-    return auth.userId ?? (_room?.players.first.playerId ?? 'p1');
+    return ref.read(clientSessionProvider).playerId;
   }
 
   String _getLocalPlayerName() {
-    final auth = ref.read(authProvider);
-    return auth.username ?? 'Player';
+    return ref.read(clientSessionProvider).playerName;
   }
 
   void _toggleReady() async {
@@ -491,6 +493,19 @@ class _PlatformRoomLobbyPageState extends ConsumerState<PlatformRoomLobbyPage> {
                   ),
 
                 const SizedBox(height: 20),
+
+                Center(
+                  child: TextButton.icon(
+                    icon: const Icon(Icons.ondemand_video_outlined, size: 16, color: Color(0xFF38BDF8)),
+                    label: Text(
+                      "Watch ${game.name} Demo & Rules",
+                      style: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.bold, color: const Color(0xFF38BDF8)),
+                    ),
+                    onPressed: () => GameHowToPlayDemoDialog.show(context, game.id),
+                  ),
+                ),
+
+                const SizedBox(height: 16),
               ],
             ),
           ),

@@ -8,6 +8,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:hangman_reimagined/platform/theme/playned_design_tokens.dart';
 import 'package:hangman_reimagined/platform/presentation/widgets/platform_app_bar.dart';
 import 'package:hangman_reimagined/platform/presentation/widgets/playned_components.dart';
+import 'package:hangman_reimagined/platform/presentation/widgets/game_how_to_play_demo_dialog.dart';
 import 'package:hangman_reimagined/platform/services/platform_api_service.dart';
 
 import '../../models/spyfall_models.dart';
@@ -286,8 +287,15 @@ class _SpyfallGamePageState extends ConsumerState<SpyfallGamePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: PlayNedTokens.background,
-      appBar: const PlatformAppBar(
+      appBar: PlatformAppBar(
         title: 'SPYFALL',
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.help_outline_rounded, color: Color(0xFFE11D48)),
+            tooltip: "Demo & Rules",
+            onPressed: () => GameHowToPlayDemoDialog.show(context, 'spyfall'),
+          ),
+        ],
       ),
       body: SafeArea(
         child: PlayNedBackgroundPattern(

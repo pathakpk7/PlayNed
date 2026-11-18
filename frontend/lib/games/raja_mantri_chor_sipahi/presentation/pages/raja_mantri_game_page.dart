@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import '../../../../features/auth/presentation/providers/auth_provider.dart';
 import '../../../../platform/services/platform_api_service.dart';
+import '../../../../platform/presentation/widgets/game_how_to_play_demo_dialog.dart';
 import 'package:hangman_reimagined/platform/theme/playned_design_tokens.dart';
 import '../../models/raja_mantri_models.dart';
 import '../../services/raja_mantri_engine.dart';
@@ -254,6 +255,11 @@ class _RajaMantriGamePageState extends ConsumerState<RajaMantriGamePage> {
           ),
         ),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.help_outline_rounded, color: Color(0xFFD97706)),
+            tooltip: "Demo & Rules",
+            onPressed: () => GameHowToPlayDemoDialog.show(context, 'raja_mantri_chor_sipahi'),
+          ),
           TextButton(
             onPressed: () => Navigator.pop(ctx),
             child: Text(
@@ -407,6 +413,11 @@ class _RajaMantriGamePageState extends ConsumerState<RajaMantriGamePage> {
           ],
         ),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.help_outline_rounded, color: Color(0xFFD97706)),
+            tooltip: "Demo & Rules",
+            onPressed: () => GameHowToPlayDemoDialog.show(context, 'raja_mantri_chor_sipahi'),
+          ),
           // Online connection pill
           if (widget.mode == 'online')
             Padding(

@@ -86,6 +86,7 @@ class UltimateTicTacToeState {
   final int oBoardsWon;
   final Map<String, dynamic>? lastMove;
   final String lastAction;
+  final String ruleMode; // "classic" (target block) or "free" (play anywhere)
 
   const UltimateTicTacToeState({
     required this.playerIds,
@@ -108,12 +109,19 @@ class UltimateTicTacToeState {
     required this.oBoardsWon,
     this.lastMove,
     required this.lastAction,
+    this.ruleMode = 'classic',
   });
 
-  bool get isFreeMove => nextBoard == null;
+  bool get isFreeMove => ruleMode == 'free' || nextBoard == null;
 
   List<int> get validBoards {
     if (status != 'in_progress' && status != 'active') return [];
+    if (ruleMode == 'free') {
+      return [
+        for (int i = 0; i < 9; i++)
+          if (!boards[i].isCompleted) i
+      ];
+    }
     if (nextBoard != null && nextBoard! >= 0 && nextBoard! < 9) {
       if (!boards[nextBoard!].isCompleted) {
         return [nextBoard!];
@@ -130,6 +138,7 @@ class UltimateTicTacToeState {
     String p2Id = 'p2',
     String p1Name = 'Player X',
     String p2Name = 'Player O',
+    String ruleMode = 'classic',
   }) {
     return UltimateTicTacToeState(
       playerIds: [p1Id, p2Id],
@@ -151,7 +160,10 @@ class UltimateTicTacToeState {
       xBoardsWon: 0,
       oBoardsWon: 0,
       lastMove: null,
-      lastAction: 'Match started. $p1Name (X) has Free Move to start anywhere.',
+      lastAction: ruleMode == 'free'
+          ? 'Match started in FREE PLAY mode. $p1Name (X) may play in any block!'
+          : 'Match started in CLASSIC mode. $p1Name (X) has Free Move to start anywhere.',
+      ruleMode: ruleMode,
     );
   }
 
@@ -185,6 +197,7 @@ class UltimateTicTacToeState {
       oBoardsWon: json['o_boards_won'] ?? 0,
       lastMove: json['last_move'] != null ? Map<String, dynamic>.from(json['last_move'] as Map) : null,
       lastAction: json['last_action'] ?? '',
+      ruleMode: json['rule_mode'] ?? 'classic',
     );
   }
 
@@ -210,6 +223,55 @@ class UltimateTicTacToeState {
       'o_boards_won': oBoardsWon,
       'last_move': lastMove,
       'last_action': lastAction,
+      'rule_mode': ruleMode,
     };
+  }
+
+  UltimateTicTacToeState copyWith({
+    List<String>? playerIds,
+    Map<String, String>? playerNames,
+    Map<String, String>? playerSymbols,
+    List<MicroBoardState>? boards,
+    List<String?>? macroBoard,
+    List<int>? macroWinningLine,
+    int? currentTurnIndex,
+    String? currentTurnPlayerId,
+    String? currentSymbol,
+    int? nextBoard,
+    List<Map<String, dynamic>>? moveHistory,
+    int? turnNumber,
+    String? status,
+    String? winnerId,
+    String? winnerName,
+    String? winnerSymbol,
+    int? xBoardsWon,
+    int? oBoardsWon,
+    Map<String, dynamic>? lastMove,
+    String? lastAction,
+    String? ruleMode,
+  }) {
+    return UltimateTicTacToeState(
+      playerIds: playerIds ?? this.playerIds,
+      playerNames: playerNames ?? this.playerNames,
+      playerSymbols: playerSymbols ?? this.playerSymbols,
+      boards: boards ?? this.boards,
+      macroBoard: macroBoard ?? this.macroBoard,
+      macroWinningLine: macroWinningLine ?? this.macroWinningLine,
+      currentTurnIndex: currentTurnIndex ?? this.currentTurnIndex,
+      currentTurnPlayerId: currentTurnPlayerId ?? this.currentTurnPlayerId,
+      currentSymbol: currentSymbol ?? this.currentSymbol,
+      nextBoard: nextBoard ?? this.nextBoard,
+      moveHistory: moveHistory ?? this.moveHistory,
+      turnNumber: turnNumber ?? this.turnNumber,
+      status: status ?? this.status,
+      winnerId: winnerId ?? this.winnerId,
+      winnerName: winnerName ?? this.winnerName,
+      winnerSymbol: winnerSymbol ?? this.winnerSymbol,
+      xBoardsWon: xBoardsWon ?? this.xBoardsWon,
+      oBoardsWon: oBoardsWon ?? this.oBoardsWon,
+      lastMove: lastMove ?? this.lastMove,
+      lastAction: lastAction ?? this.lastAction,
+      ruleMode: ruleMode ?? this.ruleMode,
+    );
   }
 }

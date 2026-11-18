@@ -10,6 +10,7 @@ import '../../../../features/auth/presentation/providers/auth_provider.dart';
 import '../../../../platform/models/game_model.dart';
 import '../../../../platform/services/platform_api_service.dart';
 import '../../../../platform/presentation/widgets/platform_app_bar.dart';
+import '../../../../platform/presentation/widgets/game_how_to_play_demo_dialog.dart';
 
 class QuoridorGamePage extends ConsumerStatefulWidget {
   final String? roomCode;
@@ -348,6 +349,13 @@ class _QuoridorGamePageState extends ConsumerState<QuoridorGamePage> {
       backgroundColor: const Color(0xFF0F0F0D),
       appBar: PlatformAppBar(
         title: widget.roomCode != null ? "QUORIDOR · ${widget.roomCode}" : "QUORIDOR",
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.help_outline_rounded, color: Color(0xFFE57373)),
+            tooltip: "Demo & Rules",
+            onPressed: () => GameHowToPlayDemoDialog.show(context, 'quoridor'),
+          ),
+        ],
       ),
       body: Center(
         child: ConstrainedBox(

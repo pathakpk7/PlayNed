@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import '../../../../features/auth/presentation/providers/auth_provider.dart';
 import '../../../../platform/presentation/widgets/platform_app_bar.dart';
+import '../../../../platform/presentation/widgets/game_how_to_play_demo_dialog.dart';
 import '../../../../platform/services/platform_api_service.dart';
 import '../../../../platform/theme/playned_design_tokens.dart';
 import '../../models/reversi_game_state.dart';
@@ -311,6 +312,13 @@ class _ReversiGamePageState extends ConsumerState<ReversiGamePage> {
       backgroundColor: PlayNedTokens.background,
       appBar: PlatformAppBar(
         title: _gameState.variant == ReversiVariant.othello ? "OTHELLO" : "REVERSI",
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.help_outline_rounded, color: Color(0xFF10B981)),
+            tooltip: "Demo & Rules",
+            onPressed: () => GameHowToPlayDemoDialog.show(context, 'reversi'),
+          ),
+        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(

@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import '../../../../features/auth/presentation/providers/auth_provider.dart';
 import '../../../../platform/services/platform_api_service.dart';
+import '../../../../platform/presentation/widgets/game_how_to_play_demo_dialog.dart';
 import 'package:hangman_reimagined/platform/theme/playned_design_tokens.dart';
 import '../../models/bingo_models.dart';
 import '../../services/bingo_engine.dart';
@@ -379,6 +380,11 @@ class _BingoGamePageState extends ConsumerState<BingoGamePage> {
           ],
         ),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.help_outline_rounded, color: PlayNedTokens.brandGold),
+            tooltip: "Demo & Rules",
+            onPressed: () => GameHowToPlayDemoDialog.show(context, 'bingo'),
+          ),
           // Auto-Draw Toggle (Local & AI mode)
           if (widget.mode != 'online' && !_state.isGameOver)
             Padding(

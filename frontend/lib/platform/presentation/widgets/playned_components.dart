@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../../core/session/client_session.dart';
 import '../../../features/auth/presentation/providers/auth_provider.dart';
 import '../../models/game_model.dart';
 import '../../registry/game_registry.dart';
@@ -355,14 +356,34 @@ class JoinRoomDialog extends ConsumerStatefulWidget {
 
 class _JoinRoomDialogState extends ConsumerState<JoinRoomDialog> {
   final _controller = TextEditingController();
+  final _nameController = TextEditingController();
   bool _isLoading = false;
   String? _errorMessage;
 
+  @override
+  void initState() {
+    super.initState();
+    final session = ref.read(clientSessionProvider);
+    _nameController.text = session.playerName;
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _nameController.dispose();
+    super.dispose();
+  }
+
   Future<void> _submitJoin() async {
-    final code = _controller.text.trim().toUpperCase();
+    final code = _controller.text.trim().toUpperCase().replaceAll(' ', '');
     if (code.length < 4) {
-      setState(() => _errorMessage = "Please enter a valid 6-character room code");
+      setState(() => _errorMessage = "Please enter a valid room code (e.g. AB12CD)");
       return;
+    }
+
+    final customName = _nameController.text.trim();
+    if (customName.isNotEmpty) {
+      await ref.read(clientSessionProvider).setGuestName(customName);
     }
 
     setState(() {
@@ -371,8 +392,20 @@ class _JoinRoomDialogState extends ConsumerState<JoinRoomDialog> {
     });
 
     try {
+      final session = ref.read(clientSessionProvider);
       final api = ref.read(platformApiServiceProvider);
-      final room = await api.getRoom(code);
+      
+      PlatformRoom room;
+      try {
+        room = await api.joinRoom(
+          roomCode: code,
+          playerName: session.playerName,
+          playerId: session.playerId,
+        );
+      } catch (_) {
+        room = await api.getRoom(code);
+      }
+      
       if (mounted) {
         Navigator.of(context).pop();
         context.push('/room/${room.roomCode}');
@@ -421,7 +454,48 @@ class _JoinRoomDialogState extends ConsumerState<JoinRoomDialog> {
                 "Enter the 6-character code shared by your host",
                 style: PlayNedTokens.bodyMuted,
               ),
-              const SizedBox(height: PlayNedTokens.space24),
+              const SizedBox(height: PlayNedTokens.space16),
+              Text(
+                "YOUR PLAYER NAME",
+                style: GoogleFonts.inter(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w700,
+                  color: PlayNedTokens.textSecondary,
+                  letterSpacing: 0.8,
+                ),
+              ),
+              const SizedBox(height: 6),
+              TextField(
+                controller: _nameController,
+                style: GoogleFonts.inter(color: PlayNedTokens.textPrimary, fontSize: 14),
+                decoration: InputDecoration(
+                  hintText: "Enter your display name",
+                  hintStyle: GoogleFonts.inter(color: PlayNedTokens.textMuted, fontSize: 14),
+                  filled: true,
+                  fillColor: PlayNedTokens.background,
+                  prefixIcon: const Icon(Icons.person_outline, color: PlayNedTokens.brandGold, size: 18),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(PlayNedTokens.radiusSm),
+                    borderSide: const BorderSide(color: PlayNedTokens.border),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(PlayNedTokens.radiusSm),
+                    borderSide: const BorderSide(color: PlayNedTokens.brandGold, width: 1.5),
+                  ),
+                ),
+              ),
+              const SizedBox(height: PlayNedTokens.space16),
+              Text(
+                "ROOM CODE",
+                style: GoogleFonts.inter(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w700,
+                  color: PlayNedTokens.textSecondary,
+                  letterSpacing: 0.8,
+                ),
+              ),
+              const SizedBox(height: 6),
               TextField(
                 controller: _controller,
                 textCapitalization: TextCapitalization.characters,
@@ -516,14 +590,15 @@ class _CreateRoomDialogState extends ConsumerState<CreateRoomDialog> {
     if (game == null) return;
 
     try {
-      final auth = ref.read(authProvider);
+      final session = ref.read(clientSessionProvider);
       final api = ref.read(platformApiServiceProvider);
-      final hostName = auth.username ?? "Host Player";
+      final hostName = session.playerName;
+      final hostId = session.playerId;
 
       final room = await api.createRoom(
         gameId: game.id,
         playerName: hostName,
-        playerId: auth.userId,
+        playerId: hostId,
         roomType: _selectedMode,
         maxPlayers: game.maxPlayers,
       );

@@ -105,7 +105,7 @@ class RoomManager:
 
         # Check if reconnecting existing player
         for p in room.players:
-            if p.player_id == actual_pid or (player_id and p.player_id == player_id):
+            if p.player_id == actual_pid:
                 p.is_connected = True
                 p.display_name = actual_name
                 room.updated_at = time.time()
