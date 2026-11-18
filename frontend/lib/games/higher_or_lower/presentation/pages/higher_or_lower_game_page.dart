@@ -5,14 +5,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
-import '../../../../core/session/client_session.dart';
-import '../../../../platform/models/game_model.dart';
-import '../../../../platform/presentation/widgets/game_how_to_play_demo_dialog.dart';
-import '../../../../platform/presentation/widgets/platform_app_bar.dart';
-import '../../../../platform/services/platform_api_service.dart';
-import '../../../../platform/theme/playned_design_tokens.dart';
-import '../models/higher_or_lower_models.dart';
-import '../services/higher_or_lower_engine.dart';
+import 'package:hangman_reimagined/core/session/client_session.dart';
+import 'package:hangman_reimagined/platform/models/game_model.dart';
+import 'package:hangman_reimagined/platform/presentation/widgets/game_how_to_play_demo_dialog.dart';
+import 'package:hangman_reimagined/platform/presentation/widgets/platform_app_bar.dart';
+import 'package:hangman_reimagined/platform/services/platform_api_service.dart';
+import 'package:hangman_reimagined/platform/theme/playned_design_tokens.dart';
+import 'package:hangman_reimagined/games/higher_or_lower/models/higher_or_lower_models.dart';
+import 'package:hangman_reimagined/games/higher_or_lower/services/higher_or_lower_engine.dart';
 
 class HigherOrLowerGamePage extends ConsumerStatefulWidget {
   final String mode; // 'local', 'ai', 'online'

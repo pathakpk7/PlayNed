@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../models/game_model.dart';
-import '../../registry/game_registry.dart';
-import '../theme/playned_design_tokens.dart';
+import 'package:hangman_reimagined/platform/models/game_model.dart';
+import 'package:hangman_reimagined/platform/registry/game_registry.dart';
+import 'package:hangman_reimagined/platform/theme/playned_design_tokens.dart';
 
 class GameDemoStep {
   final String title;
@@ -48,6 +48,17 @@ class GameHowToPlayDemoDialog extends StatefulWidget {
     this.onPlayFreelyToggled,
   });
 
+  static void show(BuildContext context, String gameId, {VoidCallback? onPlayFreelyToggled}) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (_) => GameHowToPlayDemoDialog(
+        gameId: gameId,
+        onPlayFreelyToggled: onPlayFreelyToggled,
+      ),
+    );
+  }
+
   @override
   State<GameHowToPlayDemoDialog> createState() => _GameHowToPlayDemoDialogState();
 }
@@ -60,17 +71,6 @@ class _GameHowToPlayDemoDialogState extends State<GameHowToPlayDemoDialog> {
   void initState() {
     super.initState();
     _demoData = _getDemoData(widget.gameId);
-  }
-
-  static void show(BuildContext context, String gameId, {VoidCallback? onPlayFreelyToggled}) {
-    showDialog(
-      context: context,
-      barrierDismissible: true,
-      builder: (_) => GameHowToPlayDemoDialog(
-        gameId: gameId,
-        onPlayFreelyToggled: onPlayFreelyToggled,
-      ),
-    );
   }
 
   @override
